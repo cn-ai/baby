@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.core.schedue;
+package cn.stylefeng.guns.core.schedue.spring;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -18,7 +18,7 @@ public class SpringTasks {
      */
     @Scheduled(fixedRate = 5000)
     public void beginAfter() {
-        System.err.println("<<<<<调试信息,注释掉SchedulingConfig类中的内容来关闭这个定时任务！>>>>>开始之后5秒执行！");
+        System.err.println("<<<<<调试信息,注释掉SchedulingConfig类中的内容来关闭这个定时任务！>>>>> spring task执行 >>>>>开始之后5秒执行！");
     }
 
     /**
@@ -29,7 +29,7 @@ public class SpringTasks {
      */
     @Scheduled(fixedDelay = 5000)
     public void finishAfter() {
-        System.err.println("<<<<<调试信息,注释掉SchedulingConfig类中的内容来关闭这个定时任务！>>>>>执行之后5秒才执行！");
+        System.err.println("<<<<<调试信息,注释掉SchedulingConfig类中的内容来关闭这个定时任务！>>>>> spring task执行 >>>>>执行之后5秒才执行！");
     }
 
     /**
@@ -40,7 +40,7 @@ public class SpringTasks {
      */
     @Scheduled(initialDelay = 1000, fixedRate = 5000)
     public void stepAdd() {
-        System.err.println("<<<<<调试信息,注释掉SchedulingConfig类中的内容来关闭这个定时任务！>>>>>第一次延迟1秒后执行，之后按fixedRate的规则每5秒执行一次！");
+        System.err.println("<<<<<调试信息,注释掉SchedulingConfig类中的内容来关闭这个定时任务！>>>>> spring task执行 >>>>>第一次延迟1秒后执行，之后按fixedRate的规则每5秒执行一次！");
     }
 
     /**
@@ -51,6 +51,6 @@ public class SpringTasks {
      */
     @Scheduled(cron = "*/10 * * * * *")
     public void cron() {
-        System.err.println("<<<<<调试信息,注释掉SchedulingConfig类中的内容来关闭这个定时任务！>>>>>每隔10秒执行一次！");
+        System.err.println("<<<<<调试信息,注释掉SchedulingConfig类中的内容来关闭这个定时任务！>>>>> spring task执行 >>>>>每隔10秒执行一次！");
     }
 }
