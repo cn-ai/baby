@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>cn.stylefeng</groupId>
-    <artifactId>guns</artifactId>
+    <artifactId>guns-vip</artifactId>
     <version>1.0.0</version>
 
     <name>guns-admin</name>
