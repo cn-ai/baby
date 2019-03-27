@@ -18,8 +18,10 @@ package cn.stylefeng.guns.modular.system.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.stylefeng.guns.config.properties.GunsProperties;
 import cn.stylefeng.guns.core.common.constant.DefaultAvatar;
 import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
@@ -34,20 +36,22 @@ import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import cn.stylefeng.roses.kernel.model.exception.enums.CoreExceptionEnum;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 通用控制器
@@ -65,6 +69,9 @@ public class SystemController extends BaseController {
 
     @Autowired
     private FileInfoService fileInfoService;
+
+    @Autowired
+    private GunsProperties gunsProperties;
 
     /**
      * 主页面
@@ -244,5 +251,29 @@ public class SystemController extends BaseController {
 
         return ResponseData.success(hashMap);
     }
+
+    /**
+     * layui上传组件 通用文件上传接口
+     *
+     * @author fengshuonan
+     * @Date 2019-2-23 10:48:29
+     */
+    @RequestMapping(method = RequestMethod.POST, path = "/upload")
+    @ResponseBody
+    public ResponseData layuiUpload(@RequestPart("file") MultipartFile picture) {
+
+        String pictureName = UUID.randomUUID().toString() + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
+        try {
+            String fileSavePath = gunsProperties.getFileUploadPath();
+            picture.transferTo(new File(fileSavePath + pictureName));
+        } catch (Exception e) {
+            throw new ServiceException(BizExceptionEnum.UPLOAD_ERROR);
+        }
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("fileId", IdWorker.getIdStr());
+        return ResponseData.success(0,"上传成功",map);
+    }
+
 
 }
