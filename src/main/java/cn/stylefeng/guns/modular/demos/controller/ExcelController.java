@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.modular.excel;
+package cn.stylefeng.guns.modular.demos.controller;
 
 import cn.afterturn.easypoi.entity.vo.MapExcelConstants;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
@@ -10,7 +10,7 @@ import cn.afterturn.easypoi.view.PoiBaseView;
 import cn.stylefeng.guns.config.properties.GunsProperties;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
-import cn.stylefeng.guns.modular.demos.ExcelItem;
+import cn.stylefeng.guns.modular.demos.entity.ExcelItem;
 import cn.stylefeng.guns.modular.system.service.UserService;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;

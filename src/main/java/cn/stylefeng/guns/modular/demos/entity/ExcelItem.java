@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.modular.demos;
+package cn.stylefeng.guns.modular.demos.entity;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.*;

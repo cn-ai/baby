@@ -88,6 +88,7 @@ Feng.closeAllLoading = function () {
 layui.config({
     base: Feng.ctxPath + '/assets/common/module/'
 }).extend({
+    selectPlus: 'selectPlus/selectPlus',
     formSelects: 'formSelects/formSelects-v4',
     treetable: 'treetable-lay/treetable',
     dropdown: 'dropdown/dropdown',
