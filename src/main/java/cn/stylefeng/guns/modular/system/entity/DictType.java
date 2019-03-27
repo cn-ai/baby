@@ -11,65 +11,53 @@ import java.util.Date;
 
 /**
  * <p>
- * 基础字典
+ * 字典类型表
  * </p>
  *
  * @author stylefeng
  * @since 2019-03-13
  */
-@TableName("sys_dict")
+@TableName("sys_dict_type")
 @Data
-public class Dict implements Serializable {
+public class DictType implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 字典id
+     * 字典类型id
      */
-    @TableId("DICT_ID")
-    private Long dictId;
-
-    /**
-     * 所属字典类型的id
-     */
-    @TableField("DICT_TYPE_ID")
+    @TableId("DICT_TYPE_ID")
     private Long dictTypeId;
 
     /**
-     * 字典编码
+     * 是否是系统字典，Y-是，N-否
+     */
+    @TableField("SYSTEM_FLAG")
+    private String systemFlag;
+
+    /**
+     * 字典类型编码
      */
     @TableField("CODE")
     private String code;
 
     /**
-     * 字典名称
+     * 字典类型名称
      */
     @TableField("NAME")
     private String name;
 
     /**
-     * 上级代码id
-     */
-    @TableField("PARENT_ID")
-    private Long parentId;
-
-    /**
-     * 所有上级代码id
-     */
-    @TableField("PARENT_IDS")
-    private String parentIds;
-
-    /**
-     * 状态（字典）
-     */
-    @TableField("STATUS")
-    private String status;
-
-    /**
-     * 字典的描述
+     * 字典描述
      */
     @TableField("DESCRIPTION")
     private String description;
+
+    /**
+     * 状态(字典)
+     */
+    @TableField("STATUS")
+    private String status;
 
     /**
      * 排序
@@ -78,22 +66,22 @@ public class Dict implements Serializable {
     private Integer sort;
 
     /**
-     * 创建时间
+     * 添加时间
      */
     @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
     private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
-    private Date updateTime;
 
     /**
      * 创建人
      */
     @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
     private Long createUser;
+
+    /**
+     * 修改时间
+     */
+    @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
+    private Date updateTime;
 
     /**
      * 修改人
