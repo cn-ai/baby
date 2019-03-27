@@ -16,7 +16,7 @@ USE guns;
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 27/03/2019 11:23:15
+ Date: 27/03/2019 11:30:35
 */
 
 SET NAMES utf8mb4;
@@ -153,7 +153,7 @@ CREATE TABLE `sys_login_log` (
   `MESSAGE` text COMMENT '具体消息',
   `IP_ADDRESS` varchar(255) DEFAULT NULL COMMENT '登录ip',
   PRIMARY KEY (`LOGIN_LOG_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1110739921548632067 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录记录';
+) ENGINE=InnoDB AUTO_INCREMENT=1110744512302469122 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录记录';
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -212,9 +212,9 @@ INSERT INTO `sys_menu` VALUES (134, 'log_clean', 'log', '[0],[system],[log],', '
 INSERT INTO `sys_menu` VALUES (135, 'dept_add', 'dept', '[0],[system],[dept],', '添加部门', NULL, '/dept/add', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (136, 'dept_update', 'dept', '[0],[system],[dept],', '修改部门', NULL, '/dept/update', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (137, 'dept_delete', 'dept', '[0],[system],[dept],', '删除部门', NULL, '/dept/delete', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (138, 'dict_add', 'dict', '[0],[system],[dict],', '添加字典', NULL, '/dict/add', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (139, 'dict_update', 'dict', '[0],[system],[dict],', '修改字典', NULL, '/dict/update', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (140, 'dict_delete', 'dict', '[0],[system],[dict],', '删除字典', NULL, '/dict/delete', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES (138, 'dict_add', 'dict', '[0],[system],[dict],', '添加字典', NULL, '/dictType/addItem', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES (139, 'dict_update', 'dict', '[0],[system],[dict],', '修改字典', NULL, '/dictType/editItem', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES (140, 'dict_delete', 'dict', '[0],[system],[dict],', '删除字典', NULL, '/dictType/delete', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (141, 'notice', 'system', '[0],[system],', '通知管理', NULL, '/notice', 9, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (142, 'notice_add', 'notice', '[0],[system],[notice],', '添加通知', NULL, '/notice/add', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (143, 'notice_update', 'notice', '[0],[system],[notice],', '修改通知', NULL, '/notice/update', 2, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
@@ -282,13 +282,6 @@ CREATE TABLE `sys_operation_log` (
   `MESSAGE` text COMMENT '备注',
   PRIMARY KEY (`OPERATION_LOG_ID`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1110744016892223490 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志';
-
--- ----------------------------
--- Records of sys_operation_log
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_operation_log` VALUES (1110744016892223489, '业务日志', '清空业务日志', 1, 'cn.stylefeng.guns.modular.system.controller.LogController', 'delLog', '2019-03-27 11:23:05', '成功', '主键id=null');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_relation
