@@ -424,7 +424,7 @@ layui.define(["layer"], function(f) {
 			m.popupRight({
 				id: "layer-theme",
 				type: 2,
-				content: n ? n : "page/tpl/tpl-theme.html"
+                content: n ? n : Feng.ctxPath + '/system/theme'
 			})
 		},
 		note: function() {
@@ -442,7 +442,7 @@ layui.define(["layer"], function(f) {
 			m.popupRight({
 				id: "layer-notice",
 				type: 2,
-				content: n ? n : "page/tpl/tpl-message.html"
+				content: n ? n : Feng.ctxPath + '/system/message'
 			})
 		},
 		psw: function() {
