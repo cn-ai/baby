@@ -60,7 +60,7 @@ public class PdfPreviewController extends BaseController {
         }
 
         try {
-            ClassPathResource classPathResource = new ClassPathResource("assets/common/pdf/demo/" + file);
+            ClassPathResource classPathResource = new ClassPathResource("assets/expand/pdf/demo/" + file);
             return new FileSystemResource(classPathResource.getFile().getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
