@@ -17,7 +17,7 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 	var f = false;
 	var c;
 	var h = {
-		pageTabs: true,
+		pageTabs: false,
 		cacheTab: true,
 		openTabCtxMenu: true,
 		maxTabNum: 20,
