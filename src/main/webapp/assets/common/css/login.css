@@ -1,9 +1,11 @@
 /** 登录页面样式 */
 
 body {
-    background-image: url("../images/bg_login.png");
+    background-image: url("../images/bg_login2.svg");
+    background-position: center 110px;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100%;
+    background-color: #f0f2f5;
 }
 
 .login-wrapper, body, html {
@@ -34,11 +36,11 @@ body {
 }
 
 .login-body .layui-form-pane .layui-form-label {
-    width: 78px;
+    width: 48px;
 }
 
 .login-body .layui-form-pane .layui-input-block {
-    margin-left: 78px;
+    margin-left: 48px;
 }
 
 .login-body .login-captcha {
@@ -106,7 +108,7 @@ body {
 }
 
 .login-header img {
-    height: 35px;
+    height: 40px;
 }
 
 /** 移动设备样式 */
@@ -139,4 +141,20 @@ body {
 
 .inline-block {
     display: inline-block;
+}
+
+.login-header {
+    color: rgba(0, 0, 0, .85) !important;
+}
+
+.login-footer {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.login-footer a {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.login-footer a:hover {
+    color: rgba(0, 0, 0, 0.4) !important;
 }
