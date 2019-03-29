@@ -9,6 +9,9 @@ background-image: url("../images/bg_login2.svg");
 //39行  43行改为78
 width: 78px;
 margin-left: 78px;
+
+//111行高度改为35px
+height: 35px;
 ```
 
 common.js的修改：
