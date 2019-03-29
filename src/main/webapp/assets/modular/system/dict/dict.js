@@ -88,7 +88,7 @@ layui.use(['table', 'ax', 'treetable'], function () {
             elem: '#' + dictId,
             url: Feng.ctxPath + '/dict/list?dictTypeId=' + $("#dictTypeId").val(),
             where: data,
-            height: "full-158",
+            height: "full-98",
             cellMinWidth: 100,
             cols: Dict.initColumn(),
             page: false,

@@ -102,7 +102,7 @@ layui.use(['table', 'admin', 'ax'], function () {
         elem: '#' + EgForm.tableId,
         url: Feng.ctxPath + '/egForm/list',
         page: true,
-        height: "full-158",
+        height: "full-98",
         cellMinWidth: 100,
         cols: EgForm.initColumn()
     });

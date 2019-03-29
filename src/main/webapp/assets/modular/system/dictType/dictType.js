@@ -105,7 +105,7 @@ layui.use(['table', 'ax'], function () {
         elem: '#' + DictType.tableId,
         url: Feng.ctxPath + '/dictType/list',
         page: true,
-        height: "full-158",
+        height: "full-98",
         cellMinWidth: 100,
         cols: DictType.initColumn()
     });
