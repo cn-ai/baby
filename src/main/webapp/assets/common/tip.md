@@ -5,6 +5,10 @@ login.css中的修改：
 ```js
 //由于路径的原因，第四行图片地址改为：
 background-image: url("../images/bg_login2.svg");
+
+//39行  43行改为78
+width: 78px;
+margin-left: 78px;
 ```
 
 common.js的修改：
