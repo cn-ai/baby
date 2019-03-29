@@ -16,7 +16,7 @@ USE guns;
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 27/03/2019 17:42:13
+ Date: 29/03/2019 16:33:40
 */
 
 SET NAMES utf8mb4;
@@ -153,7 +153,7 @@ CREATE TABLE `sys_login_log` (
   `MESSAGE` text COMMENT '具体消息',
   `IP_ADDRESS` varchar(255) DEFAULT NULL COMMENT '登录ip',
   PRIMARY KEY (`LOGIN_LOG_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1110839022034362370 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录记录';
+) ENGINE=InnoDB AUTO_INCREMENT=1111546715636293634 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录记录';
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -179,73 +179,75 @@ CREATE TABLE `sys_menu` (
   `CREATE_USER` bigint(20) DEFAULT NULL COMMENT '创建人',
   `UPDATE_USER` bigint(20) DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`MENU_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1110839216310329347 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=1111546189892870146 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_menu` VALUES (105, 'system', '0', '[0],', '系统管理', 'layui-icon layui-icon-username', '#', 30, 1, 'Y', NULL, 'ENABLE', NULL, '1', NULL, '2019-02-11 15:49:05', NULL, 1);
-INSERT INTO `sys_menu` VALUES (106, 'mgr', 'system', '[0],[system],', '用户管理', '', '/mgr', 1, 2, 'Y', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (107, 'mgr_add', 'mgr', '[0],[system],[mgr],', '添加用户', NULL, '/mgr/add', 1, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (108, 'mgr_edit', 'mgr', '[0],[system],[mgr],', '修改用户', NULL, '/mgr/edit', 2, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (109, 'mgr_delete', 'mgr', '[0],[system],[mgr],', '删除用户', NULL, '/mgr/delete', 3, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (110, 'mgr_reset', 'mgr', '[0],[system],[mgr],', '重置密码', NULL, '/mgr/reset', 4, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (111, 'mgr_freeze', 'mgr', '[0],[system],[mgr],', '冻结用户', NULL, '/mgr/freeze', 5, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (112, 'mgr_unfreeze', 'mgr', '[0],[system],[mgr],', '解除冻结用户', NULL, '/mgr/unfreeze', 6, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (113, 'mgr_setRole', 'mgr', '[0],[system],[mgr],', '分配角色', NULL, '/mgr/setRole', 7, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (114, 'role', 'system', '[0],[system],', '角色管理', NULL, '/role', 2, 2, 'Y', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (115, 'role_add', 'role', '[0],[system],[role],', '添加角色', NULL, '/role/add', 1, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (116, 'role_edit', 'role', '[0],[system],[role],', '修改角色', NULL, '/role/edit', 2, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (117, 'role_remove', 'role', '[0],[system],[role],', '删除角色', NULL, '/role/remove', 3, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (118, 'role_setAuthority', 'role', '[0],[system],[role],', '配置权限', NULL, '/role/setAuthority', 4, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (119, 'menu', 'system', '[0],[system],', '菜单管理', NULL, '/menu', 4, 2, 'Y', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (120, 'menu_add', 'menu', '[0],[system],[menu],', '添加菜单', NULL, '/menu/add', 1, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (121, 'menu_edit', 'menu', '[0],[system],[menu],', '修改菜单', NULL, '/menu/edit', 2, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (122, 'menu_remove', 'menu', '[0],[system],[menu],', '删除菜单', NULL, '/menu/remove', 3, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (128, 'log', 'system', '[0],[system],', '业务日志', NULL, '/log', 6, 2, 'Y', NULL, 'ENABLE', NULL, '0', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (130, 'druid', 'system', '[0],[system],', '监控管理', NULL, '/druid', 7, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (131, 'dept', 'system', '[0],[system],', '部门管理', NULL, '/dept', 3, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (132, 'dict', 'system', '[0],[system],', '字典管理', '', '/dictType', 4, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-27 11:19:59', NULL, 1);
-INSERT INTO `sys_menu` VALUES (133, 'loginLog', 'system', '[0],[system],', '登录日志', NULL, '/loginLog', 6, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (134, 'log_clean', 'log', '[0],[system],[log],', '清空日志', NULL, '/log/delLog', 3, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (135, 'dept_add', 'dept', '[0],[system],[dept],', '添加部门', NULL, '/dept/add', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (136, 'dept_update', 'dept', '[0],[system],[dept],', '修改部门', NULL, '/dept/update', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (137, 'dept_delete', 'dept', '[0],[system],[dept],', '删除部门', NULL, '/dept/delete', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (138, 'dict_add', 'dict', '[0],[system],[dict],', '添加字典', NULL, '/dictType/addItem', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (139, 'dict_update', 'dict', '[0],[system],[dict],', '修改字典', NULL, '/dictType/editItem', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (140, 'dict_delete', 'dict', '[0],[system],[dict],', '删除字典', NULL, '/dictType/delete', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (141, 'notice', 'system', '[0],[system],', '通知管理', NULL, '/notice', 9, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (142, 'notice_add', 'notice', '[0],[system],[notice],', '添加通知', NULL, '/notice/add', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (143, 'notice_update', 'notice', '[0],[system],[notice],', '修改通知', NULL, '/notice/update', 2, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (144, 'notice_delete', 'notice', '[0],[system],[notice],', '删除通知', NULL, '/notice/delete', 3, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (145, 'hello', 'system_message', '[0],[system_message],', '系统消息', 'layui-icon layui-icon-tips', '/notice/hello', 1, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-02-11 15:47:19', NULL, 1);
-INSERT INTO `sys_menu` VALUES (149, 'api_mgr', 'dev_tools', '[0],[dev_tools],', '接口文档', 'fa-leaf', '/swagger-ui.html', 2, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (150, 'to_menu_edit', 'menu', '[0],[system],[menu],', '菜单编辑跳转', '', '/menu/menu_edit', 4, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (151, 'menu_list', 'menu', '[0],[system],[menu],', '菜单列表', '', '/menu/list', 5, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (152, 'to_dept_update', 'dept', '[0],[system],[dept],', '修改部门跳转', '', '/dept/dept_update', 4, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (153, 'dept_list', 'dept', '[0],[system],[dept],', '部门列表', '', '/dept/list', 5, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (154, 'dept_detail', 'dept', '[0],[system],[dept],', '部门详情', '', '/dept/detail', 6, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (155, 'to_dict_edit', 'dict', '[0],[system],[dict],', '修改菜单跳转', '', '/dict/dict_edit', 4, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (156, 'dict_list', 'dict', '[0],[system],[dict],', '字典列表', '', '/dict/list', 5, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (157, 'dict_detail', 'dict', '[0],[system],[dict],', '字典详情', '', '/dict/detail', 6, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (158, 'log_list', 'log', '[0],[system],[log],', '日志列表', '', '/log/list', 2, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (159, 'log_detail', 'log', '[0],[system],[log],', '日志详情', '', '/log/detail', 3, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (160, 'del_login_log', 'loginLog', '[0],[system],[loginLog],', '清空登录日志', '', '/loginLog/delLoginLog', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (161, 'login_log_list', 'loginLog', '[0],[system],[loginLog],', '登录日志列表', '', '/loginLog/list', 2, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (162, 'to_role_edit', 'role', '[0],[system],[role],', '修改角色跳转', '', '/role/role_edit', 5, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (163, 'to_role_assign', 'role', '[0],[system],[role],', '角色分配跳转', '', '/role/role_assign', 6, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (164, 'role_list', 'role', '[0],[system],[role],', '角色列表', '', '/role/list', 7, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (165, 'to_assign_role', 'mgr', '[0],[system],[mgr],', '分配角色跳转', '', '/mgr/role_assign', 8, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (166, 'to_user_edit', 'mgr', '[0],[system],[mgr],', '编辑用户跳转', '', '/mgr/user_edit', 9, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (167, 'mgr_list', 'mgr', '[0],[system],[mgr],', '用户列表', '', '/mgr/list', 10, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (171, 'dev_tools', '0', '[0],', 'API管理', 'layui-icon layui-icon-app', '#', 20, 1, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-27 13:37:18', NULL, 1);
-INSERT INTO `sys_menu` VALUES (172, 'system_message', '0', '[0],', '系统消息', 'layui-icon layui-icon-tips', '#', 10, 1, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-02-11 15:47:32', NULL, 1);
+INSERT INTO `sys_menu` VALUES (105, 'system', '0', '[0],', '系统管理', 'layui-icon layui-icon-set', '#', 20, 1, 'Y', NULL, 'ENABLE', NULL, '1', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (106, 'mgr', 'system', '[0],[system],', '用户管理', '', '/mgr', 1, 2, 'Y', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (107, 'mgr_add', 'mgr', '[0],[system],[mgr],', '添加用户', NULL, '/mgr/add', 1, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (108, 'mgr_edit', 'mgr', '[0],[system],[mgr],', '修改用户', NULL, '/mgr/edit', 2, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (109, 'mgr_delete', 'mgr', '[0],[system],[mgr],', '删除用户', NULL, '/mgr/delete', 3, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (110, 'mgr_reset', 'mgr', '[0],[system],[mgr],', '重置密码', NULL, '/mgr/reset', 4, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (111, 'mgr_freeze', 'mgr', '[0],[system],[mgr],', '冻结用户', NULL, '/mgr/freeze', 5, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (112, 'mgr_unfreeze', 'mgr', '[0],[system],[mgr],', '解除冻结用户', NULL, '/mgr/unfreeze', 6, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (113, 'mgr_setRole', 'mgr', '[0],[system],[mgr],', '分配角色', NULL, '/mgr/setRole', 7, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (114, 'role', 'system', '[0],[system],', '角色管理', NULL, '/role', 2, 2, 'Y', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (115, 'role_add', 'role', '[0],[system],[role],', '添加角色', NULL, '/role/add', 1, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (116, 'role_edit', 'role', '[0],[system],[role],', '修改角色', NULL, '/role/edit', 2, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (117, 'role_remove', 'role', '[0],[system],[role],', '删除角色', NULL, '/role/remove', 3, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (118, 'role_setAuthority', 'role', '[0],[system],[role],', '配置权限', NULL, '/role/setAuthority', 4, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (119, 'menu', 'system', '[0],[system],', '菜单管理', NULL, '/menu', 4, 2, 'Y', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (120, 'menu_add', 'menu', '[0],[system],[menu],', '添加菜单', NULL, '/menu/add', 1, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (121, 'menu_edit', 'menu', '[0],[system],[menu],', '修改菜单', NULL, '/menu/edit', 2, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (122, 'menu_remove', 'menu', '[0],[system],[menu],', '删除菜单', NULL, '/menu/remove', 3, 3, 'N', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (128, 'log', 'system', '[0],[system],', '业务日志', NULL, '/log', 6, 2, 'Y', NULL, 'ENABLE', NULL, '0', NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (130, 'druid', 'system', '[0],[system],', '监控管理', NULL, '/druid', 7, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (131, 'dept', 'system', '[0],[system],', '部门管理', NULL, '/dept', 3, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (132, 'dict', 'system', '[0],[system],', '字典管理', '', '/dictType', 4, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (133, 'loginLog', 'system', '[0],[system],', '登录日志', NULL, '/loginLog', 6, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (134, 'log_clean', 'log', '[0],[system],[log],', '清空日志', NULL, '/log/delLog', 3, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (135, 'dept_add', 'dept', '[0],[system],[dept],', '添加部门', NULL, '/dept/add', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (136, 'dept_update', 'dept', '[0],[system],[dept],', '修改部门', NULL, '/dept/update', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (137, 'dept_delete', 'dept', '[0],[system],[dept],', '删除部门', NULL, '/dept/delete', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (138, 'dict_add', 'dict', '[0],[system],[dict],', '添加字典', NULL, '/dictType/addItem', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (139, 'dict_update', 'dict', '[0],[system],[dict],', '修改字典', NULL, '/dictType/editItem', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (140, 'dict_delete', 'dict', '[0],[system],[dict],', '删除字典', NULL, '/dictType/delete', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (141, 'notice', 'system', '[0],[system],', '通知管理', NULL, '/notice', 9, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (142, 'notice_add', 'notice', '[0],[system],[notice],', '添加通知', NULL, '/notice/add', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (143, 'notice_update', 'notice', '[0],[system],[notice],', '修改通知', NULL, '/notice/update', 2, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (144, 'notice_delete', 'notice', '[0],[system],[notice],', '删除通知', NULL, '/notice/delete', 3, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (145, 'sys_message', 'dashboard', '[0],[dashboard],', '消息页', 'layui-icon layui-icon-tips', '/notice/hello', 30, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:31:05', NULL, 1);
+INSERT INTO `sys_menu` VALUES (149, 'api_mgr', 'dev_tools', '[0],[dev_tools],', '接口文档', 'fa-leaf', '/swagger-ui.html', 2, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:31:59', NULL, 1);
+INSERT INTO `sys_menu` VALUES (150, 'to_menu_edit', 'menu', '[0],[system],[menu],', '菜单编辑跳转', '', '/menu/menu_edit', 4, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (151, 'menu_list', 'menu', '[0],[system],[menu],', '菜单列表', '', '/menu/list', 5, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (152, 'to_dept_update', 'dept', '[0],[system],[dept],', '修改部门跳转', '', '/dept/dept_update', 4, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (153, 'dept_list', 'dept', '[0],[system],[dept],', '部门列表', '', '/dept/list', 5, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (154, 'dept_detail', 'dept', '[0],[system],[dept],', '部门详情', '', '/dept/detail', 6, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (155, 'to_dict_edit', 'dict', '[0],[system],[dict],', '修改菜单跳转', '', '/dict/dict_edit', 4, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (156, 'dict_list', 'dict', '[0],[system],[dict],', '字典列表', '', '/dict/list', 5, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (157, 'dict_detail', 'dict', '[0],[system],[dict],', '字典详情', '', '/dict/detail', 6, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (158, 'log_list', 'log', '[0],[system],[log],', '日志列表', '', '/log/list', 2, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (159, 'log_detail', 'log', '[0],[system],[log],', '日志详情', '', '/log/detail', 3, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (160, 'del_login_log', 'loginLog', '[0],[system],[loginLog],', '清空登录日志', '', '/loginLog/delLoginLog', 1, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (161, 'login_log_list', 'loginLog', '[0],[system],[loginLog],', '登录日志列表', '', '/loginLog/list', 2, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (162, 'to_role_edit', 'role', '[0],[system],[role],', '修改角色跳转', '', '/role/role_edit', 5, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (163, 'to_role_assign', 'role', '[0],[system],[role],', '角色分配跳转', '', '/role/role_assign', 6, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (164, 'role_list', 'role', '[0],[system],[role],', '角色列表', '', '/role/list', 7, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (165, 'to_assign_role', 'mgr', '[0],[system],[mgr],', '分配角色跳转', '', '/mgr/role_assign', 8, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (166, 'to_user_edit', 'mgr', '[0],[system],[mgr],', '编辑用户跳转', '', '/mgr/user_edit', 9, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (167, 'mgr_list', 'mgr', '[0],[system],[mgr],', '用户列表', '', '/mgr/list', 10, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
+INSERT INTO `sys_menu` VALUES (171, 'dev_tools', '0', '[0],', 'API管理', 'layui-icon layui-icon-app', '#', 30, 1, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:31:59', NULL, 1);
+INSERT INTO `sys_menu` VALUES (172, 'dashboard', '0', '[0],', 'Dashboard', 'layui-icon layui-icon-home', '#', 10, 1, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:26:22', NULL, 1);
 INSERT INTO `sys_menu` VALUES (1110777136265838594, 'demos_show', '0', '[0],', 'demos展示', 'layui-icon layui-icon-fire', '#', 40, 1, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 13:34:41', '2019-03-27 13:34:59', 1, 1);
 INSERT INTO `sys_menu` VALUES (1110777366856089602, 'excel_import', 'demos_show', '[0],[demos_show],', 'excel导入', '', '/excel/import', 10, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 13:35:36', NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (1110777491464667137, 'excel_export', 'demos_show', '[0],[demos_show],', 'excel导出', '', '/excel/export', 20, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 13:36:06', NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (1110787391943098370, 'advanced_form', 'demos_show', '[0],[demos_show],', '高级表单', '', '/egForm', 30, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 14:15:26', NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (1110839216310329346, 'pdf_view', 'demos_show', '[0],[demos_show],', 'pdf预览', '', '/loadPdfFile', 40, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 17:41:22', NULL, 1, NULL);
+INSERT INTO `sys_menu` VALUES (1111545968697860098, 'console', 'dashboard', '[0],[dashboard],', '控制台', '', '/system/console', 10, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-29 16:29:45', NULL, 1, NULL);
+INSERT INTO `sys_menu` VALUES (1111546189892870145, 'console2', 'dashboard', '[0],[dashboard],', '分析页', '', '/system/console2', 20, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-29 16:30:38', NULL, 1, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -286,7 +288,7 @@ CREATE TABLE `sys_operation_log` (
   `SUCCEED` varchar(32) DEFAULT NULL COMMENT '是否成功(字典)',
   `MESSAGE` text COMMENT '备注',
   PRIMARY KEY (`OPERATION_LOG_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1110839243237761026 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志';
+) ENGINE=InnoDB AUTO_INCREMENT=1111546647533379586 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志';
 
 -- ----------------------------
 -- Table structure for sys_relation
@@ -355,67 +357,69 @@ INSERT INTO `sys_relation` VALUES (1071348922618982402, 141, 5);
 INSERT INTO `sys_relation` VALUES (1071348922627371009, 142, 5);
 INSERT INTO `sys_relation` VALUES (1071348922631565313, 143, 5);
 INSERT INTO `sys_relation` VALUES (1071348922639953922, 144, 5);
-INSERT INTO `sys_relation` VALUES (1110839240180113409, 105, 1);
-INSERT INTO `sys_relation` VALUES (1110839240217862145, 106, 1);
-INSERT INTO `sys_relation` VALUES (1110839240238833666, 107, 1);
-INSERT INTO `sys_relation` VALUES (1110839240259805185, 108, 1);
-INSERT INTO `sys_relation` VALUES (1110839240280776706, 109, 1);
-INSERT INTO `sys_relation` VALUES (1110839240305942529, 110, 1);
-INSERT INTO `sys_relation` VALUES (1110839240326914050, 111, 1);
-INSERT INTO `sys_relation` VALUES (1110839240347885570, 112, 1);
-INSERT INTO `sys_relation` VALUES (1110839240373051394, 113, 1);
-INSERT INTO `sys_relation` VALUES (1110839240398217217, 165, 1);
-INSERT INTO `sys_relation` VALUES (1110839240423383042, 166, 1);
-INSERT INTO `sys_relation` VALUES (1110839240448548866, 167, 1);
-INSERT INTO `sys_relation` VALUES (1110839240477908994, 114, 1);
-INSERT INTO `sys_relation` VALUES (1110839240503074818, 115, 1);
-INSERT INTO `sys_relation` VALUES (1110839240528240641, 116, 1);
-INSERT INTO `sys_relation` VALUES (1110839240553406465, 117, 1);
-INSERT INTO `sys_relation` VALUES (1110839240586960897, 118, 1);
-INSERT INTO `sys_relation` VALUES (1110839240620515330, 162, 1);
-INSERT INTO `sys_relation` VALUES (1110839240649875457, 163, 1);
-INSERT INTO `sys_relation` VALUES (1110839240679235586, 164, 1);
-INSERT INTO `sys_relation` VALUES (1110839240704401410, 119, 1);
-INSERT INTO `sys_relation` VALUES (1110839240746344450, 120, 1);
-INSERT INTO `sys_relation` VALUES (1110839240792481793, 121, 1);
-INSERT INTO `sys_relation` VALUES (1110839240851202049, 122, 1);
-INSERT INTO `sys_relation` VALUES (1110839240893145090, 150, 1);
-INSERT INTO `sys_relation` VALUES (1110839240935088130, 151, 1);
-INSERT INTO `sys_relation` VALUES (1110839240972836866, 128, 1);
-INSERT INTO `sys_relation` VALUES (1110839241014779905, 134, 1);
-INSERT INTO `sys_relation` VALUES (1110839241060917249, 158, 1);
-INSERT INTO `sys_relation` VALUES (1110839241107054594, 159, 1);
-INSERT INTO `sys_relation` VALUES (1110839241132220417, 130, 1);
-INSERT INTO `sys_relation` VALUES (1110839241153191938, 131, 1);
-INSERT INTO `sys_relation` VALUES (1110839241174163458, 135, 1);
-INSERT INTO `sys_relation` VALUES (1110839241190940674, 136, 1);
-INSERT INTO `sys_relation` VALUES (1110839241207717890, 137, 1);
-INSERT INTO `sys_relation` VALUES (1110839241232883713, 152, 1);
-INSERT INTO `sys_relation` VALUES (1110839241258049538, 153, 1);
-INSERT INTO `sys_relation` VALUES (1110839241279021058, 154, 1);
-INSERT INTO `sys_relation` VALUES (1110839241308381185, 132, 1);
-INSERT INTO `sys_relation` VALUES (1110839241333547010, 138, 1);
-INSERT INTO `sys_relation` VALUES (1110839241358712833, 139, 1);
-INSERT INTO `sys_relation` VALUES (1110839241383878658, 140, 1);
-INSERT INTO `sys_relation` VALUES (1110839241409044481, 155, 1);
-INSERT INTO `sys_relation` VALUES (1110839241430016001, 156, 1);
-INSERT INTO `sys_relation` VALUES (1110839241455181825, 157, 1);
-INSERT INTO `sys_relation` VALUES (1110839241476153346, 133, 1);
-INSERT INTO `sys_relation` VALUES (1110839241492930562, 160, 1);
-INSERT INTO `sys_relation` VALUES (1110839241513902081, 161, 1);
-INSERT INTO `sys_relation` VALUES (1110839241534873602, 141, 1);
-INSERT INTO `sys_relation` VALUES (1110839241555845122, 142, 1);
-INSERT INTO `sys_relation` VALUES (1110839241576816641, 143, 1);
-INSERT INTO `sys_relation` VALUES (1110839241597788162, 144, 1);
-INSERT INTO `sys_relation` VALUES (1110839241614565377, 171, 1);
-INSERT INTO `sys_relation` VALUES (1110839241635536898, 149, 1);
-INSERT INTO `sys_relation` VALUES (1110839241656508417, 172, 1);
-INSERT INTO `sys_relation` VALUES (1110839241673285633, 145, 1);
-INSERT INTO `sys_relation` VALUES (1110839241694257154, 1110777136265838594, 1);
-INSERT INTO `sys_relation` VALUES (1110839241715228674, 1110777366856089602, 1);
-INSERT INTO `sys_relation` VALUES (1110839241732005890, 1110777491464667137, 1);
-INSERT INTO `sys_relation` VALUES (1110839241752977410, 1110787391943098370, 1);
-INSERT INTO `sys_relation` VALUES (1110839241773948929, 1110839216310329346, 1);
+INSERT INTO `sys_relation` VALUES (1111546349351919618, 105, 1);
+INSERT INTO `sys_relation` VALUES (1111546349364502529, 106, 1);
+INSERT INTO `sys_relation` VALUES (1111546349381279746, 107, 1);
+INSERT INTO `sys_relation` VALUES (1111546349393862658, 108, 1);
+INSERT INTO `sys_relation` VALUES (1111546349410639873, 109, 1);
+INSERT INTO `sys_relation` VALUES (1111546349427417089, 110, 1);
+INSERT INTO `sys_relation` VALUES (1111546349440000001, 111, 1);
+INSERT INTO `sys_relation` VALUES (1111546349460971521, 112, 1);
+INSERT INTO `sys_relation` VALUES (1111546349473554433, 113, 1);
+INSERT INTO `sys_relation` VALUES (1111546349490331650, 165, 1);
+INSERT INTO `sys_relation` VALUES (1111546349502914561, 166, 1);
+INSERT INTO `sys_relation` VALUES (1111546349519691778, 167, 1);
+INSERT INTO `sys_relation` VALUES (1111546349532274689, 114, 1);
+INSERT INTO `sys_relation` VALUES (1111546349544857601, 115, 1);
+INSERT INTO `sys_relation` VALUES (1111546349557440514, 116, 1);
+INSERT INTO `sys_relation` VALUES (1111546349570023425, 117, 1);
+INSERT INTO `sys_relation` VALUES (1111546349586800641, 118, 1);
+INSERT INTO `sys_relation` VALUES (1111546349599383554, 162, 1);
+INSERT INTO `sys_relation` VALUES (1111546349616160769, 163, 1);
+INSERT INTO `sys_relation` VALUES (1111546349628743682, 164, 1);
+INSERT INTO `sys_relation` VALUES (1111546349645520897, 119, 1);
+INSERT INTO `sys_relation` VALUES (1111546349662298113, 120, 1);
+INSERT INTO `sys_relation` VALUES (1111546349679075329, 121, 1);
+INSERT INTO `sys_relation` VALUES (1111546349700046849, 122, 1);
+INSERT INTO `sys_relation` VALUES (1111546349716824065, 150, 1);
+INSERT INTO `sys_relation` VALUES (1111546349737795586, 151, 1);
+INSERT INTO `sys_relation` VALUES (1111546349758767106, 128, 1);
+INSERT INTO `sys_relation` VALUES (1111546349779738626, 134, 1);
+INSERT INTO `sys_relation` VALUES (1111546349800710146, 158, 1);
+INSERT INTO `sys_relation` VALUES (1111546349821681666, 159, 1);
+INSERT INTO `sys_relation` VALUES (1111546349846847490, 130, 1);
+INSERT INTO `sys_relation` VALUES (1111546349863624706, 131, 1);
+INSERT INTO `sys_relation` VALUES (1111546349884596226, 135, 1);
+INSERT INTO `sys_relation` VALUES (1111546349901373442, 136, 1);
+INSERT INTO `sys_relation` VALUES (1111546349922344962, 137, 1);
+INSERT INTO `sys_relation` VALUES (1111546349939122178, 152, 1);
+INSERT INTO `sys_relation` VALUES (1111546349960093697, 153, 1);
+INSERT INTO `sys_relation` VALUES (1111546349976870914, 154, 1);
+INSERT INTO `sys_relation` VALUES (1111546349993648129, 132, 1);
+INSERT INTO `sys_relation` VALUES (1111546350010425346, 138, 1);
+INSERT INTO `sys_relation` VALUES (1111546350031396865, 139, 1);
+INSERT INTO `sys_relation` VALUES (1111546350048174081, 140, 1);
+INSERT INTO `sys_relation` VALUES (1111546350069145602, 155, 1);
+INSERT INTO `sys_relation` VALUES (1111546350085922818, 156, 1);
+INSERT INTO `sys_relation` VALUES (1111546350106894338, 157, 1);
+INSERT INTO `sys_relation` VALUES (1111546350127865858, 133, 1);
+INSERT INTO `sys_relation` VALUES (1111546350144643073, 160, 1);
+INSERT INTO `sys_relation` VALUES (1111546350169808898, 161, 1);
+INSERT INTO `sys_relation` VALUES (1111546350186586113, 141, 1);
+INSERT INTO `sys_relation` VALUES (1111546350211751937, 142, 1);
+INSERT INTO `sys_relation` VALUES (1111546350232723458, 143, 1);
+INSERT INTO `sys_relation` VALUES (1111546350262083585, 144, 1);
+INSERT INTO `sys_relation` VALUES (1111546350278860801, 171, 1);
+INSERT INTO `sys_relation` VALUES (1111546350299832322, 149, 1);
+INSERT INTO `sys_relation` VALUES (1111546350324998146, 172, 1);
+INSERT INTO `sys_relation` VALUES (1111546350345969665, 145, 1);
+INSERT INTO `sys_relation` VALUES (1111546350371135489, 1111545968697860098, 1);
+INSERT INTO `sys_relation` VALUES (1111546350387912705, 1111546189892870145, 1);
+INSERT INTO `sys_relation` VALUES (1111546350404689921, 1110777136265838594, 1);
+INSERT INTO `sys_relation` VALUES (1111546350421467137, 1110777366856089602, 1);
+INSERT INTO `sys_relation` VALUES (1111546350446632962, 1110777491464667137, 1);
+INSERT INTO `sys_relation` VALUES (1111546350459215873, 1110787391943098370, 1);
+INSERT INTO `sys_relation` VALUES (1111546350471798786, 1110839216310329346, 1);
 COMMIT;
 
 -- ----------------------------
