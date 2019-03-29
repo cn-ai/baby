@@ -26,9 +26,11 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.system.entity.FileInfo;
+import cn.stylefeng.guns.modular.system.entity.Notice;
 import cn.stylefeng.guns.modular.system.entity.User;
 import cn.stylefeng.guns.modular.system.factory.UserFactory;
 import cn.stylefeng.guns.modular.system.service.FileInfoService;
+import cn.stylefeng.guns.modular.system.service.NoticeService;
 import cn.stylefeng.guns.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
@@ -50,6 +52,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -69,6 +72,9 @@ public class SystemController extends BaseController {
 
     @Autowired
     private FileInfoService fileInfoService;
+
+    @Autowired
+    private NoticeService noticeService;
 
     @Autowired
     private GunsProperties gunsProperties;
@@ -93,6 +99,19 @@ public class SystemController extends BaseController {
     @RequestMapping("/console2")
     public String console2() {
         return "/modular/frame/console2.html";
+    }
+
+    /**
+     * 跳转到首页通知
+     *
+     * @author fengshuonan
+     * @Date 2018/12/23 6:06 PM
+     */
+    @RequestMapping("/notice")
+    public String hello() {
+        List<Notice> notices = noticeService.list();
+        super.setAttr("noticeList", notices);
+        return "/modular/frame/notice.html";
     }
 
     /**
