@@ -74,13 +74,35 @@ public class SystemController extends BaseController {
     private GunsProperties gunsProperties;
 
     /**
+     * 控制台页面
+     *
+     * @author fengshuonan
+     * @Date 2018/12/24 22:43
+     */
+    @RequestMapping("/console")
+    public String console() {
+        return "/modular/frame/console.html";
+    }
+
+    /**
+     * 分析页面
+     *
+     * @author fengshuonan
+     * @Date 2018/12/24 22:43
+     */
+    @RequestMapping("/console2")
+    public String console2() {
+        return "/modular/frame/console2.html";
+    }
+
+    /**
      * 主页面
      *
      * @author fengshuonan
      * @Date 2019/1/24 3:38 PM
      */
     @RequestMapping("/welcome")
-    public String console() {
+    public String welcome() {
         return "/modular/frame/welcome.html";
     }
 
@@ -272,7 +294,7 @@ public class SystemController extends BaseController {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("fileId", IdWorker.getIdStr());
-        return ResponseData.success(0,"上传成功",map);
+        return ResponseData.success(0, "上传成功", map);
     }
 
 
