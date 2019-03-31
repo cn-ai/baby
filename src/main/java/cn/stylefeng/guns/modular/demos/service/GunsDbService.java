@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.multi;
+package cn.stylefeng.guns.modular.demos.service;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.stylefeng.guns.modular.system.entity.User;

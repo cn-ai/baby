@@ -15,6 +15,7 @@
  */
 package cn.stylefeng.guns;
 
+import cn.stylefeng.roses.core.config.MybatisDataSourceAutoConfiguration;
 import cn.stylefeng.roses.core.config.WebAutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @author stylefeng
  * @Date 2017/5/21 12:06
  */
-@SpringBootApplication(exclude = {WebAutoConfiguration.class})
+@SpringBootApplication(exclude = {WebAutoConfiguration.class, MybatisDataSourceAutoConfiguration.class})
 @EnableScheduling
 public class GunsApplication {
 
