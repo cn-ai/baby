@@ -47,6 +47,7 @@ public class ConstantFactory implements IConstantFactory {
     private RoleMapper roleMapper = SpringContextHolder.getBean(RoleMapper.class);
     private DeptMapper deptMapper = SpringContextHolder.getBean(DeptMapper.class);
     private DictMapper dictMapper = SpringContextHolder.getBean(DictMapper.class);
+    private DictTypeMapper dictTypeMapper = SpringContextHolder.getBean(DictTypeMapper.class);
     private UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
@@ -244,15 +245,15 @@ public class ConstantFactory implements IConstantFactory {
 
     @Override
     public String getDictsByName(String name, String code) {
-        Dict temp = new Dict();
+        DictType temp = new DictType();
         temp.setName(name);
-        QueryWrapper<Dict> queryWrapper = new QueryWrapper<>(temp);
-        Dict dict = dictMapper.selectOne(queryWrapper);
-        if (dict == null) {
+        QueryWrapper<DictType> queryWrapper = new QueryWrapper<>(temp);
+        DictType dictType = dictTypeMapper.selectOne(queryWrapper);
+        if (dictType == null) {
             return "";
         } else {
             QueryWrapper<Dict> wrapper = new QueryWrapper<>();
-            wrapper = wrapper.eq("PID", dict.getDictId());
+            wrapper = wrapper.eq("dict_type_id", dictType.getDictTypeId());
             List<Dict> dicts = dictMapper.selectList(wrapper);
             for (Dict item : dicts) {
                 if (item.getCode() != null && item.getCode().equals(code)) {
