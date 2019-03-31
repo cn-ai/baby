@@ -26,79 +26,79 @@ public class Dict implements Serializable {
     /**
      * 字典id
      */
-    @TableId("DICT_ID")
+    @TableId("dict_id")
     private Long dictId;
 
     /**
      * 所属字典类型的id
      */
-    @TableField("DICT_TYPE_ID")
+    @TableField("dict_type_id")
     private Long dictTypeId;
 
     /**
      * 字典编码
      */
-    @TableField("CODE")
+    @TableField("code")
     private String code;
 
     /**
      * 字典名称
      */
-    @TableField("NAME")
+    @TableField("name")
     private String name;
 
     /**
      * 上级代码id
      */
-    @TableField("PARENT_ID")
+    @TableField("parent_id")
     private Long parentId;
 
     /**
      * 所有上级代码id
      */
-    @TableField("PARENT_IDS")
+    @TableField("parent_ids")
     private String parentIds;
 
     /**
      * 状态（字典）
      */
-    @TableField("STATUS")
+    @TableField("status")
     private String status;
 
     /**
      * 字典的描述
      */
-    @TableField("DESCRIPTION")
+    @TableField("description")
     private String description;
 
     /**
      * 排序
      */
-    @TableField("SORT")
+    @TableField("sort")
     private Integer sort;
 
     /**
      * 创建时间
      */
-    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
 
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
+    @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
 
     /**
      * 修改人
      */
-    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
+    @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
 }

@@ -21,47 +21,47 @@ public class OperationLog implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "OPERATION_LOG_ID", type = IdType.ID_WORKER)
+    @TableId(value = "operation_log_id", type = IdType.ID_WORKER)
     private Long operationLogId;
     /**
      * 日志类型(字典)
      */
-    @TableField("LOG_TYPE")
+    @TableField("log_type")
     private String logType;
     /**
      * 日志名称
      */
-    @TableField("LOG_NAME")
+    @TableField("log_name")
     private String logName;
     /**
      * 用户id
      */
-    @TableField("USER_ID")
+    @TableField("user_id")
     private Long userId;
     /**
      * 类名称
      */
-    @TableField("CLASS_NAME")
+    @TableField("class_name")
     private String className;
     /**
      * 方法名称
      */
-    @TableField("METHOD")
+    @TableField("method")
     private String method;
     /**
      * 创建时间
      */
-    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
     /**
      * 是否成功(字典)
      */
-    @TableField("SUCCEED")
+    @TableField("succeed")
     private String succeed;
     /**
      * 备注
      */
-    @TableField("MESSAGE")
+    @TableField("message")
     private String message;
 
 

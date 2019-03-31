@@ -24,17 +24,17 @@ public class Relation implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "RELATION_ID", type = ID_WORKER)
+    @TableId(value = "relation_id", type = ID_WORKER)
     private Long relationId;
     /**
      * 菜单id
      */
-    @TableField("MENU_ID")
+    @TableField("menu_id")
     private Long menuId;
     /**
      * 角色id
      */
-    @TableField("ROLE_ID")
+    @TableField("role_id")
     private Long roleId;
 
 

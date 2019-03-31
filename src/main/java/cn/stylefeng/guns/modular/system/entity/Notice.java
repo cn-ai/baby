@@ -21,37 +21,37 @@ public class Notice implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "NOTICE_ID", type = IdType.ID_WORKER)
+    @TableId(value = "notice_id", type = IdType.ID_WORKER)
     private Long noticeId;
     /**
      * 标题
      */
-    @TableField("TITLE")
+    @TableField("title")
     private String title;
     /**
      * 内容
      */
-    @TableField("CONTENT")
+    @TableField("content")
     private String content;
     /**
      * 创建时间
      */
-    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
+    @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 修改时间
      */
-    @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
     /**
      * 修改人
      */
-    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
+    @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
 

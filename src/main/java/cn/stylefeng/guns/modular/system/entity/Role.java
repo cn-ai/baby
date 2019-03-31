@@ -21,52 +21,52 @@ public class Role implements Serializable {
     /**
      * 主键id
      */
-    @TableId(value = "ROLE_ID", type = IdType.ID_WORKER)
+    @TableId(value = "role_id", type = IdType.ID_WORKER)
     private Long roleId;
     /**
      * 父角色id
      */
-    @TableField("PID")
+    @TableField("pid")
     private Long pid;
     /**
      * 角色名称
      */
-    @TableField("NAME")
+    @TableField("name")
     private String name;
     /**
      * 提示
      */
-    @TableField("DESCRIPTION")
+    @TableField("description")
     private String description;
     /**
      * 序号
      */
-    @TableField("SORT")
+    @TableField("sort")
     private Integer sort;
     /**
      * 乐观锁
      */
-    @TableField("VERSION")
+    @TableField("version")
     private Integer version;
     /**
      * 创建时间
      */
-    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
     /**
      * 修改时间
      */
-    @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
     /**
      * 创建用户
      */
-    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
+    @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 修改用户
      */
-    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
+    @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
 

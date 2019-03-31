@@ -26,67 +26,67 @@ public class DictType implements Serializable {
     /**
      * 字典类型id
      */
-    @TableId("DICT_TYPE_ID")
+    @TableId("dict_type_id")
     private Long dictTypeId;
 
     /**
      * 是否是系统字典，Y-是，N-否
      */
-    @TableField("SYSTEM_FLAG")
+    @TableField("system_flag")
     private String systemFlag;
 
     /**
      * 字典类型编码
      */
-    @TableField("CODE")
+    @TableField("code")
     private String code;
 
     /**
      * 字典类型名称
      */
-    @TableField("NAME")
+    @TableField("name")
     private String name;
 
     /**
      * 字典描述
      */
-    @TableField("DESCRIPTION")
+    @TableField("description")
     private String description;
 
     /**
      * 状态(字典)
      */
-    @TableField("STATUS")
+    @TableField("status")
     private String status;
 
     /**
      * 排序
      */
-    @TableField("SORT")
+    @TableField("sort")
     private Integer sort;
 
     /**
      * 添加时间
      */
-    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
+    @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
 
     /**
      * 修改时间
      */
-    @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
 
     /**
      * 修改人
      */
-    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
+    @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
 }

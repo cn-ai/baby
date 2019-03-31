@@ -23,92 +23,92 @@ public class User implements Serializable {
     /**
      * 主键id
      */
-    @TableId(value = "USER_ID", type = IdType.ID_WORKER)
+    @TableId(value = "user_id", type = IdType.ID_WORKER)
     private Long userId;
     /**
      * 头像
      */
-    @TableField("AVATAR")
+    @TableField("avatar")
     private String avatar;
     /**
      * 账号
      */
-    @TableField("ACCOUNT")
+    @TableField("account")
     private String account;
     /**
      * 密码
      */
-    @TableField("PASSWORD")
+    @TableField("password")
     private String password;
     /**
      * md5密码盐
      */
-    @TableField("SALT")
+    @TableField("salt")
     private String salt;
     /**
      * 名字
      */
-    @TableField("NAME")
+    @TableField("name")
     private String name;
     /**
      * 生日
      */
-    @TableField("BIRTHDAY")
+    @TableField("birthday")
     private Date birthday;
     /**
      * 性别(字典)
      */
-    @TableField("SEX")
+    @TableField("sex")
     private String sex;
     /**
      * 电子邮件
      */
-    @TableField("EMAIL")
+    @TableField("email")
     private String email;
     /**
      * 电话
      */
-    @TableField("PHONE")
+    @TableField("phone")
     private String phone;
     /**
      * 角色id(多个逗号隔开)
      */
-    @TableField("ROLE_ID")
+    @TableField("role_id")
     private String roleId;
     /**
      * 部门id(多个逗号隔开)
      */
-    @TableField("DEPT_ID")
+    @TableField("dept_id")
     private Long deptId;
     /**
      * 状态(字典)
      */
-    @TableField("STATUS")
+    @TableField("status")
     private String status;
     /**
      * 创建时间
      */
-    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
+    @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 更新时间
      */
-    @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
     /**
      * 更新人
      */
-    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
+    @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
     /**
      * 乐观锁
      */
-    @TableField("VERSION")
+    @TableField("version")
     private Integer version;
 
 }
