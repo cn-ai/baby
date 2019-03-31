@@ -38,7 +38,7 @@
     <select id="roleTreeList" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
 		select ROLE_ID AS id, PID as pId,
 		NAME as name, (case when (PID = 0 or PID is null) then 'true'
-		else 'false' end) as `open` from sys_role
+		else 'false' end) as 'open' from sys_role
 	</select>
 
     <select id="roleTreeListByRoleId" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
@@ -53,7 +53,7 @@
         ELSE
         'false'
         END
-        ) as `open`,
+        ) as 'open',
         (
         CASE
         WHEN (r1.ROLE_ID = 0 OR r1.ROLE_ID IS NULL) THEN

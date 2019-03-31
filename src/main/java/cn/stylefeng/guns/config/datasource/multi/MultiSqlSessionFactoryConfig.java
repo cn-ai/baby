@@ -16,26 +16,33 @@
 package cn.stylefeng.guns.config.datasource.multi;
 
 import cn.stylefeng.roses.core.config.properties.DruidProperties;
-import cn.stylefeng.roses.core.datascope.DataScopeInterceptor;
 import cn.stylefeng.roses.core.mutidatasource.mybatis.OptionalSqlSessionTemplate;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.autoconfigure.SpringBootVFS;
-import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,10 +58,32 @@ import java.util.Map;
 @ConditionalOnProperty(prefix = "guns.muti-datasource", name = "open", havingValue = "true")
 public class MultiSqlSessionFactoryConfig {
 
-    /**
-     * xml文件的位置，改包了注意修改哦
-     */
-    public static final String MAPPING_XML_CLASSPATH = "classpath:cn/stylefeng/guns/modular/**/mapping/*.xml";
+    private final MybatisPlusProperties properties;
+
+    private final Interceptor[] interceptors;
+
+    private final ResourceLoader resourceLoader;
+
+    private final DatabaseIdProvider databaseIdProvider;
+
+    private final List<ConfigurationCustomizer> configurationCustomizers;
+
+    private final ApplicationContext applicationContext;
+
+
+    public MultiSqlSessionFactoryConfig(MybatisPlusProperties properties,
+                                        ObjectProvider<Interceptor[]> interceptorsProvider,
+                                        ResourceLoader resourceLoader,
+                                        ObjectProvider<DatabaseIdProvider> databaseIdProvider,
+                                        ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
+                                        ApplicationContext applicationContext) {
+        this.properties = properties;
+        this.interceptors = interceptorsProvider.getIfAvailable();
+        this.resourceLoader = resourceLoader;
+        this.databaseIdProvider = databaseIdProvider.getIfAvailable();
+        this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
+        this.applicationContext = applicationContext;
+    }
 
     /**
      * 主sqlSessionFactory
@@ -96,44 +125,38 @@ public class MultiSqlSessionFactoryConfig {
     }
 
     /**
-     * mybatis-plus分页插件
-     */
-    @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        return new PaginationInterceptor();
-    }
-
-    /**
-     * 数据范围mybatis插件
-     */
-    @Bean
-    public DataScopeInterceptor dataScopeInterceptor() {
-        return new DataScopeInterceptor();
-    }
-
-    /**
-     * 乐观锁mybatis插件
-     */
-    @Bean
-    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
-        return new OptimisticLockerInterceptor();
-    }
-
-    /**
      * 创建数据源
      */
     private SqlSessionFactory createSqlSessionFactory(DataSource dataSource) {
         try {
-            MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
-            bean.setDataSource(dataSource);
-            bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPING_XML_CLASSPATH));
-            bean.setVfs(SpringBootVFS.class);
-            bean.setPlugins(new Interceptor[]{
-                    paginationInterceptor(),
-                    dataScopeInterceptor(),
-                    optimisticLockerInterceptor()
-            });
-            return bean.getObject();
+            MybatisSqlSessionFactoryBean factory = new MybatisSqlSessionFactoryBean();
+            factory.setDataSource(dataSource);
+            factory.setVfs(SpringBootVFS.class);
+            if (!ObjectUtils.isEmpty(this.interceptors)) {
+                factory.setPlugins(this.interceptors);
+            }
+            if (this.databaseIdProvider != null) {
+                factory.setDatabaseIdProvider(this.databaseIdProvider);
+            }
+            if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
+                factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
+            }
+            if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {
+                factory.setMapperLocations(this.properties.resolveMapperLocations());
+            }
+            GlobalConfig globalConfig = this.properties.getGlobalConfig();
+            if (this.applicationContext.getBeanNamesForType(MetaObjectHandler.class,
+                    false, false).length > 0) {
+                MetaObjectHandler metaObjectHandler = this.applicationContext.getBean(MetaObjectHandler.class);
+                globalConfig.setMetaObjectHandler(metaObjectHandler);
+            }
+
+            //globalConfig中有缓存sqlSessionFactory，目前还没别的办法
+            SqlSessionFactory sqlSessionFactory = factory.getObject();
+            globalConfig.signGlobalConfig(sqlSessionFactory);
+
+            factory.setGlobalConfig(globalConfig);
+            return factory.getObject();
         } catch (Exception e) {
             log.error("初始化SqlSessionFactory错误！", e);
             throw new ServiceException(500, "初始化SqlSessionFactory错误！");
