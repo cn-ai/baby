@@ -21,4 +21,8 @@ public interface DictMapper extends BaseMapper<Dict> {
      */
     List<ZTreeNode> dictTree(Long dictTypeId);
 
+    /**
+     * where parentIds like ''
+     */
+    List<Dict> likeParentIds(Long dictId);
 }

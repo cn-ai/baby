@@ -34,4 +34,9 @@ public interface DeptMapper extends BaseMapper<Dept> {
      * 获取所有部门树列表
      */
     List<TreeviewNode> treeviewNodes();
+
+    /**
+     * where pids like ''
+     */
+    List<Dept> likePids(Long deptId);
 }

@@ -32,7 +32,16 @@
 		ELSE
 		'false'
 		END
-		) as open from sys_dict where DICT_TYPE_ID = #{dictTypeId}
+		) as 'open' from sys_dict where DICT_TYPE_ID = #{dictTypeId}
+    </select>
+
+    <select id="likeParentIds" resultType="cn.stylefeng.guns.modular.system.entity.Dict">
+        select
+        <include refid="Base_Column_List"></include>
+        from sys_dict as base
+        <where>
+            PARENT_IDS LIKE CONCAT('%$[',#{dictId},'$]%') escape '$'
+        </where>
     </select>
 
 </mapper>

@@ -107,7 +107,7 @@
         ELSE
         'true'
         END
-        ) as `checked`
+        ) as 'checked'
         FROM
         sys_menu m1
         LEFT JOIN
@@ -193,6 +193,16 @@
         <if test="level != null and level != ''">
             and LEVELS = #{level}
         </if>
+    </select>
+
+    <select id="getMenusLikePcodes" resultType="cn.stylefeng.guns.modular.system.entity.Menu">
+        select
+        <include refid="Base_Column_List"></include>
+        from sys_menu
+        <where>
+            PCODES LIKE CONCAT('%$[',#{code},'$]%') escape '$'
+        </where>
+
     </select>
 
 </mapper>

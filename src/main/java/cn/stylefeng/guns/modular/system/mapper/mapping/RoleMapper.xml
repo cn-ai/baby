@@ -45,7 +45,7 @@
         SELECT
         r.ROLE_ID as id,
         PID as pId,
-        NAME AS `name`,
+        NAME AS 'name',
         (
         CASE
         WHEN (PID = 0 OR PID IS NULL) THEN

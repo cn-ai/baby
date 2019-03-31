@@ -87,5 +87,12 @@ public interface MenuMapper extends BaseMapper<Menu> {
      */
     List<Map<String, Object>> selectMenuTree(@Param("condition") String condition, @Param("level") String level);
 
+    /**
+     * 获取pcodes like某个code的菜单列表
+     *
+     * @author fengshuonan
+     * @Date 2019/3/31 15:51
+     */
+    List<Menu> getMenusLikePcodes(@Param("code") String code);
 
 }

@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.service;
 
+import cn.stylefeng.guns.core.common.constant.state.CommonStatus;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.node.ZTreeNode;
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
@@ -53,6 +54,9 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
 
         //设置pids
         dictSetPids(entity);
+
+        //设置状态
+        entity.setStatus(CommonStatus.ENABLE.getCode());
 
         this.save(entity);
     }
@@ -241,9 +245,8 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
     }
 
     private List<Long> getSubIds(Long dictId) {
-        QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<>();
-        dictQueryWrapper.like("PARENT_IDS", "%[" + dictId + "]%");
-        List<Dict> list = this.list(dictQueryWrapper);
+
+        List<Dict> list = this.baseMapper.likeParentIds(dictId);
 
         ArrayList<Long> longs = new ArrayList<>();
         for (Dict dict : list) {

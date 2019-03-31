@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.service;
 
+import cn.stylefeng.guns.core.common.constant.state.CommonStatus;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
@@ -46,6 +47,10 @@ public class DictTypeService extends ServiceImpl<DictTypeMapper, DictType> {
         }
 
         DictType entity = getEntity(param);
+
+        //设置状态
+        entity.setStatus(CommonStatus.ENABLE.getCode());
+
         this.save(entity);
     }
 
