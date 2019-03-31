@@ -26,21 +26,21 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for sys_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
-CREATE TABLE `sys_dept` (
-  `DEPT_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `PID` bigint(20) DEFAULT NULL COMMENT '父部门id',
-  `PIDS` varchar(512) DEFAULT NULL COMMENT '父级ids',
-  `SIMPLE_NAME` varchar(45) DEFAULT NULL COMMENT '简称',
-  `FULL_NAME` varchar(255) DEFAULT NULL COMMENT '全称',
-  `DESCRIPTION` varchar(255) DEFAULT NULL COMMENT '描述',
-  `VERSION` int(11) DEFAULT NULL COMMENT '版本（乐观锁保留字段）',
-  `SORT` int(11) DEFAULT NULL COMMENT '排序',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
-  `CREATE_USER` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_USER` bigint(20) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`DEPT_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='部门表';
+CREATE TABLE `sys_dept`  (
+  `dept_id` bigint(20) NOT NULL COMMENT '主键id',
+  `pid` bigint(20) DEFAULT 0 COMMENT '父部门id',
+  `pids` varchar(512) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '' COMMENT '父级ids',
+  `simple_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '简称',
+  `full_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '全称',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
+  `version` int(11) DEFAULT NULL COMMENT '版本（乐观锁保留字段）',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '修改时间',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `update_user` bigint(20) DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`dept_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dept
@@ -56,22 +56,22 @@ COMMIT;
 -- Table structure for sys_dict
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
-CREATE TABLE `sys_dict` (
-  `DICT_ID` bigint(20) NOT NULL COMMENT '字典id',
-  `DICT_TYPE_ID` bigint(20) NOT NULL COMMENT '所属字典类型的id',
-  `CODE` varchar(50) NOT NULL COMMENT '字典编码',
-  `NAME` varchar(255) NOT NULL COMMENT '字典名称',
-  `PARENT_ID` bigint(20) NOT NULL COMMENT '上级代码id',
-  `PARENT_IDS` varchar(255) DEFAULT NULL COMMENT '所有上级id',
-  `STATUS` varchar(10) NOT NULL DEFAULT 'ENABLE' COMMENT '状态（字典）',
-  `SORT` int(11) DEFAULT NULL COMMENT '排序',
-  `DESCRIPTION` varchar(1000) DEFAULT NULL COMMENT '字典的描述',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
-  `CREATE_USER` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_USER` bigint(20) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`DICT_ID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='基础字典';
+CREATE TABLE `sys_dict`  (
+  `dict_id` bigint(20) NOT NULL COMMENT '字典id',
+  `dict_type_id` bigint(20) NOT NULL COMMENT '所属字典类型的id',
+  `code` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '字典编码',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '字典名称',
+  `parent_id` bigint(20) NOT NULL COMMENT '上级代码id',
+  `parent_ids` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '所有上级id',
+  `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'ENABLE' COMMENT '状态（字典）',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  `description` varchar(1000) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '字典的描述',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `update_user` bigint(20) DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`dict_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT='基础字典' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict
@@ -94,20 +94,20 @@ COMMIT;
 -- Table structure for sys_dict_type
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
-CREATE TABLE `sys_dict_type` (
-  `DICT_TYPE_ID` bigint(20) NOT NULL COMMENT '字典类型id',
-  `CODE` varchar(255) NOT NULL COMMENT '字典类型编码',
-  `NAME` varchar(255) NOT NULL COMMENT '字典类型名称',
-  `DESCRIPTION` varchar(1000) DEFAULT NULL COMMENT '字典描述',
-  `SYSTEM_FLAG` char(1) NOT NULL COMMENT '是否是系统字典，Y-是，N-否',
-  `STATUS` varchar(10) NOT NULL DEFAULT 'ENABLE' COMMENT '状态(字典)',
-  `SORT` int(11) DEFAULT NULL COMMENT '排序',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '添加时间',
-  `CREATE_USER` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
-  `UPDATE_USER` bigint(20) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`DICT_TYPE_ID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典类型表';
+CREATE TABLE `sys_dict_type`  (
+  `dict_type_id` bigint(20) NOT NULL COMMENT '字典类型id',
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '字典类型编码',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '字典类型名称',
+  `description` varchar(1000) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '字典描述',
+  `system_flag` char(1) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '是否是系统字典，Y-是，N-否',
+  `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'ENABLE' COMMENT '状态(字典)',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '添加时间',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '修改时间',
+  `update_user` bigint(20) DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`dict_type_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '字典类型表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -123,15 +123,15 @@ COMMIT;
 -- Table structure for sys_file_info
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_file_info`;
-CREATE TABLE `sys_file_info` (
-  `FILE_ID` varchar(50) NOT NULL COMMENT '主键id',
-  `FILE_DATA` text COMMENT 'base64编码的文件',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
-  `CREATE_USER` bigint(20) DEFAULT NULL COMMENT '创建用户',
-  `UPDATE_USER` bigint(20) DEFAULT NULL COMMENT '修改用户',
-  PRIMARY KEY (`FILE_ID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文件信息表\r\n';
+CREATE TABLE `sys_file_info`  (
+  `file_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键id',
+  `file_data` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT 'base64编码的文件',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '修改时间',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建用户',
+  `update_user` bigint(20) DEFAULT NULL COMMENT '修改用户',
+  PRIMARY KEY (`file_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '文件信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_file_info
@@ -144,42 +144,42 @@ COMMIT;
 -- Table structure for sys_login_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_login_log`;
-CREATE TABLE `sys_login_log` (
-  `LOGIN_LOG_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `LOG_NAME` varchar(255) DEFAULT NULL COMMENT '日志名称',
-  `USER_ID` bigint(20) DEFAULT NULL COMMENT '管理员id',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `SUCCEED` varchar(255) DEFAULT NULL COMMENT '是否执行成功',
-  `MESSAGE` text COMMENT '具体消息',
-  `IP_ADDRESS` varchar(255) DEFAULT NULL COMMENT '登录ip',
-  PRIMARY KEY (`LOGIN_LOG_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1111561148093767683 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='登录记录';
+CREATE TABLE `sys_login_log`  (
+  `login_log_id` bigint(20) NOT NULL COMMENT '主键',
+  `log_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '日志名称',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '管理员id',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `succeed` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '是否执行成功',
+  `message` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT '具体消息',
+  `ip_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '登录ip',
+  PRIMARY KEY (`login_log_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '登录记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
-CREATE TABLE `sys_menu` (
-  `MENU_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `CODE` varchar(255) DEFAULT NULL COMMENT '菜单编号',
-  `PCODE` varchar(255) DEFAULT NULL COMMENT '菜单父编号',
-  `PCODES` varchar(255) DEFAULT NULL COMMENT '当前菜单的所有父菜单编号',
-  `NAME` varchar(255) DEFAULT NULL COMMENT '菜单名称',
-  `ICON` varchar(255) DEFAULT NULL COMMENT '菜单图标',
-  `URL` varchar(255) DEFAULT NULL COMMENT 'url地址',
-  `SORT` int(65) DEFAULT NULL COMMENT '菜单排序号',
-  `LEVELS` int(65) DEFAULT NULL COMMENT '菜单层级',
-  `MENU_FLAG` varchar(32) DEFAULT NULL COMMENT '是否是菜单(字典)',
-  `DESCRIPTION` varchar(255) DEFAULT NULL COMMENT '备注',
-  `STATUS` varchar(32) DEFAULT 'ENABLE' COMMENT '菜单状态(字典)',
-  `NEW_PAGE_FLAG` varchar(32) DEFAULT NULL COMMENT '是否打开新页面的标识(字典)',
-  `OPEN_FLAG` varchar(32) DEFAULT NULL COMMENT '是否打开(字典)',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
-  `CREATE_USER` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_USER` bigint(20) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`MENU_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1111546189892870146 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='菜单表';
+CREATE TABLE `sys_menu`  (
+  `menu_id` bigint(20) NOT NULL COMMENT '主键id',
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '菜单编号',
+  `pcode` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '菜单父编号',
+  `pcodes` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '当前菜单的所有父菜单编号',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '菜单名称',
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '菜单图标',
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT 'url地址',
+  `sort` int(65) DEFAULT NULL COMMENT '菜单排序号',
+  `levels` int(65) DEFAULT NULL COMMENT '菜单层级',
+  `menu_flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '是否是菜单(字典)',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+  `status` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'ENABLE' COMMENT '菜单状态(字典)',
+  `new_page_flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '是否打开新页面的标识(字典)',
+  `open_flag` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '是否打开(字典)',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '修改时间',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `update_user` bigint(20) DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`menu_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -254,16 +254,16 @@ COMMIT;
 -- Table structure for sys_notice
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_notice`;
-CREATE TABLE `sys_notice` (
-  `NOTICE_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `TITLE` varchar(255) DEFAULT NULL COMMENT '标题',
-  `CONTENT` text COMMENT '内容',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `CREATE_USER` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
-  `UPDATE_USER` bigint(20) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`NOTICE_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1071770798843490307 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='通知表';
+CREATE TABLE `sys_notice`  (
+  `notice_id` bigint(20) NOT NULL COMMENT '主键',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '标题',
+  `content` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT '内容',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '修改时间',
+  `update_user` bigint(20) DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`notice_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '通知表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_notice
@@ -277,29 +277,29 @@ COMMIT;
 -- Table structure for sys_operation_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_operation_log`;
-CREATE TABLE `sys_operation_log` (
-  `OPERATION_LOG_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `LOG_TYPE` varchar(32) DEFAULT NULL COMMENT '日志类型(字典)',
-  `LOG_NAME` varchar(255) DEFAULT NULL COMMENT '日志名称',
-  `USER_ID` bigint(65) DEFAULT NULL COMMENT '用户id',
-  `CLASS_NAME` varchar(255) DEFAULT NULL COMMENT '类名称',
-  `METHOD` text COMMENT '方法名称',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `SUCCEED` varchar(32) DEFAULT NULL COMMENT '是否成功(字典)',
-  `MESSAGE` text COMMENT '备注',
-  PRIMARY KEY (`OPERATION_LOG_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1111561249361043458 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='操作日志';
+CREATE TABLE `sys_operation_log`  (
+  `operation_log_id` bigint(20) NOT NULL COMMENT '主键',
+  `log_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '日志类型(字典)',
+  `log_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '日志名称',
+  `user_id` bigint(65) DEFAULT NULL COMMENT '用户id',
+  `class_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '类名称',
+  `method` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT '方法名称',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `succeed` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '是否成功(字典)',
+  `message` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT '备注',
+  PRIMARY KEY (`operation_log_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '操作日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_relation
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_relation`;
-CREATE TABLE `sys_relation` (
-  `RELATION_ID` bigint(20) NOT NULL COMMENT '主键',
-  `MENU_ID` bigint(20) DEFAULT NULL COMMENT '菜单id',
-  `ROLE_ID` bigint(20) DEFAULT NULL COMMENT '角色id',
-  PRIMARY KEY (`RELATION_ID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色和菜单关联表';
+CREATE TABLE `sys_relation`  (
+  `relation_id` bigint(20) NOT NULL COMMENT '主键',
+  `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单id',
+  `role_id` bigint(20) DEFAULT NULL COMMENT '角色id',
+  PRIMARY KEY (`relation_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_relation
@@ -426,19 +426,19 @@ COMMIT;
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
-CREATE TABLE `sys_role` (
-  `ROLE_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `PID` bigint(20) DEFAULT NULL COMMENT '父角色id',
-  `NAME` varchar(255) DEFAULT NULL COMMENT '角色名称',
-  `DESCRIPTION` varchar(255) DEFAULT NULL COMMENT '提示',
-  `SORT` int(11) DEFAULT NULL COMMENT '序号',
-  `VERSION` int(11) DEFAULT NULL COMMENT '乐观锁',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
-  `CREATE_USER` bigint(20) DEFAULT NULL COMMENT '创建用户',
-  `UPDATE_USER` bigint(20) DEFAULT NULL COMMENT '修改用户',
-  PRIMARY KEY (`ROLE_ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色表';
+CREATE TABLE `sys_role`  (
+  `role_id` bigint(20) NOT NULL COMMENT '主键id',
+  `pid` bigint(20) DEFAULT NULL COMMENT '父角色id',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '角色名称',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '提示',
+  `sort` int(11) DEFAULT NULL COMMENT '序号',
+  `version` int(11) DEFAULT NULL COMMENT '乐观锁',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '修改时间',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建用户',
+  `update_user` bigint(20) DEFAULT NULL COMMENT '修改用户',
+  PRIMARY KEY (`role_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
@@ -452,27 +452,27 @@ COMMIT;
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
-CREATE TABLE `sys_user` (
-  `USER_ID` bigint(20) NOT NULL COMMENT '主键id',
-  `AVATAR` varchar(255) DEFAULT NULL COMMENT '头像',
-  `ACCOUNT` varchar(45) DEFAULT NULL COMMENT '账号',
-  `PASSWORD` varchar(45) DEFAULT NULL COMMENT '密码',
-  `SALT` varchar(45) DEFAULT NULL COMMENT 'md5密码盐',
-  `NAME` varchar(45) DEFAULT NULL COMMENT '名字',
-  `BIRTHDAY` datetime DEFAULT NULL COMMENT '生日',
-  `SEX` varchar(32) DEFAULT NULL COMMENT '性别(字典)',
-  `EMAIL` varchar(45) DEFAULT NULL COMMENT '电子邮件',
-  `PHONE` varchar(45) DEFAULT NULL COMMENT '电话',
-  `ROLE_ID` varchar(255) DEFAULT NULL COMMENT '角色id(多个逗号隔开)',
-  `DEPT_ID` bigint(20) DEFAULT NULL COMMENT '部门id(多个逗号隔开)',
-  `STATUS` varchar(32) DEFAULT NULL COMMENT '状态(字典)',
-  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `CREATE_USER` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
-  `UPDATE_USER` bigint(20) DEFAULT NULL COMMENT '更新人',
-  `VERSION` int(11) DEFAULT NULL COMMENT '乐观锁',
-  PRIMARY KEY (`USER_ID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='管理员表';
+CREATE TABLE `sys_user`  (
+  `user_id` bigint(20) NOT NULL COMMENT '主键id',
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '头像',
+  `account` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '账号',
+  `password` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '密码',
+  `salt` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT 'md5密码盐',
+  `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '名字',
+  `birthday` datetime(0) DEFAULT NULL COMMENT '生日',
+  `sex` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '性别(字典)',
+  `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '电子邮件',
+  `phone` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '电话',
+  `role_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '角色id(多个逗号隔开)',
+  `dept_id` bigint(20) DEFAULT NULL COMMENT '部门id(多个逗号隔开)',
+  `status` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '状态(字典)',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
+  `update_user` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `version` int(11) DEFAULT NULL COMMENT '乐观锁',
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '管理员表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
