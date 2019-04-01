@@ -43,8 +43,8 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
         //判断是否已经存在同编码或同名称字典
         QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<>();
         dictQueryWrapper
-                .and(i -> i.eq("CODE", param.getCode()).or().eq("NAME", param.getName()))
-                .and(i -> i.eq("DICT_TYPE_ID", param.getDictTypeId()));
+                .and(i -> i.eq("code", param.getCode()).or().eq("name", param.getName()))
+                .and(i -> i.eq("dict_type_id", param.getDictTypeId()));
         List<Dict> list = this.list(dictQueryWrapper);
         if (list != null && list.size() > 0) {
             throw new ServiceException(BizExceptionEnum.DICT_EXISTED);
@@ -91,9 +91,9 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
 
         //判断编码是否重复
         QueryWrapper<Dict> wrapper = new QueryWrapper<Dict>()
-                .and(i -> i.eq("CODE", newEntity.getCode()).or().eq("NAME", newEntity.getName()))
-                .and(i -> i.ne("DICT_ID", newEntity.getDictId()))
-                .and(i -> i.eq("DICT_TYPE_ID", param.getDictTypeId()));
+                .and(i -> i.eq("code", newEntity.getCode()).or().eq("name", newEntity.getName()))
+                .and(i -> i.ne("dict_id", newEntity.getDictId()))
+                .and(i -> i.eq("dict_type_id", param.getDictTypeId()));
         int dicts = this.count(wrapper);
         if (dicts > 0) {
             throw new ServiceException(BizExceptionEnum.DICT_EXISTED);
@@ -133,13 +133,13 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
      */
     public LayuiPageInfo findPageBySpec(DictParam param) {
         QueryWrapper<Dict> objectQueryWrapper = new QueryWrapper<>();
-        objectQueryWrapper.eq("DICT_TYPE_ID", param.getDictTypeId());
+        objectQueryWrapper.eq("dict_type_id", param.getDictTypeId());
 
         if (ToolUtil.isNotEmpty(param.getCondition())) {
-            objectQueryWrapper.and(i -> i.eq("CODE", param.getCondition()).or().eq("NAME", param.getCondition()));
+            objectQueryWrapper.and(i -> i.eq("code", param.getCondition()).or().eq("name", param.getCondition()));
         }
 
-        objectQueryWrapper.orderByAsc("SORT");
+        objectQueryWrapper.orderByAsc("sort");
 
         List<Dict> list = this.list(objectQueryWrapper);
 

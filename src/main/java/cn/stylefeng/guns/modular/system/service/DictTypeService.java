@@ -40,7 +40,7 @@ public class DictTypeService extends ServiceImpl<DictTypeMapper, DictType> {
 
         //判断是否已经存在同编码或同名称字典
         QueryWrapper<DictType> dictQueryWrapper = new QueryWrapper<>();
-        dictQueryWrapper.eq("CODE", param.getCode()).or().eq("NAME", param.getName());
+        dictQueryWrapper.eq("code", param.getCode()).or().eq("name", param.getName());
         List<DictType> list = this.list(dictQueryWrapper);
         if (list != null && list.size() > 0) {
             throw new ServiceException(BizExceptionEnum.DICT_EXISTED);
@@ -77,8 +77,8 @@ public class DictTypeService extends ServiceImpl<DictTypeMapper, DictType> {
 
         //判断编码是否重复
         QueryWrapper<DictType> wrapper = new QueryWrapper<DictType>()
-                .and(i -> i.eq("CODE", newEntity.getCode()).or().eq("NAME", newEntity.getName()))
-                .and(i -> i.ne("DICT_TYPE_ID", newEntity.getDictTypeId()));
+                .and(i -> i.eq("code", newEntity.getCode()).or().eq("name", newEntity.getName()))
+                .and(i -> i.ne("dict_type_id", newEntity.getDictTypeId()));
         int dicts = this.count(wrapper);
         if (dicts > 0) {
             throw new ServiceException(BizExceptionEnum.DICT_EXISTED);
@@ -117,16 +117,16 @@ public class DictTypeService extends ServiceImpl<DictTypeMapper, DictType> {
         Page pageContext = getPageContext();
         QueryWrapper<DictType> objectQueryWrapper = new QueryWrapper<>();
         if (ToolUtil.isNotEmpty(param.getCondition())) {
-            objectQueryWrapper.and(i -> i.eq("CODE", param.getCondition()).or().eq("NAME", param.getCondition()));
+            objectQueryWrapper.and(i -> i.eq("code", param.getCondition()).or().eq("name", param.getCondition()));
         }
         if (ToolUtil.isNotEmpty(param.getStatus())) {
-            objectQueryWrapper.and(i -> i.eq("STATUS", param.getStatus()));
+            objectQueryWrapper.and(i -> i.eq("status", param.getStatus()));
         }
         if (ToolUtil.isNotEmpty(param.getSystemFlag())) {
-            objectQueryWrapper.and(i -> i.eq("SYSTEM_FLAG", param.getSystemFlag()));
+            objectQueryWrapper.and(i -> i.eq("system_flag", param.getSystemFlag()));
         }
 
-        pageContext.setAsc("SORT");
+        pageContext.setAsc("sort");
 
         IPage page = this.page(pageContext, objectQueryWrapper);
         return LayuiPageFactory.createPageInfo(page);

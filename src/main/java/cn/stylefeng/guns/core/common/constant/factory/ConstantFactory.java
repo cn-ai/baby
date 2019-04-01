@@ -285,7 +285,7 @@ public class ConstantFactory implements IConstantFactory {
             return null;
         } else {
             QueryWrapper<Dict> wrapper = new QueryWrapper<>();
-            List<Dict> dicts = dictMapper.selectList(wrapper.eq("PID", id));
+            List<Dict> dicts = dictMapper.selectList(wrapper.eq("pid", id));
             if (dicts == null || dicts.size() == 0) {
                 return null;
             } else {
