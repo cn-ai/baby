@@ -1,9 +1,12 @@
 package cn.stylefeng.guns.modular.system.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
-
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -11,7 +14,7 @@ import java.util.Date;
  * </p>
  *
  * @author stylefeng
- * @since 2018-12-07
+ * @since 2019-04-01
  */
 @TableName("sys_operation_log")
 public class OperationLog implements Serializable {
@@ -23,41 +26,49 @@ public class OperationLog implements Serializable {
      */
     @TableId(value = "operation_log_id", type = IdType.ID_WORKER)
     private Long operationLogId;
+
     /**
      * 日志类型(字典)
      */
     @TableField("log_type")
     private String logType;
+
     /**
      * 日志名称
      */
     @TableField("log_name")
     private String logName;
+
     /**
      * 用户id
      */
     @TableField("user_id")
     private Long userId;
+
     /**
      * 类名称
      */
     @TableField("class_name")
     private String className;
+
     /**
      * 方法名称
      */
     @TableField("method")
     private String method;
+
     /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
+
     /**
      * 是否成功(字典)
      */
     @TableField("succeed")
     private String succeed;
+
     /**
      * 备注
      */
@@ -140,15 +151,15 @@ public class OperationLog implements Serializable {
     @Override
     public String toString() {
         return "OperationLog{" +
-                ", operationLogId=" + operationLogId +
-                ", logType=" + logType +
-                ", logName=" + logName +
-                ", userId=" + userId +
-                ", className=" + className +
-                ", method=" + method +
-                ", createTime=" + createTime +
-                ", succeed=" + succeed +
-                ", message=" + message +
-                "}";
+        "operationLogId=" + operationLogId +
+        ", logType=" + logType +
+        ", logName=" + logName +
+        ", userId=" + userId +
+        ", className=" + className +
+        ", method=" + method +
+        ", createTime=" + createTime +
+        ", succeed=" + succeed +
+        ", message=" + message +
+        "}";
     }
 }

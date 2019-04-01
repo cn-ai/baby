@@ -4,21 +4,22 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.entity.DictType">
-        <id column="DICT_TYPE_ID" property="dictTypeId"/>
-        <result column="SYSTEM_FLAG" property="systemFlag"/>
-        <result column="CODE" property="code"/>
-        <result column="NAME" property="name"/>
-        <result column="DESCRIPTION" property="description"/>
-        <result column="STATUS" property="status"/>
-        <result column="CREATE_TIME" property="createTime"/>
-        <result column="CREATE_USER" property="createUser"/>
-        <result column="UPDATE_TIME" property="updateTime"/>
-        <result column="UPDATE_USER" property="updateUser"/>
+        <id column="dict_type_id" property="dictTypeId" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="system_flag" property="systemFlag" />
+        <result column="status" property="status" />
+        <result column="sort" property="sort" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        base.DICT_TYPE_ID AS dictTypeId, base.SYSTEM_FLAG AS systemFlag, base.CODE AS code, base.NAME AS name, base.DESCRIPTION AS description, base.STATUS AS status, base.CREATE_TIME AS createTime, base.CREATE_USER AS createUser, base.UPDATE_TIME AS updateTime, base.UPDATE_USER AS updateUser
+        base.dict_type_id AS dictTypeId, base.code AS code, base.name AS name, base.description AS description, base.system_flag AS systemFlag, base.status AS status, base.sort AS sort, base.create_time AS createTime, base.create_user AS createUser, base.update_time AS updateTime, base.update_user AS updateUser
     </sql>
 
 </mapper>

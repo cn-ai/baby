@@ -1,10 +1,6 @@
 package cn.stylefeng.guns.modular.system.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,10 +11,9 @@ import java.util.Date;
  * </p>
  *
  * @author stylefeng
- * @since 2019-03-13
+ * @since 2019-04-01
  */
 @TableName("sys_dict")
-@Data
 public class Dict implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +21,7 @@ public class Dict implements Serializable {
     /**
      * 字典id
      */
-    @TableId("dict_id")
+    @TableId(value = "dict_id", type = IdType.ID_WORKER)
     private Long dictId;
 
     /**
@@ -54,7 +49,7 @@ public class Dict implements Serializable {
     private Long parentId;
 
     /**
-     * 所有上级代码id
+     * 所有上级id
      */
     @TableField("parent_ids")
     private String parentIds;
@@ -66,16 +61,16 @@ public class Dict implements Serializable {
     private String status;
 
     /**
-     * 字典的描述
-     */
-    @TableField("description")
-    private String description;
-
-    /**
      * 排序
      */
     @TableField("sort")
     private Integer sort;
+
+    /**
+     * 字典的描述
+     */
+    @TableField("description")
+    private String description;
 
     /**
      * 创建时间
@@ -101,4 +96,127 @@ public class Dict implements Serializable {
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
+
+    public Long getDictId() {
+        return dictId;
+    }
+
+    public void setDictId(Long dictId) {
+        this.dictId = dictId;
+    }
+
+    public Long getDictTypeId() {
+        return dictTypeId;
+    }
+
+    public void setDictTypeId(Long dictTypeId) {
+        this.dictTypeId = dictTypeId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getParentIds() {
+        return parentIds;
+    }
+
+    public void setParentIds(String parentIds) {
+        this.parentIds = parentIds;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
+    }
+
+    public Long getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(Long updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    @Override
+    public String toString() {
+        return "Dict{" +
+        "dictId=" + dictId +
+        ", dictTypeId=" + dictTypeId +
+        ", code=" + code +
+        ", name=" + name +
+        ", parentId=" + parentId +
+        ", parentIds=" + parentIds +
+        ", status=" + status +
+        ", sort=" + sort +
+        ", description=" + description +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", createUser=" + createUser +
+        ", updateUser=" + updateUser +
+        "}";
+    }
 }

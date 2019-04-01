@@ -1,9 +1,12 @@
 package cn.stylefeng.guns.modular.system.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
-
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -11,7 +14,7 @@ import java.util.Date;
  * </p>
  *
  * @author stylefeng
- * @since 2018-12-07
+ * @since 2019-04-01
  */
 @TableName("sys_role")
 public class Role implements Serializable {
@@ -23,46 +26,55 @@ public class Role implements Serializable {
      */
     @TableId(value = "role_id", type = IdType.ID_WORKER)
     private Long roleId;
+
     /**
      * 父角色id
      */
     @TableField("pid")
     private Long pid;
+
     /**
      * 角色名称
      */
     @TableField("name")
     private String name;
+
     /**
      * 提示
      */
     @TableField("description")
     private String description;
+
     /**
      * 序号
      */
     @TableField("sort")
     private Integer sort;
+
     /**
      * 乐观锁
      */
     @TableField("version")
     private Integer version;
+
     /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
+
     /**
      * 修改时间
      */
     @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
+
     /**
      * 创建用户
      */
     @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
+
     /**
      * 修改用户
      */
@@ -153,16 +165,16 @@ public class Role implements Serializable {
     @Override
     public String toString() {
         return "Role{" +
-                ", roleId=" + roleId +
-                ", pid=" + pid +
-                ", name=" + name +
-                ", description=" + description +
-                ", sort=" + sort +
-                ", version=" + version +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", createUser=" + createUser +
-                ", updateUser=" + updateUser +
-                "}";
+        "roleId=" + roleId +
+        ", pid=" + pid +
+        ", name=" + name +
+        ", description=" + description +
+        ", sort=" + sort +
+        ", version=" + version +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", createUser=" + createUser +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }
