@@ -1,878 +1,1094 @@
-/****** 部门表 ******/
-CREATE TABLE [dbo].[sys_dept]
-(
-	[DEPT_ID] bigint NOT NULL ,
-	[PID] bigint NULL ,
-	[PIDS] nvarchar(512) NULL ,
-	[SIMPLE_NAME] nvarchar(45) NULL ,
-	[FULL_NAME] nvarchar(255) NULL ,
-	[DESCRIPTION] nvarchar(255) NULL ,
-	[VERSION] int NULL ,
-	[SORT] int NULL ,
-	[CREATE_TIME] datetime2(7) NULL ,
-	[UPDATE_TIME] datetime2(7) NULL ,
-	[CREATE_USER] bigint NULL ,
-	[UPDATE_USER] bigint NULL
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : testmssql
+ Source Server Type    : SQL Server
+ Source Server Version : 11006020
+ Source Host           : rm-m5eh4uoca2f178b7rfo.sqlserver.rds.aliyuncs.com:1433
+ Source Catalog        : guns
+ Source Schema         : dbo
+
+ Target Server Type    : SQL Server
+ Target Server Version : 11006020
+ File Encoding         : 65001
+
+ Date: 02/04/2019 15:37:04
+*/
+
+
+-- ----------------------------
+-- Table structure for sys_dept
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_dept]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_dept]
+GO
+
+CREATE TABLE [dbo].[sys_dept] (
+  [dept_id] bigint  NOT NULL,
+  [pid] bigint DEFAULT ((0)) NULL,
+  [pids] varchar(512) COLLATE Chinese_PRC_CI_AS DEFAULT '' NULL,
+  [simple_name] varchar(45) COLLATE Chinese_PRC_CI_AS  NULL,
+  [full_name] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [description] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [version] int  NULL,
+  [sort] int  NULL,
+  [create_time] datetime  NULL,
+  [update_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_user] bigint  NULL
 )
-ON [PRIMARY];
+GO
+
+ALTER TABLE [dbo].[sys_dept] SET (LOCK_ESCALATION = TABLE)
 GO
 
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'部门表', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', NULL, NULL;
+-- ----------------------------
+-- Records of [sys_dept]
+-- ----------------------------
+BEGIN TRANSACTION
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'主键id', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'DEPT_ID';
+INSERT INTO [dbo].[sys_dept]  VALUES (N'24', N'0', N'[0],', N'总公司', N'总公司', N'', NULL, N'1', NULL, NULL, NULL, NULL)
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'父部门id', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'PID';
+INSERT INTO [dbo].[sys_dept]  VALUES (N'25', N'24', N'[0],[24],', N'开发部', N'开发部', N'', NULL, N'2', NULL, NULL, NULL, NULL)
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'父级ids', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'PIDS';
+INSERT INTO [dbo].[sys_dept]  VALUES (N'26', N'24', N'[0],[24],', N'运营部', N'运营部', N'', NULL, N'3', NULL, NULL, NULL, NULL)
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'简称', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'SIMPLE_NAME';
+INSERT INTO [dbo].[sys_dept]  VALUES (N'27', N'24', N'[0],[24],', N'战略部', N'战略部', N'', NULL, N'4', NULL, NULL, NULL, NULL)
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'全称', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'FULL_NAME';
+COMMIT
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'描述', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'DESCRIPTION';
+
+-- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_dict]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_dict]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'版本（乐观锁保留字段）', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'VERSION';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'排序', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'SORT';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'CREATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'UPDATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建人', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'CREATE_USER';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改人', N'SCHEMA', N'dbo', N'TABLE', N'sys_dept', 'COLUMN', N'UPDATE_USER';
-GO
-
-ALTER TABLE [dbo].[sys_dept] ADD CONSTRAINT [PK_sys_dept] PRIMARY KEY CLUSTERED
-(
-[DEPT_ID]
+CREATE TABLE [dbo].[sys_dict] (
+  [dict_id] bigint  NOT NULL,
+  [dict_type_id] bigint  NOT NULL,
+  [code] varchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [name] varchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [parent_id] bigint  NOT NULL,
+  [parent_ids] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [status] varchar(10) COLLATE Chinese_PRC_CI_AS DEFAULT ('ENABLE') NOT NULL,
+  [sort] int  NULL,
+  [description] varchar(1000) COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL,
+  [update_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_user] bigint  NULL
 )
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
 GO
 
-insert into [dbo].[sys_dept]([DEPT_ID],[PID],[PIDS],[SIMPLE_NAME],[FULL_NAME],[DESCRIPTION],[VERSION],[SORT],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('24','0','[0],','总公司','总公司','',null,'1',null,null,null,null);
-insert into [dbo].[sys_dept]([DEPT_ID],[PID],[PIDS],[SIMPLE_NAME],[FULL_NAME],[DESCRIPTION],[VERSION],[SORT],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('25','24','[0],[24],','开发部','开发部','',null,'2',null,null,null,null);
-insert into [dbo].[sys_dept]([DEPT_ID],[PID],[PIDS],[SIMPLE_NAME],[FULL_NAME],[DESCRIPTION],[VERSION],[SORT],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('26','24','[0],[24],','运营部','运营部','',null,'3',null,null,null,null);
-insert into [dbo].[sys_dept]([DEPT_ID],[PID],[PIDS],[SIMPLE_NAME],[FULL_NAME],[DESCRIPTION],[VERSION],[SORT],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('27','24','[0],[24],','战略部','战略部','',null,'4',null,null,null,null);
+ALTER TABLE [dbo].[sys_dict] SET (LOCK_ESCALATION = TABLE)
 GO
 
-/****** 字典表 ******/
-CREATE TABLE [dbo].[sys_dict]
-(
-	[DICT_ID] bigint NOT NULL ,
-	[DICT_TYPE_ID] bigint NOT NULL ,
-	[CODE] nvarchar(50) NOT NULL ,
-	[NAME] nvarchar(255) NOT NULL ,
-	[PARENT_ID] bigint NOT NULL ,
-	[PARENT_IDS] nvarchar(50) NULL ,
-	[STATUS] nvarchar(10) NOT NULL ,
-	[SORT] int NULL ,
-	[DESCRIPTION] nvarchar(1000) NULL ,
-	[CREATE_TIME] datetime2(7) NULL ,
-	[UPDATE_TIME] datetime2(7) NULL ,
-	[CREATE_USER] bigint NULL ,
-	[UPDATE_USER] bigint NULL
+
+-- ----------------------------
+-- Records of [sys_dict]
+-- ----------------------------
+BEGIN TRANSACTION
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120532442595330', N'1106120208097067009', N'M', N'男', N'0', N'[0]', N'ENABLE', NULL, N'', N'2019-03-14 17:11:00.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120574163337218', N'1106120208097067009', N'F', N'女', N'0', N'[0]', N'ENABLE', NULL, N'', N'2019-03-14 17:11:10.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120645697191938', N'1106120265689055233', N'ENABLE', N'启用', N'0', N'[0]', N'ENABLE', NULL, N'', N'2019-03-14 17:11:27.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120699468169217', N'1106120265689055233', N'DISABLE', N'禁', N'0', N'[0]', N'ENABLE', NULL, N'', N'2019-03-14 17:11:40.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120784318939137', N'1106120322450571266', N'ENABLE', N'启用', N'0', N'[0]', N'ENABLE', NULL, N'', N'2019-03-14 17:12:00.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120825993543682', N'1106120322450571266', N'FREEZE', N'冻结', N'0', N'[0]', N'ENABLE', N'1', N'', N'2019-03-14 17:12:10.000', N'2019-03-16 10:56:36.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120875872206849', N'1106120322450571266', N'DELETED', N'已删除', N'0', N'[0]', N'ENABLE', N'-1221', N'', N'2019-03-14 17:12:22.000', N'2019-03-16 10:56:53.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120935070613505', N'1106120388036902914', N'Y', N'删除', N'0', N'[0]', N'ENABLE', N'23333', N'', N'2019-03-14 17:12:36.000', N'2019-03-16 10:58:53.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120968910258177', N'1106120388036902914', N'N', N'未删除', N'0', N'[0]', N'ENABLE', N'1212211221', N'', N'2019-03-14 17:12:44.000', N'2019-03-16 10:59:03.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106751061042974722', N'1106120322450571266', N'11212', N'122', N'0', N'[0]', N'ENABLE', N'1212', N'122112', N'2019-03-16 10:56:30.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1106751747772166145', N'1106120388036902914', N'12312', N'3123123', N'1106120968910258177', N'[0],[1106120968910258177]', N'ENABLE', N'123', N'', N'2019-03-16 10:59:14.000', NULL, N'1', NULL)
+GO
+
+COMMIT
+GO
+
+
+-- ----------------------------
+-- Table structure for sys_dict_type
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_dict_type]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_dict_type]
+GO
+
+CREATE TABLE [dbo].[sys_dict_type] (
+  [dict_type_id] bigint  NOT NULL,
+  [code] varchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [name] varchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [description] varchar(1000) COLLATE Chinese_PRC_CI_AS  NULL,
+  [system_flag] nvarchar(1) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [status] varchar(10) COLLATE Chinese_PRC_CI_AS DEFAULT ('ENABLE') NOT NULL,
+  [sort] int  NULL,
+  [create_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_time] datetime  NULL,
+  [update_user] bigint  NULL
 )
-ON [PRIMARY];
+GO
+
+ALTER TABLE [dbo].[sys_dict_type] SET (LOCK_ESCALATION = TABLE)
 GO
 
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'字典表', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', NULL, NULL;
+-- ----------------------------
+-- Records of [sys_dict_type]
+-- ----------------------------
+BEGIN TRANSACTION
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'字典id', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'DICT_ID';
+INSERT INTO [dbo].[sys_dict_type]  VALUES (N'1106120208097067009', N'SEX', N'性别', N'', N'Y', N'ENABLE', N'4', N'2019-03-14 17:09:43.000', N'1', NULL, NULL)
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'所属字典类型的id', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'DICT_TYPE_ID';
+INSERT INTO [dbo].[sys_dict_type]  VALUES (N'1106120265689055233', N'STATUS', N'状态', N'', N'Y', N'ENABLE', N'3', N'2019-03-14 17:09:57.000', N'1', NULL, NULL)
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'字典编码', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'CODE';
+INSERT INTO [dbo].[sys_dict_type]  VALUES (N'1106120322450571266', N'ACCOUNT_STATUS', N'账号状态', N'', N'Y', N'ENABLE', N'21112', N'2019-03-14 17:10:10.000', N'1', N'2019-03-16 10:56:15.000', N'1')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'字典名称', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'NAME';
+INSERT INTO [dbo].[sys_dict_type]  VALUES (N'1106120388036902914', N'DEL_FLAG', N'是否删除', N'', N'Y', N'ENABLE', N'2', N'2019-03-14 17:10:26.000', N'1', N'2019-03-27 16:26:31.000', N'1')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'上级代码id', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'PARENT_ID';
+COMMIT
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'所有上级id', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'PARENT_IDS';
+
+-- ----------------------------
+-- Table structure for sys_file_info
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_file_info]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_file_info]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'状态（字典）', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'STATUS';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'排序', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'SORT';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'字典的描述', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'DESCRIPTION';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'CREATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'更新时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'UPDATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建者', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'CREATE_USER';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'更新者', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict', 'COLUMN', N'UPDATE_USER';
-GO
-
-ALTER TABLE [dbo].[sys_dict] ADD CONSTRAINT [PK_sys_dict] PRIMARY KEY CLUSTERED
-(
-[DICT_ID]
+CREATE TABLE [dbo].[sys_file_info] (
+  [file_id] varchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [file_data] ntext COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL,
+  [update_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_user] bigint  NULL
 )
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
 GO
 
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106120532442595330','1106120208097067009','M','男','0','[0]','ENABLE',null,'','2019-03-14 17:11:00.0000000',null,'1',null);
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106120574163337218','1106120208097067009','F','女','0','[0]','ENABLE',null,'','2019-03-14 17:11:10.0000000',null,'1',null);
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106120645697191938','1106120265689055233','ENABLE','启用','0','[0]','ENABLE',null,'','2019-03-14 17:11:27.0000000',null,'1',null);
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106120699468169217','1106120265689055233','DISABLE','禁用','0','[0]','ENABLE',null,'','2019-03-14 17:11:40.0000000',null,'1',null);
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106120784318939137','1106120322450571266','ENABLE','启用','0','[0]','ENABLE',null,'','2019-03-14 17:12:00.0000000',null,'1',null);
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106120825993543682','1106120322450571266','FREEZE','冻结','0','[0]','ENABLE','1','','2019-03-14 17:12:10.0000000','2019-03-16 10:56:36.0000000','1','1');
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106120875872206849','1106120322450571266','DELETED','已删除','0','[0]','ENABLE','-1221','','2019-03-14 17:12:22.0000000','2019-03-16 10:56:53.0000000','1','1');
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106120935070613505','1106120388036902914','Y','删除','0','[0]','ENABLE','23333','','2019-03-14 17:12:36.0000000','2019-03-16 10:58:53.0000000','1','1');
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106120968910258177','1106120388036902914','N','未删除','0','[0]','ENABLE','1212211221','','2019-03-14 17:12:44.0000000','2019-03-16 10:59:03.0000000','1','1');
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106751061042974722','1106120322450571266','11212','122','0','[0]','ENABLE','1212','122112','2019-03-16 10:56:30.0000000',null,'1',null);
-insert into [dbo].[sys_dict]([DICT_ID],[DICT_TYPE_ID],[CODE],[NAME],[PARENT_ID],[PARENT_IDS],[STATUS],[SORT],[DESCRIPTION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1106751747772166145','1106120388036902914','12312','3123123','1106120968910258177','[0],[1106120968910258177]','ENABLE','123','','2019-03-16 10:59:14.0000000',null,'1',null);
+ALTER TABLE [dbo].[sys_file_info] SET (LOCK_ESCALATION = TABLE)
 GO
 
-/****** 字典类型表 ******/
-CREATE TABLE [dbo].[sys_dict_type]
-(
-	[DICT_TYPE_ID] bigint NOT NULL ,
-	[CODE] nvarchar(255) NOT NULL ,
-	[NAME] nvarchar(255) NOT NULL ,
-	[DESCRIPTION] nvarchar(1000) NULL ,
-	[SYSTEM_FLAG] char(1) NOT NULL ,
-	[STATUS] nvarchar(10) NOT NULL ,
-	[SORT] int NOT NULL ,
-	[CREATE_TIME] datetime2(7) NOT NULL ,
-	[CREATE_USER] bigint NOT NULL ,
-	[UPDATE_TIME] datetime2(7) NULL ,
-	[UPDATE_USER] bigint NULL
+
+-- ----------------------------
+-- Records of [sys_file_info]
+-- ----------------------------
+BEGIN TRANSACTION
+GO
+
+INSERT INTO [dbo].[sys_file_info]  VALUES (N'1', N'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', NULL, NULL, NULL, NULL)
+GO
+
+COMMIT
+GO
+
+
+-- ----------------------------
+-- Table structure for sys_login_log
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_login_log]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_login_log]
+GO
+
+CREATE TABLE [dbo].[sys_login_log] (
+  [login_log_id] bigint  NOT NULL,
+  [log_name] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [user_id] bigint  NULL,
+  [create_time] datetime  NULL,
+  [succeed] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [message] ntext COLLATE Chinese_PRC_CI_AS  NULL,
+  [ip_address] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL
 )
-ON [PRIMARY];
+GO
+
+ALTER TABLE [dbo].[sys_login_log] SET (LOCK_ESCALATION = TABLE)
 GO
 
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'字典类型表', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', NULL, NULL;
+-- ----------------------------
+-- Table structure for sys_menu
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_menu]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_menu]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'字典类型id', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'DICT_TYPE_ID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'字典类型编码', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'CODE';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'字典类型名称', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'NAME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'描述', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'DESCRIPTION';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'是否是系统字典，Y-是，N-否', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'SYSTEM_FLAG';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'状态(字典)', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'STATUS';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'排序', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'SORT';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'添加时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'CREATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建人', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'CREATE_USER';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'UPDATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改人', N'SCHEMA', N'dbo', N'TABLE', N'sys_dict_type', 'COLUMN', N'UPDATE_USER';
-GO
-
-ALTER TABLE [dbo].[sys_dict_type] ADD CONSTRAINT [PK_sys_dict_type] PRIMARY KEY CLUSTERED
-(
-[DICT_TYPE_ID]
+CREATE TABLE [dbo].[sys_menu] (
+  [menu_id] bigint  NOT NULL,
+  [code] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [pcode] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [pcodes] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [name] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [icon] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [url] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [sort] int  NULL,
+  [levels] int  NULL,
+  [menu_flag] varchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [description] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [status] varchar(32) COLLATE Chinese_PRC_CI_AS DEFAULT ('ENABLE') NULL,
+  [new_page_flag] varchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [open_flag] varchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL,
+  [update_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_user] bigint  NULL
 )
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
 GO
 
-insert into [dbo].[sys_dict_type]([DICT_TYPE_ID],[CODE],[NAME],[DESCRIPTION],[SYSTEM_FLAG],[STATUS],[SORT],[CREATE_TIME],[CREATE_USER],[UPDATE_TIME],[UPDATE_USER]) values('1106120208097067009','SEX','性别','','Y','ENABLE','4','2019-03-14 17:09:43.0000000','1',null,null);
-insert into [dbo].[sys_dict_type]([DICT_TYPE_ID],[CODE],[NAME],[DESCRIPTION],[SYSTEM_FLAG],[STATUS],[SORT],[CREATE_TIME],[CREATE_USER],[UPDATE_TIME],[UPDATE_USER]) values('1106120265689055233','STATUS','状态','','Y','ENABLE','3','2019-03-14 17:09:57.0000000','1',null,null);
-insert into [dbo].[sys_dict_type]([DICT_TYPE_ID],[CODE],[NAME],[DESCRIPTION],[SYSTEM_FLAG],[STATUS],[SORT],[CREATE_TIME],[CREATE_USER],[UPDATE_TIME],[UPDATE_USER]) values('1106120322450571266','ACCOUNT_STATUS','账号状态','N','Y','ENABLE','21112','2019-03-14 17:10:10.0000000','1','2019-03-16 10:56:15.0000000','1');
-insert into [dbo].[sys_dict_type]([DICT_TYPE_ID],[CODE],[NAME],[DESCRIPTION],[SYSTEM_FLAG],[STATUS],[SORT],[CREATE_TIME],[CREATE_USER],[UPDATE_TIME],[UPDATE_USER]) values('1106120388036902914','DEL_FLAG','是否删除','','Y','ENABLE','2','2019-03-14 17:10:26.0000000','1','2019-03-27 16:26:31.0000000','1');
+ALTER TABLE [dbo].[sys_menu] SET (LOCK_ESCALATION = TABLE)
 GO
 
-/****** 文件信息表 ******/
-CREATE TABLE [dbo].[sys_file_info]
-(
-	[FILE_ID] nvarchar(50) NOT NULL ,
-	[FILE_DATA] nvarchar(MAX) NULL ,
-	[CREATE_TIME] datetime2(7) NULL ,
-	[UPDATE_TIME] datetime2(7) NULL ,
-	[CREATE_USER] bigint NULL ,
-	[UPDATE_USER] bigint NULL
+
+-- ----------------------------
+-- Records of [sys_menu]
+-- ----------------------------
+BEGIN TRANSACTION
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'105', N'system', N'0', N'[0],', N'系统管理', N'layui-icon layui-icon-set', N'#', N'20', N'1', N'Y', NULL, N'ENABLE', NULL, N'1', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'106', N'mgr', N'system', N'[0],[system],', N'用户管理', N'', N'/mgr', N'1', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'107', N'mgr_add', N'mgr', N'[0],[system],[mgr],', N'添加用户', NULL, N'/mgr/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'108', N'mgr_edit', N'mgr', N'[0],[system],[mgr],', N'修改用户', NULL, N'/mgr/edit', N'2', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'109', N'mgr_delete', N'mgr', N'[0],[system],[mgr],', N'删除用户', NULL, N'/mgr/delete', N'3', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'110', N'mgr_reset', N'mgr', N'[0],[system],[mgr],', N'重置密码', NULL, N'/mgr/reset', N'4', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'111', N'mgr_freeze', N'mgr', N'[0],[system],[mgr],', N'冻结用户', NULL, N'/mgr/freeze', N'5', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'112', N'mgr_unfreeze', N'mgr', N'[0],[system],[mgr],', N'解除冻结用户', NULL, N'/mgr/unfreeze', N'6', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'113', N'mgr_setRole', N'mgr', N'[0],[system],[mgr],', N'分配角色', NULL, N'/mgr/setRole', N'7', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'114', N'role', N'system', N'[0],[system],', N'角色管理', NULL, N'/role', N'2', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'115', N'role_add', N'role', N'[0],[system],[role],', N'添加角色', NULL, N'/role/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'116', N'role_edit', N'role', N'[0],[system],[role],', N'修改角色', NULL, N'/role/edit', N'2', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'117', N'role_remove', N'role', N'[0],[system],[role],', N'删除角色', NULL, N'/role/remove', N'3', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'118', N'role_setAuthority', N'role', N'[0],[system],[role],', N'配置权限', NULL, N'/role/setAuthority', N'4', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'119', N'menu', N'system', N'[0],[system],', N'菜单管理', NULL, N'/menu', N'4', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'120', N'menu_add', N'menu', N'[0],[system],[menu],', N'添加菜单', NULL, N'/menu/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'121', N'menu_edit', N'menu', N'[0],[system],[menu],', N'修改菜单', NULL, N'/menu/edit', N'2', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'122', N'menu_remove', N'menu', N'[0],[system],[menu],', N'删除菜单', NULL, N'/menu/remove', N'3', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'128', N'log', N'system', N'[0],[system],', N'业务日志', NULL, N'/log', N'6', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'130', N'druid', N'system', N'[0],[system],', N'监控管理', NULL, N'/druid', N'7', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'131', N'dept', N'system', N'[0],[system],', N'部门管理', NULL, N'/dept', N'3', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'132', N'dict', N'system', N'[0],[system],', N'字典管理', N'', N'/dictType', N'4', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'133', N'loginLog', N'system', N'[0],[system],', N'登录日志', NULL, N'/loginLog', N'6', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'134', N'log_clean', N'log', N'[0],[system],[log],', N'清空日志', NULL, N'/log/delLog', N'3', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'135', N'dept_add', N'dept', N'[0],[system],[dept],', N'添加部门', NULL, N'/dept/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'136', N'dept_update', N'dept', N'[0],[system],[dept],', N'修改部门', NULL, N'/dept/update', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'137', N'dept_delete', N'dept', N'[0],[system],[dept],', N'删除部门', NULL, N'/dept/delete', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'138', N'dict_add', N'dict', N'[0],[system],[dict],', N'添加字典', NULL, N'/dictType/addItem', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'139', N'dict_update', N'dict', N'[0],[system],[dict],', N'修改字典', NULL, N'/dictType/editItem', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'140', N'dict_delete', N'dict', N'[0],[system],[dict],', N'删除字典', NULL, N'/dictType/delete', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'141', N'notice', N'system', N'[0],[system],', N'通知管理', NULL, N'/notice', N'9', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'142', N'notice_add', N'notice', N'[0],[system],[notice],', N'添加通知', NULL, N'/notice/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'143', N'notice_update', N'notice', N'[0],[system],[notice],', N'修改通知', NULL, N'/notice/update', N'2', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'144', N'notice_delete', N'notice', N'[0],[system],[notice],', N'删除通知', NULL, N'/notice/delete', N'3', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'145', N'sys_message', N'dashboard', N'[0],[dashboard],', N'消息页', N'layui-icon layui-icon-tips', N'/system/notice', N'30', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 17:30:28.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'149', N'api_mgr', N'dev_tools', N'[0],[dev_tools],', N'接口文档', N'fa-leaf', N'/swagger-ui.html', N'2', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:31:59.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'150', N'to_menu_edit', N'menu', N'[0],[system],[menu],', N'菜单编辑跳转', N'', N'/menu/menu_edit', N'4', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'151', N'menu_list', N'menu', N'[0],[system],[menu],', N'菜单列表', N'', N'/menu/list', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'152', N'to_dept_update', N'dept', N'[0],[system],[dept],', N'修改部门跳转', N'', N'/dept/dept_update', N'4', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'153', N'dept_list', N'dept', N'[0],[system],[dept],', N'部门列表', N'', N'/dept/list', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'154', N'dept_detail', N'dept', N'[0],[system],[dept],', N'部门详情', N'', N'/dept/detail', N'6', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'155', N'to_dict_edit', N'dict', N'[0],[system],[dict],', N'修改菜单跳转', N'', N'/dict/dict_edit', N'4', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'156', N'dict_list', N'dict', N'[0],[system],[dict],', N'字典列表', N'', N'/dict/list', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'157', N'dict_detail', N'dict', N'[0],[system],[dict],', N'字典详情', N'', N'/dict/detail', N'6', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'158', N'log_list', N'log', N'[0],[system],[log],', N'日志列表', N'', N'/log/list', N'2', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'159', N'log_detail', N'log', N'[0],[system],[log],', N'日志详情', N'', N'/log/detail', N'3', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'160', N'del_login_log', N'loginLog', N'[0],[system],[loginLog],', N'清空登录日志', N'', N'/loginLog/delLoginLog', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'161', N'login_log_list', N'loginLog', N'[0],[system],[loginLog],', N'登录日志列表', N'', N'/loginLog/list', N'2', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'162', N'to_role_edit', N'role', N'[0],[system],[role],', N'修改角色跳转', N'', N'/role/role_edit', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'163', N'to_role_assign', N'role', N'[0],[system],[role],', N'角色分配跳转', N'', N'/role/role_assign', N'6', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'164', N'role_list', N'role', N'[0],[system],[role],', N'角色列表', N'', N'/role/list', N'7', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'165', N'to_assign_role', N'mgr', N'[0],[system],[mgr],', N'分配角色跳转', N'', N'/mgr/role_assign', N'8', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'166', N'to_user_edit', N'mgr', N'[0],[system],[mgr],', N'编辑用户跳转', N'', N'/mgr/user_edit', N'9', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'167', N'mgr_list', N'mgr', N'[0],[system],[mgr],', N'用户列表', N'', N'/mgr/list', N'10', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'171', N'dev_tools', N'0', N'[0],', N'API管理', N'layui-icon layui-icon-app', N'#', N'30', N'1', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:31:59.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'172', N'dashboard', N'0', N'[0],', N'Dashboard', N'layui-icon layui-icon-home', N'#', N'10', N'1', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:26:22.000', NULL, N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110777136265838594', N'demos_show', N'0', N'[0],', N'demos展示', N'layui-icon layui-icon-fire', N'#', N'40', N'1', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 13:34:41.000', N'2019-03-27 13:34:59.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110777366856089602', N'excel_import', N'demos_show', N'[0],[demos_show],', N'excel导入', N'', N'/excel/import', N'10', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 13:35:36.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110777491464667137', N'excel_export', N'demos_show', N'[0],[demos_show],', N'excel导出', N'', N'/excel/export', N'20', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 13:36:06.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110787391943098370', N'advanced_form', N'demos_show', N'[0],[demos_show],', N'高级表单', N'', N'/egForm', N'30', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 14:15:26.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110839216310329346', N'pdf_view', N'demos_show', N'[0],[demos_show],', N'pdf预览', N'', N'/loadPdfFile', N'40', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 17:41:22.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1111545968697860098', N'console', N'dashboard', N'[0],[dashboard],', N'控制台', N'', N'/system/console', N'10', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-29 16:29:45.000', NULL, N'1', NULL)
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1111546189892870145', N'console2', N'dashboard', N'[0],[dashboard],', N'分析页', N'', N'/system/console2', N'20', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-29 16:30:38.000', NULL, N'1', NULL)
+GO
+
+COMMIT
+GO
+
+
+-- ----------------------------
+-- Table structure for sys_notice
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_notice]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_notice]
+GO
+
+CREATE TABLE [dbo].[sys_notice] (
+  [notice_id] bigint  NOT NULL,
+  [title] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [content] ntext COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_time] datetime  NULL,
+  [update_user] bigint  NULL
 )
-ON [PRIMARY];
+GO
+
+ALTER TABLE [dbo].[sys_notice] SET (LOCK_ESCALATION = TABLE)
 GO
 
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'文件信息表
-', N'SCHEMA', N'dbo', N'TABLE', N'sys_file_info', NULL, NULL;
+-- ----------------------------
+-- Records of [sys_notice]
+-- ----------------------------
+BEGIN TRANSACTION
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'主键id', N'SCHEMA', N'dbo', N'TABLE', N'sys_file_info', 'COLUMN', N'FILE_ID';
+INSERT INTO [dbo].[sys_notice]  VALUES (N'6', N'欢迎', N'hi，Guns旗舰版发布了！', N'2017-01-11 08:53:20.000', N'1', N'2018-12-28 23:24:48.000', N'1')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'base64编码的文件', N'SCHEMA', N'dbo', N'TABLE', N'sys_file_info', 'COLUMN', N'FILE_DATA';
+INSERT INTO [dbo].[sys_notice]  VALUES (N'8', N'你好', N'你好，世界！', N'2017-05-10 19:28:57.000', N'1', N'2018-12-28 23:28:26.000', N'1')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_file_info', 'COLUMN', N'CREATE_TIME';
+COMMIT
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_file_info', 'COLUMN', N'UPDATE_TIME';
+
+-- ----------------------------
+-- Table structure for sys_operation_log
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_operation_log]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_operation_log]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建用户', N'SCHEMA', N'dbo', N'TABLE', N'sys_file_info', 'COLUMN', N'CREATE_USER';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改用户', N'SCHEMA', N'dbo', N'TABLE', N'sys_file_info', 'COLUMN', N'UPDATE_USER';
-GO
-
-ALTER TABLE [dbo].[sys_file_info] ADD CONSTRAINT [PK_sys_file_info] PRIMARY KEY CLUSTERED
-(
-[FILE_ID]
+CREATE TABLE [dbo].[sys_operation_log] (
+  [operation_log_id] bigint  NOT NULL,
+  [log_type] varchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [log_name] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [user_id] bigint  NULL,
+  [class_name] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [method] ntext COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL,
+  [succeed] varchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [message] ntext COLLATE Chinese_PRC_CI_AS  NULL
 )
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
 GO
 
-insert into [dbo].[sys_file_info]([FILE_ID],[FILE_DATA],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1','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',null,null,null,null);
+ALTER TABLE [dbo].[sys_operation_log] SET (LOCK_ESCALATION = TABLE)
 GO
 
-/****** 登录记录 ******/
-CREATE TABLE [dbo].[sys_login_log]
-(
-	[LOGIN_LOG_ID] bigint NOT NULL ,
-	[LOG_NAME] nvarchar(255) NULL ,
-	[USER_ID] bigint NULL ,
-	[CREATE_TIME] datetime2(7) NULL ,
-	[SUCCEED] nvarchar(255) NULL ,
-	[MESSAGE] nvarchar(MAX) NULL ,
-	[IP_ADDRESS] nvarchar(255) NULL
+
+-- ----------------------------
+-- Table structure for sys_relation
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_relation]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_relation]
+GO
+
+CREATE TABLE [dbo].[sys_relation] (
+  [relation_id] bigint  NOT NULL,
+  [menu_id] bigint  NULL,
+  [role_id] bigint  NULL
 )
-ON [PRIMARY];
+GO
+
+ALTER TABLE [dbo].[sys_relation] SET (LOCK_ESCALATION = TABLE)
 GO
 
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'登录记录', N'SCHEMA', N'dbo', N'TABLE', N'sys_login_log', NULL, NULL;
+-- ----------------------------
+-- Records of [sys_relation]
+-- ----------------------------
+BEGIN TRANSACTION
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'主键', N'SCHEMA', N'dbo', N'TABLE', N'sys_login_log', 'COLUMN', N'LOGIN_LOG_ID';
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922291826689', N'105', N'5')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'日志名称', N'SCHEMA', N'dbo', N'TABLE', N'sys_login_log', 'COLUMN', N'LOG_NAME';
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922308603906', N'106', N'5')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'管理员id', N'SCHEMA', N'dbo', N'TABLE', N'sys_login_log', 'COLUMN', N'USER_ID';
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922316992514', N'107', N'5')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_login_log', 'COLUMN', N'CREATE_TIME';
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922321186818', N'108', N'5')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'是否执行成功', N'SCHEMA', N'dbo', N'TABLE', N'sys_login_log', 'COLUMN', N'SUCCEED';
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922329575426', N'109', N'5')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'具体消息', N'SCHEMA', N'dbo', N'TABLE', N'sys_login_log', 'COLUMN', N'MESSAGE';
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922337964034', N'110', N'5')
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'登录ip', N'SCHEMA', N'dbo', N'TABLE', N'sys_login_log', 'COLUMN', N'IP_ADDRESS';
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922342158337', N'111', N'5')
 GO
 
-ALTER TABLE [dbo].[sys_login_log] ADD CONSTRAINT [PK_sys_login_log] PRIMARY KEY CLUSTERED
-(
-[LOGIN_LOG_ID]
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922350546946', N'112', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922354741249', N'113', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922363129858', N'165', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922371518465', N'166', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922375712770', N'167', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922384101377', N'114', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922388295681', N'115', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922396684289', N'116', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922405072897', N'117', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922413461505', N'118', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922417655810', N'162', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922426044418', N'163', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922430238722', N'164', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922430238723', N'119', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922447015937', N'120', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922451210242', N'121', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922459598850', N'122', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922463793154', N'150', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922472181762', N'151', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922476376065', N'128', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922480570369', N'134', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922488958977', N'158', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922497347586', N'159', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922501541890', N'130', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922501541891', N'131', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922518319106', N'135', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922526707713', N'136', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922530902017', N'137', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922535096321', N'152', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922543484930', N'153', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922547679233', N'154', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922556067841', N'132', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922560262146', N'138', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922564456450', N'139', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922568650754', N'140', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922577039361', N'155', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922577039362', N'156', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922577039363', N'157', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922602205185', N'133', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922610593794', N'160', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922610593795', N'161', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922618982402', N'141', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922627371009', N'142', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922631565313', N'143', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922639953922', N'144', N'5')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349351919618', N'105', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349364502529', N'106', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349381279746', N'107', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349393862658', N'108', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349410639873', N'109', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349427417089', N'110', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349440000001', N'111', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349460971521', N'112', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349473554433', N'113', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349490331650', N'165', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349502914561', N'166', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349519691778', N'167', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349532274689', N'114', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349544857601', N'115', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349557440514', N'116', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349570023425', N'117', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349586800641', N'118', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349599383554', N'162', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349616160769', N'163', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349628743682', N'164', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349645520897', N'119', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349662298113', N'120', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349679075329', N'121', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349700046849', N'122', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349716824065', N'150', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349737795586', N'151', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349758767106', N'128', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349779738626', N'134', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349800710146', N'158', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349821681666', N'159', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349846847490', N'130', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349863624706', N'131', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349884596226', N'135', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349901373442', N'136', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349922344962', N'137', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349939122178', N'152', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349960093697', N'153', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349976870914', N'154', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349993648129', N'132', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350010425346', N'138', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350031396865', N'139', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350048174081', N'140', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350069145602', N'155', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350085922818', N'156', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350106894338', N'157', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350127865858', N'133', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350144643073', N'160', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350169808898', N'161', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350186586113', N'141', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350211751937', N'142', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350232723458', N'143', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350262083585', N'144', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350278860801', N'171', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350299832322', N'149', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350324998146', N'172', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350345969665', N'145', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350371135489', N'1111545968697860098', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350387912705', N'1111546189892870145', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350404689921', N'1110777136265838594', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350421467137', N'1110777366856089602', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350446632962', N'1110777491464667137', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350459215873', N'1110787391943098370', N'1')
+GO
+
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350471798786', N'1110839216310329346', N'1')
+GO
+
+COMMIT
+GO
+
+
+-- ----------------------------
+-- Table structure for sys_role
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_role]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_role]
+GO
+
+CREATE TABLE [dbo].[sys_role] (
+  [role_id] bigint  NOT NULL,
+  [pid] bigint  NULL,
+  [name] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [description] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [sort] int  NULL,
+  [version] int  NULL,
+  [create_time] datetime  NULL,
+  [update_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_user] bigint  NULL
 )
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
+GO
+
+ALTER TABLE [dbo].[sys_role] SET (LOCK_ESCALATION = TABLE)
 GO
 
 
-/****** 菜单表 ******/
-CREATE TABLE [dbo].[sys_menu]
-(
-	[MENU_ID] bigint NOT NULL ,
-	[CODE] nvarchar(255) NULL ,
-	[PCODE] nvarchar(255) NULL ,
-	[PCODES] nvarchar(255) NULL ,
-	[NAME] nvarchar(255) NULL ,
-	[ICON] nvarchar(255) NULL ,
-	[URL] nvarchar(255) NULL ,
-	[SORT] int NULL ,
-	[LEVELS] int NULL ,
-	[MENU_FLAG] nvarchar(32) NULL ,
-	[DESCRIPTION] nvarchar(255) NULL ,
-	[STATUS] nvarchar(32) NULL ,
-	[NEW_PAGE_FLAG] nvarchar(32) NULL ,
-	[OPEN_FLAG] nvarchar(32) NULL ,
-	[CREATE_TIME] datetime2(7) NULL ,
-	[UPDATE_TIME] datetime2(7) NULL ,
-	[CREATE_USER] bigint NULL ,
-	[UPDATE_USER] bigint NULL
+-- ----------------------------
+-- Records of [sys_role]
+-- ----------------------------
+BEGIN TRANSACTION
+GO
+
+INSERT INTO [dbo].[sys_role]  VALUES (N'1', N'0', N'超级管理员', N'administrator', N'1', N'1', NULL, NULL, NULL, NULL)
+GO
+
+INSERT INTO [dbo].[sys_role]  VALUES (N'5', N'1', N'临时', N'temp', N'2', NULL, NULL, NULL, NULL, NULL)
+GO
+
+COMMIT
+GO
+
+
+-- ----------------------------
+-- Table structure for sys_user
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_user]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_user]
+GO
+
+CREATE TABLE [dbo].[sys_user] (
+  [user_id] bigint  NOT NULL,
+  [avatar] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [account] varchar(45) COLLATE Chinese_PRC_CI_AS  NULL,
+  [password] varchar(45) COLLATE Chinese_PRC_CI_AS  NULL,
+  [salt] varchar(45) COLLATE Chinese_PRC_CI_AS  NULL,
+  [name] varchar(45) COLLATE Chinese_PRC_CI_AS  NULL,
+  [birthday] datetime  NULL,
+  [sex] varchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [email] varchar(45) COLLATE Chinese_PRC_CI_AS  NULL,
+  [phone] varchar(45) COLLATE Chinese_PRC_CI_AS  NULL,
+  [role_id] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [dept_id] bigint  NULL,
+  [status] varchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_time] datetime  NULL,
+  [update_user] bigint  NULL,
+  [version] int  NULL
 )
-ON [PRIMARY];
 GO
 
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'菜单表', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', NULL, NULL;
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'主键id', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'MENU_ID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'菜单编号', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'CODE';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'菜单父编号', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'PCODE';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'当前菜单的所有父菜单编号', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'PCODES';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'菜单名称', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'NAME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'菜单图标', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'ICON';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'url地址', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'URL';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'菜单排序号', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'SORT';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'菜单层级', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'LEVELS';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'是否是菜单(字典)', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'MENU_FLAG';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'备注', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'DESCRIPTION';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'菜单状态(字典)', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'STATUS';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'是否打开新页面的标识(字典)', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'NEW_PAGE_FLAG';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'是否打开(字典)', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'OPEN_FLAG';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'CREATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'UPDATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建人', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'CREATE_USER';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改人', N'SCHEMA', N'dbo', N'TABLE', N'sys_menu', 'COLUMN', N'UPDATE_USER';
-GO
-
-ALTER TABLE [dbo].[sys_menu] ADD CONSTRAINT [PK_sys_menu] PRIMARY KEY CLUSTERED
-(
-[MENU_ID]
-)
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
-GO
-
-
-
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('105','system','0','[0],','系统管理','layui-icon layui-icon-username','#','30','1','Y',null,'ENABLE',null,'1',null,'2019-02-11 15:49:05.0000000',null,'1');
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('106','mgr','system','[0],[system],','用户管理','','/mgr','1','2','Y',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('107','mgr_add','mgr','[0],[system],[mgr],','添加用户',null,'/mgr/add','1','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('108','mgr_edit','mgr','[0],[system],[mgr],','修改用户',null,'/mgr/edit','2','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('109','mgr_delete','mgr','[0],[system],[mgr],','删除用户',null,'/mgr/delete','3','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('110','mgr_reset','mgr','[0],[system],[mgr],','重置密码',null,'/mgr/reset','4','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('111','mgr_freeze','mgr','[0],[system],[mgr],','冻结用户',null,'/mgr/freeze','5','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('112','mgr_unfreeze','mgr','[0],[system],[mgr],','解除冻结用户',null,'/mgr/unfreeze','6','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('113','mgr_setRole','mgr','[0],[system],[mgr],','分配角色',null,'/mgr/setRole','7','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('114','role','system','[0],[system],','角色管理',null,'/role','2','2','Y',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('115','role_add','role','[0],[system],[role],','添加角色',null,'/role/add','1','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('116','role_edit','role','[0],[system],[role],','修改角色',null,'/role/edit','2','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('117','role_remove','role','[0],[system],[role],','删除角色',null,'/role/remove','3','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('118','role_setAuthority','role','[0],[system],[role],','配置权限',null,'/role/setAuthority','4','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('119','menu','system','[0],[system],','菜单管理',null,'/menu','4','2','Y',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('120','menu_add','menu','[0],[system],[menu],','添加菜单',null,'/menu/add','1','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('121','menu_edit','menu','[0],[system],[menu],','修改菜单',null,'/menu/edit','2','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('122','menu_remove','menu','[0],[system],[menu],','删除菜单',null,'/menu/remove','3','3','N',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('128','log','system','[0],[system],','业务日志',null,'/log','6','2','Y',null,'ENABLE',null,'0',null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('130','druid','system','[0],[system],','监控管理',null,'/druid','7','2','Y',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('131','dept','system','[0],[system],','部门管理',null,'/dept','3','2','Y',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('132','dict','system','[0],[system],','字典管理',null,'/dictType','4','2','Y',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('133','loginLog','system','[0],[system],','登录日志',null,'/loginLog','6','2','Y',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('134','log_clean','log','[0],[system],[log],','清空日志',null,'/log/delLog','3','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('135','dept_add','dept','[0],[system],[dept],','添加部门',null,'/dept/add','1','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('136','dept_update','dept','[0],[system],[dept],','修改部门',null,'/dept/update','1','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('137','dept_delete','dept','[0],[system],[dept],','删除部门',null,'/dept/delete','1','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('138','dict_add','dict','[0],[system],[dict],','添加字典',null,'/dictType/addItem','1','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('139','dict_update','dict','[0],[system],[dict],','修改字典',null,'/dictType/editItem','1','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('140','dict_delete','dict','[0],[system],[dict],','删除字典',null,'/dictType/delete','1','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('141','notice','system','[0],[system],','通知管理',null,'/notice','9','2','Y',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('142','notice_add','notice','[0],[system],[notice],','添加通知',null,'/notice/add','1','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('143','notice_update','notice','[0],[system],[notice],','修改通知',null,'/notice/update','2','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('144','notice_delete','notice','[0],[system],[notice],','删除通知',null,'/notice/delete','3','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('145','hello','system_message','[0],[system_message],','系统消息','layui-icon layui-icon-tips','/notice/hello','1','2','Y',null,'ENABLE',null,null,null,'2019-02-11 15:47:19.0000000',null,'1');
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('149','api_mgr','dev_tools','[0],[dev_tools],','接口文档','fa-leaf','/swagger-ui.html','2','2','Y',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('150','to_menu_edit','menu','[0],[system],[menu],','菜单编辑跳转','','/menu/menu_edit','4','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('151','menu_list','menu','[0],[system],[menu],','菜单列表','','/menu/list','5','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('152','to_dept_update','dept','[0],[system],[dept],','修改部门跳转','','/dept/dept_update','4','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('153','dept_list','dept','[0],[system],[dept],','部门列表','','/dept/list','5','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('154','dept_detail','dept','[0],[system],[dept],','部门详情','','/dept/detail','6','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('155','to_dict_edit','dict','[0],[system],[dict],','修改菜单跳转','','/dict/dict_edit','4','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('156','dict_list','dict','[0],[system],[dict],','字典列表','','/dict/list','5','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('157','dict_detail','dict','[0],[system],[dict],','字典详情','','/dict/detail','6','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('158','log_list','log','[0],[system],[log],','日志列表','','/log/list','2','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('159','log_detail','log','[0],[system],[log],','日志详情','','/log/detail','3','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('160','del_login_log','loginLog','[0],[system],[loginLog],','清空登录日志','','/loginLog/delLoginLog','1','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('161','login_log_list','loginLog','[0],[system],[loginLog],','登录日志列表','','/loginLog/list','2','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('162','to_role_edit','role','[0],[system],[role],','修改角色跳转','','/role/role_edit','5','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('163','to_role_assign','role','[0],[system],[role],','角色分配跳转','','/role/role_assign','6','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('164','role_list','role','[0],[system],[role],','角色列表','','/role/list','7','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('165','to_assign_role','mgr','[0],[system],[mgr],','分配角色跳转','','/mgr/role_assign','8','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('166','to_user_edit','mgr','[0],[system],[mgr],','编辑用户跳转','','/mgr/user_edit','9','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('167','mgr_list','mgr','[0],[system],[mgr],','用户列表','','/mgr/list','10','3','N',null,'ENABLE',null,null,null,null,null,null);
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('171','dev_tools','0','[0],','开发工具','layui-icon layui-icon-app','#','20','1','Y',null,'ENABLE',null,null,null,'2019-02-11 15:49:25.0000000',null,'1');
-insert into [dbo].[sys_menu]([MENU_ID],[CODE],[PCODE],[PCODES],[NAME],[ICON],[URL],[SORT],[LEVELS],[MENU_FLAG],[DESCRIPTION],[STATUS],[NEW_PAGE_FLAG],[OPEN_FLAG],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('172','system_message','0','[0],','系统消息','layui-icon layui-icon-tips','#','10','1','Y',null,'ENABLE',null,null,null,'2019-02-11 15:47:32.0000000',null,'1');
-GO
-
-
-/****** 通知表 ******/
-CREATE TABLE [dbo].[sys_notice]
-(
-	[NOTICE_ID] bigint NOT NULL ,
-	[TITLE] nvarchar(255) NULL ,
-	[CONTENT] nvarchar(MAX) NULL ,
-	[CREATE_TIME] datetime2(7) NULL ,
-	[CREATE_USER] bigint NULL ,
-	[UPDATE_TIME] datetime2(7) NULL ,
-	[UPDATE_USER] bigint NULL
-)
-ON [PRIMARY];
-GO
-
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'通知表', N'SCHEMA', N'dbo', N'TABLE', N'sys_notice', NULL, NULL;
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'主键', N'SCHEMA', N'dbo', N'TABLE', N'sys_notice', 'COLUMN', N'NOTICE_ID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'标题', N'SCHEMA', N'dbo', N'TABLE', N'sys_notice', 'COLUMN', N'TITLE';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'内容', N'SCHEMA', N'dbo', N'TABLE', N'sys_notice', 'COLUMN', N'CONTENT';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_notice', 'COLUMN', N'CREATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建人', N'SCHEMA', N'dbo', N'TABLE', N'sys_notice', 'COLUMN', N'CREATE_USER';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_notice', 'COLUMN', N'UPDATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改人', N'SCHEMA', N'dbo', N'TABLE', N'sys_notice', 'COLUMN', N'UPDATE_USER';
-GO
-
-ALTER TABLE [dbo].[sys_notice] ADD CONSTRAINT [PK_sys_notice] PRIMARY KEY CLUSTERED
-(
-[NOTICE_ID]
-)
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
-GO
-
-
-insert into [dbo].[sys_notice]([NOTICE_ID],[TITLE],[CONTENT],[CREATE_TIME],[CREATE_USER],[UPDATE_TIME],[UPDATE_USER]) values('6','欢迎','hi，Guns旗舰版发布了！','2017-01-11 08:53:20.0000000','1','2018-12-28 23:24:48.0000000','1');
-insert into [dbo].[sys_notice]([NOTICE_ID],[TITLE],[CONTENT],[CREATE_TIME],[CREATE_USER],[UPDATE_TIME],[UPDATE_USER]) values('8','你好','你好，世界！','2017-05-10 19:28:57.0000000','1','2018-12-28 23:28:26.0000000','1');
-GO
-
-/****** 操作日志 ******/
-CREATE TABLE [dbo].[sys_operation_log]
-(
-	[OPERATION_LOG_ID] bigint NOT NULL ,
-	[LOG_TYPE] nvarchar(32) NULL ,
-	[LOG_NAME] nvarchar(255) NULL ,
-	[USER_ID] bigint NULL ,
-	[CLASS_NAME] nvarchar(255) NULL ,
-	[METHOD] nvarchar(MAX) NULL ,
-	[CREATE_TIME] datetime2(7) NULL ,
-	[SUCCEED] nvarchar(32) NULL ,
-	[MESSAGE] nvarchar(MAX) NULL
-)
-ON [PRIMARY];
-GO
-
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'操作日志', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', NULL, NULL;
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'主键', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', 'COLUMN', N'OPERATION_LOG_ID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'日志类型(字典)', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', 'COLUMN', N'LOG_TYPE';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'日志名称', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', 'COLUMN', N'LOG_NAME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'用户id', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', 'COLUMN', N'USER_ID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'类名称', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', 'COLUMN', N'CLASS_NAME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'方法名称', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', 'COLUMN', N'METHOD';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', 'COLUMN', N'CREATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'是否成功(字典)', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', 'COLUMN', N'SUCCEED';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'备注', N'SCHEMA', N'dbo', N'TABLE', N'sys_operation_log', 'COLUMN', N'MESSAGE';
-GO
-
-ALTER TABLE [dbo].[sys_operation_log] ADD CONSTRAINT [PK_sys_operation_log] PRIMARY KEY CLUSTERED
-(
-[OPERATION_LOG_ID]
-)
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
-GO
-
-
-/****** 角色和菜单关联表 ******/
-CREATE TABLE [dbo].[sys_relation]
-(
-	[RELATION_ID] bigint NOT NULL ,
-	[MENU_ID] bigint NULL ,
-	[ROLE_ID] bigint NULL
-)
-ON [PRIMARY];
-GO
-
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'角色和菜单关联表', N'SCHEMA', N'dbo', N'TABLE', N'sys_relation', NULL, NULL;
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'主键', N'SCHEMA', N'dbo', N'TABLE', N'sys_relation', 'COLUMN', N'RELATION_ID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'菜单id', N'SCHEMA', N'dbo', N'TABLE', N'sys_relation', 'COLUMN', N'MENU_ID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'角色id', N'SCHEMA', N'dbo', N'TABLE', N'sys_relation', 'COLUMN', N'ROLE_ID';
-GO
-
-ALTER TABLE [dbo].[sys_relation] ADD CONSTRAINT [PK_sys_relation] PRIMARY KEY CLUSTERED
-(
-[RELATION_ID]
-)
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
-GO
-
-
-
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3792','105','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3793','106','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3794','107','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3795','108','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3796','109','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3797','110','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3798','111','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3799','112','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3800','113','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3801','165','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3802','166','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3803','167','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3804','114','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3805','115','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3806','116','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3807','117','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3808','118','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3809','162','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3810','163','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3811','164','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3812','119','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3813','120','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3814','121','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3815','122','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3816','150','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3817','151','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3818','128','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3819','134','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3820','158','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3821','159','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3822','130','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3823','131','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3824','135','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3825','136','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3826','137','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3827','152','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3828','153','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3829','154','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3830','132','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3831','138','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3832','139','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3833','140','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3834','155','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3835','156','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3836','157','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3837','133','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3838','160','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3839','161','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3840','141','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3841','142','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3842','143','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3843','144','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3844','171','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3846','149','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3847','172','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('3848','145','1');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922291826689','105','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922308603906','106','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922316992514','107','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922321186818','108','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922329575426','109','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922337964034','110','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922342158337','111','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922350546946','112','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922354741249','113','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922363129858','165','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922371518465','166','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922375712770','167','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922384101377','114','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922388295681','115','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922396684289','116','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922405072897','117','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922413461505','118','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922417655810','162','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922426044418','163','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922430238722','164','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922430238723','119','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922447015937','120','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922451210242','121','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922459598850','122','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922463793154','150','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922472181762','151','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922476376065','128','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922480570369','134','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922488958977','158','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922497347586','159','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922501541890','130','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922501541891','131','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922518319106','135','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922526707713','136','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922530902017','137','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922535096321','152','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922543484930','153','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922547679233','154','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922556067841','132','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922560262146','138','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922564456450','139','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922568650754','140','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922577039361','155','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922577039362','156','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922577039363','157','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922602205185','133','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922610593794','160','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922610593795','161','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922618982402','141','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922627371009','142','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922631565313','143','5');
-insert into [dbo].[sys_relation]([RELATION_ID],[MENU_ID],[ROLE_ID]) values('1071348922639953922','144','5');
-GO
-
-/****** 角色表 ******/
-CREATE TABLE [dbo].[sys_role]
-(
-	[ROLE_ID] bigint NOT NULL ,
-	[PID] bigint NULL ,
-	[NAME] nvarchar(255) NULL ,
-	[DESCRIPTION] nvarchar(255) NULL ,
-	[SORT] int NULL ,
-	[VERSION] int NULL ,
-	[CREATE_TIME] datetime2(7) NULL ,
-	[UPDATE_TIME] datetime2(7) NULL ,
-	[CREATE_USER] bigint NULL ,
-	[UPDATE_USER] bigint NULL
-)
-ON [PRIMARY];
-GO
-
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'角色表', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', NULL, NULL;
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'主键id', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'ROLE_ID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'父角色id', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'PID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'角色名称', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'NAME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'提示', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'DESCRIPTION';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'序号', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'SORT';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'乐观锁', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'VERSION';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'CREATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'UPDATE_TIME';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建用户', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'CREATE_USER';
+ALTER TABLE [dbo].[sys_user] SET (LOCK_ESCALATION = TABLE)
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'修改用户', N'SCHEMA', N'dbo', N'TABLE', N'sys_role', 'COLUMN', N'UPDATE_USER';
-GO
 
-ALTER TABLE [dbo].[sys_role] ADD CONSTRAINT [PK_sys_role] PRIMARY KEY CLUSTERED
-(
-[ROLE_ID]
-)
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
+-- ----------------------------
+-- Records of [sys_user]
+-- ----------------------------
+BEGIN TRANSACTION
 GO
 
-insert into [dbo].[sys_role]([ROLE_ID],[PID],[NAME],[DESCRIPTION],[SORT],[VERSION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('1','0','超级管理员','administrator','1','1',null,null,null,null);
-insert into [dbo].[sys_role]([ROLE_ID],[PID],[NAME],[DESCRIPTION],[SORT],[VERSION],[CREATE_TIME],[UPDATE_TIME],[CREATE_USER],[UPDATE_USER]) values('5','1','临时','temp','2',null,null,null,null,null);
+INSERT INTO [dbo].[sys_user]  VALUES (N'1', N'1', N'admin', N'1d6b1208c7d151d335790276a18e3d99', N'q6taw', N'stylefeng', N'2018-11-16 00:00:00.000', N'M', N'sn93@qq.com', N'18200000000', N'1', N'27', N'ENABLE', N'2016-01-29 08:49:53.000', NULL, N'2018-12-28 22:52:24.000', N'24', N'25')
 GO
 
-/****** 用户表 ******/
-CREATE TABLE [dbo].[sys_user]
-(
-	[USER_ID] bigint NOT NULL ,
-	[AVATAR] nvarchar(255) NULL ,
-	[ACCOUNT] nvarchar(45) NULL ,
-	[PASSWORD] nvarchar(45) NULL ,
-	[SALT] nvarchar(45) NULL ,
-	[NAME] nvarchar(45) NULL ,
-	[BIRTHDAY] datetime2(7) NULL ,
-	[SEX] nvarchar(32) NULL ,
-	[EMAIL] nvarchar(45) NULL ,
-	[PHONE] nvarchar(45) NULL ,
-	[ROLE_ID] nvarchar(255) NULL ,
-	[DEPT_ID] bigint NULL ,
-	[STATUS] nvarchar(32) NULL ,
-	[CREATE_TIME] datetime2(7) NULL ,
-	[CREATE_USER] bigint NULL ,
-	[UPDATE_TIME] datetime2(7) NULL ,
-	[UPDATE_USER] bigint NULL ,
-	[VERSION] int NULL
-)
-ON [PRIMARY];
+COMMIT
 GO
 
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'管理员表', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', NULL, NULL;
+-- ----------------------------
+-- Primary Key structure for table sys_dept
+-- ----------------------------
+ALTER TABLE [dbo].[sys_dept] ADD CONSTRAINT [sys_dept_PRIMARY] PRIMARY KEY NONCLUSTERED ([dept_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'主键id', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'USER_ID';
-GO
-
-EXECUTE sp_addextendedproperty  N'MS_Description', N'头像', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'AVATAR';
-GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'账号', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'ACCOUNT';
+-- ----------------------------
+-- Primary Key structure for table sys_dict
+-- ----------------------------
+ALTER TABLE [dbo].[sys_dict] ADD CONSTRAINT [sys_dict_PRIMARY] PRIMARY KEY NONCLUSTERED ([dict_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'密码', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'PASSWORD';
-GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'md5密码盐', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'SALT';
+-- ----------------------------
+-- Primary Key structure for table sys_dict_type
+-- ----------------------------
+ALTER TABLE [dbo].[sys_dict_type] ADD CONSTRAINT [sys_dict_type_PRIMARY] PRIMARY KEY NONCLUSTERED ([dict_type_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'名字', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'NAME';
-GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'生日', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'BIRTHDAY';
+-- ----------------------------
+-- Primary Key structure for table sys_file_info
+-- ----------------------------
+ALTER TABLE [dbo].[sys_file_info] ADD CONSTRAINT [sys_file_info_PRIMARY] PRIMARY KEY NONCLUSTERED ([file_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'性别(字典)', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'SEX';
-GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'电子邮件', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'EMAIL';
+-- ----------------------------
+-- Primary Key structure for table sys_login_log
+-- ----------------------------
+ALTER TABLE [dbo].[sys_login_log] ADD CONSTRAINT [sys_login_log_PRIMARY] PRIMARY KEY NONCLUSTERED ([login_log_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'电话', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'PHONE';
-GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'角色id(多个逗号隔开)', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'ROLE_ID';
+-- ----------------------------
+-- Primary Key structure for table sys_menu
+-- ----------------------------
+ALTER TABLE [dbo].[sys_menu] ADD CONSTRAINT [sys_menu_PRIMARY] PRIMARY KEY NONCLUSTERED ([menu_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'部门id(多个逗号隔开)', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'DEPT_ID';
-GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'状态(字典)', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'STATUS';
+-- ----------------------------
+-- Primary Key structure for table sys_notice
+-- ----------------------------
+ALTER TABLE [dbo].[sys_notice] ADD CONSTRAINT [sys_notice_PRIMARY] PRIMARY KEY NONCLUSTERED ([notice_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'CREATE_TIME';
-GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'创建人', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'CREATE_USER';
+-- ----------------------------
+-- Primary Key structure for table sys_operation_log
+-- ----------------------------
+ALTER TABLE [dbo].[sys_operation_log] ADD CONSTRAINT [sys_operation_log_PRIMARY] PRIMARY KEY NONCLUSTERED ([operation_log_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'更新时间', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'UPDATE_TIME';
-GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'更新人', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'UPDATE_USER';
+-- ----------------------------
+-- Primary Key structure for table sys_relation
+-- ----------------------------
+ALTER TABLE [dbo].[sys_relation] ADD CONSTRAINT [sys_relation_PRIMARY] PRIMARY KEY NONCLUSTERED ([relation_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
-EXECUTE sp_addextendedproperty  N'MS_Description', N'乐观锁', N'SCHEMA', N'dbo', N'TABLE', N'sys_user', 'COLUMN', N'VERSION';
-GO
 
-ALTER TABLE [dbo].[sys_user] ADD CONSTRAINT [PK_sys_user] PRIMARY KEY CLUSTERED
-(
-[USER_ID]
-)
-WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
+-- ----------------------------
+-- Primary Key structure for table sys_role
+-- ----------------------------
+ALTER TABLE [dbo].[sys_role] ADD CONSTRAINT [sys_role_PRIMARY] PRIMARY KEY NONCLUSTERED ([role_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
 
-insert into [dbo].[sys_user]([USER_ID],[AVATAR],[ACCOUNT],[PASSWORD],[SALT],[NAME],[BIRTHDAY],[SEX],[EMAIL],[PHONE],[ROLE_ID],[DEPT_ID],[STATUS],[CREATE_TIME],[CREATE_USER],[UPDATE_TIME],[UPDATE_USER],[VERSION]) values('1','1','admin','1d6b1208c7d151d335790276a18e3d99','q6taw','stylefeng','2018-11-16 00:00:00.0000000','M','sn93@qq.com','18200000000','1','27','ENABLE','2016-01-29 08:49:53.0000000',null,'2018-12-28 22:52:24.0000000','24','25');
+-- ----------------------------
+-- Primary Key structure for table sys_user
+-- ----------------------------
+ALTER TABLE [dbo].[sys_user] ADD CONSTRAINT [sys_user_PRIMARY] PRIMARY KEY NONCLUSTERED ([user_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
-
-
-
-
-
-
-
 
