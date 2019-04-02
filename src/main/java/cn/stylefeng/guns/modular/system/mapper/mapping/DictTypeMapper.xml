@@ -19,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        base.dict_type_id AS dictTypeId, base.code AS code, base.name AS name, base.description AS description, base.system_flag AS systemFlag, base.status AS status, base.sort AS sort, base.create_time AS createTime, base.create_user AS createUser, base.update_time AS updateTime, base.update_user AS updateUser
+        dict_type_id AS "dictTypeId", code AS "code", name AS "name", description AS "description", system_flag AS "systemFlag", status AS "status", sort AS "sort", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
     </sql>
 
 </mapper>

@@ -246,13 +246,17 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
 
     private List<Long> getSubIds(Long dictId) {
 
-        List<Dict> list = this.baseMapper.likeParentIds(dictId);
-
         ArrayList<Long> longs = new ArrayList<>();
-        for (Dict dict : list) {
-            longs.add(dict.getDictId());
+
+        if(ToolUtil.isEmpty(dictId)){
+            return longs;
+        }else{
+            List<Dict> list = this.baseMapper.likeParentIds(dictId);
+            for (Dict dict : list) {
+                longs.add(dict.getDictId());
+            }
+            return longs;
         }
-        return longs;
     }
 
     private void dictSetPids(Dict param) {

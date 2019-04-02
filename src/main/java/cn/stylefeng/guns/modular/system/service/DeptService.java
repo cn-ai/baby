@@ -115,7 +115,7 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
      * @author fengshuonan
      * @Date 2018/12/23 5:16 PM
      */
-    public Page<Map<String, Object>> list(String condition, String deptId) {
+    public Page<Map<String, Object>> list(String condition, Long deptId) {
         Page page = LayuiPageFactory.defaultPage();
         return this.baseMapper.list(page, condition, deptId);
     }

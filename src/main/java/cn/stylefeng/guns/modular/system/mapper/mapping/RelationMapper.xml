@@ -11,7 +11,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        base.relation_id AS relationId, base.menu_id AS menuId, base.role_id AS roleId
+        relation_id AS "relationId", menu_id AS "menuId", role_id AS "roleId"
     </sql>
 
 </mapper>

@@ -14,7 +14,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        base.file_id AS fileId, base.file_data AS fileData, base.create_time AS createTime, base.update_time AS updateTime, base.create_user AS createUser, base.update_user AS updateUser
+        file_id AS "fileId", file_data AS "fileData", create_time AS "createTime", update_time AS "updateTime", create_user AS "createUser", update_user AS "updateUser"
     </sql>
 
 </mapper>

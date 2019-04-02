@@ -15,7 +15,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        notice_id AS noticeId, title AS title, content AS content, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        notice_id AS "noticeId", title AS "title", content AS "content", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
     </sql>
 
     <select id="list" resultType="map">

@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.system.mapper;
 import cn.stylefeng.guns.core.common.node.ZTreeNode;
 import cn.stylefeng.guns.modular.system.entity.Dict;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,10 +20,10 @@ public interface DictMapper extends BaseMapper<Dict> {
     /**
      * 获取ztree的节点列表
      */
-    List<ZTreeNode> dictTree(Long dictTypeId);
+    List<ZTreeNode> dictTree(@Param("dictTypeId") Long dictTypeId);
 
     /**
      * where parentIds like ''
      */
-    List<Dict> likeParentIds(Long dictId);
+    List<Dict> likeParentIds(@Param("dictId") Long dictId);
 }

@@ -21,11 +21,11 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        dict_id AS dictId, dict_type_id AS dictTypeId, code AS code, name AS name, parent_id AS parentId, parent_ids AS parentIds, status AS status, sort AS sort, description AS description, create_time AS createTime, update_time AS updateTime, create_user AS createUser, update_user AS updateUser
+        dict_id AS "dictId", dict_type_id AS "dictTypeId", code AS "code", name AS "name", parent_id AS "parentId", parent_ids AS "parentIds", status AS "status", sort AS "sort", description AS "description", create_time AS "createTime", update_time AS "updateTime", create_user AS "createUser", update_user AS "updateUser"
     </sql>
 
     <select id="dictTree" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
-        select dict_id AS id, parent_id as pId, name as name,
+        select dict_id AS id, parent_id as "pId", name as name,
 		(
 		CASE
 		WHEN (parent_id = 0 OR parent_id IS NULL) THEN
@@ -39,10 +39,10 @@
     <select id="likeParentIds" resultType="cn.stylefeng.guns.modular.system.entity.Dict">
         select
         <include refid="Base_Column_List"></include>
-        from sys_dict as base
-        <where>
-            parent_ids LIKE CONCAT('%$[',#{dictId},'$]%') escape '$'
-        </where>
+        from sys_dict where 1 = 1
+        <if test="dictId != null and dictId != ''">
+            and parent_ids LIKE CONCAT('%$[',#{dictId},'$]%') escape '$'
+        </if>
     </select>
 
 </mapper>

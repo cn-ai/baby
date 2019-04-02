@@ -59,7 +59,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      * @date 2017年2月19日 下午4:10:59
      */
-    int deleteRelationByMenu(Long menuId);
+    int deleteRelationByMenu(@Param("menuId") Long menuId);
 
     /**
      * 获取资源url通过角色id
@@ -68,7 +68,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      * @date 2017年2月19日 下午7:12:38
      */
-    List<String> getResUrlsByRoleId(Long roleId);
+    List<String> getResUrlsByRoleId(@Param("roleId") Long roleId);
 
     /**
      * 根据角色获取菜单
