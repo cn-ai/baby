@@ -48,7 +48,7 @@ layui.use(['form', 'ax'], function () {
     $('#parentName').click(function () {
         var formName = encodeURIComponent("parent.DictInfoDlg.data.parentName");
         var formId = encodeURIComponent("parent.DictInfoDlg.data.parentId");
-        var treeUrl = encodeURIComponent(Feng.ctxPath + "/dict/ztree?dictTypeId=" + $("#dictTypeId").val() + "&dictId=" + $("#dictId").val());
+        var treeUrl = encodeURIComponent("/dict/ztree?dictTypeId=" + $("#dictTypeId").val() + "&dictId=" + $("#dictId").val());
 
         layer.open({
             type: 2,
