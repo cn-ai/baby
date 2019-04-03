@@ -301,18 +301,20 @@ public class ConstantFactory implements IConstantFactory {
 
     @Override
     public List<Long> getSubDeptId(Long deptId) {
+        ArrayList<Long> deptIds = new ArrayList<>();
 
-        List<Dept> depts = this.deptMapper.likePids(deptId);
-
-        ArrayList<Long> deptids = new ArrayList<>();
-
-        if (depts != null && depts.size() > 0) {
-            for (Dept dept : depts) {
-                deptids.add(dept.getDeptId());
+        if (deptId == null) {
+            return deptIds;
+        } else {
+            List<Dept> depts = this.deptMapper.likePids(deptId);
+            if (depts != null && depts.size() > 0) {
+                for (Dept dept : depts) {
+                    deptIds.add(dept.getDeptId());
+                }
             }
-        }
 
-        return deptids;
+            return deptIds;
+        }
     }
 
     @Override
