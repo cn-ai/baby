@@ -1,12 +1,12 @@
 #Oracle配置
-spring:
-  datasource:
-    driverClassName: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@39.106.122.184:1521:ORCLCDB
-    username: GUNS
-    password: GUNS
-    filters: wall,mergeStat
-    data-source-name: gunsdb
+#spring:
+#  datasource:
+#    driverClassName: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@127.0.0.1:1521:ORCLCDB
+#    username: GUNS
+#    password: GUNS
+#    filters: wall,mergeStat
+#    data-source-name: gunsdb
 
 #SQLServer配置
 #spring:
@@ -29,14 +29,14 @@ spring:
 #    data-source-name: gunsdb
 
 # Mysql数据库
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
-#    username: root
-#    password: root
-#    filters: wall,mergeStat
-#    data-source-name: gunsdb
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    username: root
+    password: root
+    filters: wall,mergeStat
+    data-source-name: gunsdb
 
 # 多数据源情况的配置
 guns:
