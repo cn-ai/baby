@@ -57,4 +57,13 @@
         </if>
     </select>
 
+    <select id="likeParentIds" resultType="cn.stylefeng.guns.modular.system.entity.Dict" databaseId="oracle">
+        select
+        <include refid="Base_Column_List"></include>
+        from sys_dict where 1 = 1
+        <if test="dictId != null and dictId != ''">
+            and parent_ids LIKE '%$[' || #{dictId} || ']%'
+        </if>
+    </select>
+
 </mapper>

@@ -45,6 +45,22 @@
         </if>
     </select>
 
+    <select id="selectMenus" resultType="map" databaseId="oracle">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        where status = 'ENABLE'
+        <if test="condition != null and condition != ''">
+            and (name like '%' || #{condition} || '%' or code like '%' || #{condition} || '%')
+        </if>
+        <if test="level != null and level != ''">
+            and levels = #{level}
+        </if>
+        <if test="menuId != null and menuId != 0">
+            and (menu_id = #{menuId} or menu_id in ( select menu_id from sys_menu where pcodes like '%[' || #{code} ']%' ))
+        </if>
+    </select>
+
     <select id="getMenuIdsByRoleId" resultType="long">
         select menu_id from
         sys_relation where role_id = #{roleId}
@@ -274,12 +290,34 @@
         </if>
     </select>
 
+    <select id="selectMenuTree" resultType="java.util.Map" databaseId="oracle">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        where status = 'ENABLE'
+        <if test="condition != null and condition != ''">
+            and (name like '%' || #{condition} || '%' or code like '%' || #{condition} || '%')
+        </if>
+        <if test="level != null and level != ''">
+            and levels = #{level}
+        </if>
+    </select>
+
     <select id="getMenusLikePcodes" resultType="cn.stylefeng.guns.modular.system.entity.Menu">
         select
         <include refid="Base_Column_List"></include>
         from sys_menu where 1 = 1
         <if test="code != null and code != ''">
             and pcodes LIKE CONCAT('%$[',#{code},'$]%') escape '$'
+        </if>
+    </select>
+
+    <select id="getMenusLikePcodes" resultType="cn.stylefeng.guns.modular.system.entity.Menu" databaseId="oracle">
+        select
+        <include refid="Base_Column_List"></include>
+        from sys_menu where 1 = 1
+        <if test="code != null and code != ''">
+            and pcodes LIKE '%[' || #{code} || ']%'
         </if>
     </select>
 

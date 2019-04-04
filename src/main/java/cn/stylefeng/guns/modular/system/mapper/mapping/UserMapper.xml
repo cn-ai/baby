@@ -51,6 +51,24 @@
         </if>
     </select>
 
+    <select id="selectUsers" resultType="map" databaseId="oracle">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where status != 'DELETED'
+        <if test="name != null and name != ''">
+            and (phone like '%' || #{name} || '%'
+            or account like '%' || #{name} || '%'
+            or name like '%' || #{name} || '%')
+        </if>
+        <if test="deptId != null and deptId != 0">
+            and (dept_id = #{deptId} or dept_id in ( select dept_id from sys_dept where pids like '%[' || #{deptId} || ']%'))
+        </if>
+        <if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+            and (create_time between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+    </select>
+
     <update id="setStatus">
 		update sys_user set status = #{status} where user_id = #{userId}
 	</update>

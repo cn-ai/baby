@@ -31,6 +31,16 @@
         order by sort asc
     </select>
 
+    <select id="selectRoles" resultType="map" databaseId="oracle">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+        <if test="condition != null">
+            where name like '%' || #{condition} || '%'
+        </if>
+        order by sort asc
+    </select>
+
     <delete id="deleteRolesById">
 		delete from sys_relation where role_id = #{roleId}
 	</delete>

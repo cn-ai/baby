@@ -60,6 +60,19 @@
         order by sort ASC
     </select>
 
+    <select id="list" resultType="map" databaseId="oracle">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dept where 1 = 1
+        <if test="condition != null and condition != ''">
+            and simple_name like ('%' || #{condition} || '%') or full_name like ('%' || #{condition} || '%')
+        </if>
+        <if test="deptId != null and deptId != ''">
+            and (dept_id = #{deptId} or dept_id in ( select dept_id from sys_dept where pids like '%[' ||  #{deptId} || ']%' ))
+        </if>
+        order by sort ASC
+    </select>
+
     <select id="treeviewNodes" resultType="cn.stylefeng.guns.core.common.node.TreeviewNode">
         select dept_id AS tags, pid as "parentId", simple_name as text from sys_dept
     </select>
@@ -70,6 +83,15 @@
         from sys_dept where 1 = 1
         <if test="deptId != null and deptId != ''">
             and pids LIKE CONCAT('%$[',#{deptId},'$]%') escape '$'
+        </if>
+    </select>
+
+    <select id="likePids" resultType="cn.stylefeng.guns.modular.system.entity.Dept" databaseId="oracle">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dept where 1 = 1
+        <if test="deptId != null and deptId != ''">
+            and pids LIKE '%[' || #{deptId} || ']%'
         </if>
     </select>
 
