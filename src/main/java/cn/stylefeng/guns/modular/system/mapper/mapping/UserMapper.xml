@@ -65,7 +65,8 @@
             and (dept_id = #{deptId} or dept_id in ( select dept_id from sys_dept where pids like '%[' || #{deptId} || ']%'))
         </if>
         <if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
-            and (create_time between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+            and create_time &gt;= to_date(#{beginTime}||'00:00:00','yyyy-mm-dd hh24:mi:ss')
+            and create_time &lt;= to_date(#{endTime}||'23:59:59','yyyy-mm-dd hh24:mi:ss')
         </if>
     </select>
 
