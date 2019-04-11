@@ -24,121 +24,121 @@ public class ExcelItem implements Serializable {
     /**
      * 主键id
      */
-    @TableId(value = "USER_ID", type = IdType.ID_WORKER)
+    @TableId(value = "user_id", type = IdType.ID_WORKER)
     @Excel(name = "用户id")
     private Long userId;
 
     /**
      * 头像
      */
-    @TableField("AVATAR")
+    @TableField("avatar")
     @Excel(name = "头像")
     private String avatar;
 
     /**
      * 账号
      */
-    @TableField("ACCOUNT")
+    @TableField("account")
     @Excel(name = "账号")
     private String account;
 
     /**
      * 密码
      */
-    @TableField("PASSWORD")
+    @TableField("password")
     private String password;
 
     /**
      * md5密码盐
      */
-    @TableField("SALT")
+    @TableField("salt")
     private String salt;
 
     /**
      * 名字
      */
-    @TableField("NAME")
+    @TableField("name")
     @Excel(name = "姓名")
     private String name;
 
     /**
      * 生日
      */
+    @TableField("birthday")
     @Excel(name = "生日")
-    @TableField("BIRTHDAY")
     private Date birthday;
 
     /**
      * 性别(字典)
      */
-    @TableField("SEX")
+    @TableField("sex")
     @Excel(name = "性别")
     private String sex;
 
     /**
      * 电子邮件
      */
-    @TableField("EMAIL")
+    @TableField("email")
     @Excel(name = "邮箱")
     private String email;
 
     /**
      * 电话
      */
-    @TableField("PHONE")
+    @TableField("phone")
     @Excel(name = "电话")
     private String phone;
 
     /**
      * 角色id(多个逗号隔开)
      */
-    @TableField("ROLE_ID")
+    @TableField("role_id")
     @Excel(name = "角色id")
     private String roleId;
 
     /**
      * 部门id(多个逗号隔开)
      */
-    @TableField("DEPT_ID")
+    @TableField("dept_id")
     @Excel(name = "部门id")
     private Long deptId;
 
     /**
      * 状态(字典)
      */
-    @TableField("STATUS")
+    @TableField("status")
     @Excel(name = "状态")
     private String status;
 
     /**
      * 创建时间
      */
-    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     @Excel(name = "创建时间")
     private Date createTime;
 
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
+    @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
 
     /**
      * 更新时间
      */
-    @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
 
     /**
      * 更新人
      */
-    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
+    @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
     /**
      * 乐观锁
      */
-    @TableField("VERSION")
+    @TableField("version")
     private Integer version;
 
 }
