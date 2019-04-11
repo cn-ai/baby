@@ -117,18 +117,18 @@ public class ExcelController {
 
         //初始化表头
         List<ExcelExportEntity> entity = new ArrayList<>();
-        entity.add(new ExcelExportEntity("用户id", "USER_ID"));
-        entity.add(new ExcelExportEntity("头像", "AVATAR"));
-        entity.add(new ExcelExportEntity("账号", "ACCOUNT"));
-        entity.add(new ExcelExportEntity("姓名", "NAME"));
-        entity.add(new ExcelExportEntity("生日", "BIRTHDAY"));
-        entity.add(new ExcelExportEntity("性别", "SEX"));
-        entity.add(new ExcelExportEntity("邮箱", "EMAIL"));
-        entity.add(new ExcelExportEntity("电话", "PHONE"));
-        entity.add(new ExcelExportEntity("角色id", "ROLE_ID"));
-        entity.add(new ExcelExportEntity("部门id", "DEPT_ID"));
-        entity.add(new ExcelExportEntity("状态", "STATUS"));
-        entity.add(new ExcelExportEntity("创建时间", "CREATE_TIME"));
+        entity.add(new ExcelExportEntity("用户id", "user_id"));
+        entity.add(new ExcelExportEntity("头像", "avatar"));
+        entity.add(new ExcelExportEntity("账号", "account"));
+        entity.add(new ExcelExportEntity("姓名", "name"));
+        entity.add(new ExcelExportEntity("生日", "birthday"));
+        entity.add(new ExcelExportEntity("性别", "sex"));
+        entity.add(new ExcelExportEntity("邮箱", "email"));
+        entity.add(new ExcelExportEntity("电话", "phone"));
+        entity.add(new ExcelExportEntity("角色id", "role_id"));
+        entity.add(new ExcelExportEntity("部门id", "dept_id"));
+        entity.add(new ExcelExportEntity("状态", "status"));
+        entity.add(new ExcelExportEntity("创建时间", "create_time"));
 
         //初始化化数据
         List<Map<String, Object>> maps = userService.listMaps();
