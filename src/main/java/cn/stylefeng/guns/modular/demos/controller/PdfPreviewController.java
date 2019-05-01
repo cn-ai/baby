@@ -19,14 +19,11 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.io.IOException;
 
 /**
  * pdf预览
@@ -53,16 +50,15 @@ public class PdfPreviewController extends BaseController {
      */
     @GetMapping(value = "/loadPdfFile", produces = "application/pdf")
     @ResponseBody
-    public FileSystemResource loadPdfFile(@RequestParam(value = "file", required = false) String file) {
+    public ClassPathResource loadPdfFile(@RequestParam(value = "file", required = false) String file) {
 
         if (ToolUtil.isEmpty(file)) {
             file = "demo.pdf";
         }
 
         try {
-            ClassPathResource classPathResource = new ClassPathResource("assets/expand/pdf/demo/" + file);
-            return new FileSystemResource(classPathResource.getFile().getAbsolutePath());
-        } catch (IOException e) {
+            return new ClassPathResource("assets/expand/pdf/demo/" + file);
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
