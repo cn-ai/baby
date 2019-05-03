@@ -30,13 +30,24 @@ layui.use(['form', 'upload', 'element', 'ax', 'laydate'], function () {
     });
 
     upload.render({
-        elem: '#imgHead',
-        url: '', // 上传接口
-        done: function (res) {
-            // 上传完毕回调
-        },
-        error: function () {
-            // 请求异常回调
+        elem: '#imgHead'
+        , url: Feng.ctxPath + '/system/upload'
+        , before: function (obj) {
+            obj.preview(function (index, file, result) {
+                $('#avatarPreview').attr('src', result);
+            });
+        }
+        , done: function (res) {
+            var ajax = new $ax(Feng.ctxPath + "/system/updateAvatar", function (data) {
+                Feng.success(res.message);
+            }, function (data) {
+                Feng.error("修改失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("fileId", res.data.fileId);
+            ajax.start();
+        }
+        , error: function () {
+            Feng.error("上传头像失败！");
         }
     });
 });

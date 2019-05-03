@@ -18,6 +18,7 @@ package cn.stylefeng.guns.modular.system.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.io.IoUtil;
 import cn.stylefeng.guns.config.properties.GunsProperties;
 import cn.stylefeng.guns.core.common.constant.DefaultAvatar;
 import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
@@ -48,13 +49,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * 通用控制器
@@ -203,22 +204,20 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * 上传头像
+     * 更新头像
      *
      * @author fengshuonan
      * @Date 2018/11/9 12:45 PM
      */
-    @RequestMapping("/uploadAvatar")
+    @RequestMapping("/updateAvatar")
     @ResponseBody
-    public Object uploadAvatar(@RequestParam String avatar) {
+    public Object uploadAvatar(@RequestParam("fileId") String fileId) {
 
-        if (ToolUtil.isEmpty(avatar)) {
+        if (ToolUtil.isEmpty(fileId)) {
             throw new RequestEmptyException("请求头像为空");
         }
 
-        avatar = avatar.substring(avatar.indexOf(",") + 1);
-
-        fileInfoService.uploadAvatar(avatar);
+        fileInfoService.updateAvatar(fileId);
 
         return SUCCESS_TIP;
     }
@@ -303,16 +302,32 @@ public class SystemController extends BaseController {
     @ResponseBody
     public ResponseData layuiUpload(@RequestPart("file") MultipartFile picture) {
 
-        String pictureName = UUID.randomUUID().toString() + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
+        String fileId = IdWorker.getIdStr();
+        String pictureName = fileId + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
+
         try {
+            //保存文件到指定目录
             String fileSavePath = gunsProperties.getFileUploadPath();
-            picture.transferTo(new File(fileSavePath + pictureName));
+            File file = new File(fileSavePath + pictureName);
+            picture.transferTo(file);
+
+            //获取文件的base64编码
+            byte[] bytes = IoUtil.readBytes(new FileInputStream(file));
+            String encode = Base64.encode(bytes);
+
+            //保存文件信息
+            FileInfo fileInfo = new FileInfo();
+            fileInfo.setFileId(fileId);
+            fileInfo.setFileData(encode);
+            fileInfoService.save(fileInfo);
         } catch (Exception e) {
+            log.error("上传文件错误！", e);
             throw new ServiceException(BizExceptionEnum.UPLOAD_ERROR);
         }
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("fileId", IdWorker.getIdStr());
+        map.put("fileId", fileId);
+
         return ResponseData.success(0, "上传成功", map);
     }
 
