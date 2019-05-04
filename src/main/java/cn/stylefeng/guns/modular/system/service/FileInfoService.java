@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -136,7 +137,12 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
             fileInfo.setFileSuffix(fileSuffix);
             fileInfo.setFilePath(fileSavePath + finalName);
             fileInfo.setFinalName(finalName);
-            fileInfo.setFileSizeKb(file.getSize());
+
+            //计算文件大小kb
+            long kb = new BigDecimal(file.getSize())
+                    .divide(BigDecimal.valueOf(1024))
+                    .setScale(0, BigDecimal.ROUND_HALF_UP).longValue();
+            fileInfo.setFileSizeKb(kb);
             this.save(fileInfo);
         } catch (Exception e) {
             log.error("上传文件错误！", e);
