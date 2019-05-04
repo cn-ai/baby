@@ -11,7 +11,7 @@ import java.util.Date;
  * </p>
  *
  * @author stylefeng
- * @since 2019-04-01
+ * @since 2019-05-04
  */
 @TableName("sys_file_info")
 public class FileInfo implements Serializable {
@@ -25,10 +25,40 @@ public class FileInfo implements Serializable {
     private String fileId;
 
     /**
-     * base64编码的文件
+     * 文件仓库（oss仓库）
      */
-    @TableField("file_data")
-    private String fileData;
+    @TableField("file_bucket")
+    private String fileBucket;
+
+    /**
+     * 文件名称
+     */
+    @TableField("file_name")
+    private String fileName;
+
+    /**
+     * 文件后缀
+     */
+    @TableField("file_suffix")
+    private String fileSuffix;
+
+    /**
+     * 文件大小kb
+     */
+    @TableField("file_size_kb")
+    private Long fileSizeKb;
+
+    /**
+     * 文件唯一标识id
+     */
+    @TableField("final_name")
+    private String finalName;
+
+    /**
+     * 存储路径
+     */
+    @TableField("file_path")
+    private String filePath;
 
     /**
      * 创建时间
@@ -63,12 +93,52 @@ public class FileInfo implements Serializable {
         this.fileId = fileId;
     }
 
-    public String getFileData() {
-        return fileData;
+    public String getFileBucket() {
+        return fileBucket;
     }
 
-    public void setFileData(String fileData) {
-        this.fileData = fileData;
+    public void setFileBucket(String fileBucket) {
+        this.fileBucket = fileBucket;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileSuffix() {
+        return fileSuffix;
+    }
+
+    public void setFileSuffix(String fileSuffix) {
+        this.fileSuffix = fileSuffix;
+    }
+
+    public Long getFileSizeKb() {
+        return fileSizeKb;
+    }
+
+    public void setFileSizeKb(Long fileSizeKb) {
+        this.fileSizeKb = fileSizeKb;
+    }
+
+    public String getFinalName() {
+        return finalName;
+    }
+
+    public void setFinalName(String finalName) {
+        this.finalName = finalName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public Date getCreateTime() {
@@ -107,7 +177,12 @@ public class FileInfo implements Serializable {
     public String toString() {
         return "FileInfo{" +
         "fileId=" + fileId +
-        ", fileData=" + fileData +
+        ", fileBucket=" + fileBucket +
+        ", fileName=" + fileName +
+        ", fileSuffix=" + fileSuffix +
+        ", fileSizeKb=" + fileSizeKb +
+        ", finalName=" + finalName +
+        ", filePath=" + filePath +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
         ", createUser=" + createUser +
