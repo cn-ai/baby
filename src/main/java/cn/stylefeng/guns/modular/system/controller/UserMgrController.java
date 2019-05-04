@@ -15,26 +15,24 @@
  */
 package cn.stylefeng.guns.modular.system.controller;
 
-import cn.hutool.core.collection.CollectionUtil;
 import cn.stylefeng.guns.config.properties.GunsProperties;
 import cn.stylefeng.guns.core.common.annotion.BussinessLog;
 import cn.stylefeng.guns.core.common.annotion.Permission;
 import cn.stylefeng.guns.core.common.constant.Const;
 import cn.stylefeng.guns.core.common.constant.dictmap.UserDict;
-import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.core.common.constant.state.ManagerStatus;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.modular.system.entity.User;
-import cn.stylefeng.guns.modular.system.factory.UserFactory;
 import cn.stylefeng.guns.modular.system.model.UserDto;
 import cn.stylefeng.guns.modular.system.service.UserService;
 import cn.stylefeng.guns.modular.system.warpper.UserWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.datascope.DataScope;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
@@ -48,7 +46,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -133,22 +130,15 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("/getUserInfo")
     @ResponseBody
-    public Object getUserInfo(@RequestParam Long userId) {
+    public SuccessResponseData getUserInfo(@RequestParam Long userId) {
         if (ToolUtil.isEmpty(userId)) {
             throw new RequestEmptyException();
         }
 
         this.userService.assertAuth(userId);
-        User user = this.userService.getById(userId);
-        Map<String, Object> map = UserFactory.removeUnSafeFields(user);
-
-        HashMap<Object, Object> hashMap = CollectionUtil.newHashMap();
-        hashMap.putAll(map);
-        hashMap.put("roleName", ConstantFactory.me().getRoleName(user.getRoleId()));
-        hashMap.put("deptName", ConstantFactory.me().getDeptName(user.getDeptId()));
-
-        return ResponseData.success(hashMap);
+        return new SuccessResponseData(userService.getUserInfo(userId));
     }
+
 
     /**
      * 修改当前用户的密码

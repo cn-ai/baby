@@ -1,16 +1,29 @@
 package cn.stylefeng.guns.modular.system.service;
 
+import cn.hutool.core.codec.Base64;
+import cn.hutool.core.io.IoUtil;
+import cn.stylefeng.guns.config.properties.GunsProperties;
+import cn.stylefeng.guns.core.common.constant.DefaultAvatar;
+import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.system.entity.FileInfo;
 import cn.stylefeng.guns.modular.system.entity.User;
 import cn.stylefeng.guns.modular.system.mapper.FileInfoMapper;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import cn.stylefeng.roses.kernel.model.exception.enums.CoreExceptionEnum;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * <p>
@@ -22,10 +35,14 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 2018-12-07
  */
 @Service
+@Slf4j
 public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private GunsProperties gunsProperties;
 
     /**
      * 更新头像
@@ -45,5 +62,88 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
         //更新用户的头像
         user.setAvatar(fileId);
         userService.updateById(user);
+    }
+
+    /**
+     * 预览当前用户头像
+     *
+     * @author fengshuonan
+     * @Date 2019-05-04 17:04
+     */
+    public byte[] previewAvatar() {
+
+        ShiroUser currentUser = ShiroKit.getUser();
+        if (currentUser == null) {
+            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+        }
+
+        //获取当前用户的头像id
+        User user = userService.getById(currentUser.getId());
+        String avatar = user.getAvatar();
+
+        //如果头像id为空就返回默认的
+        if (ToolUtil.isEmpty(avatar)) {
+            return Base64.decode(DefaultAvatar.BASE_64_AVATAR);
+        } else {
+
+            //文件id不为空就查询文件记录
+            FileInfo fileInfo = this.getById(avatar);
+            if (fileInfo == null) {
+                return Base64.decode(DefaultAvatar.BASE_64_AVATAR);
+            } else {
+                try {
+                    String filePath = fileInfo.getFilePath();
+                    return IoUtil.readBytes(new FileInputStream(filePath));
+                } catch (FileNotFoundException e) {
+                    log.error("头像未找到！", e);
+                    return Base64.decode(DefaultAvatar.BASE_64_AVATAR);
+                }
+            }
+        }
+
+    }
+
+    /**
+     * 上传文件
+     *
+     * @author fengshuonan
+     * @Date 2019-05-04 17:18
+     */
+    public String uploadFile(MultipartFile file) {
+
+        //生成文件的唯一id
+        String fileId = IdWorker.getIdStr();
+
+        //获取文件后缀
+        String fileSuffix = ToolUtil.getFileSuffix(file.getOriginalFilename());
+
+        //获取文件原始名称
+        String originalFilename = file.getOriginalFilename();
+
+        //生成文件的最终名称
+        String finalName = fileId + "." + ToolUtil.getFileSuffix(originalFilename);
+
+        try {
+            //保存文件到指定目录
+            String fileSavePath = gunsProperties.getFileUploadPath();
+            File newFile = new File(fileSavePath + finalName);
+            file.transferTo(newFile);
+
+            //保存文件信息
+            FileInfo fileInfo = new FileInfo();
+            fileInfo.setFileId(fileId);
+            fileInfo.setFileName(originalFilename);
+            fileInfo.setFileSuffix(fileSuffix);
+            fileInfo.setFilePath(fileSavePath + finalName);
+            fileInfo.setFinalName(finalName);
+            fileInfo.setFileSizeKb(file.getSize());
+            this.save(fileInfo);
+        } catch (Exception e) {
+            log.error("上传文件错误！", e);
+            throw new ServiceException(BizExceptionEnum.UPLOAD_ERROR);
+        }
+
+        return fileId;
+
     }
 }

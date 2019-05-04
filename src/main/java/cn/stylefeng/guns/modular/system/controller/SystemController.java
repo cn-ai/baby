@@ -16,30 +16,23 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.codec.Base64;
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.io.IoUtil;
 import cn.stylefeng.guns.config.properties.GunsProperties;
-import cn.stylefeng.guns.core.common.constant.DefaultAvatar;
 import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
-import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
-import cn.stylefeng.guns.modular.system.entity.FileInfo;
 import cn.stylefeng.guns.modular.system.entity.Notice;
 import cn.stylefeng.guns.modular.system.entity.User;
-import cn.stylefeng.guns.modular.system.factory.UserFactory;
 import cn.stylefeng.guns.modular.system.service.FileInfoService;
 import cn.stylefeng.guns.modular.system.service.NoticeService;
 import cn.stylefeng.guns.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import cn.stylefeng.roses.kernel.model.exception.enums.CoreExceptionEnum;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,14 +41,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 通用控制器
@@ -232,34 +222,12 @@ public class SystemController extends BaseController {
     @ResponseBody
     public Object previewAvatar(HttpServletResponse response) {
 
-        ShiroUser currentUser = ShiroKit.getUser();
-        if (currentUser == null) {
-            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
-        }
-
-        //获取当前用户的头像id
-        User user = userService.getById(currentUser.getId());
-        String avatar = user.getAvatar();
-
-        //如果头像id为空就返回默认的
-        if (ToolUtil.isEmpty(avatar)) {
-            avatar = DefaultAvatar.BASE_64_AVATAR;
-        } else {
-            FileInfo fileInfo = fileInfoService.getById(avatar);
-            if (fileInfo == null) {
-                avatar = DefaultAvatar.BASE_64_AVATAR;
-            } else {
-                avatar = fileInfo.getFileData();
-            }
-        }
-
         //输出图片的文件流
         try {
             response.setContentType("image/jpeg");
-            byte[] decode = Base64.decode(avatar);
+            byte[] decode = this.fileInfoService.previewAvatar();
             response.getOutputStream().write(decode);
         } catch (IOException e) {
-            log.error("获取图片的流错误！", avatar);
             throw new ServiceException(CoreExceptionEnum.SERVICE_ERROR);
         }
 
@@ -281,15 +249,7 @@ public class SystemController extends BaseController {
             throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
         }
 
-        User user = userService.getById(currentUser.getId());
-        Map<String, Object> map = UserFactory.removeUnSafeFields(user);
-
-        HashMap<Object, Object> hashMap = CollectionUtil.newHashMap();
-        hashMap.putAll(map);
-        hashMap.put("roleName", ConstantFactory.me().getRoleName(user.getRoleId()));
-        hashMap.put("deptName", ConstantFactory.me().getDeptName(user.getDeptId()));
-
-        return ResponseData.success(hashMap);
+        return new SuccessResponseData(userService.getUserInfo(currentUser.getId()));
     }
 
     /**
@@ -300,30 +260,9 @@ public class SystemController extends BaseController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/upload")
     @ResponseBody
-    public ResponseData layuiUpload(@RequestPart("file") MultipartFile picture) {
+    public ResponseData layuiUpload(@RequestPart("file") MultipartFile file) {
 
-        String fileId = IdWorker.getIdStr();
-        String pictureName = fileId + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
-
-        try {
-            //保存文件到指定目录
-            String fileSavePath = gunsProperties.getFileUploadPath();
-            File file = new File(fileSavePath + pictureName);
-            picture.transferTo(file);
-
-            //获取文件的base64编码
-            byte[] bytes = IoUtil.readBytes(new FileInputStream(file));
-            String encode = Base64.encode(bytes);
-
-            //保存文件信息
-            FileInfo fileInfo = new FileInfo();
-            fileInfo.setFileId(fileId);
-            fileInfo.setFileData(encode);
-            fileInfoService.save(fileInfo);
-        } catch (Exception e) {
-            log.error("上传文件错误！", e);
-            throw new ServiceException(BizExceptionEnum.UPLOAD_ERROR);
-        }
+        String fileId = this.fileInfoService.uploadFile(file);
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("fileId", fileId);

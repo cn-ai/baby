@@ -1,7 +1,9 @@
 package cn.stylefeng.guns.modular.system.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.stylefeng.guns.core.common.constant.Const;
+import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.core.common.constant.state.ManagerStatus;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.node.MenuNode;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -214,6 +217,24 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         ShiroUser shiroUser = userAuthService.shiroUser(currentUser);
         ShiroUser lastUser = ShiroKit.getUser();
         BeanUtil.copyProperties(shiroUser, lastUser);
+    }
+
+    /**
+     * 获取用户的基本信息
+     *
+     * @author fengshuonan
+     * @Date 2019-05-04 17:12
+     */
+    public Map<String, Object> getUserInfo(Long userId) {
+        User user = this.getById(userId);
+        Map<String, Object> map = UserFactory.removeUnSafeFields(user);
+
+        HashMap<Object, Object> hashMap = CollectionUtil.newHashMap();
+        hashMap.putAll(map);
+        hashMap.put("roleName", ConstantFactory.me().getRoleName(user.getRoleId()));
+        hashMap.put("deptName", ConstantFactory.me().getDeptName(user.getDeptId()));
+
+        return map;
     }
 
 }
