@@ -16,13 +16,13 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.stylefeng.guns.core.common.annotion.BussinessLog;
-import cn.stylefeng.guns.core.common.annotion.Permission;
-import cn.stylefeng.guns.core.common.constant.dictmap.DeptDict;
-import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
-import cn.stylefeng.guns.core.common.node.TreeviewNode;
-import cn.stylefeng.guns.core.common.node.ZTreeNode;
-import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.log.annotion.BussinessLog;
+import cn.stylefeng.guns.core.shiro.annotion.Permission;
+import cn.stylefeng.guns.core.constant.dictmap.DeptDict;
+import cn.stylefeng.guns.core.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.pojo.node.TreeviewNode;
+import cn.stylefeng.guns.core.pojo.node.ZTreeNode;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.modular.system.entity.Dept;
 import cn.stylefeng.guns.modular.system.model.DeptDto;

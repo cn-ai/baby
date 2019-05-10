@@ -2,12 +2,12 @@ package cn.stylefeng.guns.modular.system.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import cn.stylefeng.guns.core.common.constant.Const;
-import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
-import cn.stylefeng.guns.core.common.constant.state.ManagerStatus;
-import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
-import cn.stylefeng.guns.core.common.node.MenuNode;
-import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.constant.Const;
+import cn.stylefeng.guns.core.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.constant.state.ManagerStatus;
+import cn.stylefeng.guns.core.exception.enums.BizExceptionEnum;
+import cn.stylefeng.guns.core.pojo.node.MenuNode;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.core.shiro.service.UserAuthService;

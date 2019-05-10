@@ -1,9 +1,9 @@
 package cn.stylefeng.guns.modular.system.service;
 
-import cn.stylefeng.guns.core.common.constant.state.CommonStatus;
-import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
-import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
-import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
+import cn.stylefeng.guns.core.constant.state.CommonStatus;
+import cn.stylefeng.guns.core.exception.enums.BizExceptionEnum;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.system.entity.DictType;
 import cn.stylefeng.guns.modular.system.mapper.DictTypeMapper;
 import cn.stylefeng.guns.modular.system.model.params.DictTypeParam;

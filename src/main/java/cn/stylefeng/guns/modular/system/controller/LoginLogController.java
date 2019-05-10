@@ -15,10 +15,10 @@
  */
 package cn.stylefeng.guns.modular.system.controller;
 
-import cn.stylefeng.guns.core.common.annotion.BussinessLog;
-import cn.stylefeng.guns.core.common.annotion.Permission;
-import cn.stylefeng.guns.core.common.constant.Const;
-import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.log.annotion.BussinessLog;
+import cn.stylefeng.guns.core.shiro.annotion.Permission;
+import cn.stylefeng.guns.core.constant.Const;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.modular.system.service.LoginLogService;
 import cn.stylefeng.guns.modular.system.warpper.LogWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;

@@ -15,7 +15,7 @@
  */
 package cn.stylefeng.guns.modular.system.controller;
 
-import cn.stylefeng.guns.core.common.node.MenuNode;
+import cn.stylefeng.guns.core.pojo.node.MenuNode;
 import cn.stylefeng.guns.core.log.LogManager;
 import cn.stylefeng.guns.core.log.factory.LogTaskFactory;
 import cn.stylefeng.guns.core.shiro.ShiroKit;

@@ -16,6 +16,7 @@
 package cn.stylefeng.guns.config.properties;
 
 import cn.stylefeng.roses.core.util.ToolUtil;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,7 @@ import java.util.Properties;
  */
 @Configuration
 @ConfigurationProperties(prefix = BeetlProperties.BEETLCONF_PREFIX)
+@Data
 public class BeetlProperties {
 
     public static final String BEETLCONF_PREFIX = "beetl";
@@ -70,49 +72,5 @@ public class BeetlProperties {
             properties.setProperty("RESOURCE.autoCheck", resourceAutoCheck);
         }
         return properties;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public String getDelimiterStatementStart() {
-        return delimiterStatementStart;
-    }
-
-    public void setDelimiterStatementStart(String delimiterStatementStart) {
-        this.delimiterStatementStart = delimiterStatementStart;
-    }
-
-    public String getDelimiterStatementEnd() {
-        return delimiterStatementEnd;
-    }
-
-    public void setDelimiterStatementEnd(String delimiterStatementEnd) {
-        this.delimiterStatementEnd = delimiterStatementEnd;
-    }
-
-    public String getResourceTagroot() {
-        return resourceTagroot;
-    }
-
-    public void setResourceTagroot(String resourceTagroot) {
-        this.resourceTagroot = resourceTagroot;
-    }
-
-    public String getResourceTagsuffix() {
-        return resourceTagsuffix;
-    }
-
-    public void setResourceTagsuffix(String resourceTagsuffix) {
-        this.resourceTagsuffix = resourceTagsuffix;
-    }
-
-    public String getResourceAutoCheck() {
-        return resourceAutoCheck;
-    }
-
-    public void setResourceAutoCheck(String resourceAutoCheck) {
-        this.resourceAutoCheck = resourceAutoCheck;
     }
 }

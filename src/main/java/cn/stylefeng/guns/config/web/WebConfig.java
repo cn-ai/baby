@@ -16,10 +16,10 @@
 package cn.stylefeng.guns.config.web;
 
 import cn.stylefeng.guns.config.properties.GunsProperties;
-import cn.stylefeng.guns.core.common.controller.GunsErrorView;
-import cn.stylefeng.guns.core.interceptor.AttributeSetInteceptor;
-import cn.stylefeng.guns.core.interceptor.RestApiInteceptor;
+import cn.stylefeng.guns.core.attribute.AttributeSetInteceptor;
+import cn.stylefeng.guns.core.exception.page.GunsErrorView;
 import cn.stylefeng.guns.core.listener.ConfigListener;
+import cn.stylefeng.guns.modular.api.aop.RestApiInteceptor;
 import cn.stylefeng.roses.core.xss.XssFilter;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
@@ -44,7 +44,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Properties;
 
-import static cn.stylefeng.guns.core.common.constant.Const.NONE_PERMISSION_RES;
+import static cn.stylefeng.guns.core.constant.Const.NONE_PERMISSION_RES;
 
 /**
  * web 配置类

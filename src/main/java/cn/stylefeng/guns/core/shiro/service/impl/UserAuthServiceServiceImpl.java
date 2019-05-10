@@ -16,8 +16,8 @@
 package cn.stylefeng.guns.core.shiro.service.impl;
 
 import cn.hutool.core.convert.Convert;
-import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
-import cn.stylefeng.guns.core.common.constant.state.ManagerStatus;
+import cn.stylefeng.guns.core.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.constant.state.ManagerStatus;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.core.shiro.service.UserAuthService;

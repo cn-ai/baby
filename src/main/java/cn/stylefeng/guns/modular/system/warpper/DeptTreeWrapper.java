@@ -15,7 +15,7 @@
  */
 package cn.stylefeng.guns.modular.system.warpper;
 
-import cn.stylefeng.guns.core.common.node.TreeviewNode;
+import cn.stylefeng.guns.core.pojo.node.TreeviewNode;
 
 import java.util.List;
 

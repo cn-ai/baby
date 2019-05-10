@@ -1,6 +1,6 @@
 package cn.stylefeng.guns.modular.system.mapper;
 
-import cn.stylefeng.guns.core.common.node.ZTreeNode;
+import cn.stylefeng.guns.core.pojo.node.ZTreeNode;
 import cn.stylefeng.guns.modular.system.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

@@ -16,13 +16,13 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 import cn.stylefeng.guns.config.properties.GunsProperties;
-import cn.stylefeng.guns.core.common.annotion.BussinessLog;
-import cn.stylefeng.guns.core.common.annotion.Permission;
-import cn.stylefeng.guns.core.common.constant.Const;
-import cn.stylefeng.guns.core.common.constant.dictmap.UserDict;
-import cn.stylefeng.guns.core.common.constant.state.ManagerStatus;
-import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
-import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.log.annotion.BussinessLog;
+import cn.stylefeng.guns.core.shiro.annotion.Permission;
+import cn.stylefeng.guns.core.constant.Const;
+import cn.stylefeng.guns.core.constant.dictmap.UserDict;
+import cn.stylefeng.guns.core.constant.state.ManagerStatus;
+import cn.stylefeng.guns.core.exception.enums.BizExceptionEnum;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.modular.system.entity.User;

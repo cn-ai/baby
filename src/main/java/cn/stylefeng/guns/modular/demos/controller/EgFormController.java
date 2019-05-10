@@ -1,7 +1,7 @@
 package cn.stylefeng.guns.modular.demos.controller;
 
-import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
-import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.demos.entity.EgForm;
 import cn.stylefeng.guns.modular.demos.model.EgFormParam;
 import cn.stylefeng.roses.core.base.controller.BaseController;

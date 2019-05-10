@@ -17,8 +17,8 @@ package cn.stylefeng.guns.core.util;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.stylefeng.guns.core.common.constant.dictmap.base.AbstractDictMap;
-import cn.stylefeng.guns.core.common.constant.dictmap.factory.DictFieldWarpperFactory;
+import cn.stylefeng.guns.core.constant.dictmap.base.AbstractDictMap;
+import cn.stylefeng.guns.core.constant.dictmap.factory.DictFieldWarpperFactory;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;

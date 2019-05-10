@@ -1,6 +1,6 @@
 package cn.stylefeng.guns.modular.system.service;
 
-import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.modular.system.entity.Notice;
 import cn.stylefeng.guns.modular.system.mapper.NoticeMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

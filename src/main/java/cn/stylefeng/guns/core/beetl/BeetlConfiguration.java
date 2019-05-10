@@ -22,8 +22,8 @@ import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static cn.stylefeng.guns.core.common.constant.Const.DEFAULT_SYSTEM_NAME;
-import static cn.stylefeng.guns.core.common.constant.Const.DEFAULT_WELCOME_TIP;
+import static cn.stylefeng.guns.core.constant.Const.DEFAULT_SYSTEM_NAME;
+import static cn.stylefeng.guns.core.constant.Const.DEFAULT_WELCOME_TIP;
 
 /**
  * beetl拓展配置,绑定一些工具类,方便在模板中直接调用

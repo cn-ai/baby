@@ -45,19 +45,19 @@
 		delete from sys_relation where role_id = #{roleId}
 	</delete>
 
-    <select id="roleTreeList" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
+    <select id="roleTreeList" resultType="cn.stylefeng.guns.core.pojo.node.ZTreeNode">
 		select role_id AS id, pid as "pId",
 		name as name, (case when (pid = 0 or pid is null) then 'true'
 		else 'false' end) as "open" from sys_role
 	</select>
 
-    <select id="roleTreeList" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode" databaseId="oracle">
+    <select id="roleTreeList" resultType="cn.stylefeng.guns.core.pojo.node.ZTreeNode" databaseId="oracle">
 		select role_id AS id, pid as "pId",
 		name as name, (case when (pid = 0 or pid is null) then '1'
 		else '0' end) as "open" from sys_role
 	</select>
 
-    <select id="roleTreeListByRoleId" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
+    <select id="roleTreeListByRoleId" resultType="cn.stylefeng.guns.core.pojo.node.ZTreeNode">
         SELECT
         r.role_id as id,
         pid as "pId",
@@ -96,7 +96,7 @@
         ORDER BY pid,sort ASC
     </select>
 
-    <select id="roleTreeListByRoleId" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode" databaseId="oracle">
+    <select id="roleTreeListByRoleId" resultType="cn.stylefeng.guns.core.pojo.node.ZTreeNode" databaseId="oracle">
         SELECT
         r.role_id as id,
         pid as "pId",

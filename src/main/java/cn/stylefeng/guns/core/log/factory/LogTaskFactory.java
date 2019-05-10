@@ -15,8 +15,8 @@
  */
 package cn.stylefeng.guns.core.log.factory;
 
-import cn.stylefeng.guns.core.common.constant.state.LogSucceed;
-import cn.stylefeng.guns.core.common.constant.state.LogType;
+import cn.stylefeng.guns.core.constant.state.LogSucceed;
+import cn.stylefeng.guns.core.constant.state.LogType;
 import cn.stylefeng.guns.core.log.LogManager;
 import cn.stylefeng.guns.modular.system.entity.LoginLog;
 import cn.stylefeng.guns.modular.system.entity.OperationLog;

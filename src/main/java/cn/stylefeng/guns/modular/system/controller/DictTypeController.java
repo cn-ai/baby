@@ -1,6 +1,6 @@
 package cn.stylefeng.guns.modular.system.controller;
 
-import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
+import cn.stylefeng.guns.core.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.system.entity.DictType;
 import cn.stylefeng.guns.modular.system.model.params.DictTypeParam;
 import cn.stylefeng.guns.modular.system.service.DictTypeService;

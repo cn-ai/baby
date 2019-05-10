@@ -15,7 +15,7 @@
  */
 package cn.stylefeng.guns.modular.system.warpper;
 
-import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.core.util.Contrast;
 import cn.stylefeng.guns.core.util.DecimalUtil;
 import cn.stylefeng.roses.core.base.warpper.BaseControllerWrapper;

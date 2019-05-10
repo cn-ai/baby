@@ -16,7 +16,7 @@
 package cn.stylefeng.guns.config.web;
 
 import cn.stylefeng.guns.config.properties.GunsProperties;
-import cn.stylefeng.guns.core.interceptor.GunsUserFilter;
+import cn.stylefeng.guns.core.shiro.GunsUserFilter;
 import cn.stylefeng.guns.core.shiro.ShiroDbRealm;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
@@ -43,7 +43,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static cn.stylefeng.guns.core.common.constant.Const.NONE_PERMISSION_RES;
+import static cn.stylefeng.guns.core.constant.Const.NONE_PERMISSION_RES;
 
 /**
  * shiro权限管理的配置

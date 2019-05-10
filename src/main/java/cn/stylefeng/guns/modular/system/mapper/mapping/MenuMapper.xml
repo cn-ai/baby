@@ -66,7 +66,7 @@
         sys_relation where role_id = #{roleId}
     </select>
 
-    <select id="menuTreeList" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
+    <select id="menuTreeList" resultType="cn.stylefeng.guns.core.pojo.node.ZTreeNode">
         SELECT
         m1.menu_id AS id,
         (
@@ -94,7 +94,7 @@
         m1.menu_id ASC
     </select>
 
-    <select id="menuTreeList" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode" databaseId="oracle">
+    <select id="menuTreeList" resultType="cn.stylefeng.guns.core.pojo.node.ZTreeNode" databaseId="oracle">
         SELECT
         m1.menu_id AS id,
         (
@@ -122,7 +122,7 @@
         m1.menu_id ASC
     </select>
 
-    <select id="menuTreeListByMenuIds" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
+    <select id="menuTreeListByMenuIds" resultType="cn.stylefeng.guns.core.pojo.node.ZTreeNode">
         SELECT
         m1.menu_id AS id,
         (
@@ -173,7 +173,7 @@
         m1.menu_id ASC
     </select>
 
-    <select id="menuTreeListByMenuIds" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode" databaseId="oracle">
+    <select id="menuTreeListByMenuIds" resultType="cn.stylefeng.guns.core.pojo.node.ZTreeNode" databaseId="oracle">
         SELECT
         m1.menu_id AS id,
         (
@@ -235,7 +235,7 @@
         where rel.role_id = #{roleId}
     </select>
 
-    <select id="getMenusByRoleIds" resultType="cn.stylefeng.guns.core.common.node.MenuNode">
+    <select id="getMenusByRoleIds" resultType="cn.stylefeng.guns.core.pojo.node.MenuNode">
         SELECT
         m1.menu_id AS id,
         m1.icon AS icon,

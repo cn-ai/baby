@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 public class BeetlConfig {
 
     @Autowired
-    BeetlProperties beetlProperties;
+    private BeetlProperties beetlProperties;
 
     /**
      * beetl的配置

@@ -17,7 +17,7 @@ package cn.stylefeng.guns.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.stylefeng.guns.config.properties.GunsProperties;
-import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.core.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
