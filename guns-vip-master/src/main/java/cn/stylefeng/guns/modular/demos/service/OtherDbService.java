@@ -1,9 +1,9 @@
 package cn.stylefeng.guns.modular.demos.service;
 
 import cn.hutool.core.util.RandomUtil;
-import cn.stylefeng.guns.modular.system.entity.User;
-import cn.stylefeng.guns.modular.system.mapper.UserMapper;
-import cn.stylefeng.guns.modular.system.service.UserService;
+import cn.stylefeng.guns.base.modular.system.entity.User;
+import cn.stylefeng.guns.base.modular.system.mapper.UserMapper;
+import cn.stylefeng.guns.base.modular.system.service.UserService;
 import cn.stylefeng.roses.core.mutidatasource.annotion.DataSource;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
