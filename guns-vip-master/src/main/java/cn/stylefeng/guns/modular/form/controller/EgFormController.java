@@ -1,9 +1,9 @@
-package cn.stylefeng.guns.modular.demos.controller;
+package cn.stylefeng.guns.modular.form.controller;
 
 import cn.stylefeng.guns.core.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.demos.entity.EgForm;
-import cn.stylefeng.guns.modular.demos.model.EgFormParam;
+import cn.stylefeng.guns.modular.form.model.EgFormParam;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

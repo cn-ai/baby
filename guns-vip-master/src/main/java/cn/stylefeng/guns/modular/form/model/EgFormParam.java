@@ -1,5 +1,6 @@
-package cn.stylefeng.guns.modular.demos.model;
+package cn.stylefeng.guns.modular.form.model;
 
+import cn.stylefeng.roses.kernel.model.validator.BaseValidatingParam;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,10 +14,10 @@ import java.io.Serializable;
  * @since 2019-02-18
  */
 @Data
-public class EgFormResult implements Serializable {
+public class EgFormParam implements Serializable, BaseValidatingParam {
 
     private static final long serialVersionUID = 1L;
-
+    
     /**
      * id
      */
@@ -91,5 +92,10 @@ public class EgFormResult implements Serializable {
      * 长字段
      */
     private String longText;
+
+    @Override
+    public String checkParam() {
+        return null;
+    }
 
 }
