@@ -18,7 +18,6 @@
  */
 package cn.stylefeng.guns.core.shiro;
 
-import cn.stylefeng.guns.core.shiro.ShiroKit;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;

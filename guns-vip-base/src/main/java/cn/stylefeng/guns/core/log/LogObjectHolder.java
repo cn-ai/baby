@@ -16,9 +16,6 @@
 package cn.stylefeng.guns.core.log;
 
 import cn.stylefeng.roses.core.util.SpringContextHolder;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.io.Serializable;
 
@@ -28,8 +25,6 @@ import java.io.Serializable;
  * @author fengshuonan
  * @date 2017-03-31 11:19
  */
-@Component
-@Scope(scopeName = WebApplicationContext.SCOPE_SESSION)
 public class LogObjectHolder implements Serializable {
 
     private Object object = null;

@@ -15,10 +15,10 @@
  */
 package cn.stylefeng.guns.core.log.aop;
 
-import cn.stylefeng.guns.core.log.annotion.BussinessLog;
 import cn.stylefeng.guns.core.constant.dictmap.base.AbstractDictMap;
 import cn.stylefeng.guns.core.log.LogManager;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.log.annotion.BussinessLog;
 import cn.stylefeng.guns.core.log.factory.LogTaskFactory;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
@@ -32,7 +32,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -44,7 +43,6 @@ import java.util.Map;
  * @date 2016年12月6日 下午8:48:30
  */
 @Aspect
-@Component
 public class LogAop {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());

@@ -21,6 +21,7 @@ import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.core.shiro.service.PermissionCheckService;
 import cn.stylefeng.roses.core.util.HttpContext;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,7 @@ import java.util.ArrayList;
  * 权限自定义检查
  */
 @Service
+@DependsOn("springContextHolder")
 @Transactional(readOnly = true)
 public class PermissionCheckServiceServiceImpl implements PermissionCheckService {
 

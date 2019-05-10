@@ -17,8 +17,6 @@ package cn.stylefeng.guns.config.properties;
 
 import cn.stylefeng.roses.core.util.ToolUtil;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 
@@ -30,8 +28,6 @@ import static cn.stylefeng.roses.core.util.ToolUtil.getTempPath;
  * @author stylefeng
  * @Date 2017/5/23 22:31
  */
-@Component
-@ConfigurationProperties(prefix = GunsProperties.PREFIX)
 @Data
 public class GunsProperties {
 
