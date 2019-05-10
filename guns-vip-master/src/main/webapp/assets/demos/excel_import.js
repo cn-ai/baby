@@ -1,4 +1,4 @@
-layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax','upload'], function () {
+layui.use(['layer', 'assets.form.form', 'table', 'ztree', 'laydate', 'admin', 'ax','upload'], function () {
     var layer = layui.layer;
     var form = layui.form;
     var table = layui.table;

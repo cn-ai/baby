@@ -17,7 +17,7 @@ var EgFormInfoDlg = {
     }
 };
 
-layui.use(['form', 'admin', 'ax', 'upload', 'laydate', 'selectPlus'], function () {
+layui.use(['assets.form.form', 'admin', 'ax', 'upload', 'laydate', 'selectPlus'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
