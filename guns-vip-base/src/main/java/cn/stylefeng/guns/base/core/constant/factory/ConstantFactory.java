@@ -28,16 +28,20 @@ import cn.stylefeng.roses.core.util.SpringContextHolder;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 常量的生产工厂
+ * 快捷查询方法
  *
  * @author fengshuonan
  * @date 2017年2月13日 下午10:55:21
  */
+@Component
+@DependsOn("springContextHolder")
 public class ConstantFactory implements IConstantFactory {
 
     private RoleMapper roleMapper = SpringContextHolder.getBean(RoleMapper.class);

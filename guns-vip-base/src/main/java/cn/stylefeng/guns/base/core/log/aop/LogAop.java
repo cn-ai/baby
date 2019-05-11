@@ -32,6 +32,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -43,6 +44,7 @@ import java.util.Map;
  * @date 2016年12月6日 下午8:48:30
  */
 @Aspect
+@Component
 public class LogAop {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
