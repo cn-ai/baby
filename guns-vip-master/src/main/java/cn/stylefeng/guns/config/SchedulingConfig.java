@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 /**
- * 定时任务自动配置(需要定时任务的可以打开注释)
+ * 定时任务自动配置(需要定时任务的可以放开注释)
  *
  * @author fengshuonan
  * @Date 2019/2/24 16:23
