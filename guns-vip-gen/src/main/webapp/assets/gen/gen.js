@@ -14,7 +14,7 @@ layui.use(['layer', 'ax', 'form', 'laydate', 'element', 'table'], function () {
     };
 
     $('#code_gen').click(function () {
-        window.location.href = Feng.ctxPath + "/";
+        window.location.href = Feng.ctxPath + "/gen";
     });
 
     $('#db_config').click(function () {
