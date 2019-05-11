@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class PdfPreviewController extends BaseController {
 
-    private String PREFIX = "/modular/demos/pdf/";
+    private String PREFIX = "/demos/pdf/";
 
     /**
      * pdf预览

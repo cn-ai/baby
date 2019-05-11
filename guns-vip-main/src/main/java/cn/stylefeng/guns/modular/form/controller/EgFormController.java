@@ -24,7 +24,7 @@ import java.util.ArrayList;
 @RequestMapping("/egForm")
 public class EgFormController extends BaseController {
 
-    private String PREFIX = "/modular/demos/form";
+    private String PREFIX = "/form";
 
     /**
      * 跳转到主页面

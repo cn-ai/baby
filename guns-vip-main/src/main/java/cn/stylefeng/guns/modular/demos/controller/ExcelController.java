@@ -55,7 +55,7 @@ public class ExcelController {
      */
     @RequestMapping("/import")
     public String importIndex() {
-        return "/modular/demos/excel_import.html";
+        return "/demos/excel_import.html";
     }
 
     /**
