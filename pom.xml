@@ -21,7 +21,7 @@
 
     <modules>
         <module>guns-vip-base</module>
-        <module>guns-vip-master</module>
+        <module>guns-vip-main</module>
     </modules>
 
     <properties>
