@@ -20,7 +20,14 @@
         <!-- guns-vip基础框架 -->
         <dependency>
             <groupId>cn.stylefeng</groupId>
-            <artifactId>guns-vip-base</artifactId>
+            <artifactId>guns-sys</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- 最新代码生成模块 -->
+        <dependency>
+            <groupId>cn.stylefeng</groupId>
+            <artifactId>guns-vip-gen</artifactId>
             <version>1.0.0</version>
         </dependency>
 
