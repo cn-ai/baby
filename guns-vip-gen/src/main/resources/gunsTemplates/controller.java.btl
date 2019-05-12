@@ -1,6 +1,6 @@
 package ${controllerPackage};
 
-import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
+import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import ${package.Entity}.${entity};
 import ${package.EntitySpecParams}.${entity}Param;
 import ${package.Service}.${table.serviceName};
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/${lowerEntity}")
 public class ${entity}Controller extends BaseController {
 
-    private String PREFIX = "/modular/${lowerEntity}";
+    private String PREFIX = "/${lowerEntity}";
 
     @Autowired
     private ${entity}Service ${lowerEntityService};

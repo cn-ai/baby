@@ -1,6 +1,6 @@
 package ${package.Service};
 
-import cn.stylefeng.guns.core.common.page.LayuiPageInfo;
+import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import ${package.Entity}.${entity};
 import ${package.EntitySpecParams}.${entity}Param;
 import ${package.EntitySpecResult}.${entity}Result;

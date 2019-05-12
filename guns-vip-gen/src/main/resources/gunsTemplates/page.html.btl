@@ -1,4 +1,4 @@
-@layout("/common/_container.html",{js:["/assets/modular/${lowerEntity}/${lowerEntity}.js"]}){
+@layout("/common/_container.html",{js:["/assets/${lowerEntity}/${lowerEntity}.js"]}){
 
 <div class="layui-body-header">
     <span class="layui-body-header-title">${tableComment}管理</span>

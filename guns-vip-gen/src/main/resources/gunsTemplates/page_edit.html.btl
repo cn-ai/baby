@@ -1,4 +1,4 @@
-@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/${lowerEntity}/${lowerEntity}_edit.js"]}){
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/${lowerEntity}/${lowerEntity}_edit.js"]}){
 <form id="${lowerEntity}Form" lay-filter="${lowerEntity}Form" class="layui-form model-form">
     <input name="${keyPropertyName}" type="hidden"/>
     <% for(var i=0 ; i < fieldsNoKey.~size ; i++){ %>
