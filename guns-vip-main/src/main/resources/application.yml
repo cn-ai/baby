@@ -31,4 +31,4 @@ mybatis-plus:
     - classpath*:cn/stylefeng/guns/generator/**/mapping/*.xml
 
 log:
-  path: guns-logs
+  path: _app_logs
