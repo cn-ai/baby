@@ -88,9 +88,10 @@ layui.use(['layer', 'ax', 'form', 'laydate', 'element', 'table'], function () {
         var proPackage = $("#proPackage").val();
         var removePrefix = $("#removePrefix").val();
         var dataSourceId = $("#dataSourceId").val();
+        var modularName = $("#modularName").val();
 
         window.location.href = Feng.ctxPath + "/execute?dataSourceId=" + dataSourceId + "&author="
-            + author + "&proPackage=" + proPackage + "&removePrefix=" + removePrefix + "&tables=" + Code.tableNames;
+            + author + "&proPackage=" + proPackage + "&removePrefix=" + removePrefix + "&tables=" + Code.tableNames + "&modularName=" + modularName;
     });
 
 });
