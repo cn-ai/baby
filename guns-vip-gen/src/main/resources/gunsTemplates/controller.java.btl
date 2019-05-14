@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/${lowerEntity}")
 public class ${entity}Controller extends BaseController {
 
-    private String PREFIX = "/${lowerEntity}";
+    private String PREFIX = "/${context.modularName}/${lowerEntity}";
 
     @Autowired
     private ${entity}Service ${lowerEntityService};

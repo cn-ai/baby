@@ -46,4 +46,9 @@ public class ContextParam {
      */
     private String author = "fengshuonan";
 
+    /**
+     * 模块名称
+     */
+    private String modularName;
+
 }

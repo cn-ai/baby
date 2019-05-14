@@ -151,7 +151,7 @@ public class GeneratorController {
     @RequestMapping(value = "/execute")
     @ResponseBody
     public ResponseEntity<InputStreamResource> execute(String author, String proPackage, String removePrefix,
-                                                       Long dataSourceId, String tables) {
+                                                       Long dataSourceId, String tables, String modularName) {
         //获取字符串拼接数组
         String[] tableArray = ConcatUtil.getArray(tables);
 
@@ -165,6 +165,7 @@ public class GeneratorController {
         contextParam.setJdbcUserName(databaseInfo.getUserName());
         contextParam.setJdbcPassword(databaseInfo.getPassword());
         contextParam.setJdbcUrl(databaseInfo.getJdbcUrl());
+        contextParam.setModularName(modularName);
 
         //获取临时目录
         long fileName = IdWorker.getId();
