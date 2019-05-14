@@ -41,15 +41,7 @@ layui.use(['table', 'admin', 'ax'], function () {
      * 弹出添加对话框
      */
     ${entity}.openAddDlg = function () {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            type: 2,
-            title: '添加${tableComment}',
-            content: Feng.ctxPath + '/${lowerEntity}/add',
-            end: function () {
-                admin.getTempData('formOk') && table.reload(${entity}.tableId);
-            }
-        });
+        window.location.href = Feng.ctxPath + '/${lowerEntity}/add';
     };
 
     /**
@@ -70,15 +62,7 @@ layui.use(['table', 'admin', 'ax'], function () {
      * @param data 点击按钮时候的行数据
      */
     ${entity}.openEditDlg = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            type: 2,
-            title: '修改${tableComment}',
-            content: Feng.ctxPath + '/${lowerEntity}/edit?${keyPropertyName}=' + data.${keyPropertyName},
-            end: function () {
-                admin.getTempData('formOk') && table.reload(${entity}.tableId);
-            }
-        });
+        window.location.href = Feng.ctxPath + '/${lowerEntity}/edit?${keyPropertyName}=' + data.${keyPropertyName};
     };
 
     /**
