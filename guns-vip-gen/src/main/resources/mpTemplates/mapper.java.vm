@@ -6,6 +6,7 @@ import ${package.EntitySpecResult}.${entity}Result;
 import ${superMapperClassPackage};
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
      * @author ${author}
      * @Date ${date}
      */
-    List<${entity}Result> customList(${entity}Param paramCondition);
+    List<${entity}Result> customList(@Param("paramCondition") ${entity}Param paramCondition);
 
     /**
      * 获取map列表
@@ -37,7 +38,7 @@ public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
      * @author ${author}
      * @Date ${date}
      */
-    List<Map<String, Object>> customMapList(${entity}Param paramCondition);
+    List<Map<String, Object>> customMapList(@Param("paramCondition") ${entity}Param paramCondition);
 
     /**
      * 获取分页实体列表
@@ -45,7 +46,7 @@ public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
      * @author ${author}
      * @Date ${date}
      */
-    Page<${entity}Result> customPageList(Page page, ${entity}Param paramCondition);
+    Page<${entity}Result> customPageList(@Param("page") Page page, @Param("paramCondition") ${entity}Param paramCondition);
 
     /**
      * 获取分页map列表
@@ -53,7 +54,7 @@ public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
      * @author ${author}
      * @Date ${date}
      */
-    Page<Map<String, Object>> customPageMapList(Page page, ${entity}Param paramCondition);
+    Page<Map<String, Object>> customPageMapList(@Param("page") Page page, @Param("paramCondition") ${entity}Param paramCondition);
 
 }
 #end
