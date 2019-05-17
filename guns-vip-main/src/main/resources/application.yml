@@ -26,9 +26,7 @@ spring:
 mybatis-plus:
   typeAliasesPackage: cn.stylefeng.guns.modular.system.model
   mapper-locations:
-    - classpath*:cn/stylefeng/guns/sys/modular/**/mapping/*.xml
-    - classpath*:cn/stylefeng/guns/modular/**/mapping/*.xml
-    - classpath*:cn/stylefeng/guns/generator/**/mapping/*.xml
+    - classpath*:cn/stylefeng/guns/**/mapping/*.xml
 
 log:
   path: _app_logs

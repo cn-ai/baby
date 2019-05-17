@@ -38,6 +38,13 @@ spring:
     filters: wall,mergeStat
     data-source-name: gunsdb
 
+  # 邮件发送配置（改为自己的账号和密码）
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: sn93@qq.com
+    password: xxxpassword
+
 # 多数据源情况的配置
 guns:
   muti-datasource:
@@ -47,3 +54,14 @@ guns:
     username: root
     password: root
     data-source-name: otherdb
+
+# 阿里云短信发送配置
+aliyun:
+  sms:
+    accessKeyId: xxxkey
+    accessKeySecret: xxxSecret
+    signName: mySignName
+
+# 邮件发送（改为自己的账号）
+mail:
+  from: sn93@qq.com
