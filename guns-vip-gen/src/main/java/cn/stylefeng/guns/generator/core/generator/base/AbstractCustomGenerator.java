@@ -4,10 +4,10 @@ package cn.stylefeng.guns.generator.core.generator.base;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.stylefeng.guns.generator.core.engine.BeetlEngine;
+import cn.stylefeng.guns.generator.core.util.OsUtil;
 import cn.stylefeng.guns.generator.core.util.TemplateUtil;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.sun.javafx.PlatformUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
@@ -79,7 +79,7 @@ public abstract class AbstractCustomGenerator extends Generator {
         String filePath = getGenerateFilePath();
 
         //执行代码生成
-        if (PlatformUtil.isWindows()) {
+        if (OsUtil.windowsFlag()) {
             filePath = filePath.replaceAll("/+|\\\\+", "\\\\");
         } else {
             filePath = filePath.replaceAll("/+|\\\\+", "/");
