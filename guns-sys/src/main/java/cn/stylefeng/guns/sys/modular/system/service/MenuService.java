@@ -2,12 +2,12 @@ package cn.stylefeng.guns.sys.modular.system.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
-import cn.stylefeng.guns.sys.core.constant.state.MenuStatus;
-import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.base.pojo.node.MenuNode;
 import cn.stylefeng.guns.base.pojo.node.ZTreeNode;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
+import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.sys.core.constant.state.MenuStatus;
+import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.core.listener.ConfigListener;
 import cn.stylefeng.guns.sys.modular.system.entity.Menu;
 import cn.stylefeng.guns.sys.modular.system.mapper.MenuMapper;
@@ -320,13 +320,23 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
             maps = new ArrayList<>();
         }
 
+        //修复菜单查询bug，带条件的暂时先父级置为0
+        if (ToolUtil.isNotEmpty(condition) || ToolUtil.isNotEmpty(level)) {
+            if (maps.size() > 0) {
+
+                //将pcode置为root
+                for (Map<String, Object> menu : maps) {
+                    menu.put("pcode", "0");
+                }
+            }
+        }
+
         //创建根节点
         Menu menu = new Menu();
         menu.setMenuId(-1L);
         menu.setName("根节点");
         menu.setCode("0");
         menu.setPcode("-2");
-
         maps.add(BeanUtil.beanToMap(menu));
 
         return maps;
