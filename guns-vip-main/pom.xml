@@ -32,18 +32,18 @@
         </dependency>
 
         <!-- 邮件发送 -->
-        <dependency>
-            <groupId>cn.stylefeng</groupId>
-            <artifactId>guns-base-email</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.stylefeng</groupId>-->
+<!--            <artifactId>guns-base-email</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--        </dependency>-->
 
         <!-- 最新代码生成模块 -->
-        <dependency>
-            <groupId>cn.stylefeng</groupId>
-            <artifactId>guns-vip-gen</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.stylefeng</groupId>-->
+<!--            <artifactId>guns-vip-gen</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
