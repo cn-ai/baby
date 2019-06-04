@@ -34,7 +34,9 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Notice.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
-        table.reload(Notice.tableId, {where: queryData});
+        table.reload(Notice.tableId, {
+            where: queryData, page: {curr: 1}
+        });
     };
 
     /**

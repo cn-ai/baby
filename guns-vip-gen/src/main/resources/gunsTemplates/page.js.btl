@@ -34,7 +34,9 @@ layui.use(['table', 'admin', 'ax'], function () {
     ${entity}.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
-        table.reload(${entity}.tableId, {where: queryData});
+        table.reload(${entity}.tableId, {
+            where: queryData, page: {curr: 1}
+        });
     };
 
     /**

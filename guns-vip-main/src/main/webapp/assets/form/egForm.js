@@ -48,7 +48,9 @@ layui.use(['table', 'admin', 'ax'], function () {
     EgForm.search = function () {
         var queryData = {};
         queryData['condition'] = $("#condition").val();
-        table.reload(EgForm.tableId, {where: queryData});
+        table.reload(EgForm.tableId, {
+            where: queryData, page: {curr: 1}
+        });
     };
 
     /**

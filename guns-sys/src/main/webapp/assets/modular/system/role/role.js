@@ -36,7 +36,9 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Role.search = function () {
         var queryData = {};
         queryData['roleName'] = $("#roleName").val();
-        table.reload(Role.tableId, {where: queryData});
+        table.reload(Role.tableId, {
+            where: queryData, page: {curr: 1}
+        });
     };
 
     /**

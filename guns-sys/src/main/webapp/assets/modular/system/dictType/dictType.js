@@ -62,7 +62,9 @@ layui.use(['table', 'ax'], function () {
         queryData['condition'] = $("#condition").val();
         queryData['systemFlag'] = $("#systemFlag").val();
         queryData['status'] = $("#status").val();
-        table.reload(DictType.tableId, {where: queryData});
+        table.reload(DictType.tableId, {
+            where: queryData, page: {curr: 1}
+        });
     };
 
     /**

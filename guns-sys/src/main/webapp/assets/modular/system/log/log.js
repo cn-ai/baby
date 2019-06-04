@@ -39,7 +39,9 @@ layui.use(['layer', 'table', 'ax', 'laydate'], function () {
         queryData['endTime'] = $("#endTime").val();
         queryData['logName'] = $("#logName").val();
         queryData['logType'] = $("#logType").val();
-        table.reload(LoginLog.tableId, {where: queryData});
+        table.reload(LoginLog.tableId, {
+            where: queryData, page: {curr: 1}
+        });
     };
 
     /**

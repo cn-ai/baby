@@ -37,7 +37,9 @@ layui.use(['table', 'admin', 'ax', 'ztree'], function () {
         var queryData = {};
         queryData['condition'] = $("#name").val();
         queryData['deptId'] = Dept.condition.deptId;
-        table.reload(Dept.tableId, {where: queryData});
+        table.reload(Dept.tableId, {
+            where: queryData, page: {curr: 1}
+        });
     };
 
     /**
