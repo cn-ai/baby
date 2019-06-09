@@ -14,6 +14,7 @@ import cn.stylefeng.guns.generator.modular.service.TableService;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.HttpContext;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,7 +166,12 @@ public class GeneratorController {
         contextParam.setJdbcUserName(databaseInfo.getUserName());
         contextParam.setJdbcPassword(databaseInfo.getPassword());
         contextParam.setJdbcUrl(databaseInfo.getJdbcUrl());
-        contextParam.setModularName(modularName);
+
+        //处理modularName，如果modularName传值不为空，则待上左斜杠路径
+        if (ToolUtil.isNotEmpty(modularName)) {
+            modularName = "/" + modularName;
+            contextParam.setModularName(modularName);
+        }
 
         //获取临时目录
         long fileName = IdWorker.getId();
