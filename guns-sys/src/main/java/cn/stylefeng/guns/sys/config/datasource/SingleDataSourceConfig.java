@@ -31,7 +31,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ConditionalOnProperty(prefix = "guns.muti-datasource", name = "open", havingValue = "false", matchIfMissing = true)
 @EnableTransactionManagement(proxyTargetClass = true)
-@MapperScan(basePackages = {"cn.stylefeng.guns.sys.modular.*.mapper", "cn.stylefeng.guns.generator.modular.mapper", "cn.stylefeng.guns.modular.*.mapper","cn.stylefeng.guns.sms.modular.mapper"})
+@MapperScan(basePackages = {"cn.stylefeng.guns.sys.modular.*.mapper",
+        "cn.stylefeng.guns.generator.modular.mapper",
+        "cn.stylefeng.guns.modular.*.mapper",
+        "cn.stylefeng.guns.sms.modular.mapper",
+        "cn.stylefeng.guns.oauth.modular.mapper"})
 public class SingleDataSourceConfig {
 
 }

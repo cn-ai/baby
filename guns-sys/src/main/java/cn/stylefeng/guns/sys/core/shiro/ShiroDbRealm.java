@@ -16,16 +16,14 @@
 package cn.stylefeng.guns.sys.core.shiro;
 
 import cn.stylefeng.guns.base.shiro.ShiroUser;
-import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.core.shiro.service.UserAuthService;
 import cn.stylefeng.guns.sys.core.shiro.service.impl.UserAuthServiceServiceImpl;
+import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.CredentialsMatcher;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -81,14 +79,4 @@ public class ShiroDbRealm extends AuthorizingRealm {
         return info;
     }
 
-    /**
-     * 设置认证加密方式
-     */
-    @Override
-    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
-        HashedCredentialsMatcher md5CredentialsMatcher = new HashedCredentialsMatcher();
-        md5CredentialsMatcher.setHashAlgorithmName(ShiroKit.hashAlgorithmName);
-        md5CredentialsMatcher.setHashIterations(ShiroKit.hashIterations);
-        super.setCredentialsMatcher(md5CredentialsMatcher);
-    }
 }

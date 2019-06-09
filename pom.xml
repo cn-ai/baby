@@ -24,6 +24,7 @@
         <module>guns-base-sms</module>
         <module>guns-base-email</module>
         <module>guns-base-timers</module>
+        <module>guns-base-third-login</module>
         <module>guns-sys</module>
         <module>guns-vip-gen</module>
         <module>guns-vip-main</module>
@@ -50,6 +51,13 @@
     <dependencyManagement>
 
         <dependencies>
+
+            <!-- 用just auth的jar冲突-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>4.1.21</version>
+            </dependency>
 
             <!--核心组件-->
             <dependency>

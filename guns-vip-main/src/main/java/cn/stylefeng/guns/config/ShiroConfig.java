@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.stylefeng.guns.sys.config.web;
+package cn.stylefeng.guns.config;
 
 import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.properties.GunsProperties;
 import cn.stylefeng.guns.sys.core.shiro.GunsUserFilter;
 import cn.stylefeng.guns.sys.core.shiro.ShiroDbRealm;
+import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
@@ -109,7 +111,13 @@ public class ShiroConfig {
      */
     @Bean
     public ShiroDbRealm shiroDbRealm() {
-        return new ShiroDbRealm();
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName(ShiroKit.hashAlgorithmName);
+        hashedCredentialsMatcher.setHashIterations(ShiroKit.hashIterations);
+
+        ShiroDbRealm shiroDbRealm = new ShiroDbRealm();
+        shiroDbRealm.setCredentialsMatcher(hashedCredentialsMatcher);
+        return shiroDbRealm;
     }
 
     /**
