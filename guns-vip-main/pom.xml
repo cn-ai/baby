@@ -31,6 +31,13 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- 最新代码生成模块 -->
+<!--        <dependency>-->
+<!--            <groupId>cn.stylefeng</groupId>-->
+<!--            <artifactId>guns-base-timers</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <build>
