@@ -25,15 +25,13 @@ public class MpPluginsConfig {
         return new CustomMetaObjectHandler() {
 
             @Override
-            protected Object getUserUniqueId() {
+            protected Long getUserUniqueId() {
                 try {
-
-                    return ShiroKit.getUser().getId();
-
+                    return ShiroKit.getUserNotNull().getId();
                 } catch (Exception e) {
 
                     //如果获取不到当前用户就存空id
-                    return "";
+                    return -100L;
                 }
             }
         };
