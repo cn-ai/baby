@@ -15,13 +15,17 @@
  */
 package cn.stylefeng.guns.sys.modular.system.controller;
 
-import cn.stylefeng.guns.base.shiro.ShiroUser;
-import cn.stylefeng.guns.sys.core.log.LogManager;
 import cn.stylefeng.guns.base.pojo.node.MenuNode;
+import cn.stylefeng.guns.base.shiro.ShiroUser;
+import cn.stylefeng.guns.sys.core.exception.InvalidKaptchaException;
+import cn.stylefeng.guns.sys.core.log.LogManager;
 import cn.stylefeng.guns.sys.core.log.factory.LogTaskFactory;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
+import cn.stylefeng.guns.sys.core.util.KaptchaUtil;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.util.ToolUtil;
+import com.google.code.kaptcha.Constants;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +102,15 @@ public class LoginController extends BaseController {
         String username = super.getPara("username").trim();
         String password = super.getPara("password").trim();
         String remember = super.getPara("remember");
+
+        //验证验证码是否正确
+        if (KaptchaUtil.getKaptchaOnOff()) {
+            String kaptcha = super.getPara("kaptcha").trim();
+            String code = (String) super.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+            if (ToolUtil.isEmpty(kaptcha) || !kaptcha.equalsIgnoreCase(code)) {
+                throw new InvalidKaptchaException();
+            }
+        }
 
         Subject currentUser = ShiroKit.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password.toCharArray());
