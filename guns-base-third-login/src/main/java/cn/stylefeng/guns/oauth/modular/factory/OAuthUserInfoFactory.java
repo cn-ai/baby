@@ -56,7 +56,7 @@ public class OAuthUserInfoFactory {
         systemUser.setSalt(salt);
 
         //利用openId设置账号
-        systemUser.setAccount(authUser.getUsername());
+        systemUser.setAccount("oauth2_" + authUser.getSource().name() + "_" + authUser.getUsername());
         systemUser.setName(authUser.getNickname());
         systemUser.setBirthday(new Date());
         systemUser.setSex(AuthUserGender.MALE.equals(authUser.getGender()) ? "M" : "F");
