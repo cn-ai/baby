@@ -38,7 +38,7 @@ public interface Const {
     String DEFAULT_WELCOME_TIP = "欢迎使用Guns快速开发平台!";
 
     /**
-     * 系统默认的管理员密码
+     * 重置密码
      */
     String DEFAULT_PWD = "111111";
 
@@ -56,11 +56,6 @@ public interface Const {
      * 超级管理员角色id
      */
     Long ADMIN_ROLE_ID = 1L;
-
-    /**
-     * 接口文档的菜单名
-     */
-    String API_MENU_NAME = "接口文档";
 
     /**
      * 不需要权限验证的资源表达式

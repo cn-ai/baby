@@ -11,7 +11,6 @@ import cn.stylefeng.guns.sys.core.constant.state.ManagerStatus;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.core.shiro.service.UserAuthService;
-import cn.stylefeng.guns.sys.core.util.ApiMenuFilter;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.factory.UserFactory;
 import cn.stylefeng.guns.sys.modular.system.mapper.UserMapper;
@@ -177,8 +176,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             return new ArrayList<>();
         } else {
             List<MenuNode> menus = menuService.getMenusByRoleIds(roleList);
-            List<MenuNode> titles = MenuNode.buildTitle(menus);
-            return ApiMenuFilter.build(titles);
+            return MenuNode.buildTitle(menus);
         }
 
     }

@@ -19,7 +19,6 @@ import cn.stylefeng.guns.sys.core.attribute.AttributeSetInteceptor;
 import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.exception.page.GunsErrorView;
 import cn.stylefeng.guns.sys.core.listener.ConfigListener;
-import cn.stylefeng.guns.sys.core.properties.GunsProperties;
 import cn.stylefeng.guns.sys.modular.api.aop.RestApiInteceptor;
 import cn.stylefeng.roses.core.xss.XssFilter;
 import com.alibaba.druid.pool.DruidDataSource;
@@ -32,7 +31,6 @@ import com.google.code.kaptcha.util.Config;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.JdkRegexpMethodPointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -54,20 +52,15 @@ import java.util.Properties;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private GunsProperties gunsProperties;
-
     /**
      * 静态资源映射
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        if (gunsProperties.getSwaggerOpen()) {
 
-            //swagger
-            registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-        }
+        //swagger
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 
         //本应用
         registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
