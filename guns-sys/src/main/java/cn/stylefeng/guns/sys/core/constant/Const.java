@@ -67,4 +67,10 @@ public interface Const {
      */
     List<String> NONE_PERMISSION_RES = CollectionUtil.newLinkedList("/assets/**", "/gunsApi/**", "/login", "/global/sessionError", "/kaptcha", "/error", "/global/error", "/oauth/**");
 
+    /**
+     * OAuth2登录用户的账号标识
+     */
+    String OAUTH2_ACCOUNT_PREFIX = "oauth2";
+
+
 }

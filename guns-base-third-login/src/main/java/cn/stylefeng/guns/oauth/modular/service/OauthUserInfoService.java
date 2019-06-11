@@ -64,6 +64,13 @@ public interface OauthUserInfoService extends IService<OauthUserInfo> {
      * @author stylefeng
      * @Date 2019-06-09
      */
-     LayuiPageInfo findPageBySpec(OauthUserInfoParam param);
+    LayuiPageInfo findPageBySpec(OauthUserInfoParam param);
 
+    /**
+     * 获取用户头像地址
+     *
+     * @author fengshuonan
+     * @Date 2019-06-11 13:25
+     */
+    String getAvatarUrl(Long userId);
 }

@@ -16,6 +16,7 @@
 package cn.stylefeng.guns.sys.core.util;
 
 import cn.stylefeng.guns.sys.core.listener.ConfigListener;
+import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 
 /**
  * 获取默认图片地址
@@ -42,7 +43,11 @@ public class DefaultImages {
      * @Date 2018/10/30 5:51 PM
      */
     public static String defaultAvatarUrl() {
-        return ConfigListener.getConf().get("contextPath") + "/system/previewAvatar";
+        if (ShiroKit.oauth2Flag()) {
+            return ConfigListener.getConf().get("contextPath") + "/oauth/avatar";
+        } else {
+            return ConfigListener.getConf().get("contextPath") + "/system/previewAvatar";
+        }
     }
 
     /**

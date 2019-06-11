@@ -16,10 +16,10 @@
 package cn.stylefeng.guns.sys.core.shiro;
 
 import cn.stylefeng.guns.base.shiro.ShiroUser;
+import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
-import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import org.apache.shiro.SecurityUtils;
@@ -317,4 +317,15 @@ public class ShiroKit {
         return shiroUser;
     }
 
+    /**
+     * 判断用户是否是从oauth2登录过来的
+     */
+    public static boolean oauth2Flag() {
+        String account = ShiroKit.getUserNotNull().getAccount();
+        if (account.startsWith(Const.OAUTH2_ACCOUNT_PREFIX)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

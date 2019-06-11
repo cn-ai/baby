@@ -1,6 +1,8 @@
 package cn.stylefeng.guns.oauth.modular.controller;
 
 import cn.stylefeng.guns.oauth.modular.service.LoginService;
+import cn.stylefeng.guns.oauth.modular.service.OauthUserInfoService;
+import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthResponse;
@@ -32,9 +34,11 @@ public class OAuthController extends BaseController {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private OauthUserInfoService oauthUserInfoService;
+
     /**
      * 第三方登录跳转
-     * njui7crdxe
      *
      * @author fengshuonan
      * @Date 2019/6/9 16:44
@@ -65,6 +69,23 @@ public class OAuthController extends BaseController {
         loginService.oauthLogin(oauthUser);
 
         return "redirect:/";
+    }
+
+    /**
+     * 第三方登录的头像
+     *
+     * @author fengshuonan
+     * @Date 2019/6/9 16:44
+     */
+    @RequestMapping("/avatar")
+    public String avatar() {
+
+        Long userId = ShiroKit.getUserNotNull().getId();
+
+        //获取第三方登录用户的头像
+        String avatarUrl = oauthUserInfoService.getAvatarUrl(userId);
+
+        return REDIRECT + avatarUrl;
     }
 
 }

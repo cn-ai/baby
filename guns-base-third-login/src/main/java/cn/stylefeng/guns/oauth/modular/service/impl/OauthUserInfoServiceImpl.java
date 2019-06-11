@@ -6,8 +6,9 @@ import cn.stylefeng.guns.oauth.modular.entity.OauthUserInfo;
 import cn.stylefeng.guns.oauth.modular.mapper.OauthUserInfoMapper;
 import cn.stylefeng.guns.oauth.modular.model.params.OauthUserInfoParam;
 import cn.stylefeng.guns.oauth.modular.model.result.OauthUserInfoResult;
-import  cn.stylefeng.guns.oauth.modular.service.OauthUserInfoService;
+import cn.stylefeng.guns.oauth.modular.service.OauthUserInfoService;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -28,18 +29,18 @@ import java.util.List;
 public class OauthUserInfoServiceImpl extends ServiceImpl<OauthUserInfoMapper, OauthUserInfo> implements OauthUserInfoService {
 
     @Override
-    public void add(OauthUserInfoParam param){
+    public void add(OauthUserInfoParam param) {
         OauthUserInfo entity = getEntity(param);
         this.save(entity);
     }
 
     @Override
-    public void delete(OauthUserInfoParam param){
+    public void delete(OauthUserInfoParam param) {
         this.removeById(getKey(param));
     }
 
     @Override
-    public void update(OauthUserInfoParam param){
+    public void update(OauthUserInfoParam param) {
         OauthUserInfo oldEntity = getOldEntity(param);
         OauthUserInfo newEntity = getEntity(param);
         ToolUtil.copyProperties(newEntity, oldEntity);
@@ -47,23 +48,29 @@ public class OauthUserInfoServiceImpl extends ServiceImpl<OauthUserInfoMapper, O
     }
 
     @Override
-    public OauthUserInfoResult findBySpec(OauthUserInfoParam param){
+    public OauthUserInfoResult findBySpec(OauthUserInfoParam param) {
         return null;
     }
 
     @Override
-    public List<OauthUserInfoResult> findListBySpec(OauthUserInfoParam param){
+    public List<OauthUserInfoResult> findListBySpec(OauthUserInfoParam param) {
         return null;
     }
 
     @Override
-    public LayuiPageInfo findPageBySpec(OauthUserInfoParam param){
+    public LayuiPageInfo findPageBySpec(OauthUserInfoParam param) {
         Page pageContext = getPageContext();
         IPage page = this.baseMapper.customPageList(pageContext, param);
         return LayuiPageFactory.createPageInfo(page);
     }
 
-    private Serializable getKey(OauthUserInfoParam param){
+    @Override
+    public String getAvatarUrl(Long userId) {
+        OauthUserInfo oauthUserInfo = this.getOne(new QueryWrapper<OauthUserInfo>().eq("user_id", userId));
+        return oauthUserInfo.getAvatar();
+    }
+
+    private Serializable getKey(OauthUserInfoParam param) {
         return param.getOauthId();
     }
 
