@@ -1,4 +1,4 @@
-﻿/** EasyWeb iframe v3.1.1 data:2019-03-24 License By http://easyweb.vip */
+/** EasyWeb iframe v3.1.2 date:2019-06-05 License By http://easyweb.vip */
 
 layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 	var d = layui.jquery;
@@ -17,7 +17,7 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 	var f = false;
 	var c;
 	var h = {
-		pageTabs: false,
+		pageTabs: true,
 		cacheTab: true,
 		openTabCtxMenu: true,
 		maxTabNum: 20,
@@ -42,7 +42,7 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 					}
 				});
 				if (!v) {
-					if (h.mTabList.length >= h.maxTabNum) {
+					if ((h.mTabList.length + 1) >= h.maxTabNum) {
 						r.msg("最多打开" + h.maxTabNum + "个选项卡", {
 							icon: 2
 						});
@@ -52,7 +52,7 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 					f = true;
 					b.tabAdd(i, {
 						id: x,
-						title: w ? w : "无标题",
+						title: '<span class="title">' + (w ? w : "") + "</span>",
 						content: '<iframe lay-id="' + x + '" src="' + x + '" frameborder="0" class="admin-iframe"></iframe>'
 					});
 					if (x != c) {
@@ -120,6 +120,12 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 			}
 		},
 		openTab: function(w) {
+			if (window != top && !m.isTop()) {
+				if (top.layui && top.layui.index) {
+					top.layui.index.openTab(w);
+					return
+				}
+			}
 			var u = w.url;
 			var v = w.title;
 			if (w.end) {
@@ -131,6 +137,12 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 			})
 		},
 		closeTab: function(u) {
+			if (window != top && !m.isTop()) {
+				if (top.layui && top.layui.index) {
+					top.layui.index.closeTab(u);
+					return
+				}
+			}
 			b.tabDelete(i, u)
 		},
 		loadSettings: function(z, y) {
@@ -165,9 +177,19 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 				if (u.tabAutoRefresh) {
 					d(n).attr("lay-autoRefresh", "true")
 				}
+				if (u.navArrow != undefined) {
+					d(o + ">.layui-nav-tree").removeClass("arrow2 arrow3");
+					u.navArrow && d(o + ">.layui-nav-tree").addClass(u.navArrow)
+				}
 			}
 		},
 		setTabCache: function(u) {
+			if (window != top && !m.isTop()) {
+				if (top.layui && top.layui.index) {
+					top.layui.index.setTabCache(u);
+					return
+				}
+			}
 			layui.data(m.tableName, {
 				key: "cacheTab",
 				value: u
@@ -184,19 +206,35 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 		clearTabCache: function() {
 			m.putTempData("indexTabs", undefined)
 		},
-		setTabTitle: function(u) {
+		setTabTitle: function(v, u) {
+			if (window != top && !m.isTop()) {
+				if (top.layui && top.layui.index) {
+					top.layui.index.setTabTitle(v, u);
+					return
+				}
+			}
 			if (!h.pageTabs) {
-				if (u) {
+				if (v) {
 					d(q).addClass("show");
-					var v = d(q + ">.layui-body-header-title");
-					v.text(u);
-					v.next(".layui-breadcrumb").find("cite").last().text(u)
+					var w = d(q + ">.layui-body-header-title");
+					w.html(v);
+					w.next(".layui-breadcrumb").find("cite").last().text(v)
 				} else {
 					d(q).removeClass("show")
 				}
+			} else {
+				v || (v = "");
+				u || (u = d(n + ">.layui-tab-title>li.layui-this").attr("lay-id"));
+				u && d(n + '>.layui-tab-title>li[lay-id="' + u + '"] .title').html(v)
 			}
 		},
 		setTabTitleHtml: function(u) {
+			if (window != top && !m.isTop()) {
+				if (top.layui && top.layui.index) {
+					top.layui.index.setTabTitleHtml(u);
+					return
+				}
+			}
 			if (!h.pageTabs) {
 				if (u) {
 					d(q).addClass("show");
@@ -260,7 +298,8 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 			y = u
 		}
 		if (u && u != "javascript:;") {
-			var v = w.text().replace(/(^\s*)|(\s*$)/g, "");
+			var v = w.attr("ew-title");
+			v || (v = w.text().replace(/(^\s*)|(\s*$)/g, ""));
 			h.loadView({
 				menuId: y,
 				menuPath: u,
@@ -289,13 +328,6 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 		}
 		m.rollPage("auto");
 		m.activeNav(v);
-		var x = d(n + ">.layui-tab-content>.layui-tab-item.layui-show .admin-iframe")[0];
-		if (x) {
-			x.style.height = "99%";
-			x.scrollWidth;
-			x.style.height = "100%"
-		}
-		x.focus();
 		var u = d(n).attr("lay-autoRefresh");
 		if (u === "true" && !f) {
 			m.refresh(v)
@@ -328,7 +360,7 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 		d(a + ">.layui-nav .layui-nav-item").removeClass("layui-this");
 		d(this).parent(".layui-nav-item").addClass("layui-this")
 	});
-	if (h.openTabCtxMenu && h.pageTabs) {
+	if (h.openTabCtxMenu && h.pageTabs && t) {
 		d(n + ">.layui-tab-title").off("contextmenu.tab").on("contextmenu.tab", "li", function(v) {
 			var u = d(this).attr("lay-id");
 			t.show([{

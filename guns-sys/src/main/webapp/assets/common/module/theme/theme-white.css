@@ -52,7 +52,7 @@
 
 .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this > a, .layui-nav-tree .layui-this > a:hover {
     background: rgba(59, 116, 255, .03);
-    color: #3B74FF;
+    color: #3B74FF !important;
 }
 
 .layui-nav-tree .layui-nav-bar {
@@ -99,6 +99,10 @@
     border-color: transparent transparent #999;
 }
 
+.layui-nav.arrow3 .layui-nav-itemed > a > .layui-nav-more:before {
+    background-color: #888;
+}
+
 /** tab下划线 */
 .layui-layout-admin .layui-body > .layui-tab > .layui-tab-title li.layui-this:after {
     background-color: #2486FF;
@@ -141,44 +145,6 @@
 /* 圆形按钮 */
 .btn-circle {
     background: #2486FF;
-    box-shadow: 0 5px 20px 0 #2486FF;
-}
-
-/** 修改侧边栏小三角 */
-
-.layui-layout-admin .layui-side .layui-nav .layui-nav-more {
-    font-family: layui-icon !important;
-    font-size: 12px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
-    width: auto;
-    height: auto;
-    line-height: normal;
-    border: none;
-    top: 23px;
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    transition: all .1s;
-    -webkit-transition: all .1s;
-}
-
-.layui-layout-admin .layui-side .layui-nav .layui-nav-child .layui-nav-more {
-    top: 13px;
-}
-
-.layui-layout-admin .layui-side .layui-nav .layui-nav-more:before {
-    content: "\e61a";
-}
-
-.layui-layout-admin .layui-side .layui-nav .layui-nav-itemed > a > .layui-nav-more {
-    transform: rotate(-180deg);
-    -ms-transform: rotate(-180deg);
-    -moz-transform: rotate(-180deg);
-    -webkit-transform: rotate(-180deg);
-    -o-transform: rotate(-180deg);
 }
 
 /** 主题颜色 */

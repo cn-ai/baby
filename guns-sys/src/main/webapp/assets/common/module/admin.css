@@ -1,4 +1,4 @@
-/** EasyWeb iframe v3.1.1 data:2019-03-24 License By http://easyweb.vip */
+﻿/** EasyWeb iframe v3.1.2 date:2019-06-05 License By http://easyweb.vip */
 
 html {
     background-color: #f2f2f2;
@@ -112,6 +112,12 @@ html {
 
 .layui-layout-admin .layui-header .layui-nav-img + cite {
     margin-right: 5px;
+    display: inline-block;
+}
+
+/* header里面小圆点 */
+.layui-header .layui-badge-dot {
+    margin: -9px 0px 0px 11px;
 }
 
 /** //header样式结束 */
@@ -209,41 +215,6 @@ html {
 
 .layui-layout-admin .layui-side .layui-nav .layui-nav-more {
     right: 15px;
-}
-
-.layui-nav.arrow2 .layui-nav-more {
-    font-family: layui-icon !important;
-    font-size: 12px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
-    width: auto;
-    height: auto;
-    line-height: normal;
-    border: none;
-    top: 23px;
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    transition: all .1s;
-    -webkit-transition: all .1s;
-}
-
-.layui-nav.arrow2 .layui-nav-child .layui-nav-more {
-    top: 13px;
-}
-
-.layui-nav.arrow2 .layui-nav-more:before {
-    content: "\e61a";
-}
-
-.layui-nav.arrow2 .layui-nav-itemed > a > .layui-nav-more {
-    transform: rotate(-180deg);
-    -ms-transform: rotate(-180deg);
-    -moz-transform: rotate(-180deg);
-    -webkit-transform: rotate(-180deg);
-    -o-transform: rotate(-180deg);
 }
 
 .layui-layout-admin .layui-side .layui-nav .layui-nav-item .layui-nav-child a {
@@ -494,6 +465,12 @@ html {
     left: 0;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    display: block;
+    visibility: hidden;
+}
+
+.layui-layout-admin .layui-body > .layui-tab > .layui-tab-content > .layui-tab-item.layui-show {
+    visibility: visible;
 }
 
 /** 选项卡标题样式 */
@@ -644,6 +621,89 @@ html {
 
 /** //选项卡样式结束 */
 
+/** 导航栏小三角改箭头 */
+.layui-nav.arrow2 .layui-nav-more {
+    font-family: layui-icon !important;
+    font-size: 12px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    border: none;
+    top: 23px;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    transition: all .1s;
+    -webkit-transition: all .1s;
+}
+
+.layui-nav.arrow2 .layui-nav-child .layui-nav-more {
+    top: 13px;
+}
+
+.layui-nav.arrow2 .layui-nav-more:before {
+    content: "\e61a";
+}
+
+.layui-nav.arrow2 .layui-nav-itemed > a > .layui-nav-more {
+    transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+}
+
+/** 导航栏小三角改加减号 */
+.layui-nav.arrow3 .layui-nav-more {
+    font-family: layui-icon !important;
+    font-size: 12px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    border: none;
+    top: 23px;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    transition: all .1s;
+    -webkit-transition: all .1s;
+}
+
+.layui-nav.arrow3 .layui-nav-child .layui-nav-more {
+    top: 13px;
+}
+
+.layui-nav.arrow3 .layui-nav-more:before {
+    content: "\e654";
+}
+
+.layui-nav.arrow3 .layui-nav-itemed > a > .layui-nav-more {
+    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    width: 12px;
+    text-align: center;
+}
+
+.layui-nav.arrow3 .layui-nav-itemed > a > .layui-nav-more:before {
+    content: '';
+    width: 8px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, .7);
+    display: inline-block;
+    vertical-align: middle;
+}
+
 /** loading样式 */
 .page-loading {
     position: absolute;
@@ -660,6 +720,7 @@ html {
 
 .page-no-scroll {
     overflow: hidden;
+    min-height: 80px;
 }
 
 /** 魔方loading */
@@ -877,12 +938,12 @@ html {
     margin-bottom: 0;
 }
 
-.toolbar + table {
-    margin: 2px 0 !important;
+.toolbar + table, .layui-card-body > .layui-table {
+    margin: 2px 0;
 }
 
-.toolbar + table + .layui-table-view {
-    margin: 0 !important;
+.toolbar + table + .layui-table-view, .layui-card-body > .layui-table-view {
+    margin: 0;
 }
 
 .mr0 {
@@ -913,12 +974,46 @@ html {
 
 /** 弹窗内表单样式 */
 .layui-form.model-form {
-    padding: 30px 30px 0px 0px;
+    padding: 25px 30px 0px 0px;
+}
+
+.model-form.no-padding {
+    padding: 0;
+}
+
+.model-form .model-form-body {
+    padding: 25px 30px 0px 0px;
+    overflow-y: auto;
+    max-height: calc(100vh - 180px);
+}
+
+.model-form.no-padding .model-form-footer {
+    padding-right: 30px;
+    padding-top: 10px;
 }
 
 /** 如果按钮加图标减少内边距 */
 .icon-btn {
     padding: 0 10px;
+}
+
+.layui-btn-primary {
+    border-color: #e6e6e6;
+    color: #666;
+}
+
+.layui-btn-group .layui-btn-primary:first-child {
+    border-left: 1px solid #e6e6e6;
+}
+
+.layui-btn-primary:hover {
+    border-color: #C9C9C9;
+    color: #333;
+}
+
+.layui-btn-group .layui-btn-primary:hover {
+    border-color: #C9C9C9;
+    color: #333;
 }
 
 /** 卡片header里面的徽章样式调整 */
@@ -944,6 +1039,7 @@ html {
     background-image: url(img/icon_date.png);
     background-repeat: no-repeat;
     background-position: right center;
+    padding-right: 28px;
 }
 
 .icon-search {
@@ -955,7 +1051,7 @@ html {
 
 /** 辅助样式 */
 
-*[ew-href] {
+*[ew-href], [lay-tips] {
     cursor: pointer;
 }
 
@@ -996,14 +1092,44 @@ html {
     opacity: .8;
 }
 
+.text-muted {
+    color: #c2c2c2 !important;;
+}
+
+.text-primary {
+    color: #009688 !important;;
+}
+
+.text-success {
+    color: #5FB878 !important;;
+}
+
+.text-info {
+    color: #01AAED !important;;
+}
+
+.text-warning {
+    color: #FFB800 !important;;
+}
+
+.text-danger {
+    color: #FF5722 !important;
+}
+
 /** 超链接样式 */
 .layui-text a:not(.layui-btn) {
+    cursor: pointer;
     color: #01AAED;
 }
 
 .layui-text a:not(.layui-btn):hover {
     opacity: .8;
     text-decoration: none;
+}
+
+span .layui-icon {
+    font-size: 14px;
+    margin-left: 2px;
 }
 
 /* 圆形按钮 */
@@ -1018,7 +1144,7 @@ html {
     right: 15px;
     bottom: 15px;
     text-align: center;
-    box-shadow: 0 5px 20px 0 #009688;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, .28);
     cursor: pointer;
 }
 
@@ -1029,6 +1155,73 @@ html {
 
 .btn-circle .layui-icon {
     font-size: 24px;
+}
+
+/** 隐藏滚动条 */
+.no-scrollbar {
+    overflow: hidden !important;
+}
+
+/** 输入框禁用样式重写 */
+.layui-disabled, .layui-disabled:hover {
+    color: rgb(84, 84, 84) !important;
+    background-color: #eee;
+}
+
+/** 下拉菜单默认隐藏 */
+.dropdown-menu .dropdown-menu-nav {
+    display: none;
+}
+
+/** 徽章 */
+.layui-badge-rim + .layui-badge-rim {
+    margin-left: 8px;
+}
+
+.layui-layer-msg {
+    border-radius: 4px !important;
+    box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;;
+}
+
+.layui-btn {
+    transition: none;
+}
+
+.layui-btn[disabled] {
+    cursor: not-allowed;
+    opacity: .6;
+}
+
+.layui-form-select-top .layui-form-select > dl {
+    top: unset;
+    bottom: 42px;
+}
+
+/** xm-select样式优化 */
+.xm-select-parent .xm-select-title div.xm-select-label > span i {
+    top: 2px;
+    right: 5px;
+}
+
+.xm-select-parent .xm-select-title div.xm-select-label > span font {
+    overflow: hidden;
+    max-height: 18px;
+    display: inline-block;
+}
+
+.xm-select-parent dd > .xm-cz-group {
+    margin-right: 22px !important;
+}
+
+.xm-select-nri .xm-select-parent dd > .xm-cz-group {
+    border-right: none;
+    margin-right: 0 !important;
+    max-width: unset !important;
+}
+
+.xm-select-nri .xm-select-parent dd > .xm-cz {
+    display: none !important;
 }
 
 /** 滚动条样式美化 */
@@ -1044,12 +1237,11 @@ html {
 
 ::-webkit-scrollbar-thumb {
     border-radius: 8px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-    background-color: #A6A6A6;
+    background-color: #C1C1C1;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #7f7f7f;
+    background-color: #A8A8A8;
 }
 
 @media screen and (max-width: 750px) {
@@ -1064,15 +1256,168 @@ html {
     height: 5px;
 }
 
+/* 侧边栏滚动条变细 */
 .layui-nav-item.admin-nav-hover > .layui-nav-child::-webkit-scrollbar {
     width: 3px;
     height: 3px;
 }
 
-/** 下拉菜单默认隐藏 */
-.dropdown-menu {
-    display: none;
+/** 地图选择位置弹窗 */
+#ew-map-select-map {
+    height: 450px;
 }
+
+#ew-map-select-pois {
+    height: 450px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.ew-map-select-search-list-item {
+    padding: 10px 30px 10px 15px;
+    border-bottom: 1px solid #e8e8e8;
+    cursor: pointer;
+    position: relative;
+}
+
+.ew-map-select-search-list-item:hover {
+    background: #F2F2F2;
+}
+
+.ew-map-select-search-list-item:last-child {
+    border-bottom: none;
+}
+
+.ew-map-select-search-list-item .ew-map-select-search-list-item-title {
+    font-size: 14px;
+    color: #333;
+}
+
+.ew-map-select-search-list-item .ew-map-select-search-list-item-address {
+    font-size: 12px;
+    color: gray;
+    padding-top: 5px;
+}
+
+.ew-map-select-search-list-item-icon-ok {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ew-map-select-search-list-item-icon-ok .layui-icon {
+    color: #3B74FF;
+}
+
+.ew-map-select-tool {
+    padding: 5px 15px;
+    box-shadow: 0 1px 0px 0 rgba(0, 0, 0, .05);
+}
+
+#ew-map-select-center-img {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    width: 26px;
+    margin-left: -13px;
+}
+
+#ew-map-select-center-img2 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 12px;
+    display: inline-block;
+    margin-left: -6px;
+    margin-top: -7px;
+    color: #3B74FF;
+}
+
+.bounceInDown {
+    animation: bounceInDown 500ms;
+    animation-direction: alternate;
+    -webkit-animation: bounceInDown 500ms;
+    -webkit-animation-direction: alternate
+}
+
+@-webkit-keyframes bounceInDown {
+    0%, 60%, 75%, 90%, to {
+        -webkit-transition-timing-function: cubic-bezier(.215, .61, .355, 1);
+        transition-timing-function: cubic-bezier(.215, .61, .355, 1)
+    }
+    0%, to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)
+    }
+    25% {
+        -webkit-transform: translate3d(0, -30px, 0);
+        transform: translate3d(0, -10px, 0)
+    }
+    50% {
+        -webkit-transform: translate3d(0, -15px, 0);
+        transform: translate3d(0, -20px, 0)
+    }
+    75% {
+        -webkit-transform: translate3d(0, -4px, 0);
+        transform: translate3d(0, -10px, 0)
+    }
+}
+
+@keyframes bounceInDown {
+    0%, 60%, 75%, 90%, to {
+        -webkit-transition-timing-function: cubic-bezier(.215, .61, .355, 1);
+        transition-timing-function: cubic-bezier(.215, .61, .355, 1)
+    }
+    0%, to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)
+    }
+    25% {
+        -webkit-transform: translate3d(0, -30px, 0);
+        transform: translate3d(0, -10px, 0)
+    }
+    50% {
+        -webkit-transform: translate3d(0, -15px, 0);
+        transform: translate3d(0, -20px, 0)
+    }
+    75% {
+        -webkit-transform: translate3d(0, -4px, 0);
+        transform: translate3d(0, -10px, 0)
+    }
+}
+
+#ew-map-select-tips {
+    position: absolute;
+    z-index: 999;
+    background: #fff;
+    max-height: 430px;
+    overflow: auto;
+    top: 48px;
+    left: 56px;
+    width: 280px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+    border: 1px solid #d2d2d2;
+}
+
+#ew-map-select-tips .ew-map-select-search-list-item {
+    padding: 10px 15px 10px 35px;
+}
+
+.ew-map-select-search-list-item-icon-search {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ew-map-select-search-list-item-icon-search .layui-icon {
+    color: #ccc;
+}
+
+/** //end地图选择位置弹窗 */
+
+/** ------------------------------- 兼容老版本，后面会删除 ----------------------------------- */
 
 /** 基于layui nav的下拉菜单 */
 
@@ -1244,11 +1589,6 @@ html {
     padding: 0 13px 0 13px;
 }
 
-/** dtree选中颜色重写 */
-.dtree-theme-item-this {
-    background-color: #eeeeee !important;
-}
-
 /** 鼠标右键菜单样式 */
 .ctxMenu, .ctxMenu-sub {
     max-width: 250px;
@@ -1314,3 +1654,5 @@ html {
 }
 
 /** // 鼠标右键菜单样式end */
+
+/** ------------------------------- //end兼容老版本，后面会删除 ----------------------------------- */
