@@ -19,8 +19,10 @@ import cn.stylefeng.roses.core.datascope.DataScope;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.SqlRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,6 +95,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @author fengshuonan
      * @Date 2018/12/24 22:54
      */
+    @Transactional(rollbackFor = Exception.class)
     public void deleteUser(Long userId) {
 
         //不能删除超级管理员
@@ -101,6 +104,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         }
         this.assertAuth(userId);
         this.setStatus(userId, ManagerStatus.DELETED.getCode());
+
+        //删除对应的oauth2绑定表
+        SqlRunner.db().delete("delete from oauth_user_info where user_id = {0}", userId);
     }
 
     /**
