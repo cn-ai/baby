@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import me.zhyd.oauth.model.AuthUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class DefaultLoginService implements LoginService {
     private OauthUserInfoService oauthUserInfoService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public String oauthLogin(AuthUser oauthUser) {
 
         if (oauthUser == null) {
@@ -53,11 +55,11 @@ public class DefaultLoginService implements LoginService {
 
         } else {
 
-            //当前无登录用户，则新创建登录用户
-            createOAuthUser(oauthUser);
+            //当前无登录用户，创建用户或根据已有绑定用户的账号登录
+            String account = getOauthUserAccount(oauthUser);
 
             //执行shiro的登录逻辑
-            OAuthToken token = new OAuthToken(oauthUser.getUsername());
+            OAuthToken token = new OAuthToken(account);
             ShiroKit.getSubject().login(token);
 
             return "redirect:/";
@@ -84,11 +86,11 @@ public class DefaultLoginService implements LoginService {
         //已有人绑定，抛出异常
         if (oauthUserInfos != null && oauthUserInfos.size() > 0) {
             throw new OAuthLoginException(OAuthExceptionEnum.OPEN_ID_ALREADY_BIND);
+        } else {
+            //新建一条绑定记录
+            OauthUserInfo oAuthUserInfo = OAuthUserInfoFactory.createOAuthUserInfo(userId, oauthUser);
+            this.oauthUserInfoService.save(oAuthUserInfo);
         }
-
-        //新建一条绑定记录
-        OauthUserInfo oAuthUserInfo = OAuthUserInfoFactory.createOAuthUserInfo(userId, oauthUser);
-        this.oauthUserInfoService.save(oAuthUserInfo);
 
     }
 
@@ -98,21 +100,30 @@ public class DefaultLoginService implements LoginService {
      * @author fengshuonan
      * @Date 2019/6/9 19:07
      */
-    private void createOAuthUser(AuthUser oauthUser) {
+    private String getOauthUserAccount(AuthUser oauthUser) {
 
-        // 判断账号是否重复
-        User theUser = this.userService.getByAccount(oauthUser.getUsername());
-        if (theUser != null) {
-            return;
+        //先判断当前系统这个openId有没有人用
+        QueryWrapper<OauthUserInfo> queryWrapper = new QueryWrapper<OauthUserInfo>()
+                .eq("source", oauthUser.getSource().name())
+                .and(i -> i.eq("uuid", oauthUser.getUuid()));
+        OauthUserInfo oauthUserInfos = this.oauthUserInfoService.getOne(queryWrapper);
+
+        //已有人绑定,直接返回这个人的账号，进行登录
+        if (oauthUserInfos != null) {
+            Long userId = oauthUserInfos.getUserId();
+            return this.userService.getById(userId).getAccount();
+        } else {
+
+            //没有人绑定的创建这个人的本系统用户
+            User user = OAuthUserInfoFactory.createOAuthUser(oauthUser);
+            this.userService.save(user);
+
+            //新建一条oauth2绑定记录
+            OauthUserInfo oAuthUserInfo = OAuthUserInfoFactory.createOAuthUserInfo(user.getUserId(), oauthUser);
+            this.oauthUserInfoService.save(oAuthUserInfo);
+
+            return user.getAccount();
         }
-
-        //创建用户
-        User user = OAuthUserInfoFactory.createOAuthUser(oauthUser);
-        this.userService.save(user);
-
-        //创建第三方绑定信息
-        this.bindOAuthUser(user.getUserId(), oauthUser);
-
     }
 
 }
