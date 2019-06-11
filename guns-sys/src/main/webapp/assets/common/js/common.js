@@ -98,6 +98,7 @@ layui.config({
     citypicker: 'city-picker/city-picker',
     tableSelect: 'tableSelect/tableSelect',
     cropper: 'cropper/cropper',
+    zTree: 'zTree/zTree',
     selectPlus: '../../expand/module/selectPlus/selectPlus',
     ax: '../../expand/module/ax/ax',
     ztree: '../../expand/module/ztree/ztree-object'
