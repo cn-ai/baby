@@ -31,17 +31,17 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- 第三方登录 -->
+        <dependency>
+            <groupId>cn.stylefeng</groupId>
+            <artifactId>guns-base-third-login</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- 分布式job -->
         <!--        <dependency>-->
         <!--            <groupId>cn.stylefeng</groupId>-->
         <!--            <artifactId>guns-base-timers</artifactId>-->
-        <!--            <version>1.0.0</version>-->
-        <!--        </dependency>-->
-
-        <!-- 第三方登录 -->
-        <!--        <dependency>-->
-        <!--            <groupId>cn.stylefeng</groupId>-->
-        <!--            <artifactId>guns-base-third-login</artifactId>-->
         <!--            <version>1.0.0</version>-->
         <!--        </dependency>-->
 
