@@ -1,20 +1,24 @@
 package cn.stylefeng.guns.sys.modular.system.service;
 
-import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
-import cn.stylefeng.guns.sys.modular.system.entity.DictType;
-import cn.stylefeng.guns.sys.modular.system.model.params.DictTypeParam;
 import cn.stylefeng.guns.sys.core.constant.state.CommonStatus;
+import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
+import cn.stylefeng.guns.sys.modular.system.entity.Dict;
+import cn.stylefeng.guns.sys.modular.system.entity.DictType;
 import cn.stylefeng.guns.sys.modular.system.mapper.DictTypeMapper;
+import cn.stylefeng.guns.sys.modular.system.model.params.DictTypeParam;
 import cn.stylefeng.guns.sys.modular.system.model.result.DictTypeResult;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +33,9 @@ import java.util.List;
  */
 @Service
 public class DictTypeService extends ServiceImpl<DictTypeMapper, DictType> {
+
+    @Autowired
+    private DictService dictService;
 
     /**
      * 新增
@@ -60,8 +67,18 @@ public class DictTypeService extends ServiceImpl<DictTypeMapper, DictType> {
      * @author stylefeng
      * @Date 2019-03-13
      */
+    @Transactional(rollbackFor = Exception.class)
     public void delete(DictTypeParam param) {
+
+        if (param == null || param.getDictTypeId() == null) {
+            throw new RequestEmptyException("字典类型id为空");
+        }
+
+        //删除字典类型
         this.removeById(getKey(param));
+
+        //删除字典
+        this.dictService.remove(new QueryWrapper<Dict>().eq("dict_type_id", getKey(param)));
     }
 
     /**
