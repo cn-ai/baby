@@ -1,4 +1,4 @@
-/** EasyWeb iframe v3.1.2 date:2019-06-05 License By http://easyweb.vip */
+﻿/** EasyWeb iframe v3.1.2 date:2019-06-05 License By http://easyweb.vip */
 
 layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 	var d = layui.jquery;
@@ -17,7 +17,7 @@ layui.define(["layer", "element", "admin", "contextMenu"], function(s) {
 	var f = false;
 	var c;
 	var h = {
-		pageTabs: true,
+		pageTabs: false,
 		cacheTab: true,
 		openTabCtxMenu: true,
 		maxTabNum: 20,
