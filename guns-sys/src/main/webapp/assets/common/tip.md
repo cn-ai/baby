@@ -22,15 +22,16 @@ common.js的修改：
 admin.js的修改：
 ```js
 //427行改下地址
-content: n ? n : "page/tpl/tpl-theme.html"
+content: o ? o : Feng.ctxPath + '/system/theme'
 
 //445行改下地址
-content: n ? n : "page/tpl/tpl-message.html"
+content: o ? o : Feng.ctxPath + '/system/message'
 
 ```
 
 index.js的修改：
 ```js
 //第20行开启默认的单页标签
-pageTabs: true,
+pageTabs: false,
+
 ```
