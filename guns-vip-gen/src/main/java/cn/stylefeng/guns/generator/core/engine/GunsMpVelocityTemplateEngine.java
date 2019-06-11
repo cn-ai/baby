@@ -104,8 +104,9 @@ public class GunsMpVelocityTemplateEngine extends VelocityTemplateEngine {
         if (customMap != null && customMap.containsKey(tableInfo.getName())) {
 
             //将字段转化成驼峰式的属性
-            List<String> camelFields = FieldUtil.getCamelFields(customMap.get(tableInfo.getName()), tableInfo.getFields());
+            List<Map<String, Object>> camelFields = FieldUtil.getCamelFieldsUnderLine(customMap.get(tableInfo.getName()), tableInfo.getFields());
             objectMap.put("mapperConditions", camelFields);
+
         }
 
         return objectMap;

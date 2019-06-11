@@ -3,7 +3,9 @@ package cn.stylefeng.guns.generator.core.util;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 字段转化工具类
@@ -21,9 +23,9 @@ public class FieldUtil {
      * @author fengshuonan
      * @Date 2019/5/7 22:14
      */
-    public static List<String> getCamelFields(String[] underlineFields, List<TableField> tableFields) {
+    public static List<Map<String, Object>> getCamelFieldsUnderLine(String[] underlineFields, List<TableField> tableFields) {
 
-        ArrayList<String> newFields = new ArrayList<>();
+        ArrayList<Map<String, Object>> newFields = new ArrayList<>();
 
         if (underlineFields.length <= 0 || tableFields == null) {
             return newFields;
@@ -31,7 +33,12 @@ public class FieldUtil {
             for (String underlineField : underlineFields) {
                 for (TableField tableField : tableFields) {
                     if (underlineField.equals(tableField.getName())) {
-                        newFields.add(tableField.getPropertyName());
+
+                        HashMap<String, Object> field = new HashMap<>();
+                        field.put("fieldUnderline", underlineField);
+                        field.put("fieldCamel", tableField.getPropertyName());
+                        newFields.add(field);
+
                     }
                 }
             }
