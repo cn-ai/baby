@@ -2,17 +2,23 @@ package cn.stylefeng.guns.sys.config.datasource;
 
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.metadata.CustomMetaObjectHandler;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * mp的插件拓展
+ * mp的插件拓展和资源扫描
  *
  * @author fengshuonan
  * @Date 2019/5/10 21:33
  */
 @Configuration
-public class MpPluginsConfig {
+@MapperScan(basePackages = {"cn.stylefeng.guns.sys.modular.*.mapper",
+        "cn.stylefeng.guns.generator.modular.mapper",
+        "cn.stylefeng.guns.modular.*.mapper",
+        "cn.stylefeng.guns.sms.modular.mapper",
+        "cn.stylefeng.guns.oauth.modular.mapper"})
+public class PluginsConfig {
 
     /**
      * 拓展核心包中的字段包装器

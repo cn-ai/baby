@@ -15,7 +15,7 @@
  */
 package cn.stylefeng.guns.modular.demos.controller;
 
-import cn.stylefeng.guns.modular.demos.service.TestMultiDbService;
+import cn.stylefeng.guns.modular.demos.service.TranTestService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +30,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/multi")
-public class TestMultiController extends BaseController {
+public class TestMultiTranController extends BaseController {
 
     @Autowired
-    private TestMultiDbService testMultiDbService;
+    private TranTestService testMultiDbService;
 
-    @RequestMapping("")
-    public Object auth() {
+    @RequestMapping("/success")
+    public Object testSuccess() {
         testMultiDbService.beginTest();
+        return SuccessResponseData.success();
+    }
+
+    @RequestMapping("/fail")
+    public Object testFail() {
+        testMultiDbService.beginTestFail();
         return SuccessResponseData.success();
     }
 

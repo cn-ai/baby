@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>guns-sys</artifactId>
+    <artifactId>guns-base-db-container</artifactId>
 
     <packaging>jar</packaging>
 
@@ -25,9 +25,8 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.stylefeng</groupId>
-            <artifactId>guns-base-db-container</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jta-atomikos</artifactId>
         </dependency>
 
     </dependencies>
@@ -35,4 +34,5 @@
     <build>
         <finalName>${project.artifactId}</finalName>
     </build>
+
 </project>

@@ -10,12 +10,13 @@
         <result column="user_name" property="userName"/>
         <result column="password" property="password"/>
         <result column="jdbc_url" property="jdbcUrl"/>
+        <result column="remarks" property="remarks"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        db_id AS "dbId", db_name AS "dbName", jdbc_driver AS "jdbcDriver", user_name AS "userName", password AS "password", jdbc_url AS "jdbcUrl", create_time AS "createTime"
+        db_id AS "dbId", db_name AS "dbName", jdbc_driver AS "jdbcDriver", user_name AS "userName", password AS "password", jdbc_url AS "jdbcUrl", remarks AS "remarks", create_time AS "createTime"
     </sql>
 
     <select id="customList" resultType="cn.stylefeng.guns.generator.modular.model.result.DatabaseInfoResult" parameterType="cn.stylefeng.guns.generator.modular.model.params.DatabaseInfoParam">

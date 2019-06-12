@@ -16,7 +16,7 @@ USE guns;
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 11/06/2019 14:01:41
+ Date: 12/06/2019 17:17:50
 */
 
 SET NAMES utf8mb4;
@@ -28,11 +28,12 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `database_info`;
 CREATE TABLE `database_info` (
   `db_id` bigint(20) NOT NULL COMMENT '主键id',
-  `db_name` varchar(255) NOT NULL COMMENT '数据库名称',
+  `db_name` varchar(255) NOT NULL COMMENT '数据库名称（英文名称）',
   `jdbc_driver` varchar(255) NOT NULL COMMENT 'jdbc的驱动类型',
   `user_name` varchar(255) NOT NULL COMMENT '数据库连接的账号',
   `password` varchar(255) NOT NULL COMMENT '数据库连接密码',
   `jdbc_url` varchar(2000) NOT NULL COMMENT 'jdbc的url',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注，摘要',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`db_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='数据库信息表';
@@ -41,7 +42,7 @@ CREATE TABLE `database_info` (
 -- Records of database_info
 -- ----------------------------
 BEGIN;
-INSERT INTO `database_info` VALUES (1, '默认数据库', 'com.mysql.jdbc.Driver', 'root', 'root', 'jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT', '2019-05-11 13:51:19');
+INSERT INTO `database_info` VALUES (1, 'master', 'com.mysql.jdbc.Driver', 'root', 'root', 'jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT', 'Guns启动的数据源', '2019-05-11 13:51:19');
 COMMIT;
 
 -- ----------------------------

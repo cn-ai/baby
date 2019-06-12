@@ -25,7 +25,7 @@ public class GunsDbService extends ServiceImpl<UserMapper, User> {
     @Autowired
     private UserService userService;
 
-    @DataSource(name = "gunsdb")
+    @DataSource(name = "master")
     public void gunsdb() {
         User user = new User();
         user.setAccount(RandomUtil.randomString(5));
