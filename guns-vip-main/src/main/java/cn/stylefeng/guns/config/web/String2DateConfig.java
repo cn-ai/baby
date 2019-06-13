@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.sys.config.web;
+package cn.stylefeng.guns.config.web;
 
 import cn.hutool.core.date.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;

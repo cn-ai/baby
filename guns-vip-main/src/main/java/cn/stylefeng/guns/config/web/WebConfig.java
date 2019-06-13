@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.stylefeng.guns.sys.config.web;
+package cn.stylefeng.guns.config.web;
 
 import cn.stylefeng.guns.sys.core.attribute.AttributeSetInteceptor;
 import cn.stylefeng.guns.sys.core.constant.Const;

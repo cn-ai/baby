@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.stylefeng.guns.sys.config;
+package cn.stylefeng.guns.config.cache;
 
 import net.sf.ehcache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;

@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.sys.config.datasource;
+package cn.stylefeng.guns.config.datasource;
 
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.roses.core.metadata.CustomMetaObjectHandler;
