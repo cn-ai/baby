@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2018/7/20 23:39
  */
 @RestController
-@RequestMapping("/multi")
+@RequestMapping("/tran/multi")
 public class TestMultiTranController extends BaseController {
 
     @Autowired

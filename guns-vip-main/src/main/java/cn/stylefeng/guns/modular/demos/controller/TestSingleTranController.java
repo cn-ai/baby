@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2018/7/20 23:39
  */
 @RestController
-@RequestMapping("/single")
+@RequestMapping("/tran/single")
 public class TestSingleTranController extends BaseController {
 
     @Autowired
