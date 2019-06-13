@@ -59,7 +59,7 @@ public class DataSourceConfig {
         AtomikosDataSourceBean atomikosDataSourceBean = new AtomikosDataSourceBean();
         atomikosDataSourceBean.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
         atomikosDataSourceBean.setUniqueResourceName(MASTER_DATASOURCE_NAME);
-        atomikosDataSourceBean.setMaxPoolSize(20);
+        atomikosDataSourceBean.setMaxPoolSize(100);
         atomikosDataSourceBean.setBorrowConnectionTimeout(60);
         atomikosDataSourceBean.setXaProperties(druidProperties.createProperties());
 
