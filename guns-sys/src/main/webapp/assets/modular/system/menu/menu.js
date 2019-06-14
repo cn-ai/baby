@@ -90,15 +90,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
      * @param data 点击按钮时候的行数据
      */
     Menu.onEditMenu = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            type: 2,
-            title: '编辑菜单',
-            content: Feng.ctxPath + '/menu/menu_edit?menuId=' + data.menuId,
-            end: function () {
-                admin.getTempData('formOk') && Menu.initTable(Menu.tableId);
-            }
-        });
+        window.location.href = Feng.ctxPath + "/menu/menu_edit?menuId="+ data.menuId;
     };
 
     /**
@@ -170,7 +162,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        Menu.openAddMenu();
+        window.location.href = Feng.ctxPath + "/menu/menu_add";
     });
 
     // 工具条点击事件
