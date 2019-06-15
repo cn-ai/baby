@@ -34,6 +34,12 @@ public class DataSourceContext {
      */
     public static void initDataSource(DruidProperties masterDataSourceProperties) {
 
+        //清空数据库中的主数据源信息
+        new DataBaseInfoDao(masterDataSourceProperties).deleteMasterDatabaseInfo();
+
+        //初始化主数据源信息
+        new DataBaseInfoDao(masterDataSourceProperties).createMasterDatabaseInfo();
+
         //从数据库中获取所有的数据源信息
         DataBaseInfoDao dataBaseInfoDao = new DataBaseInfoDao(masterDataSourceProperties);
         Map<String, DruidProperties> allDataBaseInfo = dataBaseInfoDao.getAllDataBaseInfo();
