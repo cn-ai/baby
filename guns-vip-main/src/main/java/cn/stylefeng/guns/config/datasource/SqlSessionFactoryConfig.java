@@ -16,8 +16,12 @@
 package cn.stylefeng.guns.config.datasource;
 
 import cn.stylefeng.guns.dbcontainer.core.collector.SqlSessionFactoryCreator;
+import cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext;
 import cn.stylefeng.guns.dbcontainer.core.context.SqlSessionFactoryContext;
+import cn.stylefeng.guns.dbcontainer.core.exception.DataSourceInitException;
+import cn.stylefeng.roses.core.config.properties.DruidProperties;
 import cn.stylefeng.roses.core.mutidatasource.mybatis.OptionalSqlSessionTemplate;
+import cn.stylefeng.roses.core.util.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -59,6 +63,14 @@ public class SqlSessionFactoryConfig {
     @Bean(name = "gunsSqlSessionTemplate")
     public OptionalSqlSessionTemplate gunsSqlSessionTemplate(@Qualifier("sqlSessionFactoryPrimary") SqlSessionFactory sqlSessionFactoryPrimary,
                                                              SqlSessionFactoryCreator sqlSessionFactoryCreator) {
+
+        //初始化数据源容器
+        try {
+            DruidProperties druidProperties = SpringContextHolder.getBean(DruidProperties.class);
+            DataSourceContext.initDataSource(druidProperties);
+        } catch (Exception e) {
+            throw new DataSourceInitException(DataSourceInitException.ExEnum.INIT_DATA_SOURCE_ERROR);
+        }
 
         //添加主数据源的SqlSessionFactory
         SqlSessionFactoryContext.addSqlSessionFactory(MASTER_DATASOURCE_NAME, sqlSessionFactoryPrimary);

@@ -1,9 +1,6 @@
 package cn.stylefeng.guns.dbcontainer.core.context;
 
 import cn.stylefeng.guns.dbcontainer.core.collector.SqlSessionFactoryCreator;
-import cn.stylefeng.guns.dbcontainer.core.exception.DataSourceInitException;
-import cn.stylefeng.roses.core.config.properties.DruidProperties;
-import cn.stylefeng.roses.core.util.SpringContextHolder;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import javax.sql.DataSource;
@@ -49,14 +46,6 @@ public class SqlSessionFactoryContext {
      * @Date 2019-06-15 19:51
      */
     public static void initBaseSqlSessionFactory(SqlSessionFactoryCreator sqlSessionFactoryCreator) {
-
-        //初始化数据源容器
-        try {
-            DruidProperties druidProperties = SpringContextHolder.getBean(DruidProperties.class);
-            DataSourceContext.initDataSource(druidProperties);
-        } catch (Exception e) {
-            throw new DataSourceInitException(DataSourceInitException.ExEnum.INIT_DATA_SOURCE_ERROR);
-        }
 
         //获取数据库的数据源
         Map<String, DataSource> dataSources = DataSourceContext.getDataSources();
