@@ -96,7 +96,7 @@ public class DatabaseInfoController extends BaseController {
     @RequestMapping("/editItem")
     @ResponseBody
     public ResponseData editItem(DatabaseInfoParam databaseInfoParam) {
-        this.databaseInfoService.update(databaseInfoParam);
+        //this.databaseInfoService.update(databaseInfoParam);
         return ResponseData.success();
     }
 

@@ -52,7 +52,7 @@ public class SqlSessionFactoryCreator {
     /**
      * 创建SqlSessionFactory
      */
-    public SqlSessionFactory createSqlSessionFactory(DataSource dataSource) {
+    public synchronized SqlSessionFactory createSqlSessionFactory(DataSource dataSource) {
         try {
             MybatisSqlSessionFactoryBean factory = new MybatisSqlSessionFactoryBean();
             factory.setDataSource(dataSource);

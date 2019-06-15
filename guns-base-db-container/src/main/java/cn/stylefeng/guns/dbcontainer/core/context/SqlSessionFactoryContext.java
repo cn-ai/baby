@@ -1,6 +1,10 @@
 package cn.stylefeng.guns.dbcontainer.core.context;
 
 import cn.stylefeng.guns.dbcontainer.core.collector.SqlSessionFactoryCreator;
+import cn.stylefeng.guns.dbcontainer.modular.entity.DatabaseInfo;
+import cn.stylefeng.guns.dbcontainer.modular.factory.DruidFactory;
+import cn.stylefeng.roses.core.config.properties.DruidProperties;
+import cn.stylefeng.roses.core.util.SpringContextHolder;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import javax.sql.DataSource;
@@ -26,6 +30,29 @@ public class SqlSessionFactoryContext {
      * @Date 2019-06-12 15:28
      */
     public static void addSqlSessionFactory(String name, SqlSessionFactory sqlSessionFactory) {
+        sqlSessionFactories.put(name, sqlSessionFactory);
+    }
+
+    /**
+     * 添加sqlSessionFactory
+     *
+     * @author fengshuonan
+     * @Date 2019-06-12 15:28
+     */
+    public static void addSqlSessionFactory(String name, DatabaseInfo databaseInfo) {
+
+        //创建properties
+        DruidProperties druidProperties = DruidFactory.createDruidProperties(databaseInfo);
+
+        //创建dataSource
+        DataSource dataSource = DataSourceContext.createDataSource(name, druidProperties);
+        DataSourceContext.addDataSource(name, dataSource);
+
+        //创建sqlSessionFactory
+        SqlSessionFactoryCreator sqlSessionFactoryCreator = SpringContextHolder.getBean(SqlSessionFactoryCreator.class);
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryCreator.createSqlSessionFactory(dataSource);
+        SqlSessionFactoryContext.addSqlSessionFactory(name, sqlSessionFactory);
+
         sqlSessionFactories.put(name, sqlSessionFactory);
     }
 

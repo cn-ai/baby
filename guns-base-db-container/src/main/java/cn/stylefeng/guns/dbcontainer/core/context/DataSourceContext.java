@@ -62,7 +62,7 @@ public class DataSourceContext {
      * @author fengshuonan
      * @Date 2019-06-12 14:51
      */
-    public void addDataSource(String dbName, DataSource dataSource) {
+    public static void addDataSource(String dbName, DataSource dataSource) {
         DATA_SOURCES.put(dbName, dataSource);
     }
 
@@ -79,7 +79,7 @@ public class DataSourceContext {
     /**
      * 数据源创建模板
      */
-    private static DataSource createDataSource(String dataSourceName, DruidProperties druidProperties) {
+    public static DataSource createDataSource(String dataSourceName, DruidProperties druidProperties) {
         AtomikosDataSourceBean atomikosDataSourceBean = new AtomikosDataSourceBean();
         atomikosDataSourceBean.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
         atomikosDataSourceBean.setUniqueResourceName(dataSourceName);
