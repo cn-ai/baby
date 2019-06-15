@@ -16,10 +16,7 @@
 package cn.stylefeng.guns.config.datasource;
 
 import cn.stylefeng.guns.dbcontainer.core.collector.SqlSessionFactoryCreator;
-import cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext;
 import cn.stylefeng.guns.dbcontainer.core.context.SqlSessionFactoryContext;
-import cn.stylefeng.guns.dbcontainer.core.exception.DataSourceInitException;
-import cn.stylefeng.roses.core.config.properties.DruidProperties;
 import cn.stylefeng.roses.core.mutidatasource.mybatis.OptionalSqlSessionTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -30,7 +27,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
-import java.util.Map;
 
 import static cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext.MASTER_DATASOURCE_NAME;
 
@@ -62,34 +58,13 @@ public class SqlSessionFactoryConfig {
      */
     @Bean(name = "gunsSqlSessionTemplate")
     public OptionalSqlSessionTemplate gunsSqlSessionTemplate(@Qualifier("sqlSessionFactoryPrimary") SqlSessionFactory sqlSessionFactoryPrimary,
-                                                             @Qualifier("druidProperties") DruidProperties druidProperties,
                                                              SqlSessionFactoryCreator sqlSessionFactoryCreator) {
-        //初始化数据源容器
-        try {
-            DataSourceContext.initDataSource(druidProperties);
-        } catch (Exception e) {
-            throw new DataSourceInitException(DataSourceInitException.ExEnum.INIT_DATA_SOURCE_ERROR);
-        }
 
-        //先添加主数据源
+        //添加主数据源的SqlSessionFactory
         SqlSessionFactoryContext.addSqlSessionFactory(MASTER_DATASOURCE_NAME, sqlSessionFactoryPrimary);
 
-        //获取数据库的数据源
-        Map<String, DataSource> dataSources = DataSourceContext.getDataSources();
-
-        //创建其他sqlSessionFactory
-        for (Map.Entry<String, DataSource> entry : dataSources.entrySet()) {
-            String dbName = entry.getKey();
-            DataSource dataSource = entry.getValue();
-
-            //如果是主数据源，跳过，否则会冲突
-            if (MASTER_DATASOURCE_NAME.equals(dbName)) {
-                continue;
-            } else {
-                SqlSessionFactory sqlSessionFactory = sqlSessionFactoryCreator.createSqlSessionFactory(dataSource);
-                SqlSessionFactoryContext.addSqlSessionFactory(dbName, sqlSessionFactory);
-            }
-        }
+        //初始化其他数据源的SqlSessionFactory的容器
+        SqlSessionFactoryContext.initBaseSqlSessionFactory(sqlSessionFactoryCreator);
 
         return new OptionalSqlSessionTemplate(sqlSessionFactoryPrimary, SqlSessionFactoryContext.getSqlSessionFactorys());
     }
