@@ -15,29 +15,19 @@
  */
 package cn.stylefeng.guns.config.datasource;
 
+import cn.stylefeng.guns.dbcontainer.core.collector.SqlSessionFactoryCreator;
 import cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext;
 import cn.stylefeng.guns.dbcontainer.core.context.SqlSessionFactoryContext;
 import cn.stylefeng.guns.dbcontainer.core.exception.DataSourceInitException;
 import cn.stylefeng.roses.core.config.properties.DruidProperties;
 import cn.stylefeng.roses.core.mutidatasource.mybatis.OptionalSqlSessionTemplate;
-import cn.stylefeng.roses.kernel.model.exception.ServiceException;
-import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
-import com.baomidou.mybatisplus.autoconfigure.SpringBootVFS;
-import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.mapping.DatabaseIdProvider;
-import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
-import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.util.Map;
@@ -54,34 +44,17 @@ import static cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext.MASTE
  */
 @Slf4j
 @Configuration
+@Import(SqlSessionFactoryCreator.class)
 public class SqlSessionFactoryConfig {
-
-    private final MybatisPlusProperties properties;
-
-    private final Interceptor[] interceptors;
-
-    private final DatabaseIdProvider databaseIdProvider;
-
-    private final ApplicationContext applicationContext;
-
-
-    public SqlSessionFactoryConfig(MybatisPlusProperties properties,
-                                   ObjectProvider<Interceptor[]> interceptorsProvider,
-                                   ObjectProvider<DatabaseIdProvider> databaseIdProvider,
-                                   ApplicationContext applicationContext) {
-        this.properties = properties;
-        this.interceptors = interceptorsProvider.getIfAvailable();
-        this.databaseIdProvider = databaseIdProvider.getIfAvailable();
-        this.applicationContext = applicationContext;
-    }
 
     /**
      * 主sqlSessionFactory
      */
     @Primary
     @Bean
-    public SqlSessionFactory sqlSessionFactoryPrimary(@Qualifier("dataSourcePrimary") DataSource dataSource) {
-        return createSqlSessionFactory(dataSource);
+    public SqlSessionFactory sqlSessionFactoryPrimary(@Qualifier("dataSourcePrimary") DataSource dataSource,
+                                                      SqlSessionFactoryCreator sqlSessionFactoryCreator) {
+        return sqlSessionFactoryCreator.createSqlSessionFactory(dataSource);
     }
 
     /**
@@ -89,7 +62,8 @@ public class SqlSessionFactoryConfig {
      */
     @Bean(name = "gunsSqlSessionTemplate")
     public OptionalSqlSessionTemplate gunsSqlSessionTemplate(@Qualifier("sqlSessionFactoryPrimary") SqlSessionFactory sqlSessionFactoryPrimary,
-                                                             @Qualifier("druidProperties") DruidProperties druidProperties) {
+                                                             @Qualifier("druidProperties") DruidProperties druidProperties,
+                                                             SqlSessionFactoryCreator sqlSessionFactoryCreator) {
         //初始化数据源容器
         try {
             DataSourceContext.initDataSource(druidProperties);
@@ -112,51 +86,12 @@ public class SqlSessionFactoryConfig {
             if (MASTER_DATASOURCE_NAME.equals(dbName)) {
                 continue;
             } else {
-                SqlSessionFactory sqlSessionFactory = createSqlSessionFactory(dataSource);
+                SqlSessionFactory sqlSessionFactory = sqlSessionFactoryCreator.createSqlSessionFactory(dataSource);
                 SqlSessionFactoryContext.addSqlSessionFactory(dbName, sqlSessionFactory);
             }
         }
 
         return new OptionalSqlSessionTemplate(sqlSessionFactoryPrimary, SqlSessionFactoryContext.getSqlSessionFactorys());
-    }
-
-    /**
-     * 创建SqlSessionFactory
-     */
-    private SqlSessionFactory createSqlSessionFactory(DataSource dataSource) {
-        try {
-            MybatisSqlSessionFactoryBean factory = new MybatisSqlSessionFactoryBean();
-            factory.setDataSource(dataSource);
-            factory.setVfs(SpringBootVFS.class);
-            if (!ObjectUtils.isEmpty(this.interceptors)) {
-                factory.setPlugins(this.interceptors);
-            }
-            if (this.databaseIdProvider != null) {
-                factory.setDatabaseIdProvider(this.databaseIdProvider);
-            }
-            if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
-                factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
-            }
-            if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {
-                factory.setMapperLocations(this.properties.resolveMapperLocations());
-            }
-            GlobalConfig globalConfig = this.properties.getGlobalConfig();
-            if (this.applicationContext.getBeanNamesForType(MetaObjectHandler.class,
-                    false, false).length > 0) {
-                MetaObjectHandler metaObjectHandler = this.applicationContext.getBean(MetaObjectHandler.class);
-                globalConfig.setMetaObjectHandler(metaObjectHandler);
-            }
-
-            //globalConfig中有缓存sqlSessionFactory，目前还没别的办法
-            SqlSessionFactory sqlSessionFactory = factory.getObject();
-            globalConfig.signGlobalConfig(sqlSessionFactory);
-
-            factory.setGlobalConfig(globalConfig);
-            return factory.getObject();
-        } catch (Exception e) {
-            log.error("初始化SqlSessionFactory错误！", e);
-            throw new ServiceException(500, "初始化SqlSessionFactory错误！");
-        }
     }
 
 }
