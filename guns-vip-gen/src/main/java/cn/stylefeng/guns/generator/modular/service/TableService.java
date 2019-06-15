@@ -1,8 +1,8 @@
 package cn.stylefeng.guns.generator.modular.service;
 
-import cn.stylefeng.guns.generator.core.util.DbUtil;
-import cn.stylefeng.guns.generator.modular.entity.DatabaseInfo;
-import cn.stylefeng.guns.generator.modular.mapper.DatabaseInfoMapper;
+import cn.stylefeng.guns.dbcontainer.core.util.DbUtil;
+import cn.stylefeng.guns.dbcontainer.modular.entity.DatabaseInfo;
+import cn.stylefeng.guns.dbcontainer.modular.mapper.DatabaseInfoMapper;
 import cn.stylefeng.roses.core.util.HttpContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -16,7 +16,7 @@ USE guns;
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 12/06/2019 17:17:50
+ Date: 15/06/2019 18:14:32
 */
 
 SET NAMES utf8mb4;
@@ -35,14 +35,15 @@ CREATE TABLE `database_info` (
   `jdbc_url` varchar(2000) NOT NULL COMMENT 'jdbc的url',
   `remarks` varchar(255) DEFAULT NULL COMMENT '备注，摘要',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`db_id`) USING BTREE
+  PRIMARY KEY (`db_id`) USING BTREE,
+  UNIQUE KEY `NAME_UNIQUE` (`db_name`) USING HASH
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='数据库信息表';
 
 -- ----------------------------
 -- Records of database_info
 -- ----------------------------
 BEGIN;
-INSERT INTO `database_info` VALUES (1, 'master', 'com.mysql.jdbc.Driver', 'root', 'root', 'jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT', 'Guns启动的数据源', '2019-05-11 13:51:19');
+INSERT INTO `database_info` VALUES (1139830492418289666, 'master', 'com.mysql.cj.jdbc.Driver', 'root', 'root', 'jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT', '主数据源，项目启动数据源！不要修改此条目！修改后也会被重置！', '2019-06-15 17:42:21');
 COMMIT;
 
 -- ----------------------------
@@ -266,7 +267,7 @@ INSERT INTO `sys_menu` VALUES (142, 'notice_add', 'notice', '[0],[system],[notic
 INSERT INTO `sys_menu` VALUES (143, 'notice_update', 'notice', '[0],[system],[notice],', '修改通知', NULL, '/notice/update', 2, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
 INSERT INTO `sys_menu` VALUES (144, 'notice_delete', 'notice', '[0],[system],[notice],', '删除通知', NULL, '/notice/delete', 3, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
 INSERT INTO `sys_menu` VALUES (145, 'sys_message', 'dashboard', '[0],[dashboard],', '消息通知', 'layui-icon layui-icon-tips', '/system/notice', 30, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-04-08 22:49:39', NULL, 1);
-INSERT INTO `sys_menu` VALUES (149, 'api_mgr', 'dev_tools', '[0],[dev_tools],', '接口文档', 'fa-leaf', '/swagger-ui.html', 10, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-05-11 13:40:51', NULL, 1);
+INSERT INTO `sys_menu` VALUES (149, 'api_mgr', 'dev_tools', '[0],[dev_tools],', '接口文档', 'fa-leaf', '/swagger-ui.html', 30, 2, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-06-15 18:13:00', NULL, 1);
 INSERT INTO `sys_menu` VALUES (150, 'to_menu_edit', 'menu', '[0],[system],[menu],', '菜单编辑跳转', '', '/menu/menu_edit', 4, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
 INSERT INTO `sys_menu` VALUES (151, 'menu_list', 'menu', '[0],[system],[menu],', '菜单列表', '', '/menu/list', 5, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
 INSERT INTO `sys_menu` VALUES (152, 'to_dept_update', 'dept', '[0],[system],[dept],', '修改部门跳转', '', '/dept/dept_update', 4, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
@@ -287,14 +288,16 @@ INSERT INTO `sys_menu` VALUES (166, 'to_user_edit', 'mgr', '[0],[system],[mgr],'
 INSERT INTO `sys_menu` VALUES (167, 'mgr_list', 'mgr', '[0],[system],[mgr],', '用户列表', '', '/mgr/list', 10, 3, 'N', NULL, 'ENABLE', NULL, NULL, NULL, '2019-03-29 16:32:27', NULL, 1);
 INSERT INTO `sys_menu` VALUES (171, 'dev_tools', '0', '[0],', '开发工具', 'layui-icon layui-icon-code-circle', '#', 30, 1, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-05-11 13:40:27', NULL, 1);
 INSERT INTO `sys_menu` VALUES (172, 'dashboard', '0', '[0],', '主控面板', 'layui-icon layui-icon-home', '#', 10, 1, 'Y', NULL, 'ENABLE', NULL, NULL, NULL, '2019-04-08 22:48:15', NULL, 1);
-INSERT INTO `sys_menu` VALUES (1110777136265838594, 'demos_show', '0', '[0],', '模板页面', 'layui-icon layui-icon-template', '#', 40, 1, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 13:34:41', '2019-04-08 22:53:20', 1, 1);
-INSERT INTO `sys_menu` VALUES (1110777366856089602, 'excel_import', 'demos_show', '[0],[demos_show],', 'excel导入', '', '/excel/import', 10, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 13:35:36', '2019-04-08 22:53:20', 1, 1);
-INSERT INTO `sys_menu` VALUES (1110777491464667137, 'excel_export', 'demos_show', '[0],[demos_show],', 'excel导出', '', '/excel/export', 20, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 13:36:06', '2019-04-08 22:53:20', 1, 1);
-INSERT INTO `sys_menu` VALUES (1110787391943098370, 'advanced_form', 'demos_show', '[0],[demos_show],', '高级表单', '', '/egForm', 30, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 14:15:26', '2019-04-08 22:53:20', 1, 1);
-INSERT INTO `sys_menu` VALUES (1110839216310329346, 'pdf_view', 'demos_show', '[0],[demos_show],', '文档预览', '', '/loadPdfFile', 40, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 17:41:22', '2019-04-08 22:55:53', 1, 1);
+INSERT INTO `sys_menu` VALUES (1110777136265838594, 'demos_show', 'dev_tools', '[0],[dev_tools],', '模板页面', 'layui-icon layui-icon-template', '#', 40, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 13:34:41', '2019-06-15 18:13:11', 1, 1);
+INSERT INTO `sys_menu` VALUES (1110777366856089602, 'excel_import', 'demos_show', '[0],[dev_tools],[demos_show],', 'excel导入', '', '/excel/import', 10, 3, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 13:35:36', '2019-06-15 18:13:11', 1, 1);
+INSERT INTO `sys_menu` VALUES (1110777491464667137, 'excel_export', 'demos_show', '[0],[dev_tools],[demos_show],', 'excel导出', '', '/excel/export', 20, 3, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 13:36:06', '2019-06-15 18:13:11', 1, 1);
+INSERT INTO `sys_menu` VALUES (1110787391943098370, 'advanced_form', 'demos_show', '[0],[dev_tools],[demos_show],', '高级表单', '', '/egForm', 30, 3, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 14:15:26', '2019-06-15 18:13:11', 1, 1);
+INSERT INTO `sys_menu` VALUES (1110839216310329346, 'pdf_view', 'demos_show', '[0],[dev_tools],[demos_show],', '文档预览', '', '/loadPdfFile', 40, 3, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-27 17:41:22', '2019-06-15 18:13:11', 1, 1);
 INSERT INTO `sys_menu` VALUES (1111545968697860098, 'console', 'dashboard', '[0],[dashboard],', '项目介绍', '', '/system/console', 10, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-29 16:29:45', '2019-04-09 20:57:08', 1, 1);
 INSERT INTO `sys_menu` VALUES (1111546189892870145, 'console2', 'dashboard', '[0],[dashboard],', '统计报表', '', '/system/console2', 20, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-03-29 16:30:38', '2019-04-08 22:49:48', 1, 1);
-INSERT INTO `sys_menu` VALUES (1127085735660421122, 'code_generate', 'dev_tools', '[0],[dev_tools],', '代码生成', '', '/gen', 1, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-05-11 13:39:14', '2019-05-11 13:41:00', 1, 1);
+INSERT INTO `sys_menu` VALUES (1127085735660421122, 'code_generate', 'dev_tools', '[0],[dev_tools],', '代码生成', '', '/gen', 20, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-05-11 13:39:14', '2019-06-15 18:12:45', 1, 1);
+INSERT INTO `sys_menu` VALUES (1139826657964593154, 'meta_data', 'dev_tools', '[0],[dev_tools],', '系统配置', '', '#', 10, 2, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-06-15 17:27:07', '2019-06-15 18:12:35', 1, 1);
+INSERT INTO `sys_menu` VALUES (1139827152854716418, 'data_source', 'meta_data', '[0],[dev_tools],[meta_data],', '数据源管理', '', '/databaseInfo', 10, 3, 'Y', NULL, 'ENABLE', NULL, NULL, '2019-06-15 17:29:05', '2019-06-15 18:12:35', 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -352,70 +355,6 @@ CREATE TABLE `sys_relation` (
 -- Records of sys_relation
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_relation` VALUES (1127085983283740673, 105, 1);
-INSERT INTO `sys_relation` VALUES (1127085983292129281, 106, 1);
-INSERT INTO `sys_relation` VALUES (1127085983304712193, 107, 1);
-INSERT INTO `sys_relation` VALUES (1127085983313100801, 108, 1);
-INSERT INTO `sys_relation` VALUES (1127085983321489410, 109, 1);
-INSERT INTO `sys_relation` VALUES (1127085983329878017, 110, 1);
-INSERT INTO `sys_relation` VALUES (1127085983334072321, 111, 1);
-INSERT INTO `sys_relation` VALUES (1127085983338266625, 112, 1);
-INSERT INTO `sys_relation` VALUES (1127085983350849537, 113, 1);
-INSERT INTO `sys_relation` VALUES (1127085983355043842, 165, 1);
-INSERT INTO `sys_relation` VALUES (1127085983367626753, 166, 1);
-INSERT INTO `sys_relation` VALUES (1127085983367626754, 167, 1);
-INSERT INTO `sys_relation` VALUES (1127085983384403969, 114, 1);
-INSERT INTO `sys_relation` VALUES (1127085983392792577, 115, 1);
-INSERT INTO `sys_relation` VALUES (1127085983396986881, 116, 1);
-INSERT INTO `sys_relation` VALUES (1127085983405375489, 117, 1);
-INSERT INTO `sys_relation` VALUES (1127085983413764098, 118, 1);
-INSERT INTO `sys_relation` VALUES (1127085983422152706, 162, 1);
-INSERT INTO `sys_relation` VALUES (1127085983426347009, 163, 1);
-INSERT INTO `sys_relation` VALUES (1127085983434735617, 164, 1);
-INSERT INTO `sys_relation` VALUES (1127085983438929922, 119, 1);
-INSERT INTO `sys_relation` VALUES (1127085983451512834, 120, 1);
-INSERT INTO `sys_relation` VALUES (1127085983455707137, 121, 1);
-INSERT INTO `sys_relation` VALUES (1127085983464095746, 122, 1);
-INSERT INTO `sys_relation` VALUES (1127085983468290049, 150, 1);
-INSERT INTO `sys_relation` VALUES (1127085983476678658, 151, 1);
-INSERT INTO `sys_relation` VALUES (1127085983485067265, 128, 1);
-INSERT INTO `sys_relation` VALUES (1127085983489261570, 134, 1);
-INSERT INTO `sys_relation` VALUES (1127085983493455874, 158, 1);
-INSERT INTO `sys_relation` VALUES (1127085983501844481, 159, 1);
-INSERT INTO `sys_relation` VALUES (1127085983514427394, 130, 1);
-INSERT INTO `sys_relation` VALUES (1127085983514427395, 131, 1);
-INSERT INTO `sys_relation` VALUES (1127085983527010305, 135, 1);
-INSERT INTO `sys_relation` VALUES (1127085983535398913, 136, 1);
-INSERT INTO `sys_relation` VALUES (1127085983535398914, 137, 1);
-INSERT INTO `sys_relation` VALUES (1127085983543787521, 152, 1);
-INSERT INTO `sys_relation` VALUES (1127085983552176130, 153, 1);
-INSERT INTO `sys_relation` VALUES (1127085983552176131, 154, 1);
-INSERT INTO `sys_relation` VALUES (1127085983564759042, 132, 1);
-INSERT INTO `sys_relation` VALUES (1127085983568953346, 138, 1);
-INSERT INTO `sys_relation` VALUES (1127085983573147649, 139, 1);
-INSERT INTO `sys_relation` VALUES (1127085983581536258, 140, 1);
-INSERT INTO `sys_relation` VALUES (1127085983594119170, 155, 1);
-INSERT INTO `sys_relation` VALUES (1127085983594119171, 156, 1);
-INSERT INTO `sys_relation` VALUES (1127085983606702082, 157, 1);
-INSERT INTO `sys_relation` VALUES (1127085983610896386, 133, 1);
-INSERT INTO `sys_relation` VALUES (1127085983615090690, 160, 1);
-INSERT INTO `sys_relation` VALUES (1127085983623479297, 161, 1);
-INSERT INTO `sys_relation` VALUES (1127085983631867906, 141, 1);
-INSERT INTO `sys_relation` VALUES (1127085983636062210, 142, 1);
-INSERT INTO `sys_relation` VALUES (1127085983644450817, 143, 1);
-INSERT INTO `sys_relation` VALUES (1127085983652839426, 144, 1);
-INSERT INTO `sys_relation` VALUES (1127085983661228033, 171, 1);
-INSERT INTO `sys_relation` VALUES (1127085983665422338, 149, 1);
-INSERT INTO `sys_relation` VALUES (1127085983673810946, 1127085735660421122, 1);
-INSERT INTO `sys_relation` VALUES (1127085983678005250, 172, 1);
-INSERT INTO `sys_relation` VALUES (1127085983686393858, 145, 1);
-INSERT INTO `sys_relation` VALUES (1127085983690588161, 1111545968697860098, 1);
-INSERT INTO `sys_relation` VALUES (1127085983698976769, 1111546189892870145, 1);
-INSERT INTO `sys_relation` VALUES (1127085983703171074, 1110777136265838594, 1);
-INSERT INTO `sys_relation` VALUES (1127085983711559681, 1110777366856089602, 1);
-INSERT INTO `sys_relation` VALUES (1127085983719948290, 1110777491464667137, 1);
-INSERT INTO `sys_relation` VALUES (1127085983728336897, 1110787391943098370, 1);
-INSERT INTO `sys_relation` VALUES (1127085983736725506, 1110839216310329346, 1);
 INSERT INTO `sys_relation` VALUES (1138325281010921473, 105, 5);
 INSERT INTO `sys_relation` VALUES (1138325281031892994, 132, 5);
 INSERT INTO `sys_relation` VALUES (1138325281044475906, 138, 5);
@@ -435,6 +374,72 @@ INSERT INTO `sys_relation` VALUES (1138325281216442370, 172, 5);
 INSERT INTO `sys_relation` VALUES (1138325281229025281, 145, 5);
 INSERT INTO `sys_relation` VALUES (1138325281245802498, 1111545968697860098, 5);
 INSERT INTO `sys_relation` VALUES (1138325281258385410, 1111546189892870145, 5);
+INSERT INTO `sys_relation` VALUES (1139827178351890433, 105, 1);
+INSERT INTO `sys_relation` VALUES (1139827178364473345, 106, 1);
+INSERT INTO `sys_relation` VALUES (1139827178381250562, 107, 1);
+INSERT INTO `sys_relation` VALUES (1139827178393833473, 108, 1);
+INSERT INTO `sys_relation` VALUES (1139827178402222081, 109, 1);
+INSERT INTO `sys_relation` VALUES (1139827178414804994, 110, 1);
+INSERT INTO `sys_relation` VALUES (1139827178423193602, 111, 1);
+INSERT INTO `sys_relation` VALUES (1139827178435776514, 112, 1);
+INSERT INTO `sys_relation` VALUES (1139827178448359425, 113, 1);
+INSERT INTO `sys_relation` VALUES (1139827178460942338, 165, 1);
+INSERT INTO `sys_relation` VALUES (1139827178473525250, 166, 1);
+INSERT INTO `sys_relation` VALUES (1139827178498691073, 167, 1);
+INSERT INTO `sys_relation` VALUES (1139827178519662594, 114, 1);
+INSERT INTO `sys_relation` VALUES (1139827178540634114, 115, 1);
+INSERT INTO `sys_relation` VALUES (1139827178557411329, 116, 1);
+INSERT INTO `sys_relation` VALUES (1139827178574188545, 117, 1);
+INSERT INTO `sys_relation` VALUES (1139827178590965762, 118, 1);
+INSERT INTO `sys_relation` VALUES (1139827178603548673, 162, 1);
+INSERT INTO `sys_relation` VALUES (1139827178616131586, 163, 1);
+INSERT INTO `sys_relation` VALUES (1139827178628714497, 164, 1);
+INSERT INTO `sys_relation` VALUES (1139827178641297409, 119, 1);
+INSERT INTO `sys_relation` VALUES (1139827178653880321, 120, 1);
+INSERT INTO `sys_relation` VALUES (1139827178666463234, 121, 1);
+INSERT INTO `sys_relation` VALUES (1139827178679046145, 122, 1);
+INSERT INTO `sys_relation` VALUES (1139827178687434753, 150, 1);
+INSERT INTO `sys_relation` VALUES (1139827178700017665, 151, 1);
+INSERT INTO `sys_relation` VALUES (1139827178712600577, 128, 1);
+INSERT INTO `sys_relation` VALUES (1139827178720989186, 134, 1);
+INSERT INTO `sys_relation` VALUES (1139827178733572098, 158, 1);
+INSERT INTO `sys_relation` VALUES (1139827178746155009, 159, 1);
+INSERT INTO `sys_relation` VALUES (1139827178758737921, 130, 1);
+INSERT INTO `sys_relation` VALUES (1139827178767126529, 131, 1);
+INSERT INTO `sys_relation` VALUES (1139827178779709442, 135, 1);
+INSERT INTO `sys_relation` VALUES (1139827178788098050, 136, 1);
+INSERT INTO `sys_relation` VALUES (1139827178800680961, 137, 1);
+INSERT INTO `sys_relation` VALUES (1139827178809069570, 152, 1);
+INSERT INTO `sys_relation` VALUES (1139827178821652481, 153, 1);
+INSERT INTO `sys_relation` VALUES (1139827178830041089, 154, 1);
+INSERT INTO `sys_relation` VALUES (1139827178842624001, 132, 1);
+INSERT INTO `sys_relation` VALUES (1139827178855206914, 138, 1);
+INSERT INTO `sys_relation` VALUES (1139827178863595521, 139, 1);
+INSERT INTO `sys_relation` VALUES (1139827178876178434, 140, 1);
+INSERT INTO `sys_relation` VALUES (1139827178888761346, 155, 1);
+INSERT INTO `sys_relation` VALUES (1139827178897149954, 156, 1);
+INSERT INTO `sys_relation` VALUES (1139827178905538562, 157, 1);
+INSERT INTO `sys_relation` VALUES (1139827178918121474, 133, 1);
+INSERT INTO `sys_relation` VALUES (1139827178926510081, 160, 1);
+INSERT INTO `sys_relation` VALUES (1139827178939092994, 161, 1);
+INSERT INTO `sys_relation` VALUES (1139827178951675906, 141, 1);
+INSERT INTO `sys_relation` VALUES (1139827178964258818, 142, 1);
+INSERT INTO `sys_relation` VALUES (1139827178976841730, 143, 1);
+INSERT INTO `sys_relation` VALUES (1139827178989424641, 144, 1);
+INSERT INTO `sys_relation` VALUES (1139827179006201858, 1139826657964593154, 1);
+INSERT INTO `sys_relation` VALUES (1139827179022979073, 1139827152854716418, 1);
+INSERT INTO `sys_relation` VALUES (1139827179043950594, 171, 1);
+INSERT INTO `sys_relation` VALUES (1139827179064922113, 149, 1);
+INSERT INTO `sys_relation` VALUES (1139827179085893634, 1127085735660421122, 1);
+INSERT INTO `sys_relation` VALUES (1139827179102670850, 172, 1);
+INSERT INTO `sys_relation` VALUES (1139827179123642369, 145, 1);
+INSERT INTO `sys_relation` VALUES (1139827179144613889, 1111545968697860098, 1);
+INSERT INTO `sys_relation` VALUES (1139827179165585409, 1111546189892870145, 1);
+INSERT INTO `sys_relation` VALUES (1139827179186556930, 1110777136265838594, 1);
+INSERT INTO `sys_relation` VALUES (1139827179207528450, 1110777366856089602, 1);
+INSERT INTO `sys_relation` VALUES (1139827179232694273, 1110777491464667137, 1);
+INSERT INTO `sys_relation` VALUES (1139827179253665793, 1110787391943098370, 1);
+INSERT INTO `sys_relation` VALUES (1139827179278831618, 1110839216310329346, 1);
 COMMIT;
 
 -- ----------------------------

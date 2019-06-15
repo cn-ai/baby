@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-import static cn.stylefeng.datasource.container.context.DataSourceContext.MASTER_DATASOURCE_NAME;
+import static cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext.MASTER_DATASOURCE_NAME;
 
 /**
  * 多数据源配置<br/>

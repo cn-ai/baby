@@ -24,6 +24,13 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!--基础组件-->
+        <dependency>
+            <groupId>cn.stylefeng</groupId>
+            <artifactId>guns-base-db-container</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!--mp代码生成器-->
         <dependency>
             <groupId>com.baomidou</groupId>

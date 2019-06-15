@@ -15,9 +15,9 @@
  */
 package cn.stylefeng.guns.config.datasource;
 
-import cn.stylefeng.datasource.container.context.DataSourceContext;
-import cn.stylefeng.datasource.container.context.SqlSessionFactoryContext;
-import cn.stylefeng.datasource.container.exception.DataSourceInitException;
+import cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext;
+import cn.stylefeng.guns.dbcontainer.core.context.SqlSessionFactoryContext;
+import cn.stylefeng.guns.dbcontainer.core.exception.DataSourceInitException;
 import cn.stylefeng.roses.core.config.properties.DruidProperties;
 import cn.stylefeng.roses.core.mutidatasource.mybatis.OptionalSqlSessionTemplate;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
@@ -42,7 +42,7 @@ import org.springframework.util.StringUtils;
 import javax.sql.DataSource;
 import java.util.Map;
 
-import static cn.stylefeng.datasource.container.context.DataSourceContext.MASTER_DATASOURCE_NAME;
+import static cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext.MASTER_DATASOURCE_NAME;
 
 /**
  * 多数据源配置<br/>
