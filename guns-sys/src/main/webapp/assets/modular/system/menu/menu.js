@@ -27,8 +27,8 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
         return [[
             {type: 'numbers'},
             {field: 'menuId', hide: true, sort: true, title: 'id'},
-            {field: 'name', align: "center", sort: true, title: '菜单名称', minWidth: 150},
-            {field: 'code', align: "center", sort: true, title: '菜单编号'},
+            {field: 'name', align: "center", sort: true, title: '菜单名称', minWidth: 240},
+            {field: 'code', align: "center", sort: true, title: '菜单编号', minWidth: 120},
             {field: 'pcode', align: "center", sort: true, title: '菜单父编号'},
             {field: 'url', align: "center", sort: true, title: '请求地址'},
             {field: 'sort', align: "center", sort: true, title: '排序'},
