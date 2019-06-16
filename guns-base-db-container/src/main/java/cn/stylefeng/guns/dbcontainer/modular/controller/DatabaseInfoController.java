@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -134,7 +135,9 @@ public class DatabaseInfoController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(DatabaseInfoParam databaseInfoParam) {
+    public LayuiPageInfo list(@RequestParam(value = "condition",required = false) String condition) {
+        DatabaseInfoParam databaseInfoParam = new DatabaseInfoParam();
+        databaseInfoParam.setDbName(condition);
         return this.databaseInfoService.findPageBySpec(databaseInfoParam);
     }
 
