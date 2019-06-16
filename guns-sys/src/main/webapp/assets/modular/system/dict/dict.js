@@ -18,11 +18,11 @@ layui.use(['table', 'ax', 'treetable'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'dictId', hide: true, title: '字典id'},
-            {field: 'name', sort: true, title: '字典名称'},
-            {field: 'code', sort: true, title: '字典编码'},
-            {field: 'description', sort: true, title: '字典的描述'},
+            {field: 'name', align: "center", sort: true, title: '字典名称'},
+            {field: 'code', align: "center", sort: true, title: '字典编码'},
+            {field: 'description', align: "center", sort: true, title: '字典的描述'},
             {
-                field: 'status', sort: true, title: '状态', templet: function (d) {
+                field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
                     if (d.status === 'ENABLE') {
                         return "启用";
                     } else {
@@ -30,8 +30,8 @@ layui.use(['table', 'ax', 'treetable'], function () {
                     }
                 }
             },
-            {field: 'createTime', sort: true, title: '创建时间'},
-            {field: 'createUser', sort: true, title: '创建人'},
+            {field: 'createTime', align: "center", sort: true, title: '创建时间'},
+            {field: 'createUser', align: "center", sort: true, title: '创建人'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };

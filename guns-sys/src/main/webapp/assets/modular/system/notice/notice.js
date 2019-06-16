@@ -19,11 +19,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Notice.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'noticeId', hide: true, sort: true, title: 'id'},
-            {field: 'title', sort: true, title: '标题'},
-            {field: 'content', sort: true, title: '内容'},
-            {field: 'createrName', sort: true, title: '发布者'},
-            {field: 'createTime', sort: true, title: '创建时间'},
+            {field: 'noticeId', align: "center", hide: true, sort: true, title: 'id'},
+            {field: 'title', align: "center", sort: true, title: '标题'},
+            {field: 'content', align: "center", sort: true, title: '内容'},
+            {field: 'createrName', align: "center", sort: true, title: '发布者'},
+            {field: 'createTime', align: "center", sort: true, title: '创建时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
         ]];
     };

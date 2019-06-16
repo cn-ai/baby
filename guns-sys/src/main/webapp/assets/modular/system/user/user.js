@@ -26,15 +26,15 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
         return [[
             {type: 'checkbox'},
             {field: 'userId', hide: true, sort: true, title: '用户id'},
-            {field: 'account', sort: true, title: '账号'},
-            {field: 'name', sort: true, title: '姓名'},
-            {field: 'sexName', sort: true, title: '性别'},
-            {field: 'roleName', sort: true, title: '角色'},
-            {field: 'deptName', sort: true, title: '部门'},
-            {field: 'email', sort: true, title: '邮箱'},
-            {field: 'phone', sort: true, title: '电话'},
-            {field: 'createTime', sort: true, title: '创建时间'},
-            {field: 'status', sort: true, templet: '#statusTpl', title: '状态'},
+            {field: 'account', align: "center", sort: true, title: '账号'},
+            {field: 'name', align: "center", sort: true, title: '姓名'},
+            {field: 'sexName', align: "center", sort: true,  title: '性别'},
+            {field: 'roleName', align: "center", sort: true,  title: '角色'},
+            {field: 'deptName', align: "center", sort: true,  title: '部门'},
+            {field: 'email', align: "center", sort: true,  title: '邮箱',  minWidth: 122},
+            {field: 'phone', align: "center", sort: true,  title: '电话', minWidth: 117},
+            {field: 'createTime', align: "center", sort: true, title: '创建时间', minWidth: 160},
+            {field: 'status', align: "center", sort: true, templet: '#statusTpl', title: '状态'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 280}
         ]];
     };
