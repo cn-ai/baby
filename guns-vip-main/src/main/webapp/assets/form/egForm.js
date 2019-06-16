@@ -17,14 +17,14 @@ layui.use(['table', 'admin', 'ax'], function () {
     EgForm.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'formId', hide: true, title: '主键id'},
-            {field: 'name', sort: true, title: '名称'},
-            {field: 'singleTime', sort: true, title: '单个时间'},
-            {field: 'betweenTime', sort: true, title: '时间段'},
-            {field: 'simpleSelect', sort: true, title: '单行选择'},
-            {field: 'fenzuSelect', sort: true, title: '分组选择'},
-            {field: 'modules', sort: true, title: '搜索选择'},
-            {field: 'multiSelectHidden', sort: true, title: '多个选择'},
+            {field: 'formId', align: "center", hide: true, title: '主键id'},
+            {field: 'name', align: "center", sort: true, title: '名称'},
+            {field: 'singleTime', align: "center", sort: true, title: '单个时间', minWidth: 160},
+            {field: 'betweenTime', align: "center", sort: true, title: '时间段', minWidth: 187},
+            {field: 'simpleSelect', align: "center", sort: true, title: '单行选择'},
+            {field: 'fenzuSelect', align: "center", sort: true, title: '分组选择', minWidth: 104},
+            {field: 'modules', align: "center", sort: true, title: '搜索选择'},
+            {field: 'multiSelectHidden', align: "center", sort: true, title: '多个选择', minWidth: 143},
             {
                 align: 'center', templet: function (d) {
                     // var url = d.imgUrl;
@@ -32,12 +32,12 @@ layui.use(['table', 'admin', 'ax'], function () {
                     return '<img src="' + url + '" class="tdImg" />';
                 }, title: '缩略图', width: 90, unresize: true
             },
-            {field: 'fileInputHidden', sort: true, title: '文件id'},
-            {field: 'closeFlag', sort: true, title: '开关标识'},
-            {field: 'sex', sort: true, title: '单选'},
-            {field: 'checkbox', sort: true, title: '复选框'},
-            {field: 'number', sort: true, title: '数字'},
-            {field: 'longText', sort: true, title: '长字段'},
+            {field: 'fileInputHidden', align: "center", sort: true, title: '文件id'},
+            {field: 'closeFlag', align: "center", sort: true, title: '开关标识'},
+            {field: 'sex', align: "center", sort: true, title: '单选'},
+            {field: 'checkbox', align: "center", sort: true, title: '复选框'},
+            {field: 'number', align: "center", sort: true, title: '数字'},
+            {field: 'longText', align: "center", sort: true, title: '长字段'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };

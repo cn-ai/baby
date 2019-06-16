@@ -19,13 +19,13 @@ layui.use(['layer', 'table', 'ax', 'laydate'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'operationLogId', hide: true, sort: true, title: 'id'},
-            {field: 'logType', sort: true, title: '日志类型'},
-            {field: 'logName', sort: true, title: '日志名称'},
-            {field: 'userName', sort: true, title: '用户名称'},
-            {field: 'className', sort: true, title: '类名'},
-            {field: 'method', sort: true, title: '方法名'},
-            {field: 'createTime', sort: true, title: '时间'},
-            {field: 'regularMessage', sort: true, title: '具体消息'},
+            {field: 'logType', align: "center", sort: true, title: '日志类型'},
+            {field: 'logName', align: "center", sort: true, title: '日志名称'},
+            {field: 'userName', align: "center", sort: true, title: '用户名称'},
+            {field: 'className', align: "center", sort: true, title: '类名'},
+            {field: 'method', align: "center", sort: true, title: '方法名'},
+            {field: 'createTime', align: "center", sort: true, title: '时间'},
+            {field: 'regularMessage', align: "center", sort: true, title: '具体消息'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 100}
         ]];
     };

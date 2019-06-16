@@ -18,13 +18,13 @@ layui.use(['table', 'admin', 'ax'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'dbId', hide: true, title: '主键id'},
-            {field: 'dbName', sort: true, title: '数据库名称'},
-            {field: 'jdbcDriver', sort: true, title: '驱动类型'},
-            {field: 'userName', sort: true, title: '账号'},
-            {field: 'password', sort: true, title: '密码'},
-            {field: 'jdbcUrl', sort: true, title: 'jdbc的url'},
-            {field: 'remarks', sort: true, title: '备注'},
-            {field: 'createTime', sort: true, title: '创建时间'},
+            {field: 'dbName', align: "center", sort: true, title: '数据库名称'},
+            {field: 'jdbcDriver', align: "center", sort: true, title: '驱动类型'},
+            {field: 'userName', align: "center", sort: true, title: '账号'},
+            {field: 'password', align: "center", sort: true, title: '密码'},
+            {field: 'jdbcUrl', align: "center", sort: true, title: 'jdbc的url'},
+            {field: 'remarks', align: "center", sort: true, title: '备注'},
+            {field: 'createTime', align: "center", sort: true, title: '创建时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };

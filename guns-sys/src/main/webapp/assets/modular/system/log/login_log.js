@@ -18,12 +18,12 @@ layui.use(['layer', 'table', 'ax', 'laydate'], function () {
     LoginLog.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'menuId', hide: true, sort: true, title: 'id'},
-            {field: 'logName', sort: true, title: '日志名称'},
-            {field: 'userName', sort: true, title: '用户名称'},
-            {field: 'createTime', sort: true, title: '时间'},
-            {field: 'regularMessage', sort: true, title: '具体消息'},
-            {field: 'ipAddress', sort: true, title: 'ip'}
+            {field: 'menuId',  hide: true, sort: true, title: 'id'},
+            {field: 'logName', align: "center", sort: true, title: '日志名称'},
+            {field: 'userName', align: "center", sort: true, title: '用户名称'},
+            {field: 'createTime', align: "center", sort: true, title: '时间'},
+            {field: 'regularMessage', align: "center", sort: true, title: '具体消息'},
+            {field: 'ipAddress', align: "center", sort: true, title: 'ip'}
         ]];
     };
 
