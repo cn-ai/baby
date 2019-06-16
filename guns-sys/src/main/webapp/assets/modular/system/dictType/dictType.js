@@ -40,7 +40,7 @@ layui.use(['table', 'ax'], function () {
             },
             {field: 'description', align: "center", sort: true, title: '字典描述'},
             {
-                field: 'status', sort: true, title: '状态', templet: function (d) {
+                field: 'status', sort: true, align: "center", title: '状态', templet: function (d) {
                     if (d.status === 'ENABLE') {
                         return "启用";
                     } else {
