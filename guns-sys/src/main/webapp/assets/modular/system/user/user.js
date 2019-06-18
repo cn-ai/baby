@@ -26,15 +26,15 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
         return [[
             {type: 'checkbox'},
             {field: 'userId', hide: true, sort: true, title: '用户id'},
-            {field: 'account',  align: "center", sort: true, title: '账号'},
-            {field: 'name',  align: "center", sort: true, title: '姓名'},
-            {field: 'sexName',  align: "center", sort: true, title: '性别'},
-            {field: 'roleName',  align: "center", sort: true, title: '角色'},
-            {field: 'deptName',  align: "center", sort: true, title: '部门'},
-            {field: 'email',  align: "center", sort: true, title: '邮箱',  minWidth: 122},
-            {field: 'phone',  align: "center", sort: true, title: '电话', minWidth: 117},
-            {field: 'createTime',  align: "center", sort: true, title: '创建时间', minWidth: 160},
-            {field: 'status',  align: "center", sort: true, templet: '#statusTpl', title: '状态'},
+            {field: 'account', align: "center", sort: true, title: '账号'},
+            {field: 'name', align: "center", sort: true, title: '姓名'},
+            {field: 'sexName', align: "center", sort: true,  title: '性别'},
+            {field: 'roleName', align: "center", sort: true,  title: '角色'},
+            {field: 'deptName', align: "center", sort: true,  title: '部门'},
+            {field: 'email', align: "center", sort: true,  title: '邮箱',  minWidth: 122},
+            {field: 'phone', align: "center", sort: true,  title: '电话', minWidth: 117},
+            {field: 'createTime', align: "center", sort: true, title: '创建时间', minWidth: 160},
+            {field: 'status', align: "center", sort: true, templet: '#statusTpl', title: '状态'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 280}
         ]];
     };
@@ -93,15 +93,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
      * @param data 点击按钮时候的行数据
      */
     MgrUser.onEditUser = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            type: 2,
-            title: '编辑用户',
-            content: Feng.ctxPath + '/mgr/user_edit?userId=' + data.userId,
-            end: function () {
-                admin.getTempData('formOk') && table.reload(MgrUser.tableId);
-            }
-        });
+        window.location.href = Feng.ctxPath + "/mgr/user_edit?userId="+ data.userId;
     };
 
     /**
@@ -214,7 +206,8 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        MgrUser.openAddUser();
+        //MgrUser.openAddUser();
+        window.location.href = Feng.ctxPath + "/mgr/user_add";
     });
 
     // 导出excel

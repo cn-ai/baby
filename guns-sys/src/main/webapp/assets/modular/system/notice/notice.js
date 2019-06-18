@@ -19,7 +19,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Notice.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'noticeId', hide: true, sort: true, title: 'id'},
+            {field: 'noticeId', align: "center", hide: true, sort: true, title: 'id'},
             {field: 'title', align: "center", sort: true, title: '标题'},
             {field: 'content', align: "center", sort: true, title: '内容'},
             {field: 'createrName', align: "center", sort: true, title: '发布者'},
@@ -60,15 +60,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
      * @param data 点击按钮时候的行数据
      */
     Notice.onEditNotice = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            type: 2,
-            title: '通知详情',
-            content: Feng.ctxPath + '/notice/notice_update/' + data.noticeId,
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Notice.tableId);
-            }
-        });
+        window.location.href = Feng.ctxPath + "/notice/notice_update/"+ data.noticeId;
     };
 
     /**
@@ -107,7 +99,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        Notice.openAddNotice();
+        window.location.href = Feng.ctxPath + "/notice/notice_add";
     });
 
     // 工具条点击事件

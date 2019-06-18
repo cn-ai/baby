@@ -23,9 +23,9 @@ layui.use(['table', 'admin', 'ax', 'ztree'], function () {
             {type: 'checkbox'},
             {field: 'deptId', hide: true, sort: true, title: 'id'},
             {field: 'simpleName', align: "center", sort: true, title: '部门简称'},
-            {field: 'fullName', align: "center", sort: true, title: '部门全称'},
-            {field: 'sort', align: "center", sort: true, title: '排序'},
-            {field: 'description', align: "center", sort: true, title: '备注'},
+            {field: 'fullName',align: "center", sort: true, title: '部门全称'},
+            {field: 'sort',align: "center", sort: true, title: '排序'},
+            {field: 'description',align: "center", sort: true, title: '备注'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
         ]];
     };
@@ -83,15 +83,7 @@ layui.use(['table', 'admin', 'ax', 'ztree'], function () {
      * @param data 点击按钮时候的行数据
      */
     Dept.onEditDept = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            type: 2,
-            title: '修改部门',
-            content: Feng.ctxPath + '/dept/dept_update?deptId=' + data.deptId,
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Dept.tableId);
-            }
-        });
+        window.location.href = Feng.ctxPath + "/dept/dept_update?deptId="+ data.deptId;
     };
 
     /**
@@ -135,7 +127,7 @@ layui.use(['table', 'admin', 'ax', 'ztree'], function () {
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        Dept.openAddDept();
+        window.location.href = Feng.ctxPath + "/dept/dept_add";
     });
 
     // 导出excel
