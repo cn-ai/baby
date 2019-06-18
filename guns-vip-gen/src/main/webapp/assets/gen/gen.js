@@ -27,7 +27,7 @@ layui.use(['layer', 'ax', 'form', 'laydate', 'element', 'table'], function () {
 
     table.render({
         elem: '#dbTableList'
-        , url: Feng.ctxPath + '/db/tableList'
+        , url: Feng.ctxPath + '/databaseInfo/tableList'
         , page: false
         , cols: [[
             {type: 'checkbox'}

@@ -25,7 +25,7 @@ public class OtherDbService extends ServiceImpl<UserMapper, User> {
     @Autowired
     private UserService userService;
 
-    @DataSource(name = "otherdb")
+    @DataSource(name = "test")
     public void otherdb() {
         User user = new User();
         user.setAccount(RandomUtil.randomString(5));

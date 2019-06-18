@@ -21,6 +21,7 @@
 
     <modules>
         <module>guns-base</module>
+        <module>guns-base-db-container</module>
         <module>guns-base-sms</module>
         <module>guns-base-email</module>
         <module>guns-base-timers</module>
@@ -63,7 +64,7 @@
             <dependency>
                 <groupId>cn.stylefeng.roses</groupId>
                 <artifactId>kernel-core</artifactId>
-                <version>1.2.2</version>
+                <version>1.2.4</version>
             </dependency>
 
             <!--数据库驱动,可根据自己需要自行删减-->

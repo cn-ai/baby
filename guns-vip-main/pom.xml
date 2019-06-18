@@ -38,6 +38,13 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- 数据源容器-->
+        <dependency>
+            <groupId>cn.stylefeng</groupId>
+            <artifactId>guns-base-db-container</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- 分布式job -->
         <!--        <dependency>-->
         <!--            <groupId>cn.stylefeng</groupId>-->

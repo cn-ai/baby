@@ -18,7 +18,7 @@ layui.use(['layer', 'table', 'ax', 'laydate'], function () {
     LoginLog.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'menuId', hide: true, sort: true, title: 'id'},
+            {field: 'menuId',  hide: true, sort: true, title: 'id'},
             {field: 'logName', align: "center", sort: true, title: '日志名称'},
             {field: 'userName', align: "center", sort: true, title: '用户名称'},
             {field: 'createTime', align: "center", sort: true, title: '时间'},

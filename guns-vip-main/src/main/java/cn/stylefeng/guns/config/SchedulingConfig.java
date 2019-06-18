@@ -13,6 +13,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
  * @Date 2019/2/24 16:23
  */
 //@Configuration
+//@EnableScheduling
 public class SchedulingConfig {
 
     /**

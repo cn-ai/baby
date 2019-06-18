@@ -31,7 +31,7 @@ layui.use(['layer', 'ax', 'form', 'laydate', 'element', 'table'], function () {
             , {field: 'jdbcDriver', align: "center", title: 'jdbc的驱动类型', minWidth: 168}
             , {field: 'userName', align: "center", title: '数据库连接的账号'}
             , {field: 'password', align: "center", title: '密码'}
-            , {field: 'jdbcUrl', align: "center", title: 'jdbc的url'}
+            , {field: 'jdbcUrl', align: "center", title: 'jdbc的url', minWidth: 1184}
             , {field: 'createTime', align: "center", title: '创建时间', minWidth: 159}
             , {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]]

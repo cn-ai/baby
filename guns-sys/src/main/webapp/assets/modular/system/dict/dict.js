@@ -17,7 +17,7 @@ layui.use(['table', 'ax', 'treetable'], function () {
     Dict.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'dictId', hide: true, title: '字典id'},
+            {field: 'dictId', align: "center", hide: true, title: '字典id'},
             {field: 'name', align: "center", sort: true, title: '字典名称'},
             {field: 'code', align: "center", sort: true, title: '字典编码'},
             {field: 'description', align: "center", sort: true, title: '字典的描述'},

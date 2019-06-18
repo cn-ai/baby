@@ -24,7 +24,7 @@ layui.use(['table', 'ax'], function () {
                 }
             },
             {
-                field: 'code', align: "center", sort: true, title: '类型编码', minWidth:166 , templet: function (d) {
+                field: 'code', align: "center", sort: true, title: '类型编码', minWidth: 166 , templet: function (d) {
                     var url = Feng.ctxPath + '/dict?dictTypeId=' + d.dictTypeId;
                     return '<a style="color: #01AAED;" href="' + url + '">' + d.code + '</a>';
                 }
@@ -40,7 +40,7 @@ layui.use(['table', 'ax'], function () {
             },
             {field: 'description', align: "center", sort: true, title: '字典描述'},
             {
-                field: 'status', align: "center", sort: true, title: '状态', templet: function (d) {
+                field: 'status', sort: true, align: "center", title: '状态', templet: function (d) {
                     if (d.status === 'ENABLE') {
                         return "启用";
                     } else {
@@ -48,7 +48,7 @@ layui.use(['table', 'ax'], function () {
                     }
                 }
             },
-            {field: 'createTime', align: "center", minWidth:161 , sort: true, title: '添加时间'},
+            {field: 'createTime', align: "center", sort: true, title: '添加时间', minWidth: 161 },
             {field: 'createUser', align: "center", sort: true, title: '创建人'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];

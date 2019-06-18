@@ -17,7 +17,7 @@ layui.use(['table', 'admin', 'ax'], function () {
     EgForm.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'formId', hide: true, title: '主键id'},
+            {field: 'formId', align: "center", hide: true, title: '主键id'},
             {field: 'name', align: "center", sort: true, title: '名称'},
             {field: 'singleTime', align: "center", sort: true, title: '单个时间', minWidth: 160},
             {field: 'betweenTime', align: "center", sort: true, title: '时间段', minWidth: 187},
