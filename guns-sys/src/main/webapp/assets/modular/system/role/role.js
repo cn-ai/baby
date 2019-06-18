@@ -23,9 +23,9 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'roleId', hide: true, sort: true, title: '角色id'},
-            {field: 'name',  align: "center", sort: true, title: '名称'},
-            {field: 'pName',  align: "center", sort: true, title: '上级角色'},
-            {field: 'description',  align: "center", sort: true, title: '别名'},
+            {field: 'name', align: "center", sort: true, title: '名称'},
+            {field: 'pName', align: "center", sort: true, title: '上级角色'},
+            {field: 'description', align: "center", sort: true, title: '别名'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 200}
         ]];
     };
@@ -74,15 +74,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
      * @param data 点击按钮时候的行数据
      */
     Role.onEditRole = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            type: 2,
-            title: '修改角色',
-            content: Feng.ctxPath + '/role/role_edit?roleId=' + data.roleId,
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Role.tableId);
-            }
-        });
+        window.location.href = Feng.ctxPath + "/role/role_edit?roleId="+ data.roleId;
     };
 
     /**
@@ -140,7 +132,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        Role.openAddRole();
+        window.location.href = Feng.ctxPath + "/role/role_add";
     });
 
     // 导出excel

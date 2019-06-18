@@ -110,7 +110,7 @@ public class DataBaseInfoDao {
             PreparedStatement preparedStatement = conn.prepareStatement(MYSQL_DELETE_SQL);
             preparedStatement.setString(1, MASTER_DATASOURCE_NAME);
             int i = preparedStatement.executeUpdate();
-            log.info("初始化master的databaseInfo信息！初始化" + i + "条！");
+            log.info("删除master的databaseInfo信息！删除" + i + "条！");
         } catch (Exception ex) {
             throw new DataSourceInitException(DataSourceInitException.ExEnum.QUERY_DATASOURCE_INFO_ERROR);
         }
