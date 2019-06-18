@@ -60,15 +60,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
      * @param data 点击按钮时候的行数据
      */
     Notice.onEditNotice = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            type: 2,
-            title: '通知详情',
-            content: Feng.ctxPath + '/notice/notice_update/' + data.noticeId,
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Notice.tableId);
-            }
-        });
+        window.location.href = Feng.ctxPath + "/notice/notice_update/"+ data.noticeId;
     };
 
     /**
@@ -107,7 +99,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        Notice.openAddNotice();
+        window.location.href = Feng.ctxPath + "/notice/notice_add";
     });
 
     // 工具条点击事件

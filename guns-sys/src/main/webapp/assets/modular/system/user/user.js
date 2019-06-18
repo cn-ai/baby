@@ -93,7 +93,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
      * @param data 点击按钮时候的行数据
      */
     MgrUser.onEditUser = function (data) {
-        admin.putTempData('formOk', false);
+        /*admin.putTempData('formOk', false);
         top.layui.admin.open({
             type: 2,
             title: '编辑用户',
@@ -101,7 +101,9 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
             end: function () {
                 admin.getTempData('formOk') && table.reload(MgrUser.tableId);
             }
-        });
+        });*/
+        //console.info(data.userId);
+        window.location.href = Feng.ctxPath + "/mgr/user_edit?userId="+ data.userId;
     };
 
     /**
@@ -214,7 +216,8 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        MgrUser.openAddUser();
+        //MgrUser.openAddUser();
+        window.location.href = Feng.ctxPath + "/mgr/user_add";
     });
 
     // 导出excel
