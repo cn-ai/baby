@@ -63,12 +63,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax'], function () {
         var ajax = new $ax(Feng.ctxPath + "/mgr/edit", function (data) {
             Feng.success("修改成功！");
 
-            //传给上个页面，刷新table用
-            admin.putTempData('formOk', true);
-
-            //关掉对话框
-            admin.closeThisDialog();
-
             //跳转列表页面并刷新
             window.location.href = Feng.ctxPath + "/mgr";
 
