@@ -15,7 +15,7 @@
  */
 package cn.stylefeng.guns.config.web;
 
-import cn.stylefeng.guns.oauth.core.shiro.matcher.WithOAuthTokenMatcher;
+import cn.stylefeng.guns.sys.core.shiro.oauth.matcher.WithOAuthTokenMatcher;
 import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.properties.GunsProperties;
 import cn.stylefeng.guns.sys.core.shiro.GunsUserFilter;

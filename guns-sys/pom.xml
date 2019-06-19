@@ -24,6 +24,13 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- 第三方登录-->
+        <dependency>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
+            <version>1.6.0-beta</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -21,7 +21,6 @@
 | guns-base | guns的基础模块 | 
 | guns-base-email | 邮件发送模块 | 
 | guns-base-sms | 短信发送模块（对接阿里云短信） | 
-| guns-base-third-login | 第三方登录 | 
 | guns-base-timers | 分布式任务调度执行器 | 
 | guns-sys | guns系统管理的基础业务模块 |
 | guns-vip-gen | guns代码生成器模块 |
