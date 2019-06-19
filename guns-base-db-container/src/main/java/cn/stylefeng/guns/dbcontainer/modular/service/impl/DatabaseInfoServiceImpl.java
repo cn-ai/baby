@@ -3,15 +3,18 @@ package cn.stylefeng.guns.dbcontainer.modular.service.impl;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.dbcontainer.core.context.SqlSessionFactoryContext;
+import cn.stylefeng.guns.dbcontainer.core.exception.DataSourceInitException;
 import cn.stylefeng.guns.dbcontainer.modular.entity.DatabaseInfo;
 import cn.stylefeng.guns.dbcontainer.modular.mapper.DatabaseInfoMapper;
 import cn.stylefeng.guns.dbcontainer.modular.model.params.DatabaseInfoParam;
 import cn.stylefeng.guns.dbcontainer.modular.model.result.DatabaseInfoResult;
 import cn.stylefeng.guns.dbcontainer.modular.service.DatabaseInfoService;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,9 +36,22 @@ public class DatabaseInfoServiceImpl extends ServiceImpl<DatabaseInfoMapper, Dat
     @Transactional(rollbackFor = Exception.class)
     public void add(DatabaseInfoParam param) {
 
+        //判断dbName是否重复
+        String dbName = param.getDbName();
+        List<DatabaseInfo> db_name = this.list(new QueryWrapper<DatabaseInfo>().eq("db_name", dbName));
+        if (db_name.size() > 0) {
+            throw new DataSourceInitException(DataSourceInitException.ExEnum.REPEAT_ERROR);
+        }
+
         //数据库中插入记录
         DatabaseInfo entity = getEntity(param);
         this.save(entity);
+
+        //先判断context中是否有了这个数据源名称
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryContext.getSqlSessionFactorys().get(param.getDbName());
+        if (sqlSessionFactory != null) {
+            throw new DataSourceInitException(DataSourceInitException.ExEnum.NAME_REPEAT_ERROR);
+        }
 
         //往上下文中添加数据源
         SqlSessionFactoryContext.addSqlSessionFactory(param.getDbName(), entity);
