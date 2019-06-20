@@ -16,7 +16,7 @@ USE guns;
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 15/06/2019 18:23:18
+ Date: 20/06/2019 17:25:41
 */
 
 SET NAMES utf8mb4;
@@ -70,6 +70,25 @@ CREATE TABLE `oauth_user_info` (
   `update_user` bigint(20) DEFAULT NULL COMMENT '更新用户',
   PRIMARY KEY (`oauth_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='第三方用户信息表';
+
+-- ----------------------------
+-- Table structure for sys_config
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_config`;
+CREATE TABLE `sys_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(200) NOT NULL COMMENT '名称',
+  `code` varchar(200) NOT NULL COMMENT '属性编码标识',
+  `dict_flag` char(1) NOT NULL COMMENT '是否是字典中的值',
+  `dict_type_code` varchar(200) DEFAULT NULL COMMENT '字典类型的编码',
+  `value` varchar(200) NOT NULL COMMENT '属性值，如果是字典中的类型，则为dict的code',
+  `remark` varchar(200) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_user` bigint(20) DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='参数配置';
 
 -- ----------------------------
 -- Table structure for sys_dept
