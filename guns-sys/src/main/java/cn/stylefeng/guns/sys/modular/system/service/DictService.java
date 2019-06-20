@@ -226,6 +226,27 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
         return dictResult;
     }
 
+    /**
+     * 查询字典列表，通过字典类型
+     *
+     * @author fengshuonan
+     * @Date 2019-06-20 15:14
+     */
+    public List<Dict> listDicts(Long dictTypeId) {
+
+        QueryWrapper<Dict> objectQueryWrapper = new QueryWrapper<>();
+        objectQueryWrapper.eq("dict_type_id", dictTypeId);
+
+        List<Dict> list = this.list(objectQueryWrapper);
+
+        if (list == null) {
+            return new ArrayList<>();
+        } else {
+            return list;
+        }
+
+    }
+
     private Serializable getKey(DictParam param) {
         return param.getDictId();
     }
@@ -248,9 +269,9 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
 
         ArrayList<Long> longs = new ArrayList<>();
 
-        if(ToolUtil.isEmpty(dictId)){
+        if (ToolUtil.isEmpty(dictId)) {
             return longs;
-        }else{
+        } else {
             List<Dict> list = this.baseMapper.likeParentIds(dictId);
             for (Dict dict : list) {
                 longs.add(dict.getDictId());

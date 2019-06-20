@@ -10,6 +10,7 @@ import cn.stylefeng.guns.sys.modular.system.service.DictService;
 import cn.stylefeng.guns.sys.modular.system.service.DictTypeService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -168,6 +169,19 @@ public class DictController extends BaseController {
     @RequestMapping("/list")
     public LayuiPageInfo list(DictParam dictParam) {
         return this.dictService.findPageBySpec(dictParam);
+    }
+
+    /**
+     * 获取某个字典类型下的所有字典
+     *
+     * @author stylefeng
+     * @Date 2019-03-13
+     */
+    @ResponseBody
+    @RequestMapping("/listDicts")
+    public ResponseData listDicts(@RequestParam("dictTypeId") Long dictTypeId) {
+        List<Dict> dicts = this.dictService.listDicts(dictTypeId);
+        return new SuccessResponseData(dicts);
     }
 
     /**

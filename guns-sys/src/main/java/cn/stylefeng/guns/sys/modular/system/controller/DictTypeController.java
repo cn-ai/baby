@@ -1,15 +1,19 @@
 package cn.stylefeng.guns.sys.modular.system.controller;
 
-import cn.stylefeng.guns.sys.modular.system.entity.DictType;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
+import cn.stylefeng.guns.sys.modular.system.entity.DictType;
 import cn.stylefeng.guns.sys.modular.system.model.params.DictTypeParam;
 import cn.stylefeng.guns.sys.modular.system.service.DictTypeService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 
 /**
@@ -122,6 +126,23 @@ public class DictTypeController extends BaseController {
     @RequestMapping("/list")
     public LayuiPageInfo list(DictTypeParam dictTypeParam) {
         return this.dictTypeService.findPageBySpec(dictTypeParam);
+    }
+
+    /**
+     * 查询所有字典
+     *
+     * @author stylefeng
+     * @Date 2019-03-13
+     */
+    @ResponseBody
+    @RequestMapping("/listTypes")
+    public ResponseData listTypes() {
+
+        QueryWrapper<DictType> objectQueryWrapper = new QueryWrapper<>();
+        objectQueryWrapper.select("dict_type_id", "code", "name");
+
+        List<DictType> list = this.dictTypeService.list(objectQueryWrapper);
+        return new SuccessResponseData(list);
     }
 
 }
