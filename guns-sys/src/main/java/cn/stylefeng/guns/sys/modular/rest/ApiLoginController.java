@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.stylefeng.guns.sys.modular.api.controller;
+package cn.stylefeng.guns.sys.modular.rest;
 
+import cn.stylefeng.guns.api.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
-import cn.stylefeng.guns.sys.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.mapper.UserMapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -29,21 +29,20 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 
 /**
- * 接口控制器提供
+ * api登录接口，获取token
  *
  * @author stylefeng
  * @Date 2018/7/20 23:39
  */
 @RestController
 @RequestMapping("/gunsApi")
-public class ApiController extends BaseController {
+public class ApiLoginController extends BaseController {
 
     @Autowired
     private UserMapper userMapper;
@@ -81,14 +80,6 @@ public class ApiController extends BaseController {
         } else {
             return new ErrorResponseData(500, "账号密码错误！");
         }
-    }
-
-    /**
-     * 测试接口是否走鉴权
-     */
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public Object test() {
-        return SUCCESS_TIP;
     }
 
 }

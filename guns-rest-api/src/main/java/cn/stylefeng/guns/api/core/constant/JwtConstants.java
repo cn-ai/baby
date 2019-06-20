@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.stylefeng.guns.sys.core.constant;
+package cn.stylefeng.guns.api.core.constant;
 
 /**
  * jwt相关配置

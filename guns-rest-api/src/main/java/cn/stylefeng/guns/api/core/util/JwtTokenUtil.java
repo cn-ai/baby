@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.stylefeng.guns.sys.core.util;
+package cn.stylefeng.guns.api.core.util;
 
-import cn.stylefeng.guns.sys.core.constant.JwtConstants;
+import cn.stylefeng.guns.api.core.constant.JwtConstants;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import io.jsonwebtoken.*;
 

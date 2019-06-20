@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.stylefeng.guns.sys.modular.api.aop;
+package cn.stylefeng.guns.api.core.aop;
 
-import cn.stylefeng.guns.sys.core.constant.JwtConstants;
-import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
-import cn.stylefeng.guns.sys.core.util.JwtTokenUtil;
+import cn.stylefeng.guns.api.core.constant.JwtConstants;
+import cn.stylefeng.guns.api.core.exception.RestExceptionEnum;
+import cn.stylefeng.guns.api.core.util.JwtTokenUtil;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.util.RenderUtil;
 import io.jsonwebtoken.JwtException;
@@ -56,17 +56,22 @@ public class RestApiInteceptor extends HandlerInterceptorAdapter {
             try {
                 boolean flag = JwtTokenUtil.isTokenExpired(authToken);
                 if (flag) {
-                    RenderUtil.renderJson(response, new ErrorResponseData(BizExceptionEnum.TOKEN_EXPIRED.getCode(), BizExceptionEnum.TOKEN_EXPIRED.getMessage()));
+                    RenderUtil.renderJson(response, new ErrorResponseData(
+                            RestExceptionEnum.TOKEN_EXPIRED.getCode(), RestExceptionEnum.TOKEN_EXPIRED.getMessage()));
                     return false;
                 }
             } catch (JwtException e) {
+
                 //有异常就是token解析失败
-                RenderUtil.renderJson(response, new ErrorResponseData(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
+                RenderUtil.renderJson(response, new ErrorResponseData(
+                        RestExceptionEnum.TOKEN_ERROR.getCode(), RestExceptionEnum.TOKEN_ERROR.getMessage()));
                 return false;
             }
         } else {
+
             //header没有带Bearer字段
-            RenderUtil.renderJson(response, new ErrorResponseData(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
+            RenderUtil.renderJson(response, new ErrorResponseData(
+                    RestExceptionEnum.TOKEN_ERROR.getCode(), RestExceptionEnum.TOKEN_ERROR.getMessage()));
             return false;
         }
         return true;
