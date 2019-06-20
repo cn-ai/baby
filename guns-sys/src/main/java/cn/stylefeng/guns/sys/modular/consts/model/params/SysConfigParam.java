@@ -1,10 +1,10 @@
 package cn.stylefeng.guns.sys.modular.consts.model.params;
 
-import lombok.Data;
 import cn.stylefeng.roses.kernel.model.validator.BaseValidatingParam;
-import java.util.Date;
+import lombok.Data;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * <p>
@@ -44,6 +44,11 @@ public class SysConfigParam implements Serializable, BaseValidatingParam {
      * 字典类型的编码
      */
     private String dictTypeCode;
+
+    /**
+     * 字典的值
+     */
+    private String dictValue;
 
     /**
      * 属性值，如果是字典中的类型，则为dict的code

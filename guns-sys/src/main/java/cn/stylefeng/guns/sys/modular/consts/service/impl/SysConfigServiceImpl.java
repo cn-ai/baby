@@ -6,7 +6,7 @@ import cn.stylefeng.guns.sys.modular.consts.entity.SysConfig;
 import cn.stylefeng.guns.sys.modular.consts.mapper.SysConfigMapper;
 import cn.stylefeng.guns.sys.modular.consts.model.params.SysConfigParam;
 import cn.stylefeng.guns.sys.modular.consts.model.result.SysConfigResult;
-import  cn.stylefeng.guns.sys.modular.consts.service.SysConfigService;
+import cn.stylefeng.guns.sys.modular.consts.service.SysConfigService;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -28,18 +28,25 @@ import java.util.List;
 public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig> implements SysConfigService {
 
     @Override
-    public void add(SysConfigParam param){
+    public void add(SysConfigParam param) {
         SysConfig entity = getEntity(param);
+
+        //如果是字典类型
+        if (ToolUtil.isNotEmpty(param.getDictFlag())
+                && param.getDictFlag().equalsIgnoreCase("Y")) {
+            entity.setValue(param.getDictValue());
+        }
+
         this.save(entity);
     }
 
     @Override
-    public void delete(SysConfigParam param){
+    public void delete(SysConfigParam param) {
         this.removeById(getKey(param));
     }
 
     @Override
-    public void update(SysConfigParam param){
+    public void update(SysConfigParam param) {
         SysConfig oldEntity = getOldEntity(param);
         SysConfig newEntity = getEntity(param);
         ToolUtil.copyProperties(newEntity, oldEntity);
@@ -47,23 +54,23 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     }
 
     @Override
-    public SysConfigResult findBySpec(SysConfigParam param){
+    public SysConfigResult findBySpec(SysConfigParam param) {
         return null;
     }
 
     @Override
-    public List<SysConfigResult> findListBySpec(SysConfigParam param){
+    public List<SysConfigResult> findListBySpec(SysConfigParam param) {
         return null;
     }
 
     @Override
-    public LayuiPageInfo findPageBySpec(SysConfigParam param){
+    public LayuiPageInfo findPageBySpec(SysConfigParam param) {
         Page pageContext = getPageContext();
         IPage page = this.baseMapper.customPageList(pageContext, param);
         return LayuiPageFactory.createPageInfo(page);
     }
 
-    private Serializable getKey(SysConfigParam param){
+    private Serializable getKey(SysConfigParam param) {
         return param.getId();
     }
 

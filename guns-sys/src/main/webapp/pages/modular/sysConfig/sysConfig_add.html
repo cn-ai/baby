@@ -25,10 +25,10 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">取值范围<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="dictFlag" value="Y" title="系统字典" lay-filter="dictChecked" checked="checked">
-                        <input type="radio" name="dictFlag" value="N" title="非系统字典" lay-filter="dictChecked">
+                        <input type="radio" name="dictFlag" value="Y" title="字典" lay-filter="dictChecked" checked="checked">
+                        <input type="radio" name="dictFlag" value="N" title="非字典" lay-filter="dictChecked">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">如果选择系统字典，则取值来自于 系统管理->字典管理</div>
+                    <div class="layui-form-mid layui-word-aux">如果选择字典，则取值来自于 系统管理->字典管理</div>
                 </div>
 
                 <!-- 从字典取值 -->
@@ -42,18 +42,18 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">字典值<span style="color: red;">*</span></label>
+                        <label class="layui-form-label">参数值<span style="color: red;">*</span></label>
                         <div class="layui-input-block" id="dictDetails">
-                            <input type="radio" name="value" value="" title="无" disabled="disabled">
+                            <input type="radio" name="dictValue" value="" title="无" disabled="disabled">
                         </div>
                     </div>
                 </div>
 
                 <!-- 手动输入 -->
                 <div class="layui-form-item" id="customCodeDiv">
-                    <label class="layui-form-label">自定义值<span style="color: red;">*</span></label>
+                    <label class="layui-form-label">参数值<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input id="value" name="value" placeholder="属性值" type="text" class="layui-input" lay-verify="required" required/>
+                        <input id="value" name="value" placeholder="属性值" type="text" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-form-item">
