@@ -6,9 +6,11 @@ import cn.stylefeng.guns.sys.modular.consts.model.params.SysConfigParam;
 import cn.stylefeng.guns.sys.modular.consts.service.SysConfigService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -120,7 +122,17 @@ public class SysConfigController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(SysConfigParam sysConfigParam) {
+    public LayuiPageInfo list(@RequestParam(value = "condition", required = false) String condition) {
+
+        SysConfigParam sysConfigParam = new SysConfigParam();
+
+        if (ToolUtil.isNotEmpty(condition)) {
+            sysConfigParam.setCode(condition);
+            sysConfigParam.setName(condition);
+            sysConfigParam.setRemark(condition);
+            sysConfigParam.setValue(condition);
+        }
+
         return this.sysConfigService.findPageBySpec(sysConfigParam);
     }
 
