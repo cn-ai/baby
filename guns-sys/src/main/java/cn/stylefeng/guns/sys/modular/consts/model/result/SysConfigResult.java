@@ -1,9 +1,9 @@
 package cn.stylefeng.guns.sys.modular.consts.model.result;
 
 import lombok.Data;
-import java.util.Date;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * <p>
@@ -42,7 +42,7 @@ public class SysConfigResult implements Serializable {
     /**
      * 字典类型的编码
      */
-    private String dictTypeCode;
+    private Long dictTypeId;
 
     /**
      * 属性值，如果是字典中的类型，则为dict的code

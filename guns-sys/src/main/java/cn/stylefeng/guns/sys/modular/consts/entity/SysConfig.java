@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.sys.modular.consts.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
  * @since 2019-06-20
  */
 @TableName("sys_config")
+@Data
 public class SysConfig implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,8 +47,8 @@ public class SysConfig implements Serializable {
     /**
      * 字典类型的编码
      */
-    @TableField("dict_type_code")
-    private String dictTypeCode;
+    @TableField("dict_type_id")
+    private Long dictTypeId;
 
     /**
      * 属性值，如果是字典中的类型，则为dict的code
@@ -84,109 +86,4 @@ public class SysConfig implements Serializable {
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDictFlag() {
-        return dictFlag;
-    }
-
-    public void setDictFlag(String dictFlag) {
-        this.dictFlag = dictFlag;
-    }
-
-    public String getDictTypeCode() {
-        return dictTypeCode;
-    }
-
-    public void setDictTypeCode(String dictTypeCode) {
-        this.dictTypeCode = dictTypeCode;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Long createUser) {
-        this.createUser = createUser;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Long getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(Long updateUser) {
-        this.updateUser = updateUser;
-    }
-
-    @Override
-    public String toString() {
-        return "SysConfig{" +
-        "id=" + id +
-        ", name=" + name +
-        ", code=" + code +
-        ", dictFlag=" + dictFlag +
-        ", dictTypeCode=" + dictTypeCode +
-        ", value=" + value +
-        ", remark=" + remark +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
-    }
 }

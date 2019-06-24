@@ -43,7 +43,7 @@ public class SysConfigParam implements Serializable, BaseValidatingParam {
     /**
      * 字典类型的编码
      */
-    private String dictTypeCode;
+    private Long dictTypeId;
 
     /**
      * 字典的值

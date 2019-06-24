@@ -31,14 +31,14 @@ layui.use(['form', 'admin', 'ax'], function () {
         status = "dict";
 
         //初始化所有字典类型
-        $("#dictTypeCode").html('<option value="">请选择系统字典类型</option>');
+        $("#dictTypeId").html('<option value="">请选择系统字典类型</option>');
         var ajax = new $ax(Feng.ctxPath + "/dictType/listTypes", function (data) {
 
             for (var i = 0; i < data.data.length; i++) {
                 var dictTypeId = data.data[i].dictTypeId;
                 var name = data.data[i].name;
                 var code = data.data[i].code;
-                $("#dictTypeCode").append('<option value="' + dictTypeId + '">' + code + '--' + name + '</option>');
+                $("#dictTypeId").append('<option value="' + dictTypeId + '">' + code + '--' + name + '</option>');
             }
             form.render();
 
@@ -62,7 +62,7 @@ layui.use(['form', 'admin', 'ax'], function () {
 
             var radio = $('input:radio[name="dictValue"]:checked').val();
 
-            if (!$("#dictTypeCode").val() || !radio) {
+            if (!$("#dictTypeId").val() || !radio) {
                 Feng.error("请选择具体字典！");
                 return false;
             }
@@ -95,7 +95,7 @@ layui.use(['form', 'admin', 'ax'], function () {
     });
 
     //监听字典选择
-    form.on('select(dictTypeCode)', function (data) {
+    form.on('select(dictTypeId)', function (data) {
 
         var dictTypeId = data.value;
 

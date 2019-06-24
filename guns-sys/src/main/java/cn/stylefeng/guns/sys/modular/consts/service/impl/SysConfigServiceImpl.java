@@ -8,6 +8,7 @@ import cn.stylefeng.guns.sys.modular.consts.model.params.SysConfigParam;
 import cn.stylefeng.guns.sys.modular.consts.model.result.SysConfigResult;
 import cn.stylefeng.guns.sys.modular.consts.service.SysConfigService;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -50,7 +51,21 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         SysConfig oldEntity = getOldEntity(param);
         SysConfig newEntity = getEntity(param);
         ToolUtil.copyProperties(newEntity, oldEntity);
-        this.updateById(newEntity);
+
+        UpdateWrapper<SysConfig> updateWrapper = new UpdateWrapper<SysConfig>().eq("id", param.getId());
+
+        //如果是字典类型
+        if (ToolUtil.isNotEmpty(param.getDictFlag())
+                && param.getDictFlag().equalsIgnoreCase("Y")) {
+            newEntity.setValue(param.getDictValue());
+        } else {
+
+            //如果是非字典，则标识位置为空
+            newEntity.setDictFlag("N");
+            updateWrapper.set(true, "dict_type_id", null);
+        }
+
+        this.update(newEntity, updateWrapper);
     }
 
     @Override
