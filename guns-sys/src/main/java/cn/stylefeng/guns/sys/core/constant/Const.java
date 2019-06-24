@@ -69,7 +69,8 @@ public interface Const {
             "/error",
             "/global/error",
             "/oauth/**",
-            "/tran/**");
+            "/tran/**",
+            "/favicon.ico");
 
     /**
      * OAuth2登录用户的账号标识
