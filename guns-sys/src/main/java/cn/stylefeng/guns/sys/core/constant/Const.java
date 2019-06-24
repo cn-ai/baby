@@ -76,5 +76,4 @@ public interface Const {
      */
     String OAUTH2_ACCOUNT_PREFIX = "oauth2";
 
-
 }

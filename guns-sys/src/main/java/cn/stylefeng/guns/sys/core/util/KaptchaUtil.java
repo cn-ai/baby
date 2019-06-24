@@ -15,8 +15,7 @@
  */
 package cn.stylefeng.guns.sys.core.util;
 
-import cn.stylefeng.guns.sys.core.properties.GunsProperties;
-import cn.stylefeng.roses.core.util.SpringContextHolder;
+import cn.stylefeng.guns.base.consts.ConstantsContext;
 
 /**
  * 验证码工具类
@@ -27,6 +26,6 @@ public class KaptchaUtil {
      * 获取验证码开关
      */
     public static Boolean getKaptchaOnOff() {
-        return SpringContextHolder.getBean(GunsProperties.class).getKaptchaOpen();
+        return ConstantsContext.getKaptchaOpen();
     }
 }

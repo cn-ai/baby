@@ -83,6 +83,12 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
     SIGN_ERROR(700, "签名验证失败"),
 
     /**
+     * 系统常量
+     */
+    ALREADY_CONSTANTS_ERROR(400, "已经存在该编码的系统参数"),
+    SYSTEM_CONSTANT_ERROR(400, "不能删除系统常量"),
+
+    /**
      * 其他
      */
     AUTH_REQUEST_ERROR(400, "账号密码错误");

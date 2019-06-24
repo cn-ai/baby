@@ -33,8 +33,6 @@ public class GunsProperties {
 
     public static final String PREFIX = "guns";
 
-    private Boolean kaptchaOpen = false;
-
     private String fileUploadPath;
 
     private Boolean haveCreatePath = false;
