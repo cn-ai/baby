@@ -38,6 +38,13 @@
             <version>1.6.0-beta</version>
         </dependency>
 
+        <!-- 最新代码生成模块 -->
+        <dependency>
+            <groupId>cn.stylefeng</groupId>
+            <artifactId>guns-vip-gen</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -19,7 +19,6 @@
 | 模块名称 | 说明 |
 | :---: | :---: |
 | guns-base | guns的基础模块 | 
-| guns-base-db-container | 数据源容器 | 
 | guns-base-email | 邮件发送模块 | 
 | guns-base-sms | 短信发送模块（对接阿里云短信） | 
 | guns-base-timers | 分布式任务调度执行器 | 

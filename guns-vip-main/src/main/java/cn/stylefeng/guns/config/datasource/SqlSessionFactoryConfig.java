@@ -15,10 +15,10 @@
  */
 package cn.stylefeng.guns.config.datasource;
 
-import cn.stylefeng.guns.dbcontainer.core.collector.SqlSessionFactoryCreator;
-import cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext;
-import cn.stylefeng.guns.dbcontainer.core.context.SqlSessionFactoryContext;
-import cn.stylefeng.guns.dbcontainer.core.exception.DataSourceInitException;
+import cn.stylefeng.guns.base.db.collector.SqlSessionFactoryCreator;
+import cn.stylefeng.guns.base.db.context.DataSourceContext;
+import cn.stylefeng.guns.base.db.context.SqlSessionFactoryContext;
+import cn.stylefeng.guns.base.db.exception.DataSourceInitException;
 import cn.stylefeng.roses.core.config.properties.DruidProperties;
 import cn.stylefeng.roses.core.mutidatasource.mybatis.OptionalSqlSessionTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-import static cn.stylefeng.guns.dbcontainer.core.context.DataSourceContext.MASTER_DATASOURCE_NAME;
+import static cn.stylefeng.guns.base.db.context.DataSourceContext.MASTER_DATASOURCE_NAME;
 
 /**
  * 多数据源配置<br/>

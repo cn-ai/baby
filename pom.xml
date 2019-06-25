@@ -21,7 +21,6 @@
 
     <modules>
         <module>guns-base</module>
-        <module>guns-base-db-container</module>
         <module>guns-base-sms</module>
         <module>guns-base-email</module>
         <module>guns-base-timers</module>
