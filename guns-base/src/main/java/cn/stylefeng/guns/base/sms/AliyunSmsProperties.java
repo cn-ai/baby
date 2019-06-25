@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.sms.config.properties;
+package cn.stylefeng.guns.base.sms;
 
 import lombok.Data;
 

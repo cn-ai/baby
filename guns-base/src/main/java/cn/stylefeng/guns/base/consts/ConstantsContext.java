@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.base.consts;
 
 import cn.stylefeng.guns.base.enums.CommonStatus;
+import cn.stylefeng.guns.base.sms.AliyunSmsProperties;
 import cn.stylefeng.roses.core.util.ToolUtil;
 
 import java.util.Map;
@@ -53,7 +54,7 @@ public class ConstantsContext {
     }
 
     /**
-     * 获取开关
+     * 获取验证码开关
      */
     public static Boolean getKaptchaOpen() {
         String gunsKaptchaOpen = (String) CONSTNTS_HOLDER.get("GUNS_KAPTCHA_OPEN");
@@ -62,5 +63,24 @@ public class ConstantsContext {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 获取短信的配置
+     */
+    public static AliyunSmsProperties getAliyunSmsProperties() {
+        String gunsSmsAccesskeyId = (String) CONSTNTS_HOLDER.get("GUNS_SMS_ACCESSKEY_ID");
+        String gunsSmsAccesskeySecret = (String) CONSTNTS_HOLDER.get("GUNS_SMS_ACCESSKEY_SECRET");
+        String gunsSmsSignName = (String) CONSTNTS_HOLDER.get("GUNS_SMS_SIGN_NAME");
+        String gunsSmsLoginTemplateCode = (String) CONSTNTS_HOLDER.get("GUNS_SMS_LOGIN_TEMPLATE_CODE");
+        String gunsSmsInvalidateMinutes = (String) CONSTNTS_HOLDER.get("GUNS_SMS_INVALIDATE_MINUTES");
+
+        AliyunSmsProperties aliyunSmsProperties = new AliyunSmsProperties();
+        aliyunSmsProperties.setAccessKeyId(gunsSmsAccesskeyId);
+        aliyunSmsProperties.setAccessKeySecret(gunsSmsAccesskeySecret);
+        aliyunSmsProperties.setSignName(gunsSmsSignName);
+        aliyunSmsProperties.setLoginTemplateCode(gunsSmsLoginTemplateCode);
+        aliyunSmsProperties.setInvalidateMinutes(Integer.valueOf(gunsSmsInvalidateMinutes));
+        return aliyunSmsProperties;
     }
 }

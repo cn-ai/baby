@@ -1,6 +1,6 @@
 package cn.stylefeng.guns.sms.modular.service;
 
-import cn.stylefeng.guns.sms.config.properties.AliyunSmsProperties;
+import cn.stylefeng.guns.base.sms.AliyunSmsProperties;
 import cn.stylefeng.guns.sms.core.enums.SmsResultEnum;
 import cn.stylefeng.guns.sms.core.enums.SmsSendStatus;
 import cn.stylefeng.guns.sms.core.enums.SmsVerifyResult;

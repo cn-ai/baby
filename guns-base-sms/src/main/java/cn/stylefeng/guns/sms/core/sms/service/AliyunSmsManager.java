@@ -1,7 +1,8 @@
 package cn.stylefeng.guns.sms.core.sms.service;
 
 import cn.hutool.core.date.DateUtil;
-import cn.stylefeng.guns.sms.config.properties.AliyunSmsProperties;
+import cn.stylefeng.guns.base.consts.ConstantsContext;
+import cn.stylefeng.guns.base.sms.AliyunSmsProperties;
 import cn.stylefeng.guns.sms.core.cache.MultiSignManager;
 import cn.stylefeng.guns.sms.core.enums.SmsResultEnum;
 import cn.stylefeng.guns.sms.core.exception.SmsException;
@@ -40,15 +41,15 @@ import static cn.hutool.core.date.DatePattern.PURE_DATE_PATTERN;
 public class AliyunSmsManager implements SmsManager {
 
     @Autowired
-    private AliyunSmsProperties aliyunSmsProperties;
-
-    @Autowired
     private MultiSignManager multiSignManager;
 
     @Override
     public void sendSms(String phoneNumber, String templateCode, Map<String, Object> params) {
 
         log.info("开始发送阿里云短信，手机号是：" + phoneNumber + ",模板号是：" + templateCode + ",参数是：" + JSON.toJSONString(params));
+
+        //获取发送短信的配置
+        AliyunSmsProperties aliyunSmsProperties = ConstantsContext.getAliyunSmsProperties();
 
         //检验参数是否合法
         assertSendSmsParams(phoneNumber, templateCode, params, aliyunSmsProperties);
@@ -143,6 +144,8 @@ public class AliyunSmsManager implements SmsManager {
         //初始化ascClient需要的几个参数
         final String product = "Dysmsapi";              //短信API产品名称（短信产品名固定，无需修改）
         final String domain = "dysmsapi.aliyuncs.com";  //短信API产品域名（接口地址固定，无需修改）
+
+        AliyunSmsProperties aliyunSmsProperties = ConstantsContext.getAliyunSmsProperties();
         final String accessKeyId = aliyunSmsProperties.getAccessKeyId();
         final String accessKeySecret = aliyunSmsProperties.getAccessKeySecret();
 
@@ -231,7 +234,8 @@ public class AliyunSmsManager implements SmsManager {
      * @Date 2018/8/13 21:23
      */
     private String getSmsSign(String phone) {
-        String signName = this.aliyunSmsProperties.getSignName();
+        AliyunSmsProperties aliyunSmsProperties = ConstantsContext.getAliyunSmsProperties();
+        String signName = aliyunSmsProperties.getSignName();
 
         //如果是单个签名就用一个签名发
         if (!signName.contains(",")) {
