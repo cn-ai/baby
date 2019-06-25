@@ -41,13 +41,6 @@ spring:
     username: sn93@qq.com
     password: xxxpassword
 
-# 阿里云短信发送配置
-aliyun:
-  sms:
-    accessKeyId: xxxkey
-    accessKeySecret: xxxSecret
-    signName: mySignName
-
 # 邮件发送（改为自己的账号）
 mail:
   from: sn93@qq.com
