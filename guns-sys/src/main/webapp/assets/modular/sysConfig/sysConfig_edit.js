@@ -149,4 +149,11 @@ layui.use(['form', 'admin', 'ax'], function () {
         activeCustomSelect();
     }
 
+    //如果是系统类型，则不能改变取值范围和字典类型
+    if(result.data.code.indexOf('GUNS_') === 0){
+        $("[name='dictFlag']").attr("disabled","disabled");
+        $("#dictTypeId").attr("disabled","disabled");
+        form.render();
+    }
+
 });
