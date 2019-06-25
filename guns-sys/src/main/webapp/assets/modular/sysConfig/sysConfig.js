@@ -23,9 +23,7 @@ layui.use(['table', 'admin', 'ax'], function () {
             {field: 'value', sort: true, align: "center", title: '属性值'},
             {field: 'remark', sort: true, align: "center", title: '备注'},
             {field: 'createTime', sort: true, align: "center", title: '创建时间'},
-            {field: 'createUser', sort: true, align: "center", title: '创建人'},
             {field: 'updateTime', sort: true, align: "center", title: '更新时间'},
-            {field: 'updateUser', sort: true, align: "center", title: '更新人'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };
