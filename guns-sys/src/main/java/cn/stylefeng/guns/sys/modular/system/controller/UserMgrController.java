@@ -15,6 +15,7 @@
  */
 package cn.stylefeng.guns.sys.modular.system.controller;
 
+import cn.stylefeng.guns.base.consts.ConstantsContext;
 import cn.stylefeng.guns.base.log.BussinessLog;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.shiro.annotion.Permission;
@@ -277,7 +278,7 @@ public class UserMgrController extends BaseController {
         this.userService.assertAuth(userId);
         User user = this.userService.getById(userId);
         user.setSalt(ShiroKit.getRandomSalt(5));
-        user.setPassword(ShiroKit.md5(Const.DEFAULT_PWD, user.getSalt()));
+        user.setPassword(ShiroKit.md5(ConstantsContext.getDefaultPassword(), user.getSalt()));
         this.userService.updateById(user);
         return SUCCESS_TIP;
     }

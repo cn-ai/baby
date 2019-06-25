@@ -15,6 +15,7 @@
  */
 package cn.stylefeng.guns.sys.core.shiro;
 
+import cn.stylefeng.guns.base.consts.ConstantsContext;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
@@ -322,7 +323,7 @@ public class ShiroKit {
      */
     public static boolean oauth2Flag() {
         String account = ShiroKit.getUserNotNull().getAccount();
-        if (account.startsWith(Const.OAUTH2_ACCOUNT_PREFIX)) {
+        if (account.startsWith(ConstantsContext.getOAuth2UserPrefix())) {
             return true;
         } else {
             return false;

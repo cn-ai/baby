@@ -1,10 +1,10 @@
 package cn.stylefeng.guns.sys.modular.third.factory;
 
-import cn.stylefeng.guns.sys.modular.third.entity.OauthUserInfo;
-import cn.stylefeng.guns.sys.core.constant.Const;
+import cn.stylefeng.guns.base.consts.ConstantsContext;
 import cn.stylefeng.guns.sys.core.constant.state.ManagerStatus;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
+import cn.stylefeng.guns.sys.modular.third.entity.OauthUserInfo;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
@@ -57,7 +57,7 @@ public class OAuthUserInfoFactory {
         systemUser.setSalt(salt);
 
         //利用openId设置账号
-        systemUser.setAccount(Const.OAUTH2_ACCOUNT_PREFIX + "_" + authUser.getSource().name() + "_" + authUser.getUsername());
+        systemUser.setAccount(ConstantsContext.getOAuth2UserPrefix() + "_" + authUser.getSource().name() + "_" + authUser.getUsername());
         systemUser.setName(authUser.getNickname());
         systemUser.setBirthday(new Date());
         systemUser.setSex(AuthUserGender.MALE.equals(authUser.getGender()) ? "M" : "F");

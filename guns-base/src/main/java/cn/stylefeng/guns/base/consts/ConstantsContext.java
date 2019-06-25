@@ -3,6 +3,7 @@ package cn.stylefeng.guns.base.consts;
 import cn.stylefeng.guns.base.enums.CommonStatus;
 import cn.stylefeng.guns.base.sms.AliyunSmsProperties;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,6 +16,7 @@ import static cn.stylefeng.guns.base.consts.ConfigConstant.SYSTEM_CONSTANT_PREFI
  * @author fengshuonan
  * @Date 2019-06-20 13:37
  */
+@Slf4j
 public class ConstantsContext {
 
     /**
@@ -82,5 +84,44 @@ public class ConstantsContext {
         aliyunSmsProperties.setLoginTemplateCode(gunsSmsLoginTemplateCode);
         aliyunSmsProperties.setInvalidateMinutes(Integer.valueOf(gunsSmsInvalidateMinutes));
         return aliyunSmsProperties;
+    }
+
+    /**
+     * 获取管理系统名称
+     */
+    public static String getSystemName() {
+        String systemName = (String) CONSTNTS_HOLDER.get("GUNS_SYSTEM_NAME");
+        if (ToolUtil.isEmpty(systemName)) {
+            log.error("系统常量存在空值！常量名称：GUNS_SYSTEM_NAME，采用默认名称：Guns快速开发平台");
+            return "Guns快速开发平台";
+        } else {
+            return systemName;
+        }
+    }
+
+    /**
+     * 获取管理系统名称
+     */
+    public static String getDefaultPassword() {
+        String defaultPassword = (String) CONSTNTS_HOLDER.get("GUNS_DEFAULT_PASSWORD");
+        if (ToolUtil.isEmpty(defaultPassword)) {
+            log.error("系统常量存在空值！常量名称：GUNS_DEFAULT_PASSWORD，采用默认密码：111111");
+            return "111111";
+        } else {
+            return defaultPassword;
+        }
+    }
+
+    /**
+     * 获取管理系统名称
+     */
+    public static String getOAuth2UserPrefix() {
+        String oauth2Prefix = (String) CONSTNTS_HOLDER.get("GUNS_OAUTH2_PREFIX");
+        if (ToolUtil.isEmpty(oauth2Prefix)) {
+            log.error("系统常量存在空值！常量名称：GUNS_OAUTH2_PREFIX，采用默认值：oauth2");
+            return "oauth2";
+        } else {
+            return oauth2Prefix;
+        }
     }
 }

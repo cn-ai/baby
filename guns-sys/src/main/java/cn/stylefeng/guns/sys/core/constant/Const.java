@@ -28,21 +28,6 @@ import java.util.List;
 public interface Const {
 
     /**
-     * 默认管理系统的名称
-     */
-    String DEFAULT_SYSTEM_NAME = "Guns快速开发平台";
-
-    /**
-     * 默认欢迎界面的提示
-     */
-    String DEFAULT_WELCOME_TIP = "欢迎使用Guns快速开发平台!";
-
-    /**
-     * 重置密码
-     */
-    String DEFAULT_PWD = "111111";
-
-    /**
      * 管理员角色的名字
      */
     String ADMIN_NAME = "administrator";
@@ -71,10 +56,5 @@ public interface Const {
             "/oauth/**",
             "/tran/**",
             "/favicon.ico");
-
-    /**
-     * OAuth2登录用户的账号标识
-     */
-    String OAUTH2_ACCOUNT_PREFIX = "oauth2";
 
 }
