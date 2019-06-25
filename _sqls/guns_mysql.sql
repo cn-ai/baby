@@ -16,7 +16,7 @@ USE guns;
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 24/06/2019 14:02:50
+ Date: 25/06/2019 09:21:13
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `database_info` (
 -- Records of database_info
 -- ----------------------------
 BEGIN;
-INSERT INTO `database_info` VALUES (1143035807842471938, 'master', 'com.mysql.cj.jdbc.Driver', 'root', 'root', 'jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT', '主数据源，项目启动数据源！', '2019-06-24 13:59:07');
+INSERT INTO `database_info` VALUES (1143320353162928129, 'master', 'com.mysql.cj.jdbc.Driver', 'root', 'root', 'jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT', '主数据源，项目启动数据源！', '2019-06-25 08:49:48');
 COMMIT;
 
 -- ----------------------------
@@ -76,7 +76,7 @@ CREATE TABLE `oauth_user_info` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) NOT NULL COMMENT '主键',
   `name` varchar(200) NOT NULL COMMENT '名称',
   `code` varchar(200) NOT NULL COMMENT '属性编码标识',
   `dict_flag` char(1) NOT NULL COMMENT '是否是字典中的值',
@@ -88,13 +88,13 @@ CREATE TABLE `sys_config` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `update_user` bigint(20) DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='参数配置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='参数配置';
 
 -- ----------------------------
 -- Records of sys_config
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_config` VALUES (19, '验证码开关', 'GUNS_KAPTCHA_OPEN', 'Y', 1106120265689055233, 'DISABLE', '是否开启验证码', '2019-06-24 12:46:43', 1, '2019-06-24 14:01:39', 1);
+INSERT INTO `sys_config` VALUES (1143324237579165697, '验证码开关', 'GUNS_KAPTCHA_OPEN', 'Y', 1106120265689055233, 'DISABLE', '是否开启验证码', '2019-06-24 12:46:43', 1, '2019-06-25 09:04:42', 1);
 COMMIT;
 
 -- ----------------------------
