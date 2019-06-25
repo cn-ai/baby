@@ -68,7 +68,7 @@ public class GeneratorController {
         List<DatabaseInfo> all = databaseInfoMapper.selectList(new QueryWrapper<>());
         model.addAttribute("dataSources", all);
 
-        return "/gen/gen.html";
+        return "/modular/gen/gen.html";
     }
 
     /**
@@ -84,7 +84,7 @@ public class GeneratorController {
         model.addAttribute("tableName", tableName);
         model.addAttribute("dbId", dbId);
 
-        return "/gen/tableFields.html";
+        return "/modular/gen/tableFields.html";
     }
 
     /**
