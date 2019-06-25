@@ -28,11 +28,11 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
             {field: 'userId', hide: true, sort: true, title: '用户id'},
             {field: 'account', align: "center", sort: true, title: '账号'},
             {field: 'name', align: "center", sort: true, title: '姓名'},
-            {field: 'sexName', align: "center", sort: true,  title: '性别'},
-            {field: 'roleName', align: "center", sort: true,  title: '角色'},
-            {field: 'deptName', align: "center", sort: true,  title: '部门'},
-            {field: 'email', align: "center", sort: true,  title: '邮箱',  minWidth: 122},
-            {field: 'phone', align: "center", sort: true,  title: '电话', minWidth: 117},
+            {field: 'sexName', align: "center", sort: true, title: '性别'},
+            {field: 'roleName', align: "center", sort: true, title: '角色'},
+            {field: 'deptName', align: "center", sort: true, title: '部门'},
+            {field: 'email', align: "center", sort: true, title: '邮箱', minWidth: 122},
+            {field: 'phone', align: "center", sort: true, title: '电话', minWidth: 117},
             {field: 'createTime', align: "center", sort: true, title: '创建时间', minWidth: 160},
             {field: 'status', align: "center", sort: true, templet: '#statusTpl', title: '状态'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 280}
@@ -93,7 +93,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
      * @param data 点击按钮时候的行数据
      */
     MgrUser.onEditUser = function (data) {
-        window.location.href = Feng.ctxPath + "/mgr/user_edit?userId="+ data.userId;
+        window.location.href = Feng.ctxPath + "/mgr/user_edit?userId=" + data.userId;
     };
 
     /**
@@ -138,7 +138,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
      * @param data 点击按钮时候的行数据
      */
     MgrUser.resetPassword = function (data) {
-        Feng.confirm("是否重置密码为111111 ?", function () {
+        Feng.confirm("是否重置密码为" + $("#defaultPassword").val() + "?", function () {
             var ajax = new $ax(Feng.ctxPath + "/mgr/reset", function (data) {
                 Feng.success("重置密码成功!");
             }, function (data) {
