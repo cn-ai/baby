@@ -124,4 +124,21 @@ public class ConstantsContext {
             return oauth2Prefix;
         }
     }
+
+    /**
+     * 获取顶部导航条是否开启
+     */
+    public static Boolean getDefaultAdvert() {
+        String gunsDefaultAdvert = (String) CONSTNTS_HOLDER.get("GUNS_DEFAULT_ADVERT");
+        if (ToolUtil.isEmpty(gunsDefaultAdvert)) {
+            log.error("系统常量存在空值！常量名称：GUNS_DEFAULT_ADVERT，采用默认值：true");
+            return true;
+        } else {
+            if (CommonStatus.ENABLE.getCode().equalsIgnoreCase(gunsDefaultAdvert)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 }
