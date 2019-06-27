@@ -181,13 +181,4 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
         }
     });
 
-    // 修改user状态
-    form.on('switch(status)', function (obj) {
-
-        var userId = obj.elem.value;
-        var checked = obj.elem.checked ? true : false;
-
-        Menu.changeUserStatus(userId, checked);
-    });
-
 });
