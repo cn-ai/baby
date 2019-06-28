@@ -44,4 +44,6 @@ public class UserDto {
     private String status;
     private String avatar;
 
+    private String position;
+
 }

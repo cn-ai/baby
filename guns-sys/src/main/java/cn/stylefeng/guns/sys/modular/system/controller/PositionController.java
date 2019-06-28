@@ -5,6 +5,7 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.sys.modular.system.entity.Position;
 import cn.stylefeng.guns.sys.modular.system.model.params.PositionParam;
 import cn.stylefeng.guns.sys.modular.system.service.PositionService;
+import cn.stylefeng.guns.sys.modular.system.service.UserPosService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
@@ -31,6 +32,9 @@ public class PositionController extends BaseController {
 
     @Autowired
     private PositionService positionService;
+
+    @Autowired
+    private UserPosService userPosService;
 
     /**
      * 跳转到主页面
@@ -162,6 +166,19 @@ public class PositionController extends BaseController {
 
         return new SuccessResponseData();
     }
+
+    /**
+     * 查询所有职位
+     *
+     * @author stylefeng
+     * @Date 2019-03-13
+     */
+    @ResponseBody
+    @RequestMapping("/listPositions")
+    public LayuiPageInfo listlistPositionsTypes(@RequestParam(value = "userId", required = false) Long userId) {
+        return this.positionService.listPositions(userId);
+    }
+
 
 }
 

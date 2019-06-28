@@ -21,7 +21,7 @@ public class Position implements Serializable {
     /**
      * 主键id
      */
-    @TableId(value = "position_id", type = IdType.AUTO)
+    @TableId(value = "position_id", type = IdType.ID_WORKER)
     private Long positionId;
 
     /**

@@ -66,4 +66,12 @@ public interface PositionService extends IService<Position> {
      */
      LayuiPageInfo findPageBySpec(PositionParam param);
 
+    /**
+     * 获取多选框的职位列表
+     *
+     * @author stylefeng
+     * @Date 2019-06-27
+     */
+    LayuiPageInfo listPositions(Long userId);
+
 }
