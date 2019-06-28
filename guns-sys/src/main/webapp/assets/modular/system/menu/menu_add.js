@@ -16,9 +16,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax'], function () {
     var laydate = layui.laydate;
     var layer = layui.layer;
 
-    // 让当前iframe弹层高度适应
-    admin.iframeAuto();
-
     // 点击父级菜单
     $('#pcodeName').click(function () {
         var formName = encodeURIComponent("parent.MenuInfoDlg.data.pcodeName");

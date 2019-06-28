@@ -1,4 +1,4 @@
-@layout("/common/_container.html",{js:["/assets/modular/system/user/user_add.js"]}){
+@layout("/common/_container.html",{js:["/assets/modular/system/user/user_add.js"],css:["/assets/common/module/formSelects/formSelects-v4.css"]}){
 <div class="layui-body-header">
     <span class="layui-body-header-title">用户管理-添加</span>
 </div>
@@ -29,19 +29,19 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input name="password" placeholder="请输入密码" type="password" class="layui-input" lay-verify="required|psw" required/>
+                        <input name="password" placeholder="请输入密码" type="password" class="layui-input" lay-verify="required|psw" autocomplete="new-password" required/>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">重复密码<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input name="rePassword" placeholder="请输入重复密码" type="password" class="layui-input" lay-verify="required|repsw" required/>
+                        <input name="rePassword" placeholder="请输入重复密码" type="password" class="layui-input" autocomplete="new-password" lay-verify="required|repsw" required/>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input name="email" placeholder="请输入邮箱" type="text" class="layui-input" lay-verify="required|email" required/>
+                        <input name="email" placeholder="请输入邮箱" type="text" class="layui-input" lay-verify="required|email" autocomplete="off" required/>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -56,6 +56,14 @@
                     <div class="layui-input-block">
                         <input id="deptId" name="deptId" type="hidden">
                         <input id="deptName" name="deptName" placeholder="请输入部门" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">职位<span style="color: red;">*</span></label>
+                    <div class="layui-input-block">
+                        <select name="position" xm-select="selPosition">
+                            <option value="">请选择职位</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">

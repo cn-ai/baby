@@ -8,16 +8,14 @@ var UserInfoDlg = {
     }
 };
 
-layui.use(['layer', 'form', 'admin', 'laydate', 'ax'], function () {
+layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
     var admin = layui.admin;
     var laydate = layui.laydate;
     var layer = layui.layer;
-
-    // 让当前iframe弹层高度适应
-    admin.iframeAuto();
+    var formSelects = layui.formSelects;
 
     // 点击部门时
     $('#deptName').click(function () {
@@ -72,5 +70,12 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax'], function () {
     //返回按钮
     $("#backupPage").click(function () {
         window.location.href = Feng.ctxPath + "/mgr";
+    });
+
+    //初始化所有的职位列表
+    formSelects.config('selPosition', {
+        searchUrl: Feng.ctxPath + "/position/listPositions",
+        keyName: 'name',
+        keyVal: 'position_id'
     });
 });

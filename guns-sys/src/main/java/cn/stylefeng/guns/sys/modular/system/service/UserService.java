@@ -12,11 +12,14 @@ import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.core.shiro.service.UserAuthService;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
+import cn.stylefeng.guns.sys.modular.system.entity.UserPos;
 import cn.stylefeng.guns.sys.modular.system.factory.UserFactory;
 import cn.stylefeng.guns.sys.modular.system.mapper.UserMapper;
 import cn.stylefeng.guns.sys.modular.system.model.UserDto;
 import cn.stylefeng.roses.core.datascope.DataScope;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlRunner;
@@ -46,12 +49,16 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     @Autowired
     private UserAuthService userAuthService;
 
+    @Autowired
+    private UserPosService userPosService;
+
     /**
      * 添加用戶
      *
      * @author fengshuonan
      * @Date 2018/12/24 22:51
      */
+    @Transactional(rollbackFor = Exception.class)
     public void addUser(UserDto user) {
 
         // 判断账号是否重复
@@ -64,7 +71,11 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         String salt = ShiroKit.getRandomSalt(5);
         String password = ShiroKit.md5(user.getPassword(), salt);
 
-        this.save(UserFactory.createUser(user, password, salt));
+        User newUser = UserFactory.createUser(user, password, salt);
+        this.save(newUser);
+
+        //添加职位关联
+        addPosition(user.getPosition(), newUser.getUserId());
     }
 
     /**
@@ -73,6 +84,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @author fengshuonan
      * @Date 2018/12/24 22:53
      */
+    @Transactional(rollbackFor = Exception.class)
     public void editUser(UserDto user) {
         User oldUser = this.getById(user.getUserId());
 
@@ -87,6 +99,12 @@ public class UserService extends ServiceImpl<UserMapper, User> {
                 throw new ServiceException(BizExceptionEnum.NO_PERMITION);
             }
         }
+
+        //删除职位关联
+        userPosService.remove(new QueryWrapper<UserPos>().eq("user_id", user.getUserId()));
+
+        //添加职位关联
+        addPosition(user.getPosition(), user.getUserId());
     }
 
     /**
@@ -107,6 +125,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
         //删除对应的oauth2绑定表
         SqlRunner.db().delete("delete from oauth_user_info where user_id = {0}", userId);
+
+        //删除职位关联
+        userPosService.remove(new QueryWrapper<UserPos>().eq("user_id", userId));
     }
 
     /**
@@ -233,12 +254,33 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         User user = this.getById(userId);
         Map<String, Object> map = UserFactory.removeUnSafeFields(user);
 
-        HashMap<Object, Object> hashMap = CollectionUtil.newHashMap();
+        HashMap<String, Object> hashMap = CollectionUtil.newHashMap();
         hashMap.putAll(map);
         hashMap.put("roleName", ConstantFactory.me().getRoleName(user.getRoleId()));
         hashMap.put("deptName", ConstantFactory.me().getDeptName(user.getDeptId()));
 
-        return map;
+        return hashMap;
     }
 
+
+    /**
+     * 添加职位关联
+     *
+     * @author fengshuonan
+     * @Date 2019-06-28 13:35
+     */
+    private void addPosition(String positions, Long userId) {
+        if (ToolUtil.isNotEmpty(positions)) {
+            String[] position = positions.split(",");
+            for (String item : position) {
+
+                UserPos entity = new UserPos();
+                entity.setUserId(userId);
+                entity.setPosId(Long.valueOf(item));
+
+                userPosService.save(entity);
+
+            }
+        }
+    }
 }

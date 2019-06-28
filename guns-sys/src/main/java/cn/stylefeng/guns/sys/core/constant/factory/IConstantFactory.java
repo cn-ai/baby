@@ -139,4 +139,9 @@ public interface IConstantFactory {
      */
     List<Long> getParentDeptIds(Long deptId);
 
+    /**
+     * 获取用户的职位名称
+     */
+    String getPositionName(Long userId);
+
 }
