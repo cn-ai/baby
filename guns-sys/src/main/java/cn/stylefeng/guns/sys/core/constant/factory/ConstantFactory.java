@@ -24,6 +24,8 @@ import cn.stylefeng.guns.sys.core.constant.state.MenuStatus;
 import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
 import cn.stylefeng.guns.sys.modular.system.entity.*;
 import cn.stylefeng.guns.sys.modular.system.mapper.*;
+import cn.stylefeng.guns.sys.modular.system.service.PositionService;
+import cn.stylefeng.guns.sys.modular.system.service.UserPosService;
 import cn.stylefeng.roses.core.util.SpringContextHolder;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -51,6 +53,8 @@ public class ConstantFactory implements IConstantFactory {
     private UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
+    private UserPosService userPosService = SpringContextHolder.getBean(UserPosService.class);
+    private PositionService positionService = SpringContextHolder.getBean(PositionService.class);
 
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
@@ -327,6 +331,24 @@ public class ConstantFactory implements IConstantFactory {
             parentDeptIds.add(Long.valueOf(StrUtil.removeSuffix(StrUtil.removePrefix(s, "["), "]")));
         }
         return parentDeptIds;
+    }
+
+    @Override
+    public String getPositionName(Long userId) {
+
+        StringBuilder positionNames = new StringBuilder();
+
+        List<UserPos> userPosList = this.userPosService.list(
+                new QueryWrapper<UserPos>().eq("user_id", userId));
+        if (userPosList != null && userPosList.size() > 0) {
+            for (UserPos userPos : userPosList) {
+                Position position = positionService.getById(userPos.getPosId());
+                positionNames.append(position.getName());
+            }
+        }
+
+        return positionNames.toString();
+
     }
 
 
