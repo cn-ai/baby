@@ -15,9 +15,6 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
     var admin = layui.admin;
     var layer = layui.layer;
 
-    // 让当前iframe弹层高度适应
-    admin.iframeAuto();
-
     // 点击上级角色时
     $('#pName').click(function () {
         var formName = encodeURIComponent("parent.DeptInfoDlg.data.pName");

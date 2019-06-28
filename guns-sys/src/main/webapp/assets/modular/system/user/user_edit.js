@@ -17,9 +17,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
     var layer = layui.layer;
     var formSelects = layui.formSelects;
 
-    // 让当前iframe弹层高度适应
-    admin.iframeAuto();
-
     //获取用户信息
     var ajax = new $ax(Feng.ctxPath + "/mgr/getUserInfo?userId=" + Feng.getUrlParam("userId"));
     var result = ajax.start();

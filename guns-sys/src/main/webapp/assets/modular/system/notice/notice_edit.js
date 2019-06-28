@@ -5,9 +5,6 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
     var admin = layui.admin;
     var layer = layui.layer;
 
-    // 让当前iframe弹层高度适应
-    admin.iframeAuto();
-
     // 表单提交事件
     form.on('submit(btnSubmit)', function (data) {
         var ajax = new $ax(Feng.ctxPath + "/notice/update", function (data) {

@@ -16,9 +16,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax'], function () {
     var laydate = layui.laydate;
     var layer = layui.layer;
 
-    // 让当前iframe弹层高度适应
-    admin.iframeAuto();
-
     //获取菜单信息
     var ajax = new $ax(Feng.ctxPath + "/menu/getMenuInfo?menuId=" + Feng.getUrlParam("menuId"));
     var result = ajax.start();

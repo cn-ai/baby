@@ -15,9 +15,6 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
     var admin = layui.admin;
     var layer = layui.layer;
 
-    // 让当前iframe弹层高度适应
-    admin.iframeAuto();
-
     //获取部门信息
     var ajax = new $ax(Feng.ctxPath + "/dept/detail/" + Feng.getUrlParam("deptId"));
     var result = ajax.start();

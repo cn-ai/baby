@@ -17,9 +17,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
     var layer = layui.layer;
     var formSelects = layui.formSelects;
 
-    // 让当前iframe弹层高度适应
-    admin.iframeAuto();
-
     // 点击部门时
     $('#deptName').click(function () {
         var formName = encodeURIComponent("parent.UserInfoDlg.data.deptName");
