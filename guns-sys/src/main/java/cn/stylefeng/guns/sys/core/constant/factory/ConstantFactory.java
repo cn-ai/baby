@@ -343,11 +343,11 @@ public class ConstantFactory implements IConstantFactory {
         if (userPosList != null && userPosList.size() > 0) {
             for (UserPos userPos : userPosList) {
                 Position position = positionService.getById(userPos.getPosId());
-                positionNames.append(position.getName());
+                positionNames.append(",").append(position.getName());
             }
         }
 
-        return positionNames.toString();
+        return StrUtil.removePrefix(positionNames.toString(), ",");
 
     }
 

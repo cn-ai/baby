@@ -254,12 +254,12 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         User user = this.getById(userId);
         Map<String, Object> map = UserFactory.removeUnSafeFields(user);
 
-        HashMap<Object, Object> hashMap = CollectionUtil.newHashMap();
+        HashMap<String, Object> hashMap = CollectionUtil.newHashMap();
         hashMap.putAll(map);
         hashMap.put("roleName", ConstantFactory.me().getRoleName(user.getRoleId()));
         hashMap.put("deptName", ConstantFactory.me().getDeptName(user.getDeptId()));
 
-        return map;
+        return hashMap;
     }
 
 
