@@ -8,13 +8,14 @@ var MenuInfoDlg = {
     }
 };
 
-layui.use(['layer', 'form', 'admin', 'laydate', 'ax'], function () {
+layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'iconPicker'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
     var admin = layui.admin;
     var laydate = layui.laydate;
     var layer = layui.layer;
+    var iconPicker = layui.iconPicker;
 
     //获取菜单信息
     var ajax = new $ax(Feng.ctxPath + "/menu/getMenuInfo?menuId=" + Feng.getUrlParam("menuId"));
@@ -56,8 +57,23 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax'], function () {
         //添加 return false 可成功跳转页面
         return false;
     });
+
     //返回按钮
     $("#backupPage").click(function () {
         window.location.href = Feng.ctxPath + "/menu";
     });
+
+    //初始化图标选择
+    iconPicker.render({
+        elem: '#icon',
+        type: 'fontClass',
+        search: true,
+        page: true,
+        limit: 12,
+        click: function (data) {
+
+        }
+    });
+
+    iconPicker.checkIcon('iconPicker', result.data.icon);
 });

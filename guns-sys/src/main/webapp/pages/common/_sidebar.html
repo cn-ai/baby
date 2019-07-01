@@ -5,11 +5,11 @@
         @for(menu in menus) {
             @if(tool.isEmpty(menu.children)){
             <li class="layui-nav-item">
-                <a lay-href="${menu.url}"><i class="${menu.icon}"></i>&emsp;<cite>${menu.name}</cite></a>
+                <a lay-href="${menu.url}"><i class="layui-icon ${menu.icon}"></i>&emsp;<cite>${menu.name}</cite></a>
             </li>
             @}else{
             <li class="layui-nav-item">
-                <a><i class="${menu.icon}"></i>&emsp;<cite>${menu.name}</cite></a>
+                <a><i class="layui-icon ${menu.icon}"></i>&emsp;<cite>${menu.name}</cite></a>
                 <dl class="layui-nav-child">
                 @for(subMenu in menu.children){
                     @if(tool.isEmpty(subMenu.children)){
