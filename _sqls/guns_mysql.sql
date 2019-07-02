@@ -16,7 +16,7 @@ USE guns;
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 30/06/2019 13:50:58
+ Date: 02/07/2019 11:02:44
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `database_info` (
 -- Records of database_info
 -- ----------------------------
 BEGIN;
-INSERT INTO `database_info` VALUES (1145206836731887618, 'master', 'com.mysql.cj.jdbc.Driver', 'root', 'root', 'jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT', '主数据源，项目启动数据源！', '2019-06-30 13:46:01');
+INSERT INTO `database_info` VALUES (1145889750092210178, 'master', 'com.mysql.cj.jdbc.Driver', 'root', 'root', 'jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT', '主数据源，项目启动数据源！', '2019-07-02 10:59:40');
 COMMIT;
 
 -- ----------------------------
@@ -386,11 +386,11 @@ CREATE TABLE `sys_operation_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_position`;
 CREATE TABLE `sys_position` (
-  `position_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `position_id` bigint(20) NOT NULL COMMENT '主键id',
   `name` varchar(50) NOT NULL COMMENT '职位名称',
   `code` varchar(64) NOT NULL COMMENT '职位编码',
   `sort` int(11) NOT NULL COMMENT '顺序',
-  `status` varchar(100) NOT NULL COMMENT '状态(字典)',
+  `status` varchar(100) NOT NULL DEFAULT 'ENABLE' COMMENT '状态(字典)',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_user` bigint(20) DEFAULT NULL COMMENT '更新者',
@@ -398,7 +398,7 @@ CREATE TABLE `sys_position` (
   `create_user` bigint(20) DEFAULT NULL COMMENT '创建者',
   PRIMARY KEY (`position_id`) USING BTREE,
   UNIQUE KEY `CODE_UNI` (`code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='职位表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='职位表';
 
 -- ----------------------------
 -- Records of sys_position
