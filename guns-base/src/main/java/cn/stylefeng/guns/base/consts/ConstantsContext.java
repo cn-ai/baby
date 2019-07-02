@@ -141,4 +141,17 @@ public class ConstantsContext {
             }
         }
     }
+
+    /**
+     * 获取系统发布的版本号（防止css和js的缓存）
+     */
+    public static String getReleaseVersion() {
+        String systemReleaseVersion = (String) CONSTNTS_HOLDER.get("GUNS_SYSTEM_RELEASE_VERSION");
+        if (ToolUtil.isEmpty(systemReleaseVersion)) {
+            log.error("系统常量存在空值！常量名称：systemReleaseVersion，采用默认值：guns");
+            return ToolUtil.getRandomString(8);
+        } else {
+            return systemReleaseVersion;
+        }
+    }
 }

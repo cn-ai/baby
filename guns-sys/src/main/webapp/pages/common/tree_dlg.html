@@ -17,8 +17,8 @@
     <meta name="author" content="stylefeng">
 
     <!--其他插件css-->
-    <link rel="stylesheet" href="${ctxPath}/assets/common/libs/layui/css/layui.css"/>
-    <link href="${ctxPath}/assets/expand/plugins/ztree/zTreeStyle.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="${ctxPath}/assets/common/libs/layui/css/layui.css?v=${constants.getReleaseVersion()}"/>
+    <link href="${ctxPath}/assets/expand/plugins/ztree/zTreeStyle.css?v=${constants.getReleaseVersion()}" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -39,20 +39,15 @@
 @/* 加入contextPath属性和session超时的配置 */
 <script type="text/javascript">
     var Feng = {
-        ctxPath: "",
-        addCtx: function (ctx) {
-            if (this.ctxPath === "") {
-                this.ctxPath = ctx;
-            }
-        }
+        ctxPath: "${ctxPath}",
+        version: '${constants.getReleaseVersion()}'
     };
-    Feng.addCtx("${ctxPath}");
 </script>
-<script type="text/javascript" src="${ctxPath}/assets/common/libs/layui/layui.js"></script>
-<script type="text/javascript" src="${ctxPath}/assets/common/js/common.js"></script>
+<script type="text/javascript" src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
+<script type="text/javascript" src="${ctxPath}/assets/common/js/common.js?v=${constants.getReleaseVersion()}"></script>
 
-<script type="text/javascript" src="${ctxPath}/assets/expand/plugins/jquery/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="${ctxPath}/assets/expand/plugins/ztree/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/assets/expand/plugins/jquery/jquery-3.2.1.min.js?v=${constants.getReleaseVersion()}"></script>
+<script type="text/javascript" src="${ctxPath}/assets/expand/plugins/ztree/jquery.ztree.all.min.js?v=${constants.getReleaseVersion()}"></script>
 
 <script type="text/javascript">
 
