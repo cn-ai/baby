@@ -65,7 +65,7 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
             window.location.href = Feng.ctxPath + "/mgr";
 
         }, function (data) {
-            Feng.error("修改成功！" + data.responseJSON.message)
+            Feng.error("修改失败！" + data.responseJSON.message)
         });
         ajax.set(data.field);
         ajax.start();

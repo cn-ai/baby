@@ -94,7 +94,7 @@ layui.use(['table', 'admin', 'ax', 'form'], function () {
         var ajax = new $ax(Feng.ctxPath + "/position/changeStatus", function (data) {
             Feng.success("修改成功!");
         }, function (data) {
-            Feng.error("修改成功!");
+            Feng.error("修改失败!" + data.responseJSON.message);
             table.reload(Position.tableId);
         });
         ajax.set("positionId", positionId);
