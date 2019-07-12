@@ -21,6 +21,7 @@ import cn.stylefeng.guns.base.db.context.SqlSessionFactoryContext;
 import cn.stylefeng.guns.base.db.exception.DataSourceInitException;
 import cn.stylefeng.roses.core.config.properties.DruidProperties;
 import cn.stylefeng.roses.core.mutidatasource.mybatis.OptionalSqlSessionTemplate;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -76,6 +77,9 @@ public class SqlSessionFactoryConfig {
 
         //初始化其他数据源的SqlSessionFactory的容器
         SqlSessionFactoryContext.initBaseSqlSessionFactory(sqlSessionFactoryCreator);
+
+        //设置SqlHelper为主数据源
+        SqlHelper.FACTORY = sqlSessionFactoryPrimary;
 
         return new OptionalSqlSessionTemplate(sqlSessionFactoryPrimary, SqlSessionFactoryContext.getSqlSessionFactorys());
     }

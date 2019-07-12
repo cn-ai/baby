@@ -27,7 +27,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
         return [[
             {type: 'numbers'},
             {field: 'menuId', hide: true, sort: true, title: 'id'},
-            {field: 'name', align: "center", sort: true, title: '菜单名称', minWidth: 240},
+            {field: 'name', align: "left", sort: true, title: '菜单名称', minWidth: 240},
             {field: 'code', align: "center", sort: true, title: '菜单编号', minWidth: 120},
             {field: 'pcode', align: "center", sort: true, title: '菜单父编号'},
             {field: 'url', align: "center", sort: true, title: '请求地址'},
@@ -128,9 +128,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
             treeColIndex: 2,
             treeSpid: "0",
             treeIdName: 'code',
-            treePidName: 'pcode',
-            treeDefaultClose: false,
-            treeLinkage: true
+            treePidName: 'pcode'
         });
     };
 
