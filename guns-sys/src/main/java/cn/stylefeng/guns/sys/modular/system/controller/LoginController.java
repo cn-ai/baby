@@ -15,7 +15,6 @@
  */
 package cn.stylefeng.guns.sys.modular.system.controller;
 
-import cn.stylefeng.guns.base.pojo.node.MenuNode;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.sys.core.exception.InvalidKaptchaException;
 import cn.stylefeng.guns.sys.core.log.LogManager;
@@ -35,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Map;
 
 import static cn.stylefeng.roses.core.util.HttpContext.getIp;
 
@@ -69,7 +69,7 @@ public class LoginController extends BaseController {
             return "/login.html";
         }
 
-        List<MenuNode> menus = userService.getUserMenuNodes(roleList);
+        List<Map<String, Object>> menus = userService.getUserMenuNodes(roleList);
         model.addAttribute("menus", menus);
 
         return "/index.html";

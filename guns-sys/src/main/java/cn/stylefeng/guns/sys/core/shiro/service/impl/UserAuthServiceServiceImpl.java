@@ -24,7 +24,7 @@ import cn.stylefeng.guns.sys.core.shiro.service.UserAuthService;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.mapper.MenuMapper;
 import cn.stylefeng.guns.sys.modular.system.mapper.UserMapper;
-import cn.stylefeng.guns.sys.modular.system.service.UserService;
+import cn.stylefeng.guns.sys.modular.system.service.DictService;
 import cn.stylefeng.roses.core.util.SpringContextHolder;
 import org.apache.shiro.authc.CredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -38,6 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @DependsOn("springContextHolder")
@@ -51,7 +52,7 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
     private MenuMapper menuMapper;
 
     @Autowired
-    private UserService userService;
+    private DictService dictService;
 
     public static UserAuthService me() {
         return SpringContextHolder.getBean(UserAuthService.class);
@@ -90,6 +91,13 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
         }
         shiroUser.setRoleList(roleList);
         shiroUser.setRoleNames(roleNameList);
+
+        //根据角色获取系统的类型
+        List<String> systemTypes = this.menuMapper.getMenusTypesByRoleIds(roleList);
+
+        //通过字典编码
+        List<Map<String, Object>> dictsByCodes = dictService.getDictsByCodes(systemTypes);
+        shiroUser.setSystemTypes(dictsByCodes);
 
         return shiroUser;
     }

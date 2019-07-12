@@ -6,6 +6,7 @@ import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.modular.system.entity.Dict;
+import cn.stylefeng.guns.sys.modular.system.entity.DictType;
 import cn.stylefeng.guns.sys.modular.system.mapper.DictMapper;
 import cn.stylefeng.guns.sys.modular.system.model.params.DictParam;
 import cn.stylefeng.guns.sys.modular.system.model.result.DictResult;
@@ -15,11 +16,13 @@ import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,6 +34,9 @@ import java.util.List;
  */
 @Service
 public class DictService extends ServiceImpl<DictMapper, Dict> {
+
+    @Autowired
+    private DictTypeService dictTypeService;
 
     /**
      * 新增
@@ -247,6 +253,35 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
 
     }
 
+    /**
+     * 查询字典列表，通过字典类型code
+     *
+     * @author fengshuonan
+     * @Date 2019-06-20 15:14
+     */
+    public List<Dict> listDictsByCode(String dictTypeCode) {
+
+        QueryWrapper<DictType> wrapper = new QueryWrapper<>();
+        wrapper.eq("code", dictTypeCode);
+
+        DictType one = this.dictTypeService.getOne(wrapper);
+        return listDicts(one.getDictTypeId());
+    }
+
+    /**
+     * 查询字典列表，通过字典类型code
+     *
+     * @author fengshuonan
+     * @Date 2019-06-20 15:14
+     */
+    public List<Map<String, Object>> getDictsByCodes(List<String> dictCodes) {
+
+        QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+        wrapper.in("code", dictCodes).orderByAsc("sort");
+
+        return this.listMaps(wrapper);
+    }
+
     private Serializable getKey(DictParam param) {
         return param.getDictId();
     }
@@ -294,4 +329,5 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
             }
         }
     }
+
 }

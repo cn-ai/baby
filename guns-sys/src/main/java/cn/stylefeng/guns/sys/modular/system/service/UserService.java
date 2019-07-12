@@ -198,12 +198,39 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @author fengshuonan
      * @Date 2018/12/24 22:46
      */
-    public List<MenuNode> getUserMenuNodes(List<Long> roleList) {
+    public List<Map<String, Object>> getUserMenuNodes(List<Long> roleList) {
         if (roleList == null || roleList.size() == 0) {
             return new ArrayList<>();
         } else {
             List<MenuNode> menus = menuService.getMenusByRoleIds(roleList);
-            return MenuNode.buildTitle(menus);
+
+            //定义不同系统分类的菜单集合
+            ArrayList<Map<String, Object>> lists = new ArrayList<>();
+
+            //根据当前用户包含的系统类型，分类出不同的菜单
+            List<Map<String, Object>> systemTypes = ShiroKit.getUserNotNull().getSystemTypes();
+            for (Map<String, Object> systemType : systemTypes) {
+
+                //当前遍历系统分类code
+                String systemCode = (String) systemType.get("code");
+
+                //获取当前系统分类下菜单集合
+                ArrayList<MenuNode> originSystemTypeMenus = new ArrayList<>();
+                for (MenuNode menu : menus) {
+                    if (menu.getSystemType().equals(systemCode)) {
+                        originSystemTypeMenus.add(menu);
+                    }
+                }
+
+                //拼接存放key为系统分类编码，value为该分类下菜单集合的map
+                HashMap<String, Object> map = new HashMap<>();
+                List<MenuNode> treeSystemTypeMenus = MenuNode.buildTitle(originSystemTypeMenus);
+                map.put("systemType", systemCode);
+                map.put("menus", treeSystemTypeMenus);
+                lists.add(map);
+            }
+
+            return lists;
         }
 
     }

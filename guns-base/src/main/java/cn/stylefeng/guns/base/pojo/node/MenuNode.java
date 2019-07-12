@@ -70,6 +70,11 @@ public class MenuNode implements Comparable, Serializable {
     private String icon;
 
     /**
+     * 系统类型
+     */
+    private String systemType;
+
+    /**
      * 子节点的集合
      */
     private List<MenuNode> children;

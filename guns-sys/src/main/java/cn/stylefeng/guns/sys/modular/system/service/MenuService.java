@@ -49,7 +49,7 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
     @Transactional
     public void addMenu(MenuDto menuDto) {
 
-        if (ToolUtil.isOneEmpty(menuDto, menuDto.getCode(), menuDto.getName(), menuDto.getPid(), menuDto.getMenuFlag(), menuDto.getUrl())) {
+        if (ToolUtil.isOneEmpty(menuDto, menuDto.getCode(), menuDto.getName(), menuDto.getPid(), menuDto.getMenuFlag(), menuDto.getUrl(), menuDto.getSystemType())) {
             throw new RequestEmptyException();
         }
 
@@ -127,6 +127,9 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
             //更新levels
             int level = StrUtil.count(menuPcodes, "[");
             menu.setLevels(level);
+
+            //更新systemType
+            menu.setSystemType(newMenu.getSystemType());
 
             this.updateById(menu);
         }

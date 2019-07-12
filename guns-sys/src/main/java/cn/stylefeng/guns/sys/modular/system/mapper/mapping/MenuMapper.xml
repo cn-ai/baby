@@ -4,24 +4,24 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.sys.modular.system.entity.Menu">
-        <id column="menu_id" property="menuId" />
-        <result column="code" property="code" />
-        <result column="pcode" property="pcode" />
-        <result column="pcodes" property="pcodes" />
-        <result column="name" property="name" />
-        <result column="icon" property="icon" />
-        <result column="url" property="url" />
-        <result column="sort" property="sort" />
-        <result column="levels" property="levels" />
-        <result column="menu_flag" property="menuFlag" />
-        <result column="description" property="description" />
-        <result column="status" property="status" />
-        <result column="new_page_flag" property="newPageFlag" />
-        <result column="open_flag" property="openFlag" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_user" property="updateUser" />
+        <id column="menu_id" property="menuId"/>
+        <result column="code" property="code"/>
+        <result column="pcode" property="pcode"/>
+        <result column="pcodes" property="pcodes"/>
+        <result column="name" property="name"/>
+        <result column="icon" property="icon"/>
+        <result column="url" property="url"/>
+        <result column="sort" property="sort"/>
+        <result column="levels" property="levels"/>
+        <result column="menu_flag" property="menuFlag"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="new_page_flag" property="newPageFlag"/>
+        <result column="open_flag" property="openFlag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -251,6 +251,7 @@
         m1.url as url,
         m1.levels as levels,
         m1.menu_flag as ismenu,
+        m1.system_type as systemType,
         m1.sort as num
         FROM
         sys_menu m1
@@ -319,6 +320,16 @@
         <if test="code != null and code != ''">
             and pcodes LIKE '%[' || #{code} || ']%'
         </if>
+    </select>
+
+    <select id="getMenusTypesByRoleIds" resultType="java.lang.String">
+        select DISTINCT system_type from
+        sys_relation rel
+        inner join sys_menu m on rel.menu_id = m.menu_id
+        where rel.role_id in
+        <foreach collection="list" index="index" item="i" open="(" separator="," close=")">
+            #{i}
+        </foreach>
     </select>
 
 </mapper>

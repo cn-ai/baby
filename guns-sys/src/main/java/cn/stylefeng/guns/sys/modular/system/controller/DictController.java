@@ -185,6 +185,19 @@ public class DictController extends BaseController {
     }
 
     /**
+     * 获取某个字典类型下的所有字典
+     *
+     * @author stylefeng
+     * @Date 2019-03-13
+     */
+    @ResponseBody
+    @RequestMapping("/listDictsByCode")
+    public ResponseData listDictsByCode(@RequestParam("dictTypeCode") String dictTypeCode) {
+        List<Dict> dicts = this.dictService.listDictsByCode(dictTypeCode);
+        return new SuccessResponseData(dicts);
+    }
+
+    /**
      * 获取某个类型下字典树的列表，ztree格式
      *
      * @author fengshuonan

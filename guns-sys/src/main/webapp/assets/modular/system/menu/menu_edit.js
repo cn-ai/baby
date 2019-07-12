@@ -17,6 +17,19 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'iconPicker'], function ()
     var layer = layui.layer;
     var iconPicker = layui.iconPicker;
 
+    //初始化字典详细列表
+    $("#dictDetails").html('');
+    var ajax = new $ax(Feng.ctxPath + "/dict/listDictsByCode", function (data) {
+        for (var i = 0; i < data.data.length; i++) {
+            var name = data.data[i].name;
+            var code = data.data[i].code;
+            $("#dictDetails").append('<input type="radio" name="systemType" value="' + code + '" title="' + name + '">');
+        }
+    }, function (data) {
+    });
+    ajax.set("dictTypeCode", "SYSTEM_TYPE");
+    ajax.start();
+
     //获取菜单信息
     var ajax = new $ax(Feng.ctxPath + "/menu/getMenuInfo?menuId=" + Feng.getUrlParam("menuId"));
     var result = ajax.start();

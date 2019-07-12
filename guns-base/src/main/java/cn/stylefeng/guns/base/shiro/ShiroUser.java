@@ -19,6 +19,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息
@@ -75,5 +76,10 @@ public class ShiroUser implements Serializable {
      * 角色名称集
      */
     private List<String> roleNames;
+
+    /**
+     * 系统标识集合
+     */
+    private List<Map<String, Object>> systemTypes;
 
 }

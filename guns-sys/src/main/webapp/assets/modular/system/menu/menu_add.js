@@ -64,10 +64,27 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'iconPicker'], function ()
         type: 'fontClass',
         search: true,
         page: true,
-        limit: 48,
+        limit: 12,
         click: function (data) {
         }
     });
 
     iconPicker.checkIcon('iconPicker', 'layui-icon-star-fill');
+
+    //初始化字典详细列表
+    $("#dictDetails").html('');
+    var ajax = new $ax(Feng.ctxPath + "/dict/listDictsByCode", function (data) {
+
+        for (var i = 0; i < data.data.length; i++) {
+            var name = data.data[i].name;
+            var code = data.data[i].code;
+            $("#dictDetails").append('<input type="radio" name="systemType" value="' + code + '" title="' + name + '">');
+        }
+        form.render();
+
+    }, function (data) {
+    });
+    ajax.set("dictTypeCode", "SYSTEM_TYPE");
+    ajax.start();
+
 });

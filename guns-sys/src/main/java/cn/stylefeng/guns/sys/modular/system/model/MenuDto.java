@@ -65,5 +65,9 @@ public class MenuDto implements Serializable {
      * 备注
      */
     private String description;
+    /**
+     * 系统分类（字典）
+     */
+    private String systemType;
 
 }
