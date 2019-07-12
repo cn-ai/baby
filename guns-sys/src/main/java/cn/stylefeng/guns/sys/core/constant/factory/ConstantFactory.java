@@ -343,7 +343,9 @@ public class ConstantFactory implements IConstantFactory {
         if (userPosList != null && userPosList.size() > 0) {
             for (UserPos userPos : userPosList) {
                 Position position = positionService.getById(userPos.getPosId());
-                positionNames.append(",").append(position.getName());
+                if (position != null) {
+                    positionNames.append(",").append(position.getName());
+                }
             }
         }
 
