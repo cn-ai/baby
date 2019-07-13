@@ -24,7 +24,7 @@ layui.use(['table', 'ax'], function () {
                 }
             },
             {
-                field: 'code', align: "center", sort: true, title: '类型编码', minWidth: 166 , templet: function (d) {
+                field: 'code', align: "center", sort: true, title: '类型编码', minWidth: 166, templet: function (d) {
                     var url = Feng.ctxPath + '/dict?dictTypeId=' + d.dictTypeId;
                     return '<a style="color: #01AAED;" href="' + url + '">' + d.code + '</a>';
                 }
@@ -48,8 +48,7 @@ layui.use(['table', 'ax'], function () {
                     }
                 }
             },
-            {field: 'createTime', align: "center", sort: true, title: '添加时间', minWidth: 161 },
-            {field: 'createUser', align: "center", sort: true, title: '创建人'},
+            {field: 'createTime', align: "center", sort: true, title: '添加时间', minWidth: 161},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };
@@ -89,6 +88,12 @@ layui.use(['table', 'ax'], function () {
      * @param data 点击按钮时候的行数据
      */
     DictType.onDeleteItem = function (data) {
+
+        if (data.systemFlag === 'Y') {
+            Feng.error("系统字典无法删除");
+            return;
+        }
+
         var operation = function () {
             var ajax = new $ax(Feng.ctxPath + "/dictType/delete", function (data) {
                 Feng.success("删除成功!");
@@ -99,6 +104,7 @@ layui.use(['table', 'ax'], function () {
             ajax.set("dictTypeId", data.dictTypeId);
             ajax.start();
         };
+
         Feng.confirm("是否删除?", operation);
     };
 

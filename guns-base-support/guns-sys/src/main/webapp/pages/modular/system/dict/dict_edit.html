@@ -13,7 +13,7 @@
                     <label class="layui-form-label">字典类型</label>
                     <div class="layui-input-block">
                         <input id="dictTypeId" name="dictTypeId" type="hidden" value="${dictTypeId}"/>
-                        <input type="text" class="layui-input white-border" value="${dictTypeName}" disabled="disabled"/>
+                        <input type="text" class="layui-input white-border layui-disabled" value="${dictTypeName}" disabled="disabled"/>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -25,7 +25,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">字典编码<span style="color: red;">*</span></label>
                     <div class="layui-input-block">
-                        <input id="code" name="code" placeholder="请输入字典编码" type="text" class="layui-input" lay-verify="required" required/>
+                        <input id="code" name="code" placeholder="请输入字典编码" type="text" class="layui-input layui-disabled" lay-verify="required" disabled required/>
                     </div>
                 </div>
                 <div class="layui-form-item">
