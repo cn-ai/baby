@@ -16,10 +16,10 @@
 package cn.stylefeng.guns.sys.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.stylefeng.guns.base.oshi.SystemHardwareInfo;
 import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
-import cn.stylefeng.guns.sys.core.properties.GunsProperties;
 import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.modular.system.entity.Notice;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
@@ -67,9 +67,6 @@ public class SystemController extends BaseController {
     @Autowired
     private NoticeService noticeService;
 
-    @Autowired
-    private GunsProperties gunsProperties;
-
     /**
      * 控制台页面
      *
@@ -90,6 +87,23 @@ public class SystemController extends BaseController {
     @RequestMapping("/console2")
     public String console2() {
         return "/modular/frame/console2.html";
+    }
+
+    /**
+     * 系统硬件信息页面
+     *
+     * @author fengshuonan
+     * @Date 2018/12/24 22:43
+     */
+    @RequestMapping("/systemInfo")
+    public String systemInfo(Model model) {
+
+        SystemHardwareInfo systemHardwareInfo = new SystemHardwareInfo();
+        systemHardwareInfo.copyTo();
+
+        model.addAttribute("server", systemHardwareInfo);
+
+        return "/modular/frame/systemInfo.html";
     }
 
     /**

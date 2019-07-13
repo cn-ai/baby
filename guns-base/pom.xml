@@ -144,10 +144,18 @@
             <artifactId>kaptcha</artifactId>
         </dependency>
 
+        <!--多数据源控制-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jta-atomikos</artifactId>
         </dependency>
+
+        <!-- 获取系统信息 -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+        </dependency>
+
 
         <!--需要分布式session的话需要放开注释-->
         <!--<dependency>-->
