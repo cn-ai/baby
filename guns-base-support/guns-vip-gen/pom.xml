@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>cn.stylefeng</groupId>
-        <artifactId>guns-vip</artifactId>
+        <artifactId>guns-base-support</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>

@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>cn.stylefeng</groupId>
-        <artifactId>guns-vip</artifactId>
+        <artifactId>guns-base-support</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>guns-base-email</artifactId>
+    <artifactId>guns-sys</artifactId>
 
     <packaging>jar</packaging>
 
@@ -24,9 +24,25 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- rest-api-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <groupId>cn.stylefeng</groupId>
+            <artifactId>guns-rest-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- 第三方登录-->
+        <dependency>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
+            <version>1.6.0-beta</version>
+        </dependency>
+
+        <!-- 最新代码生成模块 -->
+        <dependency>
+            <groupId>cn.stylefeng</groupId>
+            <artifactId>guns-vip-gen</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
     </dependencies>
@@ -34,5 +50,4 @@
     <build>
         <finalName>${project.artifactId}</finalName>
     </build>
-
 </project>

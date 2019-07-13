@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>cn.stylefeng</groupId>
-        <artifactId>guns-vip</artifactId>
+        <artifactId>guns-base-support</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>guns-sys</artifactId>
+    <artifactId>guns-base-timers</artifactId>
 
     <packaging>jar</packaging>
 
@@ -24,25 +24,11 @@
             <version>1.0.0</version>
         </dependency>
 
-        <!-- rest-api-->
+        <!-- xxl-job-core -->
         <dependency>
-            <groupId>cn.stylefeng</groupId>
-            <artifactId>guns-rest-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <!-- 第三方登录-->
-        <dependency>
-            <groupId>me.zhyd.oauth</groupId>
-            <artifactId>JustAuth</artifactId>
-            <version>1.6.0-beta</version>
-        </dependency>
-
-        <!-- 最新代码生成模块 -->
-        <dependency>
-            <groupId>cn.stylefeng</groupId>
-            <artifactId>guns-vip-gen</artifactId>
-            <version>1.0.0</version>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.0.2</version>
         </dependency>
 
     </dependencies>
@@ -50,4 +36,5 @@
     <build>
         <finalName>${project.artifactId}</finalName>
     </build>
+
 </project>

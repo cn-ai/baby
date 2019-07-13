@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>cn.stylefeng</groupId>
-        <artifactId>guns-vip</artifactId>
+        <artifactId>guns-base-support</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>guns-base-sms</artifactId>
+    <artifactId>guns-base-email</artifactId>
 
     <packaging>jar</packaging>
 
@@ -24,16 +24,9 @@
             <version>1.0.0</version>
         </dependency>
 
-        <!--短信发送的sdk-->
         <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-            <version>1.1.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
     </dependencies>
