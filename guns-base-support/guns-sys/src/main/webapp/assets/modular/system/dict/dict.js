@@ -31,7 +31,6 @@ layui.use(['table', 'ax', 'treetable'], function () {
                 }
             },
             {field: 'createTime', align: "center", sort: true, title: '创建时间'},
-            {field: 'createUser', align: "center", sort: true, title: '创建人'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };
