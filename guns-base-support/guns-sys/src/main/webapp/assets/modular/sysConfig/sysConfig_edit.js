@@ -135,8 +135,8 @@ layui.use(['form', 'admin', 'ax'], function () {
         window.location.href = Feng.ctxPath + '/sysConfig'
     });
 
-    //如果当前字典有dictTypeId则初始化字典类型选择
-    if (result.data.dictTypeId) {
+    //如果当前配置是带字典类型，则初始化字典类型选择
+    if (result.data.dictFlag === 'Y') {
         activeDictSelect();
 
         //更新选项

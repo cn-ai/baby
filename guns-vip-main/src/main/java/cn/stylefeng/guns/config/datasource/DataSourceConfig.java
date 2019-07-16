@@ -26,6 +26,8 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
+import java.util.Properties;
+
 import static cn.stylefeng.guns.base.db.context.DataSourceContext.MASTER_DATASOURCE_NAME;
 
 /**
@@ -61,7 +63,17 @@ public class DataSourceConfig {
         atomikosDataSourceBean.setUniqueResourceName(MASTER_DATASOURCE_NAME);
         atomikosDataSourceBean.setMaxPoolSize(100);
         atomikosDataSourceBean.setBorrowConnectionTimeout(60);
-        atomikosDataSourceBean.setXaProperties(druidProperties.createProperties());
+
+        Properties properties = druidProperties.createProperties();
+
+        //解决oracle数据库包connection holder is null
+        if (druidProperties.getUrl().contains("oracle")) {
+            properties.setProperty("removeAbandoned", "true");
+            properties.setProperty("removeAbandonedTimeoutMillis", "10000");
+            properties.setProperty("poolPreparedStatements", "false");
+        }
+
+        atomikosDataSourceBean.setXaProperties(properties);
 
         return atomikosDataSourceBean;
     }

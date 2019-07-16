@@ -12,7 +12,6 @@ import cn.stylefeng.guns.sys.modular.consts.service.SysConfigService;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -80,8 +79,6 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         SysConfig newEntity = getEntity(param);
         ToolUtil.copyProperties(newEntity, oldEntity);
 
-        UpdateWrapper<SysConfig> updateWrapper = new UpdateWrapper<SysConfig>().eq("id", param.getId());
-
         //如果是字典类型
         if (ToolUtil.isNotEmpty(param.getDictFlag())
                 && param.getDictFlag().equalsIgnoreCase("Y")) {
@@ -90,13 +87,12 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
 
             //如果是非字典，则标识位置为空
             newEntity.setDictFlag("N");
-            updateWrapper.set(true, "dict_type_id", null);
         }
 
         //添加字典context
         ConstantsContext.putConstant(newEntity.getCode(), newEntity.getValue());
 
-        this.update(newEntity, updateWrapper);
+        this.updateById(newEntity);
     }
 
     @Override
