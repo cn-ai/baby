@@ -110,6 +110,7 @@ public class DataBaseInfoDao {
             int i = preparedStatement.executeUpdate();
             log.info("删除master的databaseInfo信息！删除" + i + "条！");
         } catch (Exception ex) {
+            log.info("删除master的databaseInfo信息失败！", ex);
             throw new DataSourceInitException(DataSourceInitException.ExEnum.QUERY_DATASOURCE_INFO_ERROR);
         }
     }

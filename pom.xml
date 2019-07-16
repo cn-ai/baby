@@ -41,17 +41,18 @@
         <ehcache.core.version>2.6.11</ehcache.core.version>
         <jwt.version>0.9.0</jwt.version>
         <oshi.version>3.9.1</oshi.version>
+        <just.auth.version>1.8.1</just.auth.version>
     </properties>
 
     <dependencyManagement>
 
         <dependencies>
 
-            <!-- 用just auth的jar冲突-->
+            <!-- just auth兼容问题-->
             <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-core</artifactId>
-                <version>4.1.21</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.56</version>
             </dependency>
 
             <!--核心组件-->
@@ -150,6 +151,13 @@
                 <groupId>com.github.oshi</groupId>
                 <artifactId>oshi-core</artifactId>
                 <version>${oshi.version}</version>
+            </dependency>
+
+            <!-- 第三方登录 -->
+            <dependency>
+                <groupId>me.zhyd.oauth</groupId>
+                <artifactId>JustAuth</artifactId>
+                <version>${just.auth.version}</version>
             </dependency>
 
         </dependencies>

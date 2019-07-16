@@ -31,6 +31,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/dingtalk")
+                        .state("state")
                         .build());
                 break;
             case "baidu":
@@ -38,6 +39,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/baidu")
+                        .state("state")
                         .build());
                 break;
             case "github":
@@ -45,6 +47,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/github")
+                        .state("state")
                         .build());
                 break;
             case "gitee":
@@ -52,6 +55,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/gitee")
+                        .state("state")
                         .build());
                 break;
             case "weibo":
@@ -59,6 +63,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/weibo")
+                        .state("state")
                         .build());
                 break;
             case "coding":
@@ -66,6 +71,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/tencentCloud")
+                        .state("state")
                         .build());
                 break;
             case "tencentCloud":
@@ -73,6 +79,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/tencentCloud")
+                        .state("state")
                         .build());
                 break;
             case "oschina":
@@ -80,6 +87,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/oschina")
+                        .state("state")
                         .build());
                 break;
             case "alipay":
@@ -89,6 +97,7 @@ public class OAuthRequestFactory {
                         .clientSecret("")
                         .alipayPublicKey("")
                         .redirectUri(BASE_URL + "/oauth/callback/alipay")
+                        .state("state")
                         .build());
                 break;
             case "qq":
@@ -96,6 +105,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/qq")
+                        .state("state")
                         .build());
                 break;
             case "wechat":
@@ -103,6 +113,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/wechat")
+                        .state("state")
                         .build());
                 break;
             case "csdn":
@@ -110,6 +121,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/wechat")
+                        .state("state")
                         .build());
                 break;
             case "taobao":
@@ -117,6 +129,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/taobao")
+                        .state("state")
                         .build());
                 break;
             case "google":
@@ -124,6 +137,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/google")
+                        .state("state")
                         .build());
                 break;
             case "facebook":
@@ -131,6 +145,7 @@ public class OAuthRequestFactory {
                         .clientId("")
                         .clientSecret("")
                         .redirectUri(BASE_URL + "/oauth/callback/facebook")
+                        .state("state")
                         .build());
                 break;
         }
