@@ -1,6 +1,9 @@
 package cn.stylefeng.guns.base.db.dao;
 
 import cn.hutool.core.date.DateUtil;
+import cn.stylefeng.guns.base.db.dao.sqls.AddDatabaseInfoSql;
+import cn.stylefeng.guns.base.db.dao.sqls.DatabaseListSql;
+import cn.stylefeng.guns.base.db.dao.sqls.DeleteDatabaseInfoSql;
 import cn.stylefeng.guns.base.db.exception.DataSourceInitException;
 import cn.stylefeng.roses.core.config.properties.DruidProperties;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -21,12 +24,6 @@ import static cn.stylefeng.guns.base.db.context.DataSourceContext.MASTER_DATASOU
  */
 @Slf4j
 public class DataBaseInfoDao {
-
-    private String MYSQL_SQL_LIST = "select db_name,jdbc_driver,jdbc_url,user_name,password from database_info";
-
-    private String MYSQL_INSERT_SQL = "INSERT INTO `database_info`(`db_id`, `db_name`, `jdbc_driver`, `user_name`, `password`, `jdbc_url`, `remarks`, `create_time`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-
-    private String MYSQL_DELETE_SQL = "DELETE from database_info where db_name = ?";
 
     private DruidProperties druidProperties;
 
@@ -49,7 +46,7 @@ public class DataBaseInfoDao {
             Connection conn = DriverManager.getConnection(
                     druidProperties.getUrl(), druidProperties.getUsername(), druidProperties.getPassword());
 
-            PreparedStatement preparedStatement = conn.prepareStatement(MYSQL_SQL_LIST);
+            PreparedStatement preparedStatement = conn.prepareStatement(new DatabaseListSql().getSql(druidProperties.getUrl()));
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -77,7 +74,7 @@ public class DataBaseInfoDao {
             Connection conn = DriverManager.getConnection(
                     druidProperties.getUrl(), druidProperties.getUsername(), druidProperties.getPassword());
 
-            PreparedStatement preparedStatement = conn.prepareStatement(MYSQL_INSERT_SQL);
+            PreparedStatement preparedStatement = conn.prepareStatement(new AddDatabaseInfoSql().getSql(druidProperties.getUrl()));
 
             preparedStatement.setLong(1, IdWorker.getId());
             preparedStatement.setString(2, MASTER_DATASOURCE_NAME);
@@ -91,6 +88,7 @@ public class DataBaseInfoDao {
             int i = preparedStatement.executeUpdate();
             log.info("初始化master的databaseInfo信息！初始化" + i + "条！");
         } catch (Exception ex) {
+            log.error("初始化master的databaseInfo信息错误！", ex);
             throw new DataSourceInitException(DataSourceInitException.ExEnum.QUERY_DATASOURCE_INFO_ERROR);
         }
     }
@@ -107,7 +105,7 @@ public class DataBaseInfoDao {
             Connection conn = DriverManager.getConnection(
                     druidProperties.getUrl(), druidProperties.getUsername(), druidProperties.getPassword());
 
-            PreparedStatement preparedStatement = conn.prepareStatement(MYSQL_DELETE_SQL);
+            PreparedStatement preparedStatement = conn.prepareStatement(new DeleteDatabaseInfoSql().getSql(druidProperties.getUrl()));
             preparedStatement.setString(1, MASTER_DATASOURCE_NAME);
             int i = preparedStatement.executeUpdate();
             log.info("删除master的databaseInfo信息！删除" + i + "条！");

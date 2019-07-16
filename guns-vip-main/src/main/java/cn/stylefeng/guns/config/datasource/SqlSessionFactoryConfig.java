@@ -69,6 +69,7 @@ public class SqlSessionFactoryConfig {
         try {
             DataSourceContext.initDataSource(druidProperties);
         } catch (Exception e) {
+            log.error("初始化数据源容器错误!", e);
             throw new DataSourceInitException(DataSourceInitException.ExEnum.INIT_DATA_SOURCE_ERROR);
         }
 

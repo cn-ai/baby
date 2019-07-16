@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.sys.modular.system.service;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.stylefeng.guns.base.enums.CommonStatus;
 import cn.stylefeng.guns.base.pojo.node.ZTreeNode;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
@@ -279,7 +280,16 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
         QueryWrapper<Dict> wrapper = new QueryWrapper<>();
         wrapper.in("code", dictCodes).orderByAsc("sort");
 
-        return this.listMaps(wrapper);
+        ArrayList<Map<String, Object>> results = new ArrayList<>();
+
+        //转成map
+        List<Dict> list = this.list(wrapper);
+        for (Dict dict : list) {
+            Map<String, Object> map = BeanUtil.beanToMap(dict);
+            results.add(map);
+        }
+
+        return results;
     }
 
     private Serializable getKey(DictParam param) {
