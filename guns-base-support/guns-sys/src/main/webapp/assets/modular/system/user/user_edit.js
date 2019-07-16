@@ -82,6 +82,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
     formSelects.config('selPosition', {
         searchUrl: Feng.ctxPath + "/position/listPositions?userId=" + $("#userId").val(),
         keyName: 'name',
-        keyVal: 'position_id'
+        keyVal: 'positionId'
     });
 });

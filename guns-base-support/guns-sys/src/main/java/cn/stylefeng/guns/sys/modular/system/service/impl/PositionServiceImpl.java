@@ -75,9 +75,7 @@ public class PositionServiceImpl extends ServiceImpl<PositionMapper, Position> i
     public LayuiPageInfo listPositions(Long userId) {
 
         //找出所有职位
-        QueryWrapper<Position> objectQueryWrapper = new QueryWrapper<>();
-        objectQueryWrapper.select("position_id", "name");
-        List<Map<String, Object>> list = this.listMaps(objectQueryWrapper);
+        List<Map<String, Object>> list = this.baseMapper.getAllPositionMap();
 
         //用户id为空，则直接返回
         if (userId == null) {
@@ -90,7 +88,7 @@ public class PositionServiceImpl extends ServiceImpl<PositionMapper, Position> i
             if (userPosList != null && userPosList.size() > 0) {
                 for (UserPos userPos : userPosList) {
                     for (Map<String, Object> positionMap : list) {
-                        if (userPos.getPosId().equals(positionMap.get("position_id"))) {
+                        if (userPos.getPosId().equals(positionMap.get("positionId"))) {
                             positionMap.put("selected", true);
                         }
                     }

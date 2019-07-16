@@ -21,6 +21,14 @@ import java.util.Map;
 public interface PositionMapper extends BaseMapper<Position> {
 
     /**
+     * 获取map列表
+     *
+     * @author stylefeng
+     * @Date 2019-06-27
+     */
+    List<Map<String, Object>> getAllPositionMap();
+
+    /**
      * 获取列表
      *
      * @author stylefeng
