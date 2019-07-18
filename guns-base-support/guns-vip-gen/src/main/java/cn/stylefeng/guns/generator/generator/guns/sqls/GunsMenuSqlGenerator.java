@@ -60,6 +60,7 @@ public class GunsMenuSqlGenerator extends AbstractCustomGenerator {
         parentMenu.setSort(999);
         parentMenu.setLevels(1);
         parentMenu.setMenuFlag("Y");
+        parentMenu.setSystemType("BASE_SYSTEM");
         menuModels.add(parentMenu);
 
         MenuModel addMenu = new MenuModel();
@@ -72,6 +73,7 @@ public class GunsMenuSqlGenerator extends AbstractCustomGenerator {
         addMenu.setSort(999);
         addMenu.setLevels(2);
         addMenu.setMenuFlag("N");
+        addMenu.setSystemType("BASE_SYSTEM");
         menuModels.add(addMenu);
 
         MenuModel editMenu = new MenuModel();
@@ -84,6 +86,7 @@ public class GunsMenuSqlGenerator extends AbstractCustomGenerator {
         editMenu.setSort(999);
         editMenu.setLevels(2);
         editMenu.setMenuFlag("N");
+        editMenu.setSystemType("BASE_SYSTEM");
         menuModels.add(editMenu);
 
         MenuModel deleteMenu = new MenuModel();
@@ -96,6 +99,7 @@ public class GunsMenuSqlGenerator extends AbstractCustomGenerator {
         deleteMenu.setSort(999);
         deleteMenu.setLevels(2);
         deleteMenu.setMenuFlag("N");
+        deleteMenu.setSystemType("BASE_SYSTEM");
         menuModels.add(deleteMenu);
 
         return menuModels;

@@ -85,6 +85,11 @@ public class MenuModel {
     private String openFlag = "";
 
     /**
+     * 系统分类（字典）
+     */
+    private String systemType = "";
+
+    /**
      * 创建时间（默认当前时间）
      */
     private String createTime = DateUtil.formatDateTime(new Date());
