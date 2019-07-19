@@ -4,7 +4,6 @@ import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.autoconfigure.SpringBootVFS;
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -74,7 +72,6 @@ public class SqlSessionFactoryCreator {
             if (StringUtils.hasText(this.properties.getConfigLocation())) {
                 factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
             }
-            applyConfiguration(factory);
             if (this.properties.getConfigurationProperties() != null) {
                 factory.setConfigurationProperties(this.properties.getConfigurationProperties());
             }
@@ -131,19 +128,6 @@ public class SqlSessionFactoryCreator {
             log.error("初始化SqlSessionFactory错误！", e);
             throw new ServiceException(500, "初始化SqlSessionFactory错误！");
         }
-    }
-
-    private void applyConfiguration(MybatisSqlSessionFactoryBean factory) {
-        MybatisConfiguration configuration = this.properties.getConfiguration();
-        if (configuration == null && !StringUtils.hasText(this.properties.getConfigLocation())) {
-            configuration = new MybatisConfiguration();
-        }
-        if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
-            for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
-                customizer.customize(configuration);
-            }
-        }
-        factory.setConfiguration(configuration);
     }
 
 }
