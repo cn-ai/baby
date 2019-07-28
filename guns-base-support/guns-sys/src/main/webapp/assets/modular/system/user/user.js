@@ -64,9 +64,28 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
     MgrUser.openAddUser = function () {
         admin.putTempData('formOk', false);
         top.layui.admin.open({
+            area: ['1000px', Feng.getClientHeightPx()],
             type: 2,
             title: '添加用户',
             content: Feng.ctxPath + '/mgr/user_add',
+            end: function () {
+                admin.getTempData('formOk') && table.reload(MgrUser.tableId);
+            }
+        });
+    };
+
+    /**
+     * 点击编辑用户按钮时
+     *
+     * @param data 点击按钮时候的行数据
+     */
+    MgrUser.onEditUser = function (data) {
+        admin.putTempData('formOk', false);
+        top.layui.admin.open({
+            area: ['1000px', Feng.getClientHeightPx()],
+            type: 2,
+            title: '编辑用户',
+            content: Feng.ctxPath + '/mgr/user_edit?userId=' + data.userId,
             end: function () {
                 admin.getTempData('formOk') && table.reload(MgrUser.tableId);
             }
@@ -83,15 +102,6 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
         } else {
             table.exportFile(tableResult.config.id, checkRows.data, 'xls');
         }
-    };
-
-    /**
-     * 点击编辑用户按钮时
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    MgrUser.onEditUser = function (data) {
-        window.location.href = Feng.ctxPath + "/mgr/user_edit?userId=" + data.userId;
     };
 
     /**
@@ -204,8 +214,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        //MgrUser.openAddUser();
-        window.location.href = Feng.ctxPath + "/mgr/user_add";
+        MgrUser.openAddUser();
     });
 
     // 导出excel

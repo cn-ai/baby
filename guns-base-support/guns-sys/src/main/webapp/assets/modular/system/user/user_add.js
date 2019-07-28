@@ -29,7 +29,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
             area: ['300px', '400px'],
             content: Feng.ctxPath + '/system/commonTree?formName=' + formName + "&formId=" + formId + "&treeUrl=" + treeUrl,
             end: function () {
-                console.log(UserInfoDlg.data);
                 $("#deptId").val(UserInfoDlg.data.deptId);
                 $("#deptName").val(UserInfoDlg.data.deptName);
             }
@@ -55,7 +54,12 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
     form.on('submit(btnSubmit)', function (data) {
         var ajax = new $ax(Feng.ctxPath + "/mgr/add", function (data) {
             Feng.success("添加成功！");
-            window.location.href = Feng.ctxPath + "/mgr";
+
+            //传给上个页面，刷新table用
+            admin.putTempData('formOk', true);
+
+            //关掉对话框
+            admin.closeThisDialog();
 
         }, function (data) {
             Feng.error("添加失败！" + data.responseJSON.message)
@@ -65,11 +69,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
 
         //添加 return false 可成功跳转页面
         return false;
-    });
-
-    //返回按钮
-    $("#backupPage").click(function () {
-        window.location.href = Feng.ctxPath + "/mgr";
     });
 
     //初始化所有的职位列表

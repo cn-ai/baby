@@ -61,8 +61,11 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
         var ajax = new $ax(Feng.ctxPath + "/mgr/edit", function (data) {
             Feng.success("修改成功！");
 
-            //跳转列表页面并刷新
-            window.location.href = Feng.ctxPath + "/mgr";
+            //传给上个页面，刷新table用
+            admin.putTempData('formOk', true);
+
+            //关掉对话框
+            admin.closeThisDialog();
 
         }, function (data) {
             Feng.error("修改失败！" + data.responseJSON.message)
@@ -71,11 +74,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
         ajax.start();
         //添加 return false 可成功跳转页面
         return false;
-    });
-
-    //返回按钮
-    $("#backupPage").click(function () {
-        window.location.href = Feng.ctxPath + "/mgr";
     });
 
     //初始化所有的职位列表

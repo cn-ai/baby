@@ -85,6 +85,24 @@ Feng.zTreeCheckedNodes = function (zTreeId) {
 Feng.closeAllLoading = function () {
     layer.closeAll('loading');
 };
+Feng.getClientHeight = function () {
+    let clientHeight = 0;
+    if (document.body.clientHeight && document.documentElement.clientHeight) {
+        clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+    } else {
+        clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+    }
+    return clientHeight;
+};
+Feng.getClientHeightPx = function () {
+    let clientHeight = 0;
+    if (document.body.clientHeight && document.documentElement.clientHeight) {
+        clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+    } else {
+        clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+    }
+    return clientHeight + 'px';
+};
 
 // 以下代码是配置layui扩展模块的目录，每个页面都需要引入
 layui.config({
