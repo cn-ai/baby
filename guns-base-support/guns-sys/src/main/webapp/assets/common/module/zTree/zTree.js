@@ -13,7 +13,8 @@
 layui.define(['jquery'], function (exports) {
     var $ = layui.jquery;
     var jQuery = layui.$;
-    layui.link(layui.cache.base + 'zTree/css/metroStyle/metroStyle.css');
+    layui.link(layui.cache.base + 'zTree/css/zTreeStyle/zTreeStyle.css');  // 默认风格
+    // layui.link(layui.cache.base + 'zTree/css/metroStyle/metroStyle.css');  // 扁平化风格
 
     (function ($) {
         var settings = {}, roots = {}, caches = {},

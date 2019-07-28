@@ -1,3 +1,5 @@
+/** EasyWeb iframe v3.1.3 date:2019-07-12 License By http://easyweb.vip */
+
 // 用common.js必须加上Feng.addCtx("${ctxPath}");
 Feng.info = function (info) {
     top.layer.msg(info, {icon: 6});
@@ -97,8 +99,11 @@ layui.config({
     dtree: 'dtree/dtree',
     citypicker: 'city-picker/city-picker',
     tableSelect: 'tableSelect/tableSelect',
-    cropper: 'cropper/cropper',
+    Cropper: 'Cropper/Cropper',
     zTree: 'zTree/zTree',
+    introJs: 'introJs/introJs',
+    fileChoose: 'fileChoose/fileChoose',
+    tagsInput: 'tagsInput/tagsInput',
     selectPlus: '../../expand/module/selectPlus/selectPlus',
     ax: '../../expand/module/ax/ax',
     ztree: '../../expand/module/ztree/ztree-object',

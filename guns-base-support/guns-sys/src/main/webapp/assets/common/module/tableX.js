@@ -1,6 +1,6 @@
 ﻿/**
  * 表格扩展模块
- * date:2019-06-10   License By http://easyweb.vip
+ * date:2019-07-12   License By http://easyweb.vip
  */
 layui.define(['layer', 'table', 'laytpl', 'form', 'util', 'contextMenu'], function (exports) {
     var $ = layui.jquery;
@@ -12,13 +12,13 @@ layui.define(['layer', 'table', 'laytpl', 'form', 'util', 'contextMenu'], functi
     var contextMenu = layui.contextMenu;
     var device = layui.device;
     var tbSearchAttr = 'tb-search';  // 前端搜索属性
-    var tbRefreshAttr = 'tb-refresh';  // 刷新按鈕属性
-    var tbExportAttr = 'tb-export';  // 导出按鈕属性
+    var tbRefreshAttr = 'tb-refresh';  // 刷新按钮属性
+    var tbExportAttr = 'tb-export';  // 导出按钮属性
     var txFieldPre = 'txField_';  // templte列filed前缀
 
     var tableX = {
         // 合并相同单元格
-        merges: function (tableId, indexs, fields) {
+        merges: function (tableId, indexs, fields, sort) {
             // 检查参数是否为空
             if (!tableId) {
                 console.error('table filter not be null');
@@ -27,6 +27,10 @@ layui.define(['layer', 'table', 'laytpl', 'form', 'util', 'contextMenu'], functi
             if (!indexs) {
                 console.warn('merge indexs not be null');
                 return;
+            }
+            if (typeof fields === 'boolean') {
+                sort = fields;
+                fields = undefined;
             }
             var $tb = $('[lay-filter="' + tableId + '"]+.layui-table-view>.layui-table-box>.layui-table-body>table');
             var $trs = $tb.find('>tbody>tr');
@@ -79,9 +83,12 @@ layui.define(['layer', 'table', 'laytpl', 'form', 'util', 'contextMenu'], functi
             }
             $trs.find('[del="true"]').remove();  // 移除多余的单元格
             // 监听排序事件
-            table.on('sort(' + tableId + ')', function (obj) {
-                tableX.merges(tableId, indexs, fields);
-            });
+            (sort == undefined) && (sort = true);
+            if (sort) {
+                table.on('sort(' + tableId + ')', function (obj) {
+                    tableX.merges(tableId, indexs, fields);
+                });
+            }
         },
         // 导出表格数据
         exportData: function (param) {

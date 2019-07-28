@@ -1,6 +1,6 @@
 /**
  * 下拉菜单模块
- * date:2019-06-02   License By http://easyweb.vip
+ * date:2019-07-12   License By http://easyweb.vip
  */
 layui.define(['jquery'], function (exports) {
     var $ = layui.jquery;
@@ -75,6 +75,7 @@ layui.define(['jquery'], function (exports) {
             $('.' + dropNavClass + '.' + fixedClass).addClass('layui-hide');  // 隐藏分离式菜单
             $('.' + shadeClass).remove();  // 移除遮罩层
             $('body').removeClass(noScrollClass);  // 移除禁止页面滚动
+            $('.dropdown-fixParent').removeClass('dropdown-fixParent');
             $('[data-dropdown]').removeClass(openClass);
         },
         // 展开非分离式下拉菜单
@@ -114,7 +115,14 @@ layui.define(['jquery'], function (exports) {
                 $dropNav.css(topLeft);  // 设置坐标
                 $('body').addClass(noScrollClass); // 禁止页面滚动
                 var hideShade = ($trigger.attr('no-shade') == 'true');  // 是否隐藏遮罩层
-                $dropNav.after('<div class="' + (hideShade ? (shadeClass + ' ' + noShadeClass) : shadeClass) + ' layui-anim layui-anim-fadein"></div>');  // 添加遮罩层
+                $('body').append('<div class="' + (hideShade ? (shadeClass + ' ' + noShadeClass) : shadeClass) + ' layui-anim layui-anim-fadein"></div>');  // 添加遮罩层
+                // 重置父元素z-index
+                $trigger.parentsUntil('body').each(function () {
+                    var zIndex = $(this).css('z-index');
+                    if (/[0-9]+/.test(zIndex)) {
+                        $(this).addClass('dropdown-fixParent');
+                    }
+                });
                 $trigger.addClass(openClass);
             }
         },

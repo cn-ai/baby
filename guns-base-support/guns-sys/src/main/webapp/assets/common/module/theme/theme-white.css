@@ -73,18 +73,17 @@
 }
 
 /** PC端折叠鼠标经过样式 */
-.layui-layout-admin.admin-nav-mini .layui-side .layui-nav .layui-nav-item.admin-nav-hover > .layui-nav-child {
+.layui-layout-admin.admin-nav-mini .layui-side .layui-nav .admin-nav-hover > .layui-nav-child:before {
     background: #fff !important;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
 }
 
+.layui-layout-admin.admin-nav-mini .layui-side .layui-nav .admin-nav-hover > .layui-nav-child > dd > a .layui-nav-more {
+    border-color: transparent transparent transparent #999 !important;
+}
+
 /** 移动设备样式 */
 @media screen and (max-width: 750px) {
-    /** 去掉PC端折叠鼠标经过样式 */
-    .layui-layout-admin.admin-nav-mini .layui-side .layui-nav .layui-nav-item.admin-nav-hover > .layui-nav-child {
-        background-color: #fff !important;
-    }
-
     .layui-layout-admin.admin-nav-mini .layui-side .layui-nav li.layui-nav-itemed > a {
         background: transparent;
     }
@@ -226,6 +225,6 @@
 }
 
 /** 加载动画颜色 */
-.ball-loader span {
+.ball-loader > span, .signal-loader > span {
     background-color: #2486FF;
 }

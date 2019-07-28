@@ -1,10 +1,14 @@
 /**
  * 下拉菜单模块
- * date:2019-06-02   License By http://easyweb.vip
+ * date:2019-07-12   License By http://easyweb.vip
  */
 
 .dropdown-no-scroll {
     overflow: hidden;
+}
+
+.dropdown-fixParent {
+    z-index: auto;
 }
 
 /** 遮罩层 */
@@ -14,7 +18,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    z-index: 9997;
+    z-index: 9998;
     background-color: rgba(0, 0, 0, .1);
 }
 
@@ -74,7 +78,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
     border: 1px solid #d2d2d2;
     text-align: left;
-    z-index: 9998;
+    z-index: 9999;
 }
 
 .dropdown-menu .dropdown-menu-nav {

@@ -66,16 +66,8 @@
 }
 
 /** PC端折叠鼠标经过样式 */
-.layui-layout-admin.admin-nav-mini .layui-side .layui-nav .layui-nav-item.admin-nav-hover > .layui-nav-child {
+.layui-layout-admin.admin-nav-mini .layui-side .layui-nav .admin-nav-hover > .layui-nav-child:before {
     background: #28333E !important;
-}
-
-/** 移动设备样式 */
-@media screen and (max-width: 750px) {
-    /** 去掉PC端折叠鼠标经过样式 */
-    .layui-layout-admin.admin-nav-mini .layui-side .layui-nav .layui-nav-item.admin-nav-hover > .layui-nav-child {
-        background-color: rgba(0, 0, 0, .2) !important;
-    }
 }
 
 /** tab下划线 */
@@ -124,12 +116,32 @@
 /** 主题颜色 */
 
 /** 按钮 */
-.layui-btn:not(.layui-btn-primary):not(.layui-btn-normal):not(.layui-btn-warm):not(.layui-btn-danger):not(.layui-btn-disabled) {
+/*.layui-btn:not(.layui-btn-primary):not(.layui-btn-normal):not(.layui-btn-warm):not(.layui-btn-danger):not(.layui-btn-disabled) {
+    background-color: #DD4B39;
+}*/
+
+.layui-btn {
     background-color: #DD4B39;
 }
 
-.layui-btn.layui-btn-primary:hover {
-    border-color: #DD4B39;
+.layui-btn.layui-btn-primary {
+    background-color: #fff;
+}
+
+.layui-btn.layui-btn-normal {
+    background-color: #1E9FFF;
+}
+
+.layui-btn.layui-btn-warm {
+    background-color: #FFB800;
+}
+
+.layui-btn.layui-btn-danger {
+    background-color: #FF5722;
+}
+
+.layui-btn-disabled, .layui-btn-disabled:hover, .layui-btn-disabled:active {
+    background-color: #FBFBFB;
 }
 
 /** 开关 */
@@ -200,6 +212,6 @@
 }
 
 /** 加载动画颜色 */
-.ball-loader span {
+.ball-loader > span, .signal-loader > span {
     background-color: #DD4B39;
 }
