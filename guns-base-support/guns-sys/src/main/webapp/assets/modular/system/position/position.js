@@ -44,7 +44,34 @@ layui.use(['table', 'admin', 'ax', 'form'], function () {
      * 弹出添加对话框
      */
     Position.openAddDlg = function () {
-        window.location.href = Feng.ctxPath + '/position/add';
+        admin.putTempData('formOk', false);
+        top.layui.admin.open({
+            area: ['1000px', Feng.getClientHeightPx()],
+            type: 2,
+            title: '添加职位',
+            content: Feng.ctxPath + '/position/add',
+            end: function () {
+                admin.getTempData('formOk') && table.reload(Position.tableId);
+            }
+        });
+    };
+
+    /**
+     * 点击编辑
+     *
+     * @param data 点击按钮时候的行数据
+     */
+    Position.openEditDlg = function (data) {
+        admin.putTempData('formOk', false);
+        top.layui.admin.open({
+            area: ['1000px', Feng.getClientHeightPx()],
+            type: 2,
+            title: '修改职位',
+            content: Feng.ctxPath + '/position/edit?positionId=' + data.positionId,
+            end: function () {
+                admin.getTempData('formOk') && table.reload(Position.tableId);
+            }
+        });
     };
 
     /**
@@ -57,15 +84,6 @@ layui.use(['table', 'admin', 'ax', 'form'], function () {
         } else {
             table.exportFile(tableResult.config.id, checkRows.data, 'xls');
         }
-    };
-
-    /**
-     * 点击编辑
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    Position.openEditDlg = function (data) {
-        window.location.href = Feng.ctxPath + '/position/edit?positionId=' + data.positionId;
     };
 
     /**
