@@ -95,13 +95,7 @@ Feng.getClientHeight = function () {
     return clientHeight;
 };
 Feng.getClientHeightPx = function () {
-    let clientHeight = 0;
-    if (document.body.clientHeight && document.documentElement.clientHeight) {
-        clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
-    } else {
-        clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
-    }
-    return clientHeight + 'px';
+    return Feng.getClientHeight() + 'px';
 };
 
 // 以下代码是配置layui扩展模块的目录，每个页面都需要引入
