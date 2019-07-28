@@ -29,7 +29,7 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
         layer.open({
             type: 2,
             title: '父级角色选择',
-            area: ['300px', '200px'],
+            area: ['300px', '400px'],
             content: Feng.ctxPath + '/system/commonTree?formName=' + formName + "&formId=" + formId + "&treeUrl=" + treeUrl,
             end: function () {
                 $("#pid").val(RoleInfoDlg.data.pid);
@@ -43,8 +43,11 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
         var ajax = new $ax(Feng.ctxPath + "/role/edit", function (data) {
             Feng.success("修改成功!");
 
-            //跳转列表页面并刷新
-            window.location.href = Feng.ctxPath + "/role";
+            //传给上个页面，刷新table用
+            admin.putTempData('formOk', true);
+
+            //关掉对话框
+            admin.closeThisDialog();
 
         }, function (data) {
             Feng.error("修改失败!" + data.responseJSON.message + "!");
@@ -54,10 +57,5 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
 
         //添加 return false 可成功跳转页面
         return false;
-    });
-
-    //返回按钮
-    $("#backupPage").click(function () {
-        window.location.href = Feng.ctxPath + "/role";
     });
 });

@@ -47,9 +47,28 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
     Role.openAddRole = function () {
         admin.putTempData('formOk', false);
         top.layui.admin.open({
+            area: ['1000px', Feng.getClientHeightPx()],
             type: 2,
             title: '添加角色',
             content: Feng.ctxPath + '/role/role_add',
+            end: function () {
+                admin.getTempData('formOk') && table.reload(Role.tableId);
+            }
+        });
+    };
+
+    /**
+     * 点击编辑角色
+     *
+     * @param data 点击按钮时候的行数据
+     */
+    Role.onEditRole = function (data) {
+        admin.putTempData('formOk', false);
+        top.layui.admin.open({
+            area: ['1000px', Feng.getClientHeightPx()],
+            type: 2,
+            title: '添加角色',
+            content: Feng.ctxPath + "/role/role_edit?roleId=" + data.roleId,
             end: function () {
                 admin.getTempData('formOk') && table.reload(Role.tableId);
             }
@@ -66,15 +85,6 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         } else {
             table.exportFile(tableResult.config.id, checkRows.data, 'xls');
         }
-    };
-
-    /**
-     * 点击编辑角色
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    Role.onEditRole = function (data) {
-        window.location.href = Feng.ctxPath + "/role/role_edit?roleId="+ data.roleId;
     };
 
     /**
@@ -102,7 +112,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
      * @param data 点击按钮时候的行数据
      */
     Role.roleAssign = function (data) {
-        layer.open({
+        parent.layer.open({
             type: 2,
             title: '权限配置',
             area: ['300px', '450px'], //宽高
@@ -132,7 +142,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        window.location.href = Feng.ctxPath + "/role/role_add";
+        Role.openAddRole();
     });
 
     // 导出excel
