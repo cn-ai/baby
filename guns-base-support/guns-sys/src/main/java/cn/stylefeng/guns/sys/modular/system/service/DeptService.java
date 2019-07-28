@@ -59,7 +59,7 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     @Transactional(rollbackFor = Exception.class)
     public void editDept(Dept dept) {
 
-        if (ToolUtil.isOneEmpty(dept, dept.getDeptId(), dept.getSimpleName(), dept.getFullName(), dept.getPid(), dept.getDescription())) {
+        if (ToolUtil.isOneEmpty(dept, dept.getDeptId(), dept.getSimpleName(), dept.getFullName(), dept.getPid())) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
 
