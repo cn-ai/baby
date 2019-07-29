@@ -10,8 +10,11 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
         var ajax = new $ax(Feng.ctxPath + "/notice/update", function (data) {
             Feng.success("添加成功！");
 
-            //跳转列表页面并刷新
-            window.location.href = Feng.ctxPath + "/notice";
+            //传给上个页面，刷新table用
+            admin.putTempData('formOk', true);
+
+            //关掉对话框
+            admin.closeThisDialog();
 
         }, function (data) {
             Feng.error("添加失败！" + data.responseJSON.message)
@@ -23,8 +26,4 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
         return false;
     });
 
-    //返回按钮
-    $("#backupPage").click(function () {
-        window.location.href = Feng.ctxPath + "/notice";
-    });
 });
