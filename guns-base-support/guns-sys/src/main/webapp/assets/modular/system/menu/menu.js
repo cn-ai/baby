@@ -1,4 +1,4 @@
-layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetable'], function () {
+layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetable', 'func'], function () {
     var layer = layui.layer;
     var form = layui.form;
     var $ZTree = layui.ztree;
@@ -7,6 +7,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
     var admin = layui.admin;
     var table = layui.table;
     var treetable = layui.treetable;
+    var func = layui.func;
 
     /**
      * 系统管理--菜单管理
@@ -61,14 +62,11 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
      * 弹出添加菜单对话框
      */
     Menu.openAddMenu = function () {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            type: 2,
+        func.open({
+            height: 720,
             title: '添加菜单',
             content: Feng.ctxPath + '/menu/menu_add',
-            end: function () {
-                admin.getTempData('formOk') && Menu.initTable(Menu.tableId);
-            }
+            tableId: Menu.tableId
         });
     };
 
@@ -90,7 +88,12 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
      * @param data 点击按钮时候的行数据
      */
     Menu.onEditMenu = function (data) {
-        window.location.href = Feng.ctxPath + "/menu/menu_edit?menuId="+ data.menuId;
+        func.open({
+            height: 720,
+            title: '修改菜单',
+            content: Feng.ctxPath + "/menu/menu_edit?menuId="+ data.menuId,
+            tableId: Menu.tableId
+        });
     };
 
     /**
@@ -160,7 +163,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
-        window.location.href = Feng.ctxPath + "/menu/menu_add";
+        Menu.openAddMenu();
     });
 
     // 工具条点击事件

@@ -40,8 +40,11 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'iconPicker'], function ()
         var ajax = new $ax(Feng.ctxPath + "/menu/add", function (data) {
             Feng.success("添加成功！");
 
-            //跳转列表页面并刷新
-            window.location.href = Feng.ctxPath + "/menu";
+            //传给上个页面，刷新table用
+            admin.putTempData('formOk', true);
+
+            //关掉对话框
+            admin.closeThisDialog();
 
         }, function (data) {
             Feng.error("添加失败！" + data.responseJSON.message)
@@ -51,11 +54,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'iconPicker'], function ()
 
         //添加 return false 可成功跳转页面
         return false;
-    });
-
-    //返回按钮
-    $("#backupPage").click(function () {
-        window.location.href = Feng.ctxPath + "/menu";
     });
 
     //初始化图标选择
