@@ -1,10 +1,11 @@
-layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
+layui.use(['layer', 'form', 'table', 'admin', 'ax', 'func'], function () {
     var $ = layui.$;
     var layer = layui.layer;
     var form = layui.form;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
+    var func = layui.func;
 
     /**
      * 系统管理--角色管理
@@ -45,15 +46,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
      * 弹出添加角色
      */
     Role.openAddRole = function () {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            area: ['1000px', Feng.getClientHeightPx()],
-            type: 2,
+        func.open({
+            height: 470,
             title: '添加角色',
             content: Feng.ctxPath + '/role/role_add',
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Role.tableId);
-            }
+            tableId: Role.tableId
         });
     };
 
@@ -63,15 +60,11 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
      * @param data 点击按钮时候的行数据
      */
     Role.onEditRole = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            area: ['1000px', Feng.getClientHeightPx()],
-            type: 2,
-            title: '添加角色',
+        func.open({
+            height: 470,
+            title: '修改角色',
             content: Feng.ctxPath + "/role/role_edit?roleId=" + data.roleId,
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Role.tableId);
-            }
+            tableId: Role.tableId
         });
     };
 

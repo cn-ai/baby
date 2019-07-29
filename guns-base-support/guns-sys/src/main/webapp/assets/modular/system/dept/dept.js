@@ -1,9 +1,10 @@
-layui.use(['table', 'admin', 'ax', 'ztree'], function () {
+layui.use(['table', 'admin', 'ax', 'ztree', 'func'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
     var $ZTree = layui.ztree;
+    var func = layui.func;
 
     /**
      * 系统管理--部门管理
@@ -54,15 +55,11 @@ layui.use(['table', 'admin', 'ax', 'ztree'], function () {
      * 弹出添加
      */
     Dept.openAddDept = function () {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            area: ['1000px', Feng.getClientHeightPx()],
-            type: 2,
+        func.open({
+            height: 530,
             title: '添加部门',
             content: Feng.ctxPath + '/dept/dept_add',
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Dept.tableId);
-            }
+            tableId: Dept.tableId
         });
     };
 
@@ -72,15 +69,11 @@ layui.use(['table', 'admin', 'ax', 'ztree'], function () {
      * @param data 点击按钮时候的行数据
      */
     Dept.onEditDept = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            area: ['1000px', Feng.getClientHeightPx()],
-            type: 2,
+        func.open({
+            height: 530,
             title: '编辑部门',
             content: Feng.ctxPath + "/dept/dept_update?deptId=" + data.deptId,
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Dept.tableId);
-            }
+            tableId: Dept.tableId
         });
     };
 

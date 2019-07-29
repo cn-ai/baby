@@ -1,4 +1,4 @@
-layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], function () {
+layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func'], function () {
     var layer = layui.layer;
     var form = layui.form;
     var table = layui.table;
@@ -6,6 +6,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
     var $ax = layui.ax;
     var laydate = layui.laydate;
     var admin = layui.admin;
+    var func = layui.func;
 
     /**
      * 系统管理--用户管理
@@ -62,15 +63,10 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
      * 弹出添加用户对话框
      */
     MgrUser.openAddUser = function () {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            area: ['1000px', Feng.getClientHeightPx()],
-            type: 2,
+        func.open({
             title: '添加用户',
             content: Feng.ctxPath + '/mgr/user_add',
-            end: function () {
-                admin.getTempData('formOk') && table.reload(MgrUser.tableId);
-            }
+            tableId: MgrUser.tableId
         });
     };
 
@@ -80,15 +76,10 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
      * @param data 点击按钮时候的行数据
      */
     MgrUser.onEditUser = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            area: ['1000px', Feng.getClientHeightPx()],
-            type: 2,
+        func.open({
             title: '编辑用户',
             content: Feng.ctxPath + '/mgr/user_edit?userId=' + data.userId,
-            end: function () {
-                admin.getTempData('formOk') && table.reload(MgrUser.tableId);
-            }
+            tableId: MgrUser.tableId
         });
     };
 

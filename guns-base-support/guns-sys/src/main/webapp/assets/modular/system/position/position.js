@@ -1,9 +1,10 @@
-layui.use(['table', 'admin', 'ax', 'form'], function () {
+layui.use(['table', 'admin', 'ax', 'form', 'func'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
     var form = layui.form;
+    var func = layui.func;
 
     /**
      * 职位表管理
@@ -44,15 +45,11 @@ layui.use(['table', 'admin', 'ax', 'form'], function () {
      * 弹出添加对话框
      */
     Position.openAddDlg = function () {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            area: ['1000px', Feng.getClientHeightPx()],
-            type: 2,
+        func.open({
+            height: 470,
             title: '添加职位',
             content: Feng.ctxPath + '/position/add',
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Position.tableId);
-            }
+            tableId: Position.tableId
         });
     };
 
@@ -62,15 +59,11 @@ layui.use(['table', 'admin', 'ax', 'form'], function () {
      * @param data 点击按钮时候的行数据
      */
     Position.openEditDlg = function (data) {
-        admin.putTempData('formOk', false);
-        top.layui.admin.open({
-            area: ['1000px', Feng.getClientHeightPx()],
-            type: 2,
+        func.open({
+            height: 470,
             title: '修改职位',
             content: Feng.ctxPath + '/position/edit?positionId=' + data.positionId,
-            end: function () {
-                admin.getTempData('formOk') && table.reload(Position.tableId);
-            }
+            tableId: Position.tableId
         });
     };
 

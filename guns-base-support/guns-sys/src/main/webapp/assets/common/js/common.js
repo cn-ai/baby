@@ -119,7 +119,8 @@ layui.config({
     selectPlus: '../../expand/module/selectPlus/selectPlus',
     ax: '../../expand/module/ax/ax',
     ztree: '../../expand/module/ztree/ztree-object',
-    iconPicker: '../../expand/module/iconPicker/iconPicker'
+    iconPicker: '../../expand/module/iconPicker/iconPicker',
+    func: '../../expand/module/func/func'
 }).use(['admin'], function () {
     var $ = layui.jquery;
     var admin = layui.admin;
