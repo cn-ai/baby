@@ -15,10 +15,11 @@ var DictTypeInfoDlg = {
     }
 };
 
-layui.use(['form', 'ax'], function () {
+layui.use(['form', 'ax', 'admin'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
+    var admin = layui.admin;
 
     //表单提交事件
     form.on('submit(btnSubmit)', function (data) {

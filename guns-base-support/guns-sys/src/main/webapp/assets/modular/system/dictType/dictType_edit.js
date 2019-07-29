@@ -15,10 +15,11 @@ var DictTypeInfoDlg = {
     }
 };
 
-layui.use(['form', 'ax'], function () {
+layui.use(['form', 'ax', 'admin'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
+    var admin = layui.admin;
 
     //获取详情信息，填充表单
     var ajax = new $ax(Feng.ctxPath + "/dictType/detail?dictTypeId=" + Feng.getUrlParam("dictTypeId"));

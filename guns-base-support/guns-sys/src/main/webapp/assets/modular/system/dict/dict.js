@@ -1,8 +1,9 @@
-layui.use(['table', 'ax', 'treetable'], function () {
+layui.use(['table', 'ax', 'treetable', 'func'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var treetable = layui.treetable;
+    var func = layui.func;
 
     /**
      * 基础字典管理
@@ -48,7 +49,12 @@ layui.use(['table', 'ax', 'treetable'], function () {
      * 弹出添加对话框
      */
     Dict.openAddDlg = function () {
-        window.location.href = Feng.ctxPath + '/dict/add?dictTypeId=' + $("#dictTypeId").val();
+        func.open({
+            height: 650,
+            title: '添加字典',
+            content: Feng.ctxPath + '/dict/add?dictTypeId=' + $("#dictTypeId").val(),
+            tableId: Dict.tableId
+        });
     };
 
     /**
@@ -57,7 +63,12 @@ layui.use(['table', 'ax', 'treetable'], function () {
      * @param data 点击按钮时候的行数据
      */
     Dict.openEditDlg = function (data) {
-        window.location.href = Feng.ctxPath + '/dict/edit?dictId=' + data.dictId;
+        func.open({
+            height: 650,
+            title: '修改字典',
+            content: Feng.ctxPath + '/dict/edit?dictId=' + data.dictId,
+            tableId: Dict.tableId
+        });
     };
 
     /**
