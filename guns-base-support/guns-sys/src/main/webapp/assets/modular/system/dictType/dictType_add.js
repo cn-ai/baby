@@ -24,7 +24,13 @@ layui.use(['form', 'ax'], function () {
     form.on('submit(btnSubmit)', function (data) {
         var ajax = new $ax(Feng.ctxPath + "/dictType/addItem", function (data) {
             Feng.success("添加成功！");
-            window.location.href = Feng.ctxPath + "/dictType";
+
+            //传给上个页面，刷新table用
+            admin.putTempData('formOk', true);
+
+            //关掉对话框
+            admin.closeThisDialog();
+
         }, function (data) {
             Feng.error("添加失败！" + data.responseJSON.message)
         });
@@ -34,8 +40,4 @@ layui.use(['form', 'ax'], function () {
         return false;
     });
 
-    //返回按钮
-    $("#backupPage").click(function () {
-        window.location.href = Feng.ctxPath + "/dictType";
-    });
 });

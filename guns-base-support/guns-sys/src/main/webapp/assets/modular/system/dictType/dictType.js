@@ -1,7 +1,8 @@
-layui.use(['table', 'ax'], function () {
+layui.use(['table', 'ax', 'func'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
+    var func = layui.func;
 
     /**
      * 字典类型表管理
@@ -70,7 +71,12 @@ layui.use(['table', 'ax'], function () {
      * 弹出添加对话框
      */
     DictType.openAddDlg = function () {
-        window.location.href = Feng.ctxPath + '/dictType/add';
+        func.open({
+            height: 630,
+            title: '添加字典类型',
+            content: Feng.ctxPath + '/dictType/add',
+            tableId: DictType.tableId
+        });
     };
 
     /**
@@ -79,7 +85,12 @@ layui.use(['table', 'ax'], function () {
      * @param data 点击按钮时候的行数据
      */
     DictType.openEditDlg = function (data) {
-        window.location.href = Feng.ctxPath + '/dictType/edit?dictTypeId=' + data.dictTypeId;
+        func.open({
+            height: 630,
+            title: '修改字典类型',
+            content: Feng.ctxPath + '/dictType/edit?dictTypeId=' + data.dictTypeId,
+            tableId: DictType.tableId
+        });
     };
 
     /**
