@@ -86,7 +86,7 @@ Feng.closeAllLoading = function () {
     layer.closeAll('loading');
 };
 Feng.getClientHeight = function () {
-    let clientHeight = 0;
+    var clientHeight = 0;
     if (document.body.clientHeight && document.documentElement.clientHeight) {
         clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
     } else {
