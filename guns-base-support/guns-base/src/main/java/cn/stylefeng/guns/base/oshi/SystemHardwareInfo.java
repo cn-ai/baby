@@ -1,6 +1,6 @@
 package cn.stylefeng.guns.base.oshi;
 
-import cn.hutool.core.util.NetUtil;
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.stylefeng.guns.base.oshi.model.*;
 import cn.stylefeng.guns.base.oshi.util.IpInfoUtils;

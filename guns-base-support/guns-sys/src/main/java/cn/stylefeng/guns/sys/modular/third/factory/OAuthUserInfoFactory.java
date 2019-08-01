@@ -6,8 +6,8 @@ import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.third.entity.OauthUserInfo;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
 
 import java.util.Date;
 
