@@ -1,8 +1,9 @@
-layui.use(['table', 'admin', 'ax'], function () {
+layui.use(['table', 'admin', 'ax', 'func'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
+    var func = layui.func;
 
     /**
      * ${tableComment}管理
@@ -43,7 +44,24 @@ layui.use(['table', 'admin', 'ax'], function () {
      * 弹出添加对话框
      */
     ${entity}.openAddDlg = function () {
-        window.location.href = Feng.ctxPath + '/${lowerEntity}/add';
+        func.open({
+            title: '添加${tableComment}',
+            content: Feng.ctxPath + '/${lowerEntity}/add',
+            tableId: ${entity}.tableId
+        });
+    };
+
+    /**
+    * 点击编辑
+    *
+    * @param data 点击按钮时候的行数据
+    */
+    ${entity}.openEditDlg = function (data) {
+        func.open({
+            title: '修改${tableComment}',
+            content: Feng.ctxPath + '/${lowerEntity}/edit?${keyPropertyName}=' + data.${keyPropertyName},
+            tableId: ${entity}.tableId
+        });
     };
 
     /**
@@ -56,15 +74,6 @@ layui.use(['table', 'admin', 'ax'], function () {
         } else {
             table.exportFile(tableResult.config.id, checkRows.data, 'xls');
         }
-    };
-
-    /**
-     * 点击编辑
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    ${entity}.openEditDlg = function (data) {
-        window.location.href = Feng.ctxPath + '/${lowerEntity}/edit?${keyPropertyName}=' + data.${keyPropertyName};
     };
 
     /**
