@@ -57,8 +57,12 @@ layui.define(['jquery', 'layer', 'admin', 'table'], function (exports) {
             param.end = function () {
                 layer.closeAll('tips');
                 admin.getTempData('formOk') && table.reload(param.tableId);
-            };
 
+                if(param.endCallback){
+                    admin.getTempData('formOk') && param.endCallback();
+                }
+
+            };
             param.fixed = false;
             param.resize = false;
             param.shade = .1;

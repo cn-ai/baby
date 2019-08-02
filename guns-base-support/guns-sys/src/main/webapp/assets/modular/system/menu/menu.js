@@ -66,7 +66,10 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
             height: 720,
             title: '添加菜单',
             content: Feng.ctxPath + '/menu/menu_add',
-            tableId: Menu.tableId
+            tableId: Menu.tableId,
+            endCallback: function () {
+                Menu.initTable(Menu.tableId);
+            }
         });
     };
 
@@ -91,8 +94,11 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
         func.open({
             height: 720,
             title: '修改菜单',
-            content: Feng.ctxPath + "/menu/menu_edit?menuId="+ data.menuId,
-            tableId: Menu.tableId
+            content: Feng.ctxPath + "/menu/menu_edit?menuId=" + data.menuId,
+            tableId: Menu.tableId,
+            endCallback: function () {
+                Menu.initTable(Menu.tableId);
+            }
         });
     };
 
