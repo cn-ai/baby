@@ -75,5 +75,22 @@ ${layoutContent}
         <script src="${item}?v=${constants.getReleaseVersion()}"></script>
     @}
 @}
+
+<script>
+    /**
+     * 按键监听esc
+     */
+    layui.use(['admin'], function () {
+        var admin = layui.admin;
+        var $ = layui.jquery;
+
+        $(window).keydown(function (event) {
+            if (event.keyCode === 27) {
+                admin.closeThisDialog();
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

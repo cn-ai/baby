@@ -58,7 +58,7 @@ layui.define(['jquery', 'layer', 'admin', 'table'], function (exports) {
                 layer.closeAll('tips');
                 admin.getTempData('formOk') && table.reload(param.tableId);
 
-                if(param.endCallback){
+                if (param.endCallback) {
                     admin.getTempData('formOk') && param.endCallback();
                 }
 
@@ -66,7 +66,17 @@ layui.define(['jquery', 'layer', 'admin', 'table'], function (exports) {
             param.fixed = false;
             param.resize = false;
             param.shade = .1;
-            return top.layui.layer.open(param);
+
+            var thisIndex = top.layui.layer.open(param);
+
+            //按键监听esc关闭对话框
+            $(window).keydown(function (event) {
+                if (event.keyCode === 27) {
+                    parent.layer.close(thisIndex)
+                }
+            });
+
+            return thisIndex;
         }
     };
 
