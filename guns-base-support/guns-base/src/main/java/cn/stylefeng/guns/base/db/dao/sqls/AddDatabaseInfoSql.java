@@ -18,7 +18,7 @@ public class AddDatabaseInfoSql extends AbstractSql {
 
     @Override
     protected String sqlServer() {
-        return "INSERT INTO `database_info`(`db_id`, `db_name`, `jdbc_driver`, `user_name`, `password`, `jdbc_url`, `remarks`, `create_time`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO [database_info] ([db_id], [db_name], [jdbc_driver], [user_name], [password], [jdbc_url], [remarks], [create_time]) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override

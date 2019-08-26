@@ -10,8 +10,8 @@
 #SQLServer配置
 #spring:
 #  datasource:
-#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#    url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=guns
+#    driverClassName: net.sourceforge.jtds.jdbc.Driver
+#    url: jdbc:jtds:sqlserver://127.0.0.1:1433;DatabaseName=guns
 #    username: root
 #    password: root
 #    filters: wall,mergeStat

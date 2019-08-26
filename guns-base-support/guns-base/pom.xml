@@ -29,8 +29,8 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 <!--        <dependency>-->
-<!--            <groupId>com.microsoft.sqlserver</groupId>-->
-<!--            <artifactId>sqljdbc4</artifactId>-->
+<!--            <groupId>net.sourceforge.jtds</groupId>-->
+<!--            <artifactId>jtds</artifactId>-->
 <!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>com.oracle</groupId>-->
