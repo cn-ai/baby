@@ -1,19 +1,143 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : testmssql
+ Source Server         : guns
  Source Server Type    : SQL Server
- Source Server Version : 11006020
- Source Host           : rm-m5eh4uoca2f178b7rfo.sqlserver.rds.aliyuncs.com:1433
+ Source Server Version : 11006567
+ Source Host           : rm-2ze1ph586a9ulz31o9o.sqlserver.rds.aliyuncs.com:3433
  Source Catalog        : guns
  Source Schema         : dbo
 
  Target Server Type    : SQL Server
- Target Server Version : 11006020
+ Target Server Version : 11006567
  File Encoding         : 65001
 
- Date: 02/04/2019 15:37:04
+ Date: 26/08/2019 16:06:29
 */
+
+
+-- ----------------------------
+-- Table structure for database_info
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[database_info]') AND type IN ('U'))
+	DROP TABLE [dbo].[database_info]
+GO
+
+CREATE TABLE [dbo].[database_info] (
+  [db_id] bigint  NOT NULL,
+  [db_name] varchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [jdbc_driver] varchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [user_name] varchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [password] varchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [jdbc_url] varchar(2000) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [remarks] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL
+)
+GO
+
+ALTER TABLE [dbo].[database_info] SET (LOCK_ESCALATION = TABLE)
+GO
+
+
+-- ----------------------------
+-- Table structure for oauth_user_info
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[oauth_user_info]') AND type IN ('U'))
+	DROP TABLE [dbo].[oauth_user_info]
+GO
+
+CREATE TABLE [dbo].[oauth_user_info] (
+  [oauth_id] bigint  NOT NULL,
+  [user_id] bigint  NOT NULL,
+  [nick_name] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [avatar] varchar(500) COLLATE Chinese_PRC_CI_AS  NULL,
+  [blog] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [company] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [location] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [email] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [remark] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [gender] int  NULL,
+  [source] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [token] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [uuid] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_time] datetime  NULL,
+  [update_user] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[oauth_user_info] SET (LOCK_ESCALATION = TABLE)
+GO
+
+
+-- ----------------------------
+-- Table structure for sys_config
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_config]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_config]
+GO
+
+CREATE TABLE [dbo].[sys_config] (
+  [id] bigint  NOT NULL,
+  [name] varchar(200) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [code] varchar(200) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [dict_flag] char(1) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [dict_type_id] bigint  NULL,
+  [value] varchar(200) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [remark] varchar(200) COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_time] datetime  NULL,
+  [update_user] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[sys_config] SET (LOCK_ESCALATION = TABLE)
+GO
+
+
+-- ----------------------------
+-- Records of [sys_config]
+-- ----------------------------
+BEGIN TRANSACTION
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1143324237579165697', N'验证码开关', N'GUNS_KAPTCHA_OPEN', N'Y', N'1106120265689055233', N'DISABLE', N'是否开启验证码', N'2019-06-24 12:46:43.000', N'1', N'2019-06-25 09:04:42.000', N'1')
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1143386834613694465', N'阿里云短信的keyId', N'GUNS_SMS_ACCESSKEY_ID', N'N', NULL, N'xxxkey', N'阿里云短信的密钥key', N'2019-06-25 13:13:59.000', N'1', N'2019-06-25 13:19:21.000', N'1')
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1143386953933254657', N'阿里云短信的secret', N'GUNS_SMS_ACCESSKEY_SECRET', N'N', NULL, N'xxxsecret', N'阿里云短信的secret', N'2019-06-25 13:14:28.000', N'1', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1143387023449649154', N'阿里云短信的签名', N'GUNS_SMS_SIGN_NAME', N'N', NULL, N'xxxsign', N'阿里云短信的签名', N'2019-06-25 13:14:44.000', N'1', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1143387131109044225', N'阿里云短信登录的模板号', N'GUNS_SMS_LOGIN_TEMPLATE_CODE', N'N', NULL, N'SMS_XXXXXX', N'阿里云短信登录的模板号', N'2019-06-25 13:15:10.000', N'1', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1143387225019510785', N'验证码短信失效时间', N'GUNS_SMS_INVALIDATE_MINUTES', N'N', NULL, N'2', N'验证码短信失效时间', N'2019-06-25 13:15:32.000', N'1', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1143468689664876546', N'管理系统名称', N'GUNS_SYSTEM_NAME', N'N', NULL, N'Guns快速开发平台', N'管理系统名称', N'2019-06-25 18:39:15.000', N'1', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1143468867767607297', N'默认系统密码', N'GUNS_DEFAULT_PASSWORD', N'N', NULL, N'111111', N'默认系统密码', N'2019-06-25 18:39:57.000', N'1', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1143469008025133058', N'OAuth2登录用户的账号标识', N'GUNS_OAUTH2_PREFIX', N'N', NULL, N'oauth2', N'OAuth2登录用户的账号标识', N'2019-06-25 18:40:31.000', N'1', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1145207130463191041', N'顶部导航条是否开启', N'GUNS_DEFAULT_ADVERT', N'Y', N'1106120265689055233', N'ENABLE', N'顶部Guns广告是否开启', N'2019-06-30 13:47:11.000', N'1', N'2019-06-30 13:47:20.000', N'1')
+GO
+
+INSERT INTO [dbo].[sys_config]  VALUES (N'1145915627211370498', N'Guns发布的编号', N'GUNS_SYSTEM_RELEASE_VERSION', N'N', NULL, N'20190729', N'用于防止浏览器缓存相关的js和css', N'2019-07-02 12:42:30.000', N'1', NULL, NULL)
+GO
+
+COMMIT
+GO
 
 
 -- ----------------------------
@@ -126,10 +250,7 @@ GO
 INSERT INTO [dbo].[sys_dict]  VALUES (N'1106120968910258177', N'1106120388036902914', N'N', N'未删除', N'0', N'[0]', N'ENABLE', N'1212211221', N'', N'2019-03-14 17:12:44.000', N'2019-03-16 10:59:03.000', N'1', N'1')
 GO
 
-INSERT INTO [dbo].[sys_dict]  VALUES (N'1106751061042974722', N'1106120322450571266', N'11212', N'122', N'0', N'[0]', N'ENABLE', N'1212', N'122112', N'2019-03-16 10:56:30.000', NULL, N'1', NULL)
-GO
-
-INSERT INTO [dbo].[sys_dict]  VALUES (N'1106751747772166145', N'1106120388036902914', N'12312', N'3123123', N'1106120968910258177', N'[0],[1106120968910258177]', N'ENABLE', N'123', N'', N'2019-03-16 10:59:14.000', NULL, N'1', NULL)
+INSERT INTO [dbo].[sys_dict]  VALUES (N'1149218674746355713', N'1149217131989069826', N'BASE_SYSTEM', N'系统管理', N'0', N'[0]', N'ENABLE', N'1', N'系统管理平台', N'2019-07-11 15:27:38.000', N'2019-07-11 20:27:14.000', N'1', N'1')
 GO
 
 COMMIT
@@ -180,6 +301,9 @@ GO
 INSERT INTO [dbo].[sys_dict_type]  VALUES (N'1106120388036902914', N'DEL_FLAG', N'是否删除', N'', N'Y', N'ENABLE', N'2', N'2019-03-14 17:10:26.000', N'1', N'2019-03-27 16:26:31.000', N'1')
 GO
 
+INSERT INTO [dbo].[sys_dict_type]  VALUES (N'1149217131989069826', N'SYSTEM_TYPE', N'系统分类', N'系统所有分类的维护', N'Y', N'ENABLE', N'70', N'2019-07-11 15:21:30.000', N'1', N'2019-07-11 15:28:21.000', N'1')
+GO
+
 COMMIT
 GO
 
@@ -193,7 +317,12 @@ GO
 
 CREATE TABLE [dbo].[sys_file_info] (
   [file_id] varchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
-  [file_data] ntext COLLATE Chinese_PRC_CI_AS  NULL,
+  [file_bucket] varchar(100) COLLATE Chinese_PRC_CI_AS  NULL,
+  [file_name] varchar(100) COLLATE Chinese_PRC_CI_AS  NULL,
+  [file_suffix] varchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [file_size_kb] bigint  NULL,
+  [final_name] varchar(100) COLLATE Chinese_PRC_CI_AS  NULL,
+  [file_path] varchar(1000) COLLATE Chinese_PRC_CI_AS  NULL,
   [create_time] datetime  NULL,
   [update_time] datetime  NULL,
   [create_user] bigint  NULL,
@@ -202,19 +331,6 @@ CREATE TABLE [dbo].[sys_file_info] (
 GO
 
 ALTER TABLE [dbo].[sys_file_info] SET (LOCK_ESCALATION = TABLE)
-GO
-
-
--- ----------------------------
--- Records of [sys_file_info]
--- ----------------------------
-BEGIN TRANSACTION
-GO
-
-INSERT INTO [dbo].[sys_file_info]  VALUES (N'1', N'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', NULL, NULL, NULL, NULL)
-GO
-
-COMMIT
 GO
 
 
@@ -262,6 +378,7 @@ CREATE TABLE [dbo].[sys_menu] (
   [status] varchar(32) COLLATE Chinese_PRC_CI_AS DEFAULT ('ENABLE') NULL,
   [new_page_flag] varchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
   [open_flag] varchar(32) COLLATE Chinese_PRC_CI_AS  NULL,
+  [system_type] varchar(100) COLLATE Chinese_PRC_CI_AS  NULL,
   [create_time] datetime  NULL,
   [update_time] datetime  NULL,
   [create_user] bigint  NULL,
@@ -279,193 +396,229 @@ GO
 BEGIN TRANSACTION
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'105', N'system', N'0', N'[0],', N'系统管理', N'layui-icon layui-icon-set', N'#', N'20', N'1', N'Y', NULL, N'ENABLE', NULL, N'1', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'105', N'system', N'0', N'[0],', N'系统管理', N'layui-icon layui-icon-set', N'#', N'20', N'1', N'Y', NULL, N'ENABLE', NULL, N'1', N'BASE_SYSTEM', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'106', N'mgr', N'system', N'[0],[system],', N'用户管理', N'', N'/mgr', N'1', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'106', N'mgr', N'system', N'[0],[system],', N'用户管理', N'', N'/mgr', N'10', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'107', N'mgr_add', N'mgr', N'[0],[system],[mgr],', N'添加用户', NULL, N'/mgr/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'107', N'mgr_add', N'mgr', N'[0],[system],[mgr],', N'添加用户', NULL, N'/mgr/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'108', N'mgr_edit', N'mgr', N'[0],[system],[mgr],', N'修改用户', NULL, N'/mgr/edit', N'2', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'108', N'mgr_edit', N'mgr', N'[0],[system],[mgr],', N'修改用户', NULL, N'/mgr/edit', N'2', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'109', N'mgr_delete', N'mgr', N'[0],[system],[mgr],', N'删除用户', NULL, N'/mgr/delete', N'3', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'109', N'mgr_delete', N'mgr', N'[0],[system],[mgr],', N'删除用户', NULL, N'/mgr/delete', N'3', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'110', N'mgr_reset', N'mgr', N'[0],[system],[mgr],', N'重置密码', NULL, N'/mgr/reset', N'4', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'110', N'mgr_reset', N'mgr', N'[0],[system],[mgr],', N'重置密码', NULL, N'/mgr/reset', N'4', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'111', N'mgr_freeze', N'mgr', N'[0],[system],[mgr],', N'冻结用户', NULL, N'/mgr/freeze', N'5', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'111', N'mgr_freeze', N'mgr', N'[0],[system],[mgr],', N'冻结用户', NULL, N'/mgr/freeze', N'5', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'112', N'mgr_unfreeze', N'mgr', N'[0],[system],[mgr],', N'解除冻结用户', NULL, N'/mgr/unfreeze', N'6', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'112', N'mgr_unfreeze', N'mgr', N'[0],[system],[mgr],', N'解除冻结用户', NULL, N'/mgr/unfreeze', N'6', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'113', N'mgr_setRole', N'mgr', N'[0],[system],[mgr],', N'分配角色', NULL, N'/mgr/setRole', N'7', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'113', N'mgr_setRole', N'mgr', N'[0],[system],[mgr],', N'分配角色', NULL, N'/mgr/setRole', N'7', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'114', N'role', N'system', N'[0],[system],', N'角色管理', NULL, N'/role', N'2', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'114', N'role', N'system', N'[0],[system],', N'角色管理', N'', N'/role', N'20', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:12.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'115', N'role_add', N'role', N'[0],[system],[role],', N'添加角色', NULL, N'/role/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'115', N'role_add', N'role', N'[0],[system],[role],', N'添加角色', NULL, N'/role/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:12.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'116', N'role_edit', N'role', N'[0],[system],[role],', N'修改角色', NULL, N'/role/edit', N'2', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'116', N'role_edit', N'role', N'[0],[system],[role],', N'修改角色', NULL, N'/role/edit', N'2', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:12.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'117', N'role_remove', N'role', N'[0],[system],[role],', N'删除角色', NULL, N'/role/remove', N'3', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'117', N'role_remove', N'role', N'[0],[system],[role],', N'删除角色', NULL, N'/role/remove', N'3', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:12.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'118', N'role_setAuthority', N'role', N'[0],[system],[role],', N'配置权限', NULL, N'/role/setAuthority', N'4', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'118', N'role_setAuthority', N'role', N'[0],[system],[role],', N'配置权限', NULL, N'/role/setAuthority', N'4', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:12.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'119', N'menu', N'system', N'[0],[system],', N'菜单管理', NULL, N'/menu', N'4', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'119', N'menu', N'system', N'[0],[system],', N'菜单管理', N'', N'/menu', N'50', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:25.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'120', N'menu_add', N'menu', N'[0],[system],[menu],', N'添加菜单', NULL, N'/menu/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'120', N'menu_add', N'menu', N'[0],[system],[menu],', N'添加菜单', NULL, N'/menu/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:25.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'121', N'menu_edit', N'menu', N'[0],[system],[menu],', N'修改菜单', NULL, N'/menu/edit', N'2', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'121', N'menu_edit', N'menu', N'[0],[system],[menu],', N'修改菜单', NULL, N'/menu/edit', N'2', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:25.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'122', N'menu_remove', N'menu', N'[0],[system],[menu],', N'删除菜单', NULL, N'/menu/remove', N'3', N'3', N'N', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'122', N'menu_remove', N'menu', N'[0],[system],[menu],', N'删除菜单', NULL, N'/menu/remove', N'3', N'3', N'N', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:25.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'128', N'log', N'system', N'[0],[system],', N'业务日志', NULL, N'/log', N'6', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'128', N'log', N'system', N'[0],[system],', N'业务日志', N'', N'/log', N'70', N'2', N'Y', NULL, N'ENABLE', NULL, N'0', N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:39.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'130', N'druid', N'system', N'[0],[system],', N'监控管理', NULL, N'/druid', N'7', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'130', N'druid', N'system', N'[0],[system],', N'监控管理', N'', N'/druid', N'80', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:50:06.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'131', N'dept', N'system', N'[0],[system],', N'部门管理', NULL, N'/dept', N'3', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'131', N'dept', N'system', N'[0],[system],', N'部门管理', N'', N'/dept', N'30', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:53.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'132', N'dict', N'system', N'[0],[system],', N'字典管理', N'', N'/dictType', N'4', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'132', N'dict', N'system', N'[0],[system],', N'字典管理', N'', N'/dictType', N'40', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:04.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'133', N'loginLog', N'system', N'[0],[system],', N'登录日志', NULL, N'/loginLog', N'6', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'133', N'loginLog', N'system', N'[0],[system],', N'登录日志', N'', N'/loginLog', N'60', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:29.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'134', N'log_clean', N'log', N'[0],[system],[log],', N'清空日志', NULL, N'/log/delLog', N'3', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'134', N'log_clean', N'log', N'[0],[system],[log],', N'清空日志', NULL, N'/log/delLog', N'3', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:39.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'135', N'dept_add', N'dept', N'[0],[system],[dept],', N'添加部门', NULL, N'/dept/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'135', N'dept_add', N'dept', N'[0],[system],[dept],', N'添加部门', NULL, N'/dept/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:53.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'136', N'dept_update', N'dept', N'[0],[system],[dept],', N'修改部门', NULL, N'/dept/update', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'136', N'dept_update', N'dept', N'[0],[system],[dept],', N'修改部门', NULL, N'/dept/update', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:53.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'137', N'dept_delete', N'dept', N'[0],[system],[dept],', N'删除部门', NULL, N'/dept/delete', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'137', N'dept_delete', N'dept', N'[0],[system],[dept],', N'删除部门', NULL, N'/dept/delete', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:53.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'138', N'dict_add', N'dict', N'[0],[system],[dict],', N'添加字典', NULL, N'/dictType/addItem', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'138', N'dict_add', N'dict', N'[0],[system],[dict],', N'添加字典', NULL, N'/dictType/addItem', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:04.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'139', N'dict_update', N'dict', N'[0],[system],[dict],', N'修改字典', NULL, N'/dictType/editItem', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'139', N'dict_update', N'dict', N'[0],[system],[dict],', N'修改字典', NULL, N'/dictType/editItem', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:04.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'140', N'dict_delete', N'dict', N'[0],[system],[dict],', N'删除字典', NULL, N'/dictType/delete', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'140', N'dict_delete', N'dict', N'[0],[system],[dict],', N'删除字典', NULL, N'/dictType/delete', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:04.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'141', N'notice', N'system', N'[0],[system],', N'通知管理', NULL, N'/notice', N'9', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'141', N'notice', N'system', N'[0],[system],', N'通知管理', N'', N'/notice', N'90', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:44.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'142', N'notice_add', N'notice', N'[0],[system],[notice],', N'添加通知', NULL, N'/notice/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'142', N'notice_add', N'notice', N'[0],[system],[notice],', N'添加通知', NULL, N'/notice/add', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:44.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'143', N'notice_update', N'notice', N'[0],[system],[notice],', N'修改通知', NULL, N'/notice/update', N'2', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'143', N'notice_update', N'notice', N'[0],[system],[notice],', N'修改通知', NULL, N'/notice/update', N'2', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:44.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'144', N'notice_delete', N'notice', N'[0],[system],[notice],', N'删除通知', NULL, N'/notice/delete', N'3', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'144', N'notice_delete', N'notice', N'[0],[system],[notice],', N'删除通知', NULL, N'/notice/delete', N'3', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:44.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'145', N'sys_message', N'dashboard', N'[0],[dashboard],', N'消息页', N'layui-icon layui-icon-tips', N'/system/notice', N'30', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 17:30:28.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'145', N'sys_message', N'dashboard', N'[0],[dashboard],', N'消息通知', N'layui-icon layui-icon-tips', N'/system/notice', N'30', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-04-08 22:49:39.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'149', N'api_mgr', N'dev_tools', N'[0],[dev_tools],', N'接口文档', N'fa-leaf', N'/swagger-ui.html', N'2', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:31:59.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'149', N'api_mgr', N'dev_tools', N'[0],[dev_tools],', N'接口文档', N'fa-leaf', N'/swagger-ui.html', N'30', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-15 18:13:00.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'150', N'to_menu_edit', N'menu', N'[0],[system],[menu],', N'菜单编辑跳转', N'', N'/menu/menu_edit', N'4', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'150', N'to_menu_edit', N'menu', N'[0],[system],[menu],', N'菜单编辑跳转', N'', N'/menu/menu_edit', N'4', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:25.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'151', N'menu_list', N'menu', N'[0],[system],[menu],', N'菜单列表', N'', N'/menu/list', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'151', N'menu_list', N'menu', N'[0],[system],[menu],', N'菜单列表', N'', N'/menu/list', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:25.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'152', N'to_dept_update', N'dept', N'[0],[system],[dept],', N'修改部门跳转', N'', N'/dept/dept_update', N'4', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'152', N'to_dept_update', N'dept', N'[0],[system],[dept],', N'修改部门跳转', N'', N'/dept/dept_update', N'4', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:53.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'153', N'dept_list', N'dept', N'[0],[system],[dept],', N'部门列表', N'', N'/dept/list', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'153', N'dept_list', N'dept', N'[0],[system],[dept],', N'部门列表', N'', N'/dept/list', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:53.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'154', N'dept_detail', N'dept', N'[0],[system],[dept],', N'部门详情', N'', N'/dept/detail', N'6', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'154', N'dept_detail', N'dept', N'[0],[system],[dept],', N'部门详情', N'', N'/dept/detail', N'6', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:53.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'155', N'to_dict_edit', N'dict', N'[0],[system],[dict],', N'修改菜单跳转', N'', N'/dict/dict_edit', N'4', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'155', N'to_dict_edit', N'dict', N'[0],[system],[dict],', N'修改菜单跳转', N'', N'/dict/dict_edit', N'4', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:04.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'156', N'dict_list', N'dict', N'[0],[system],[dict],', N'字典列表', N'', N'/dict/list', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'156', N'dict_list', N'dict', N'[0],[system],[dict],', N'字典列表', N'', N'/dict/list', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:04.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'157', N'dict_detail', N'dict', N'[0],[system],[dict],', N'字典详情', N'', N'/dict/detail', N'6', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'157', N'dict_detail', N'dict', N'[0],[system],[dict],', N'字典详情', N'', N'/dict/detail', N'6', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:04.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'158', N'log_list', N'log', N'[0],[system],[log],', N'日志列表', N'', N'/log/list', N'2', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'158', N'log_list', N'log', N'[0],[system],[log],', N'日志列表', N'', N'/log/list', N'2', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:39.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'159', N'log_detail', N'log', N'[0],[system],[log],', N'日志详情', N'', N'/log/detail', N'3', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'159', N'log_detail', N'log', N'[0],[system],[log],', N'日志详情', N'', N'/log/detail', N'3', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:39.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'160', N'del_login_log', N'loginLog', N'[0],[system],[loginLog],', N'清空登录日志', N'', N'/loginLog/delLoginLog', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'160', N'del_login_log', N'loginLog', N'[0],[system],[loginLog],', N'清空登录日志', N'', N'/loginLog/delLoginLog', N'1', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:29.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'161', N'login_log_list', N'loginLog', N'[0],[system],[loginLog],', N'登录日志列表', N'', N'/loginLog/list', N'2', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'161', N'login_log_list', N'loginLog', N'[0],[system],[loginLog],', N'登录日志列表', N'', N'/loginLog/list', N'2', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:49:29.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'162', N'to_role_edit', N'role', N'[0],[system],[role],', N'修改角色跳转', N'', N'/role/role_edit', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'162', N'to_role_edit', N'role', N'[0],[system],[role],', N'修改角色跳转', N'', N'/role/role_edit', N'5', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:12.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'163', N'to_role_assign', N'role', N'[0],[system],[role],', N'角色分配跳转', N'', N'/role/role_assign', N'6', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'163', N'to_role_assign', N'role', N'[0],[system],[role],', N'角色分配跳转', N'', N'/role/role_assign', N'6', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:12.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'164', N'role_list', N'role', N'[0],[system],[role],', N'角色列表', N'', N'/role/list', N'7', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'164', N'role_list', N'role', N'[0],[system],[role],', N'角色列表', N'', N'/role/list', N'7', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:12.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'165', N'to_assign_role', N'mgr', N'[0],[system],[mgr],', N'分配角色跳转', N'', N'/mgr/role_assign', N'8', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'165', N'to_assign_role', N'mgr', N'[0],[system],[mgr],', N'分配角色跳转', N'', N'/mgr/role_assign', N'8', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'166', N'to_user_edit', N'mgr', N'[0],[system],[mgr],', N'编辑用户跳转', N'', N'/mgr/user_edit', N'9', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'166', N'to_user_edit', N'mgr', N'[0],[system],[mgr],', N'编辑用户跳转', N'', N'/mgr/user_edit', N'9', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'167', N'mgr_list', N'mgr', N'[0],[system],[mgr],', N'用户列表', N'', N'/mgr/list', N'10', N'3', N'N', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:32:27.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'167', N'mgr_list', N'mgr', N'[0],[system],[mgr],', N'用户列表', N'', N'/mgr/list', N'10', N'3', N'N', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-06-30 13:48:07.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'171', N'dev_tools', N'0', N'[0],', N'API管理', N'layui-icon layui-icon-app', N'#', N'30', N'1', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:31:59.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'171', N'dev_tools', N'0', N'[0],', N'开发管理', N'layui-icon layui-icon-code-circle', N'#', N'30', N'1', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-05-11 13:40:27.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'172', N'dashboard', N'0', N'[0],', N'Dashboard', N'layui-icon layui-icon-home', N'#', N'10', N'1', N'Y', NULL, N'ENABLE', NULL, NULL, NULL, N'2019-03-29 16:26:22.000', NULL, N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'172', N'dashboard', N'0', N'[0],', N'主控面板', N'layui-icon layui-icon-home', N'#', N'10', N'1', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', NULL, N'2019-04-08 22:48:15.000', NULL, N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'1110777136265838594', N'demos_show', N'0', N'[0],', N'demos展示', N'layui-icon layui-icon-fire', N'#', N'40', N'1', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 13:34:41.000', N'2019-03-27 13:34:59.000', N'1', N'1')
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110777136265838594', N'demos_show', N'dev_tools', N'[0],[dev_tools],', N'模板页面', N'layui-icon layui-icon-template', N'#', N'40', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-03-27 13:34:41.000', N'2019-06-15 18:13:11.000', N'1', N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'1110777366856089602', N'excel_import', N'demos_show', N'[0],[demos_show],', N'excel导入', N'', N'/excel/import', N'10', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 13:35:36.000', NULL, N'1', NULL)
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110777366856089602', N'excel_import', N'demos_show', N'[0],[dev_tools],[demos_show],', N'excel导入', N'', N'/excel/import', N'10', N'3', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-03-27 13:35:36.000', N'2019-06-15 18:13:11.000', N'1', N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'1110777491464667137', N'excel_export', N'demos_show', N'[0],[demos_show],', N'excel导出', N'', N'/excel/export', N'20', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 13:36:06.000', NULL, N'1', NULL)
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110777491464667137', N'excel_export', N'demos_show', N'[0],[dev_tools],[demos_show],', N'excel导出', N'', N'/excel/export', N'20', N'3', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-03-27 13:36:06.000', N'2019-06-15 18:13:11.000', N'1', N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'1110787391943098370', N'advanced_form', N'demos_show', N'[0],[demos_show],', N'高级表单', N'', N'/egForm', N'30', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 14:15:26.000', NULL, N'1', NULL)
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110787391943098370', N'advanced_form', N'demos_show', N'[0],[dev_tools],[demos_show],', N'高级表单', N'', N'/egForm', N'30', N'3', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-03-27 14:15:26.000', N'2019-06-15 18:13:11.000', N'1', N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'1110839216310329346', N'pdf_view', N'demos_show', N'[0],[demos_show],', N'pdf预览', N'', N'/loadPdfFile', N'40', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-27 17:41:22.000', NULL, N'1', NULL)
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1110839216310329346', N'pdf_view', N'demos_show', N'[0],[dev_tools],[demos_show],', N'文档预览', N'', N'/loadPdfFile', N'40', N'3', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-03-27 17:41:22.000', N'2019-06-15 18:13:11.000', N'1', N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'1111545968697860098', N'console', N'dashboard', N'[0],[dashboard],', N'控制台', N'', N'/system/console', N'10', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-29 16:29:45.000', NULL, N'1', NULL)
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1111545968697860098', N'console', N'dashboard', N'[0],[dashboard],', N'项目介绍', N'', N'/system/console', N'10', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-03-29 16:29:45.000', N'2019-04-09 20:57:08.000', N'1', N'1')
 GO
 
-INSERT INTO [dbo].[sys_menu]  VALUES (N'1111546189892870145', N'console2', N'dashboard', N'[0],[dashboard],', N'分析页', N'', N'/system/console2', N'20', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'2019-03-29 16:30:38.000', NULL, N'1', NULL)
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1111546189892870145', N'console2', N'dashboard', N'[0],[dashboard],', N'统计报表', N'', N'/system/console2', N'20', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-03-29 16:30:38.000', N'2019-04-08 22:49:48.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1127085735660421122', N'code_generate', N'dev_tools', N'[0],[dev_tools],', N'代码生成', N'', N'/gen', N'20', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-05-11 13:39:14.000', N'2019-06-15 18:12:45.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1139826657964593154', N'meta_data', N'dev_tools', N'[0],[dev_tools],', N'系统配置', N'', N'#', N'10', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-06-15 17:27:07.000', N'2019-06-15 18:12:35.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1139827152854716418', N'data_source', N'meta_data', N'[0],[dev_tools],[meta_data],', N'数据源管理', N'', N'/databaseInfo', N'10', N'3', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-06-15 17:29:05.000', N'2019-06-15 18:12:35.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1142957882422112257', N'SYS_CONFIG', N'meta_data', N'[0],[dev_tools],[meta_data],', N'参数配置', N'fa-star', N'/sysConfig', N'5', N'3', N'Y', N'', N'ENABLE', N'', N'', N'BASE_SYSTEM', N'2019-06-24 08:49:28.000', N'2019-06-24 08:57:34.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1142957882422112258', N'SYS_CONFIG_ADD', N'SYS_CONFIG', N'[0],[dev_tools],[meta_data],[SYS_CONFIG],', N'参数配置添加', N'fa-star', N'', N'999', N'4', N'N', N'', N'ENABLE', N'', N'', N'BASE_SYSTEM', N'2019-06-24 08:49:28.000', N'2019-06-24 08:57:34.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1142957882422112259', N'SYS_CONFIG_EDIT', N'SYS_CONFIG', N'[0],[dev_tools],[meta_data],[SYS_CONFIG],', N'参数配置修改', N'fa-star', N'', N'999', N'4', N'N', N'', N'ENABLE', N'', N'', N'BASE_SYSTEM', N'2019-06-24 08:49:28.000', N'2019-06-24 08:57:34.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1142957882426306562', N'SYS_CONFIG_DELETE', N'SYS_CONFIG', N'[0],[dev_tools],[meta_data],[SYS_CONFIG],', N'参数配置删除', N'fa-star', N'', N'999', N'4', N'N', N'', N'ENABLE', N'', N'', N'BASE_SYSTEM', N'2019-06-24 08:49:28.000', N'2019-06-24 08:57:34.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1144441072852684801', N'SYS_POSITION', N'system', N'[0],[system],', N'职位管理', N'fa-star', N'/position', N'35', N'2', N'Y', N'', N'ENABLE', N'', N'', N'BASE_SYSTEM', N'2019-06-28 11:03:09.000', N'2019-06-28 11:06:42.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1144441072852684802', N'SYS_POSITION_ADD', N'SYS_POSITION', N'[0],[system],[SYS_POSITION],', N'职位表添加', N'fa-star', N'', N'999', N'3', N'N', N'', N'ENABLE', N'', N'', N'BASE_SYSTEM', N'2019-06-28 11:03:09.000', N'2019-06-28 11:06:42.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1144441072852684803', N'SYS_POSITION_EDIT', N'SYS_POSITION', N'[0],[system],[SYS_POSITION],', N'职位表修改', N'fa-star', N'', N'999', N'3', N'N', N'', N'ENABLE', N'', N'', N'BASE_SYSTEM', N'2019-06-28 11:03:09.000', N'2019-06-28 11:06:42.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1144441072852684804', N'SYS_POSITION_DELETE', N'SYS_POSITION', N'[0],[system],[SYS_POSITION],', N'职位表删除', N'fa-star', N'', N'999', N'3', N'N', N'', N'ENABLE', N'', N'', N'BASE_SYSTEM', N'2019-06-28 11:03:09.000', N'2019-06-28 11:06:42.000', N'1', N'1')
+GO
+
+INSERT INTO [dbo].[sys_menu]  VALUES (N'1149955324929765378', N'system_info', N'dashboard', N'[0],[dashboard],', N'系统监控', N'layui-icon-star-fill', N'/system/systemInfo', N'40', N'2', N'Y', NULL, N'ENABLE', NULL, NULL, N'BASE_SYSTEM', N'2019-07-13 16:14:49.000', NULL, N'1', NULL)
 GO
 
 COMMIT
@@ -535,6 +688,47 @@ GO
 
 
 -- ----------------------------
+-- Table structure for sys_position
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_position]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_position]
+GO
+
+CREATE TABLE [dbo].[sys_position] (
+  [position_id] bigint  NOT NULL,
+  [name] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [code] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [sort] bigint  NULL,
+  [status] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [remark] varchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [create_time] datetime  NULL,
+  [create_user] bigint  NULL,
+  [update_time] datetime  NULL,
+  [update_user] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[sys_position] SET (LOCK_ESCALATION = TABLE)
+GO
+
+
+-- ----------------------------
+-- Records of [sys_position]
+-- ----------------------------
+BEGIN TRANSACTION
+GO
+
+INSERT INTO [dbo].[sys_position]  VALUES (N'1', N'董事长', N'President', N'1', N'ENABLE', N'', N'2019-06-27 18:14:43.000', N'1', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[sys_position]  VALUES (N'2', N'总经理', N'GM', N'2', N'ENABLE', NULL, N'2019-06-27 18:14:43.000', N'1', NULL, NULL)
+GO
+
+COMMIT
+GO
+
+
+-- ----------------------------
 -- Table structure for sys_relation
 -- ----------------------------
 IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_relation]') AND type IN ('U'))
@@ -558,349 +752,286 @@ GO
 BEGIN TRANSACTION
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922291826689', N'105', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281010921473', N'105', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922308603906', N'106', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281031892994', N'132', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922316992514', N'107', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281044475906', N'138', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922321186818', N'108', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281057058818', N'139', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922329575426', N'109', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281069641730', N'140', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922337964034', N'110', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281082224642', N'155', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922342158337', N'111', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281099001858', N'156', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922350546946', N'112', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281111584770', N'157', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922354741249', N'113', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281124167682', N'141', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922363129858', N'165', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281136750593', N'142', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922371518465', N'166', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281149333506', N'143', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922375712770', N'167', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281161916418', N'144', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922384101377', N'114', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281174499329', N'171', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922388295681', N'115', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281187082241', N'149', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922396684289', N'116', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281199665154', N'1127085735660421122', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922405072897', N'117', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281216442370', N'172', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922413461505', N'118', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281229025281', N'145', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922417655810', N'162', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281245802498', N'1111545968697860098', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922426044418', N'163', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1138325281258385410', N'1111546189892870145', N'5')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922430238722', N'164', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346819837954', N'105', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922430238723', N'119', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346836615169', N'106', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922447015937', N'120', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346849198081', N'107', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922451210242', N'121', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346861780994', N'108', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922459598850', N'122', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346878558210', N'109', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922463793154', N'150', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346895335426', N'110', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922472181762', N'151', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346907918338', N'111', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922476376065', N'128', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346920501250', N'112', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922480570369', N'134', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346928889858', N'113', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922488958977', N'158', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346941472769', N'165', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922497347586', N'159', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346954055681', N'166', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922501541890', N'130', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346966638593', N'167', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922501541891', N'131', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346979221505', N'114', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922518319106', N'135', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955346995998722', N'115', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922526707713', N'136', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347004387329', N'116', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922530902017', N'137', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347016970241', N'117', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922535096321', N'152', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347029553154', N'118', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922543484930', N'153', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347042136065', N'162', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922547679233', N'154', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347054718978', N'163', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922556067841', N'132', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347067301889', N'164', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922560262146', N'138', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347084079106', N'119', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922564456450', N'139', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347096662018', N'120', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922568650754', N'140', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347113439234', N'121', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922577039361', N'155', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347138605057', N'122', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922577039362', N'156', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347167965185', N'150', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922577039363', N'157', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347197325314', N'151', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922602205185', N'133', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347222491138', N'128', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922610593794', N'160', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347243462658', N'134', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922610593795', N'161', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347277017089', N'158', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922618982402', N'141', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347302182913', N'159', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922627371009', N'142', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347331543042', N'130', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922631565313', N'143', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347360903170', N'131', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1071348922639953922', N'144', N'5')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347390263298', N'135', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349351919618', N'105', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347419623425', N'136', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349364502529', N'106', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347444789249', N'137', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349381279746', N'107', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347469955074', N'152', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349393862658', N'108', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347495120897', N'153', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349410639873', N'109', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347520286721', N'154', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349427417089', N'110', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347549646850', N'132', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349440000001', N'111', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347570618370', N'138', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349460971521', N'112', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347599978498', N'139', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349473554433', N'113', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347633532930', N'140', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349490331650', N'165', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347658698753', N'155', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349502914561', N'166', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347688058881', N'156', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349519691778', N'167', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347713224705', N'157', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349532274689', N'114', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347738390529', N'133', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349544857601', N'115', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347763556354', N'160', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349557440514', N'116', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347788722178', N'161', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349570023425', N'117', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347813888001', N'141', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349586800641', N'118', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347843248129', N'142', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349599383554', N'162', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347872608258', N'143', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349616160769', N'163', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347897774082', N'144', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349628743682', N'164', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347922939906', N'1144441072852684801', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349645520897', N'119', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347948105730', N'1144441072852684802', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349662298113', N'120', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347973271553', N'1144441072852684803', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349679075329', N'121', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955347998437378', N'1144441072852684804', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349700046849', N'122', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348027797506', N'171', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349716824065', N'150', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348052963330', N'149', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349737795586', N'151', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348073934850', N'1110777136265838594', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349758767106', N'128', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348090712065', N'1110777366856089602', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349779738626', N'134', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348107489281', N'1110777491464667137', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349800710146', N'158', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348124266498', N'1110787391943098370', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349821681666', N'159', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348141043714', N'1110839216310329346', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349846847490', N'130', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348157820930', N'1127085735660421122', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349863624706', N'131', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348174598146', N'1139826657964593154', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349884596226', N'135', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348191375362', N'1139827152854716418', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349901373442', N'136', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348208152578', N'1142957882422112257', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349922344962', N'137', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348229124098', N'1142957882422112258', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349939122178', N'152', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348245901314', N'1142957882422112259', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349960093697', N'153', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348262678530', N'1142957882426306562', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349976870914', N'154', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348283650049', N'172', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546349993648129', N'132', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348308815874', N'145', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350010425346', N'138', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348329787394', N'1111545968697860098', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350031396865', N'139', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348346564610', N'1111546189892870145', N'1')
 GO
 
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350048174081', N'140', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350069145602', N'155', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350085922818', N'156', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350106894338', N'157', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350127865858', N'133', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350144643073', N'160', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350169808898', N'161', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350186586113', N'141', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350211751937', N'142', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350232723458', N'143', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350262083585', N'144', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350278860801', N'171', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350299832322', N'149', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350324998146', N'172', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350345969665', N'145', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350371135489', N'1111545968697860098', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350387912705', N'1111546189892870145', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350404689921', N'1110777136265838594', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350421467137', N'1110777366856089602', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350446632962', N'1110777491464667137', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350459215873', N'1110787391943098370', N'1')
-GO
-
-INSERT INTO [dbo].[sys_relation]  VALUES (N'1111546350471798786', N'1110839216310329346', N'1')
+INSERT INTO [dbo].[sys_relation]  VALUES (N'1149955348363341825', N'1149955324929765378', N'1')
 GO
 
 COMMIT
@@ -941,7 +1072,7 @@ GO
 INSERT INTO [dbo].[sys_role]  VALUES (N'1', N'0', N'超级管理员', N'administrator', N'1', N'1', NULL, NULL, NULL, NULL)
 GO
 
-INSERT INTO [dbo].[sys_role]  VALUES (N'5', N'1', N'临时', N'temp', N'2', NULL, NULL, NULL, NULL, NULL)
+INSERT INTO [dbo].[sys_role]  VALUES (N'5', N'1', N'第三方登录', N'oauth_role', N'2', NULL, NULL, NULL, NULL, NULL)
 GO
 
 COMMIT
@@ -987,10 +1118,68 @@ GO
 BEGIN TRANSACTION
 GO
 
-INSERT INTO [dbo].[sys_user]  VALUES (N'1', N'1', N'admin', N'1d6b1208c7d151d335790276a18e3d99', N'q6taw', N'stylefeng', N'2018-11-16 00:00:00.000', N'M', N'sn93@qq.com', N'18200000000', N'1', N'27', N'ENABLE', N'2016-01-29 08:49:53.000', NULL, N'2018-12-28 22:52:24.000', N'24', N'25')
+INSERT INTO [dbo].[sys_user]  VALUES (N'1', N'1124606971782160385', N'admin', N'1d6b1208c7d151d335790276a18e3d99', N'q6taw', N'stylefeng', N'2018-11-16 00:00:00.000', N'M', N'sn93@qq.com', N'18200000000', N'1', N'27', N'ENABLE', N'2016-01-29 08:49:53.000', NULL, N'2018-12-28 22:52:24.000', N'24', N'25')
 GO
 
 COMMIT
+GO
+
+
+-- ----------------------------
+-- Table structure for sys_user_pos
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[sys_user_pos]') AND type IN ('U'))
+	DROP TABLE [dbo].[sys_user_pos]
+GO
+
+CREATE TABLE [dbo].[sys_user_pos] (
+  [user_pos_id] bigint  NOT NULL,
+  [user_id] bigint  NOT NULL,
+  [pos_id] bigint  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[sys_user_pos] SET (LOCK_ESCALATION = TABLE)
+GO
+
+
+-- ----------------------------
+-- Records of [sys_user_pos]
+-- ----------------------------
+BEGIN TRANSACTION
+GO
+
+INSERT INTO [dbo].[sys_user_pos]  VALUES (N'1144495219551617025', N'1', N'1')
+GO
+
+COMMIT
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table database_info
+-- ----------------------------
+ALTER TABLE [dbo].[database_info] ADD CONSTRAINT [PK__database__831C9652EE8A62B9] PRIMARY KEY CLUSTERED ([db_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table oauth_user_info
+-- ----------------------------
+ALTER TABLE [dbo].[oauth_user_info] ADD CONSTRAINT [PK__oauth_us__C579A02C89D1891D] PRIMARY KEY CLUSTERED ([oauth_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table sys_config
+-- ----------------------------
+ALTER TABLE [dbo].[sys_config] ADD CONSTRAINT [PK__sys_conf__3213E83FD79CE053] PRIMARY KEY CLUSTERED ([id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
 GO
 
 
@@ -1042,7 +1231,7 @@ GO
 -- ----------------------------
 -- Primary Key structure for table sys_menu
 -- ----------------------------
-ALTER TABLE [dbo].[sys_menu] ADD CONSTRAINT [sys_menu_PRIMARY] PRIMARY KEY NONCLUSTERED ([menu_id])
+ALTER TABLE [dbo].[sys_menu] ADD CONSTRAINT [PK__sys_menu__4CA0FADC7116E3EA] PRIMARY KEY CLUSTERED ([menu_id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
 ON [PRIMARY]
 GO
@@ -1061,6 +1250,15 @@ GO
 -- Primary Key structure for table sys_operation_log
 -- ----------------------------
 ALTER TABLE [dbo].[sys_operation_log] ADD CONSTRAINT [sys_operation_log_PRIMARY] PRIMARY KEY NONCLUSTERED ([operation_log_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table sys_position
+-- ----------------------------
+ALTER TABLE [dbo].[sys_position] ADD CONSTRAINT [PK__sys_posi__99A0E7A4BE1E80A7] PRIMARY KEY CLUSTERED ([position_id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
 ON [PRIMARY]
 GO
@@ -1088,6 +1286,15 @@ GO
 -- Primary Key structure for table sys_user
 -- ----------------------------
 ALTER TABLE [dbo].[sys_user] ADD CONSTRAINT [sys_user_PRIMARY] PRIMARY KEY NONCLUSTERED ([user_id])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table sys_user_pos
+-- ----------------------------
+ALTER TABLE [dbo].[sys_user_pos] ADD CONSTRAINT [PK__sys_user__B0F68D73593F4326] PRIMARY KEY CLUSTERED ([user_pos_id])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
 ON [PRIMARY]
 GO
