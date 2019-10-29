@@ -15,7 +15,7 @@
  */
 package cn.stylefeng.guns.sys.modular.system.controller;
 
-import cn.stylefeng.guns.sys.core.properties.GunsProperties;
+import cn.stylefeng.guns.base.consts.ConstantsContext;
 import cn.stylefeng.roses.core.util.FileUtil;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -41,9 +41,6 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/kaptcha")
 public class KaptchaController {
-
-    @Autowired
-    private GunsProperties gunsProperties;
 
     @Autowired
     private Producer producer;
@@ -113,7 +110,7 @@ public class KaptchaController {
      */
     @RequestMapping("/{pictureId}")
     public void renderPicture(@PathVariable("pictureId") String pictureId, HttpServletResponse response) {
-        String path = gunsProperties.getFileUploadPath() + pictureId;
+        String path = ConstantsContext.getFileUploadPath() + pictureId;
         try {
             byte[] bytes = FileUtil.toByteArray(path);
             response.getOutputStream().write(bytes);

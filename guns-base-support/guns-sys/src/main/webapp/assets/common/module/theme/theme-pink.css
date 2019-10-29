@@ -11,7 +11,7 @@
 .layui-layout-admin .layui-header .layui-logo {
     background-color: #FB7299;
     color: #fff;
-    box-shadow: none;
+    box-shadow: none !important;
 }
 
 /** header样式 */
@@ -56,9 +56,8 @@
     color: #fff;
 }
 
-.layui-nav-tree .layui-nav-bar {
+.layui-nav-tree .layui-nav-bar, .layui-nav-tree > .layui-nav-item > a:before {
     background-color: #fff;
-    width: 4px;
 }
 
 .layui-side .layui-nav-itemed > a, .layui-nav-tree .layui-nav-title a, .layui-nav-tree .layui-nav-title a:hover, .layui-side .layui-nav-item.layui-this > a {
@@ -67,6 +66,10 @@
 
 .layui-layout-admin.admin-nav-mini .layui-side .layui-nav li.layui-nav-itemed > a {
     background: rgba(255, 255, 255, .2);
+}
+
+.layui-nav-tree .layui-nav-item .layui-nav-child {
+    background-color: rgba(0, 0, 0, .03) !important;
 }
 
 .layui-layout-admin .layui-side .layui-nav .layui-nav-itemed > .layui-nav-child {
@@ -79,7 +82,7 @@
 }
 
 /** 移动设备样式 */
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
 
     .layui-layout-admin.admin-nav-mini .layui-side .layui-nav li.layui-nav-itemed > a {
         background: transparent;
@@ -105,7 +108,7 @@
 .layui-layer.layui-layer-admin .layui-layer-title {
     background-color: #fff;
     color: #333;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #f6f6f6;
 }
 
 /** 按钮颜色 */
@@ -199,11 +202,15 @@
 
 /** 复选框 */
 .layui-form-checked[lay-skin=primary] i {
-    border-color: #FB7299;
+    border-color: #FB7299 !important;
     background-color: #FB7299;
 }
 
 .layui-form-checkbox[lay-skin=primary] i:hover {
+    border-color: #FB7299;
+}
+
+.layui-form-checkbox[lay-skin=primary]:hover i {
     border-color: #FB7299;
 }
 

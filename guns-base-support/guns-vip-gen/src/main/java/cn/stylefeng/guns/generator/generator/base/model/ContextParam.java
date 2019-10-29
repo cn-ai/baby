@@ -51,4 +51,14 @@ public class ContextParam {
      */
     private String modularName;
 
+    /**
+     * 是否开启swagger注解
+     */
+    private Boolean swagger = false;
+
+    /**
+     * 是否生成远程接口
+     */
+    private Boolean remote = true;
+
 }

@@ -105,6 +105,11 @@ public interface IConstantFactory {
     String getDictsByName(String name, String code);
 
     /**
+     * 获取字典名称
+     */
+    String getDictNameByCode(String dictCode);
+
+    /**
      * 获取性别名称
      */
     String getSexName(String sexCode);
@@ -143,5 +148,10 @@ public interface IConstantFactory {
      * 获取用户的职位名称
      */
     String getPositionName(Long userId);
+
+    /**
+     * 获取用户的职位ids
+     */
+    String getPositionIds(Long userId);
 
 }

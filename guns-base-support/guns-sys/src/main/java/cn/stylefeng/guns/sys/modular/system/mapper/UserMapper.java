@@ -3,6 +3,7 @@ package cn.stylefeng.guns.sys.modular.system.mapper;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.roses.core.datascope.DataScope;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,7 +32,21 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 根据条件查询用户列表
      */
-    Page<Map<String, Object>> selectUsers(@Param("page") Page page, @Param("dataScope") DataScope dataScope, @Param("name") String name, @Param("beginTime") String beginTime, @Param("endTime") String endTime, @Param("deptId") Long deptId);
+    Page<Map<String, Object>> selectUsers(@Param("page") Page page,
+                                          @Param("dataScope") DataScope dataScope,
+                                          @Param("name") String name,
+                                          @Param("beginTime") String beginTime,
+                                          @Param("endTime") String endTime,
+                                          @Param("deptId") Long deptId);
+
+    /**
+     * 根据条件查询用户列表（根据角色）
+     */
+    Page<Map<String, Object>> selectUsersByRole(@Param("page") Page page,
+                                                @Param("name") String name,
+                                                @Param("beginTime") String beginTime,
+                                                @Param("endTime") String endTime,
+                                                @Param("roleId") String roleId);
 
     /**
      * 设置用户的角色
@@ -43,4 +58,8 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User getByAccount(@Param("account") String account);
 
+    /**
+     * 选择办理人
+     */
+    IPage<Map<String, Object>> listUserAndRoleExpectAdmin(Page page);
 }

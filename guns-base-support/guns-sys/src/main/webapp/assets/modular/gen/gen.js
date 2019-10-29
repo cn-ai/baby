@@ -89,9 +89,35 @@ layui.use(['layer', 'ax', 'form', 'laydate', 'element', 'table'], function () {
         var removePrefix = $("#removePrefix").val();
         var dataSourceId = $("#dataSourceId").val();
         var modularName = $("#modularName").val();
+        var version = $("input[name='version']:checked").val();
+        var swagger = $("input[name='swagger']:checked").val();
+        var remote = $("input[name='remote']:checked").val();
 
         window.location.href = Feng.ctxPath + "/execute?dataSourceId=" + dataSourceId + "&author="
-            + author + "&proPackage=" + proPackage + "&removePrefix=" + removePrefix + "&tables=" + Code.tableNames + "&modularName=" + modularName;
+            + author + "&proPackage=" + proPackage + "&removePrefix=" + removePrefix + "&tables=" + Code.tableNames + "&modularName=" + modularName
+            + "&version=" + version + "&swagger=" + swagger + "&remote=" + remote;
     });
+
+    //初始化单体选择
+    var activeSingleSelect = function () {
+        $("#microDiv").hide();
+    };
+
+    //初始化微服务选择
+    var activeMicroSelect = function () {
+        $("#microDiv").show();
+    };
+
+    //监听如果选择微服务版本，则显示是否开启swagger
+    form.on('radio(versionChecked)', function (data) {
+        if (data.value === "single") {
+            activeSingleSelect();
+        } else {
+            activeMicroSelect();
+        }
+    });
+
+    //默认激活单体
+    activeSingleSelect();
 
 });

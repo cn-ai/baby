@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.sys.modular.system.mapper;
 
+import cn.stylefeng.guns.base.pojo.node.LayuiTreeNode;
 import cn.stylefeng.guns.base.pojo.node.TreeviewNode;
 import cn.stylefeng.guns.base.pojo.node.ZTreeNode;
 import cn.stylefeng.guns.sys.modular.system.entity.Dept;
@@ -24,6 +25,11 @@ public interface DeptMapper extends BaseMapper<Dept> {
      * 获取ztree的节点列表
      */
     List<ZTreeNode> tree();
+
+    /**
+     * 获取layui树形节点
+     */
+    List<LayuiTreeNode> layuiTree();
 
     /**
      * 获取所有部门列表

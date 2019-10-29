@@ -1,6 +1,6 @@
 package cn.stylefeng.guns.sys.modular.third.controller;
 
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
 import cn.stylefeng.guns.sys.modular.third.factory.OAuthRequestFactory;
 import cn.stylefeng.guns.sys.modular.third.service.LoginService;
 import cn.stylefeng.guns.sys.modular.third.service.OauthUserInfoService;
@@ -64,9 +64,10 @@ public class OAuthController extends BaseController {
         log.info("第三方登录回调成功：" + oauthUser);
 
         //进行第三方用户登录过程
-        loginService.oauthLogin(oauthUser);
+        String token = loginService.oauthLogin(oauthUser);
 
-        return "redirect:/";
+        //跳转到token登录接口
+        return REDIRECT + "/sysTokenLogin?token=" + token;
     }
 
     /**
@@ -78,7 +79,7 @@ public class OAuthController extends BaseController {
     @RequestMapping("/avatar")
     public String avatar() {
 
-        Long userId = ShiroKit.getUserNotNull().getId();
+        Long userId = LoginContextHolder.getContext().getUser().getId();
 
         //获取第三方登录用户的头像
         String avatarUrl = oauthUserInfoService.getAvatarUrl(userId);

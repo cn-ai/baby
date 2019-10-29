@@ -16,15 +16,17 @@
 package cn.stylefeng.guns.sys.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.stylefeng.guns.base.auth.annotion.Permission;
 import cn.stylefeng.guns.base.log.BussinessLog;
-import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
-import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
-import cn.stylefeng.guns.sys.modular.system.entity.Dept;
-import cn.stylefeng.guns.base.shiro.annotion.Permission;
-import cn.stylefeng.guns.sys.core.constant.dictmap.DeptDict;
+import cn.stylefeng.guns.base.pojo.node.LayuiTreeNode;
 import cn.stylefeng.guns.base.pojo.node.TreeviewNode;
 import cn.stylefeng.guns.base.pojo.node.ZTreeNode;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
+import cn.stylefeng.guns.sys.core.constant.dictmap.DeptDict;
+import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
+import cn.stylefeng.guns.sys.modular.system.entity.Dept;
+import cn.stylefeng.guns.sys.modular.system.factory.LayuiTreeFactory;
 import cn.stylefeng.guns.sys.modular.system.model.DeptDto;
 import cn.stylefeng.guns.sys.modular.system.service.DeptService;
 import cn.stylefeng.guns.sys.modular.system.warpper.DeptTreeWrapper;
@@ -104,10 +106,28 @@ public class DeptController extends BaseController {
     }
 
     /**
-     * 获取部门的tree列表，ztree格式
+     * 获取部门的tree列表，layuiTree格式
      *
      * @author fengshuonan
      * @Date 2018/12/23 4:56 PM
+     */
+    @RequestMapping(value = "/layuiTree")
+    @ResponseBody
+    public List<LayuiTreeNode> layuiTree() {
+
+        List<LayuiTreeNode> list = this.deptService.layuiTree();
+        list.add(LayuiTreeFactory.createRoot());
+
+        DefaultTreeBuildFactory<LayuiTreeNode> treeBuildFactory = new DefaultTreeBuildFactory<>();
+        treeBuildFactory.setRootParentId("-1");
+        return treeBuildFactory.doTreeBuild(list);
+    }
+
+    /**
+     * 获取部门的tree列表，ztree格式
+     *
+     * @author fengshuonan
+     * @Date 2019-8-27 15:24
      */
     @RequestMapping(value = "/tree")
     @ResponseBody

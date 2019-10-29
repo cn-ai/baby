@@ -16,13 +16,15 @@
 package cn.stylefeng.guns.sys.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.oshi.SystemHardwareInfo;
-import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
+import cn.stylefeng.guns.sys.core.util.DefaultImages;
 import cn.stylefeng.guns.sys.modular.system.entity.Notice;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
+import cn.stylefeng.guns.sys.modular.system.model.UploadResult;
 import cn.stylefeng.guns.sys.modular.system.service.FileInfoService;
 import cn.stylefeng.guns.sys.modular.system.service.NoticeService;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
@@ -171,13 +173,15 @@ public class SystemController extends BaseController {
      */
     @RequestMapping("/user_info")
     public String userInfo(Model model) {
-        Long userId = ShiroKit.getUserNotNull().getId();
+        Long userId = LoginContextHolder.getContext().getUserId();
         User user = this.userService.getById(userId);
 
         model.addAllAttributes(BeanUtil.beanToMap(user));
         model.addAttribute("roleName", ConstantFactory.me().getRoleName(user.getRoleId()));
         model.addAttribute("deptName", ConstantFactory.me().getDeptName(user.getDeptId()));
+        model.addAttribute("avatar", DefaultImages.defaultAvatarUrl());
         LogObjectHolder.me().set(user);
+
         return "/modular/frame/user_info.html";
     }
 
@@ -258,7 +262,7 @@ public class SystemController extends BaseController {
     @ResponseBody
     public ResponseData getUserInfo() {
 
-        ShiroUser currentUser = ShiroKit.getUser();
+        LoginUser currentUser = LoginContextHolder.getContext().getUser();
         if (currentUser == null) {
             throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
         }
@@ -276,7 +280,8 @@ public class SystemController extends BaseController {
     @ResponseBody
     public ResponseData layuiUpload(@RequestPart("file") MultipartFile file) {
 
-        String fileId = this.fileInfoService.uploadFile(file);
+        UploadResult uploadResult = this.fileInfoService.uploadFile(file);
+        String fileId = uploadResult.getFileId();
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("fileId", fileId);

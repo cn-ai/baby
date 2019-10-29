@@ -24,10 +24,10 @@
             <version>1.0.0</version>
         </dependency>
 
-        <!-- rest-api-->
+        <!-- 权限管理模块 -->
         <dependency>
             <groupId>cn.stylefeng</groupId>
-            <artifactId>guns-rest-api</artifactId>
+            <artifactId>guns-base-auth</artifactId>
             <version>1.0.0</version>
         </dependency>
 
@@ -42,6 +42,28 @@
         <dependency>
             <groupId>me.zhyd.oauth</groupId>
             <artifactId>JustAuth</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--swagger-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+
+        <!--百度UeEditor-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
         </dependency>
 
     </dependencies>

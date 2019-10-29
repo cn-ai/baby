@@ -15,9 +15,6 @@
  */
 package cn.stylefeng.guns.config.web;
 
-import cn.stylefeng.guns.api.core.aop.RestApiInteceptor;
-import cn.stylefeng.guns.sys.core.attribute.AttributeSetInteceptor;
-import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.exception.page.GunsErrorView;
 import cn.stylefeng.guns.sys.core.listener.ConfigListener;
 import cn.stylefeng.roses.core.xss.XssFilter;
@@ -36,11 +33,13 @@ import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -51,6 +50,19 @@ import java.util.Properties;
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+    /**
+     * 配置string解析器放在json解析器前边
+     *
+     * @author fengshuonan
+     * @Date 2019/8/7 23:09
+     */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        HttpMessageConverter<?> httpMessageConverter = converters.get(0);
+        converters.remove(0);
+        converters.add(2, httpMessageConverter);
+    }
 
     /**
      * 静态资源映射
@@ -64,15 +76,9 @@ public class WebConfig implements WebMvcConfigurer {
 
         //本应用
         registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
-    }
 
-    /**
-     * 增加对rest api鉴权的spring mvc拦截器
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RestApiInteceptor()).addPathPatterns("/gunsApi/**");
-        registry.addInterceptor(new AttributeSetInteceptor()).excludePathPatterns(Const.NONE_PERMISSION_RES).addPathPatterns("/**");
+        //流程设计器
+        registry.addResourceHandler("/activiti-editor/**").addResourceLocations("classpath:/activiti-editor/");
     }
 
     /**
@@ -153,8 +159,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean xssFilterRegistration() {
         XssFilter xssFilter = new XssFilter();
-        // 这里可以加不被xss过滤的接口
-        // xssFilter.setUrlExclusion(Arrays.asList("/notice/update", "/notice/add"));
+        xssFilter.setUrlExclusion(Arrays.asList("/notice/add", "/notice/update"));
         FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
         registration.addUrlPatterns("/*");
         return registration;

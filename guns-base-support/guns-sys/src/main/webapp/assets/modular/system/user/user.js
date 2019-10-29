@@ -1,4 +1,4 @@
-layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func'], function () {
+layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func', 'tree', 'util'], function () {
     var layer = layui.layer;
     var form = layui.form;
     var table = layui.table;
@@ -7,6 +7,8 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func'],
     var laydate = layui.laydate;
     var admin = layui.admin;
     var func = layui.func;
+    var tree = layui.tree;
+    var util = layui.util;
 
     /**
      * 系统管理--用户管理
@@ -41,8 +43,8 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func'],
     /**
      * 选择部门时
      */
-    MgrUser.onClickDept = function (e, treeId, treeNode) {
-        MgrUser.condition.deptId = treeNode.id;
+    MgrUser.onClickDept = function (obj) {
+        MgrUser.condition.deptId = obj.data.id;
         MgrUser.search();
     };
 
@@ -193,10 +195,17 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func'],
         max: Feng.currentDate()
     });
 
-    //初始化左侧部门树
-    var ztree = new $ZTree("deptTree", "/dept/tree");
-    ztree.bindOnClick(MgrUser.onClickDept);
-    ztree.init();
+    // 初始化部门树
+    var ajax = new $ax(Feng.ctxPath + "/dept/layuiTree", function (data) {
+        tree.render({
+            elem: '#deptTree',
+            data: data,
+            click: MgrUser.onClickDept,
+            onlyIconControl: true
+        });
+    }, function (data) {
+    });
+    ajax.start();
 
     // 搜索按钮点击事件
     $('#btnSearch').click(function () {
@@ -238,4 +247,12 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func'],
         MgrUser.changeUserStatus(userId, checked);
     });
 
+});
+
+$(function () {
+    var panehHidden = false;
+    if ($(this).width() < 769) {
+        panehHidden = true;
+    }
+    $('#myContiner').layout({initClosed: panehHidden, west__size: 260});
 });

@@ -1,16 +1,16 @@
 package cn.stylefeng.guns.sys.modular.system.service;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.pojo.node.MenuNode;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
-import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.sys.core.constant.state.ManagerStatus;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
-import cn.stylefeng.guns.sys.core.shiro.service.UserAuthService;
+import cn.stylefeng.guns.sys.core.util.DefaultImages;
+import cn.stylefeng.guns.sys.core.util.SaltUtil;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.entity.UserPos;
 import cn.stylefeng.guns.sys.modular.system.factory.UserFactory;
@@ -20,6 +20,7 @@ import cn.stylefeng.roses.core.datascope.DataScope;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlRunner;
@@ -47,9 +48,6 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     private MenuService menuService;
 
     @Autowired
-    private UserAuthService userAuthService;
-
-    @Autowired
     private UserPosService userPosService;
 
     /**
@@ -68,8 +66,8 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         }
 
         // 完善账号信息
-        String salt = ShiroKit.getRandomSalt(5);
-        String password = ShiroKit.md5(user.getPassword(), salt);
+        String salt = SaltUtil.getRandomSalt();
+        String password = SaltUtil.md5Encrypt(user.getPassword(), salt);
 
         User newUser = UserFactory.createUser(user, password, salt);
         this.save(newUser);
@@ -88,11 +86,11 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     public void editUser(UserDto user) {
         User oldUser = this.getById(user.getUserId());
 
-        if (ShiroKit.hasRole(Const.ADMIN_NAME)) {
+        if (LoginContextHolder.getContext().hasRole(Const.ADMIN_NAME)) {
             this.updateById(UserFactory.editUser(user, oldUser));
         } else {
             this.assertAuth(user.getUserId());
-            ShiroUser shiroUser = ShiroKit.getUserNotNull();
+            LoginUser shiroUser = LoginContextHolder.getContext().getUser();
             if (shiroUser.getId().equals(user.getUserId())) {
                 this.updateById(UserFactory.editUser(user, oldUser));
             } else {
@@ -147,13 +145,13 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @Date 2018/12/24 22:45
      */
     public void changePwd(String oldPassword, String newPassword) {
-        Long userId = ShiroKit.getUserNotNull().getId();
+        Long userId = LoginContextHolder.getContext().getUser().getId();
         User user = this.getById(userId);
 
-        String oldMd5 = ShiroKit.md5(oldPassword, user.getSalt());
+        String oldMd5 = SaltUtil.md5Encrypt(oldPassword, user.getSalt());
 
         if (user.getPassword().equals(oldMd5)) {
-            String newMd5 = ShiroKit.md5(newPassword, user.getSalt());
+            String newMd5 = SaltUtil.md5Encrypt(newPassword, user.getSalt());
             user.setPassword(newMd5);
             this.updateById(user);
         } else {
@@ -208,7 +206,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             ArrayList<Map<String, Object>> lists = new ArrayList<>();
 
             //根据当前用户包含的系统类型，分类出不同的菜单
-            List<Map<String, Object>> systemTypes = ShiroKit.getUserNotNull().getSystemTypes();
+            List<Map<String, Object>> systemTypes = LoginContextHolder.getContext().getUser().getSystemTypes();
             for (Map<String, Object> systemType : systemTypes) {
 
                 //当前遍历系统分类code
@@ -232,7 +230,6 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
             return lists;
         }
-
     }
 
     /**
@@ -242,10 +239,10 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @Date 2018/12/24 22:44
      */
     public void assertAuth(Long userId) {
-        if (ShiroKit.isAdmin()) {
+        if (LoginContextHolder.getContext().isAdmin()) {
             return;
         }
-        List<Long> deptDataScope = ShiroKit.getDeptDataScope();
+        List<Long> deptDataScope = LoginContextHolder.getContext().getDeptDataScope();
         User user = this.getById(userId);
         Long deptId = user.getDeptId();
         if (deptDataScope.contains(deptId)) {
@@ -253,7 +250,6 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         } else {
             throw new ServiceException(BizExceptionEnum.NO_PERMITION);
         }
-
     }
 
     /**
@@ -263,12 +259,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @Date 2019/1/19 5:59 PM
      */
     public void refreshCurrentUser() {
-        ShiroUser user = ShiroKit.getUserNotNull();
-        Long id = user.getId();
-        User currentUser = this.getById(id);
-        ShiroUser shiroUser = userAuthService.shiroUser(currentUser);
-        ShiroUser lastUser = ShiroKit.getUser();
-        BeanUtil.copyProperties(shiroUser, lastUser);
+        //TODO 刷新
     }
 
     /**
@@ -289,6 +280,32 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         return hashMap;
     }
 
+    /**
+     * 获取用户首页信息
+     *
+     * @author fengshuonan
+     * @Date 2019/10/17 16:18
+     */
+    public Map<String, Object> getUserIndexInfo() {
+
+        //获取当前用户角色列表
+        LoginUser user = LoginContextHolder.getContext().getUser();
+        List<Long> roleList = user.getRoleList();
+
+        //用户没有角色无法显示首页信息
+        if (roleList == null || roleList.size() == 0) {
+            return null;
+        }
+
+        List<Map<String, Object>> menus = this.getUserMenuNodes(roleList);
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("menus", menus);
+        result.put("avatar", DefaultImages.defaultAvatarUrl());
+        result.put("name", user.getName());
+
+        return result;
+    }
 
     /**
      * 添加职位关联
@@ -306,8 +323,17 @@ public class UserService extends ServiceImpl<UserMapper, User> {
                 entity.setPosId(Long.valueOf(item));
 
                 userPosService.save(entity);
-
             }
         }
+    }
+
+    /**
+     * 选择办理人
+     *
+     * @author fengshuonan
+     * @Date 2019-08-27 19:07
+     */
+    public IPage listUserAndRoleExpectAdmin(Page pageContext) {
+        return baseMapper.listUserAndRoleExpectAdmin(pageContext);
     }
 }

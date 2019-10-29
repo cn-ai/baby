@@ -4,7 +4,6 @@ import cn.stylefeng.guns.sys.modular.consts.entity.SysConfig;
 import cn.stylefeng.guns.sys.modular.consts.model.params.SysConfigParam;
 import cn.stylefeng.guns.sys.modular.consts.model.result.SysConfigResult;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 

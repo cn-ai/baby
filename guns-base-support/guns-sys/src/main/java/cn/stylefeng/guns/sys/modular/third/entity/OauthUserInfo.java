@@ -1,12 +1,9 @@
 package cn.stylefeng.guns.sys.modular.third.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -263,23 +260,23 @@ public class OauthUserInfo implements Serializable {
     @Override
     public String toString() {
         return "OauthUserInfo{" +
-        "oauthId=" + oauthId +
-        ", userId=" + userId +
-        ", nickName=" + nickName +
-        ", avatar=" + avatar +
-        ", blog=" + blog +
-        ", company=" + company +
-        ", location=" + location +
-        ", email=" + email +
-        ", remark=" + remark +
-        ", gender=" + gender +
-        ", source=" + source +
-        ", token=" + token +
-        ", uuid=" + uuid +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                "oauthId=" + oauthId +
+                ", userId=" + userId +
+                ", nickName=" + nickName +
+                ", avatar=" + avatar +
+                ", blog=" + blog +
+                ", company=" + company +
+                ", location=" + location +
+                ", email=" + email +
+                ", remark=" + remark +
+                ", gender=" + gender +
+                ", source=" + source +
+                ", token=" + token +
+                ", uuid=" + uuid +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

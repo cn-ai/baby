@@ -1,10 +1,8 @@
 package cn.stylefeng.guns.sys.modular.third.service.impl;
 
-import cn.stylefeng.guns.base.shiro.ShiroUser;
+import cn.stylefeng.guns.base.auth.service.AuthService;
 import cn.stylefeng.guns.sys.core.exception.oauth.OAuthExceptionEnum;
 import cn.stylefeng.guns.sys.core.exception.oauth.OAuthLoginException;
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
-import cn.stylefeng.guns.sys.core.shiro.oauth.OAuthToken;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.guns.sys.modular.third.entity.OauthUserInfo;
@@ -34,6 +32,9 @@ public class DefaultLoginService implements LoginService {
     @Autowired
     private OauthUserInfoService oauthUserInfoService;
 
+    @Autowired
+    private AuthService authService;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public String oauthLogin(AuthUser oauthUser) {
@@ -42,29 +43,11 @@ public class DefaultLoginService implements LoginService {
             throw new OAuthLoginException(OAuthExceptionEnum.OAUTH_RESPONSE_ERROR);
         }
 
-        //当前有登录用户
-        if (ShiroKit.isUser()) {
+        //当前无登录用户，创建用户或根据已有绑定用户的账号登录
+        String account = getOauthUserAccount(oauthUser);
 
-            //当前登录用户
-            ShiroUser user = ShiroKit.getUserNotNull();
-
-            //绑定用户相关的openId
-            bindOAuthUser(user.getId(), oauthUser);
-
-            return "redirect:/system/user_info";
-
-        } else {
-
-            //当前无登录用户，创建用户或根据已有绑定用户的账号登录
-            String account = getOauthUserAccount(oauthUser);
-
-            //执行shiro的登录逻辑
-            OAuthToken token = new OAuthToken(account);
-            ShiroKit.getSubject().login(token);
-
-            return "redirect:/";
-        }
-
+        //执行原有系统登录逻辑
+        return authService.login(account);
     }
 
 

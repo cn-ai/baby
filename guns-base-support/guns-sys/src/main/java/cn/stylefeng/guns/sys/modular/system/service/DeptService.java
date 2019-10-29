@@ -1,10 +1,11 @@
 package cn.stylefeng.guns.sys.modular.system.service;
 
-import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
-import cn.stylefeng.guns.sys.modular.system.entity.Dept;
+import cn.stylefeng.guns.base.pojo.node.LayuiTreeNode;
 import cn.stylefeng.guns.base.pojo.node.TreeviewNode;
 import cn.stylefeng.guns.base.pojo.node.ZTreeNode;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
+import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
+import cn.stylefeng.guns.sys.modular.system.entity.Dept;
 import cn.stylefeng.guns.sys.modular.system.mapper.DeptMapper;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
@@ -97,6 +98,16 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
      */
     public List<ZTreeNode> tree() {
         return this.baseMapper.tree();
+    }
+
+    /**
+     * 获取layuiTree的节点列表
+     *
+     * @author fengshuonan
+     * @Date 2019-8-27 15:23
+     */
+    public List<LayuiTreeNode> layuiTree() {
+        return this.baseMapper.layuiTree();
     }
 
     /**

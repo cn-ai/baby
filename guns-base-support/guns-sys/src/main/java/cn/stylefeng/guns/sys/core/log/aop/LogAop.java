@@ -15,13 +15,13 @@
  */
 package cn.stylefeng.guns.sys.core.log.aop;
 
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.dict.AbstractDictMap;
 import cn.stylefeng.guns.base.log.BussinessLog;
-import cn.stylefeng.guns.base.shiro.ShiroUser;
 import cn.stylefeng.guns.sys.core.log.LogManager;
 import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
 import cn.stylefeng.guns.sys.core.log.factory.LogTaskFactory;
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.core.util.Contrast;
 import cn.stylefeng.roses.core.util.HttpContext;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -82,7 +82,7 @@ public class LogAop {
         String methodName = currentMethod.getName();
 
         //如果当前用户未登录，不做日志
-        ShiroUser user = ShiroKit.getUser();
+        LoginUser user = LoginContextHolder.getContext().getUser();
         if (null == user) {
             return;
         }

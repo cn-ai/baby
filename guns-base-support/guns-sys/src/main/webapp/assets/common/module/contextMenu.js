@@ -1,6 +1,6 @@
 /**
  * 右键菜单模块
- * date:2019-04-23   License By http://easyweb.vip
+ * date:2019-08-29   License By http://easyweb.vip
  */
 layui.define(["jquery"], function (exports) {
     var $ = layui.jquery;
@@ -9,9 +9,92 @@ layui.define(["jquery"], function (exports) {
         // 绑定元素
         bind: function (elem, items) {
             $(elem).bind('contextmenu', function (e) {
-                contextMenu.show(items, e.clientX, e.clientY);
+                contextMenu.show(items, e.clientX, e.clientY, e);
                 return false;
             });
+        },
+        // 在指定坐标显示菜单
+        show: function (items, x, y, e) {
+            var xy = 'left: ' + x + 'px; top: ' + y + 'px;';
+            var htmlStr = '<div class="ctxMenu" style="' + xy + '">';
+            htmlStr += contextMenu.getHtml(items, '');
+            htmlStr += '   </div>';
+            contextMenu.remove();
+            $('body').append(htmlStr);
+            // 调整溢出位置
+            var $ctxMenu = $('.ctxMenu');
+            if (x + $ctxMenu.outerWidth() > contextMenu.getPageWidth()) {
+                x -= $ctxMenu.outerWidth();
+            }
+            if (y + $ctxMenu.outerHeight() > contextMenu.getPageHeight()) {
+                y = y - $ctxMenu.outerHeight();
+                if (y < 0) {
+                    y = 0;
+                }
+            }
+            $ctxMenu.css({'top': y, 'left': x});
+            // 添加item点击事件
+            contextMenu.setEvents(items, e);
+            // 显示子菜单事件
+            $('.ctxMenu-item.haveMore').on('mouseenter', function () {
+                var $item = $(this).find('>a');
+                var $sub = $(this).find('>.ctxMenu-sub');
+                var top = $item.offset().top;
+                var left = $item.offset().left + $item.outerWidth();
+                if (left + $sub.outerWidth() > contextMenu.getPageWidth()) {
+                    left = $item.offset().left - $sub.outerWidth();
+                }
+                if (top + $sub.outerHeight() > contextMenu.getPageHeight()) {
+                    top = top - $sub.outerHeight() + $item.outerHeight();
+                    if (top < 0) {
+                        top = 0;
+                    }
+                }
+                $(this).find('>.ctxMenu-sub').css({
+                    'top': top,
+                    'left': left,
+                    'display': 'block'
+                });
+            }).on('mouseleave', function () {
+                $(this).find('>.ctxMenu-sub').css('display', 'none');
+            });
+        },
+        // 移除所有
+        remove: function () {
+            var ifs = parent.window.frames;
+            for (var i = 0; i < ifs.length; i++) {
+                var tif = ifs[i];
+                try {
+                    tif.layui.jquery('body>.ctxMenu').remove();
+                } catch (e) {
+                }
+            }
+            try {
+                parent.layui.jquery('body>.ctxMenu').remove();
+            } catch (e) {
+            }
+        },
+        // 设置事件监听
+        setEvents: function (items, event) {
+            $('.ctxMenu').off('click').on('click', '[lay-id]', function (e) {
+                var itemId = $(this).attr('lay-id');
+                var item = getItemById(itemId);
+                item.click && item.click(e, event);
+            });
+
+            function getItemById(itemId) {
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    if (itemId == item.itemId) {
+                        return item;
+                    } else if (item.subs && item.subs.length > 0) {
+                        var temp = getItemById(item.subs);
+                        if (temp) {
+                            return temp;
+                        }
+                    }
+                }
+            }
         },
         // 构建无限级
         getHtml: function (items, pid) {
@@ -46,87 +129,6 @@ layui.define(["jquery"], function (exports) {
                 }
             }
             return htmlStr;
-        },
-        // 设置事件监听
-        setEvents: function (items) {
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                if (item.click) {
-                    $('.ctxMenu').on('click', '[lay-id="' + item.itemId + '"]', item.click);
-                }
-                if (item.subs && item.subs.length > 0) {
-                    contextMenu.setEvents(item.subs);
-                }
-            }
-        },
-        // 移除所有
-        remove: function () {
-            var ifs = top.window.frames;
-            for (var i = 0; i < ifs.length; i++) {
-                var tif = ifs[i];
-                try {
-                    tif.layui.jquery('body>.ctxMenu').remove();
-                } catch (e) {
-                }
-            }
-            try {
-                top.layui.jquery('body>.ctxMenu').remove();
-            } catch (e) {
-            }
-        },
-        // 获取浏览器高度
-        getPageHeight: function () {
-            return document.documentElement.clientHeight || document.body.clientHeight;
-        },
-        // 获取浏览器宽度
-        getPageWidth: function () {
-            return document.documentElement.clientWidth || document.body.clientWidth;
-        },
-        // 在指定坐标显示菜单
-        show: function (items, x, y) {
-            var xy = 'left: ' + x + 'px; top: ' + y + 'px;';
-            var htmlStr = '<div class="ctxMenu" style="' + xy + '">';
-            htmlStr += contextMenu.getHtml(items, '');
-            htmlStr += '   </div>';
-            contextMenu.remove();
-            $('body').append(htmlStr);
-            // 调整溢出位置
-            var $ctxMenu = $('.ctxMenu');
-            if (x + $ctxMenu.outerWidth() > contextMenu.getPageWidth()) {
-                x -= $ctxMenu.outerWidth();
-            }
-            if (y + $ctxMenu.outerHeight() > contextMenu.getPageHeight()) {
-                y = y - $ctxMenu.outerHeight();
-                if (y < 0) {
-                    y = 0;
-                }
-            }
-            $ctxMenu.css({'top': y, 'left': x});
-            // 添加item点击事件
-            contextMenu.setEvents(items);
-            // 显示子菜单事件
-            $('.ctxMenu-item.haveMore').on('mouseenter', function () {
-                var $item = $(this).find('>a');
-                var $sub = $(this).find('>.ctxMenu-sub');
-                var top = $item.offset().top;
-                var left = $item.offset().left + $item.outerWidth();
-                if (left + $sub.outerWidth() > contextMenu.getPageWidth()) {
-                    left = $item.offset().left - $sub.outerWidth();
-                }
-                if (top + $sub.outerHeight() > contextMenu.getPageHeight()) {
-                    top = top - $sub.outerHeight() + $item.outerHeight();
-                    if (top < 0) {
-                        top = 0;
-                    }
-                }
-                $(this).find('>.ctxMenu-sub').css({
-                    'top': top,
-                    'left': left,
-                    'display': 'block'
-                });
-            }).on('mouseleave', function () {
-                $(this).find('>.ctxMenu-sub').css('display', 'none');
-            });
         },
         // 获取css代码
         getCommonCss: function () {
@@ -193,7 +195,15 @@ layui.define(["jquery"], function (exports) {
             cssStr += '        left: 11px !important;';
             cssStr += '    }';
             return cssStr;
-        }
+        },
+        // 获取浏览器高度
+        getPageHeight: function () {
+            return document.documentElement.clientHeight || document.body.clientHeight;
+        },
+        // 获取浏览器宽度
+        getPageWidth: function () {
+            return document.documentElement.clientWidth || document.body.clientWidth;
+        },
     };
 
     // 点击任意位置关闭菜单
@@ -213,6 +223,6 @@ layui.define(["jquery"], function (exports) {
         }
     });
 
-    $('head').append('<style>' + contextMenu.getCommonCss() + '</style>');
+    $('head').append('<style id="ew-css-ctx">' + contextMenu.getCommonCss() + '</style>');
     exports("contextMenu", contextMenu);
 });

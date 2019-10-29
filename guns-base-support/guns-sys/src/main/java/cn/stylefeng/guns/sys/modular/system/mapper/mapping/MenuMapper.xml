@@ -238,6 +238,7 @@
     <select id="getMenusByRoleIds" resultType="cn.stylefeng.guns.base.pojo.node.MenuNode">
         SELECT
         m1.menu_id AS id,
+        m1.code AS code,
         m1.icon AS icon,
         (
         CASE

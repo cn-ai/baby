@@ -16,26 +16,28 @@
 package cn.stylefeng.guns.sys.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
-import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
-import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
+import cn.stylefeng.guns.base.auth.annotion.Permission;
 import cn.stylefeng.guns.base.log.BussinessLog;
-import cn.stylefeng.guns.sys.modular.system.entity.Role;
-import cn.stylefeng.guns.sys.modular.system.entity.User;
-import cn.stylefeng.guns.sys.modular.system.service.RoleService;
-import cn.stylefeng.guns.base.shiro.annotion.Permission;
+import cn.stylefeng.guns.base.pojo.node.ZTreeNode;
+import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
+import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.constant.dictmap.DeleteDict;
 import cn.stylefeng.guns.sys.core.constant.dictmap.RoleDict;
-import cn.stylefeng.guns.base.pojo.node.ZTreeNode;
-import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
+import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
+import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
+import cn.stylefeng.guns.sys.modular.system.entity.Role;
+import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.model.RoleDto;
+import cn.stylefeng.guns.sys.modular.system.service.RoleService;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.guns.sys.modular.system.warpper.RoleWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -264,6 +266,19 @@ public class RoleController extends BaseController {
 
             return this.roleService.roleTreeListByRoleId(longArray);
         }
+    }
+
+    /**
+     * 选择角色
+     *
+     * @author fengshuonan
+     * @Date 2019-8-23 13:27
+     */
+    @RequestMapping("/listRole")
+    @ResponseBody
+    public LayuiPageInfo listRole(@RequestParam(value = "name", required = false) String name) {
+        IPage page = roleService.listRole(name);
+        return LayuiPageFactory.createPageInfo(page);
     }
 
 }

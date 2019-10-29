@@ -64,54 +64,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!--shiro依赖和缓存-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.sf.ehcache</groupId>
-                    <artifactId>ehcache-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-        </dependency>
-
         <!--beetl模板引擎-->
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl</artifactId>
-        </dependency>
-
-        <!--swagger-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
 
         <!--jwt token-->
@@ -156,16 +112,6 @@
             <artifactId>oshi-core</artifactId>
         </dependency>
 
-
-        <!--需要分布式session的话需要放开注释-->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.session</groupId>-->
-        <!--<artifactId>spring-session-data-redis</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
-        <!--</dependency>-->
     </dependencies>
 
     <build>

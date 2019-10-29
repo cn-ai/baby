@@ -15,28 +15,28 @@
  */
 package cn.stylefeng.guns.sys.modular.system.controller;
 
-import cn.stylefeng.guns.base.shiro.ShiroUser;
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.service.AuthService;
+import cn.stylefeng.guns.base.consts.ConstantsContext;
+import cn.stylefeng.guns.sys.core.auth.cache.SessionManager;
 import cn.stylefeng.guns.sys.core.exception.InvalidKaptchaException;
-import cn.stylefeng.guns.sys.core.log.LogManager;
-import cn.stylefeng.guns.sys.core.log.factory.LogTaskFactory;
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
-import cn.stylefeng.guns.sys.core.util.KaptchaUtil;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import com.google.code.kaptcha.Constants;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
-
-import static cn.stylefeng.roses.core.util.HttpContext.getIp;
 
 /**
  * 登录控制器
@@ -48,7 +48,13 @@ import static cn.stylefeng.roses.core.util.HttpContext.getIp;
 public class LoginController extends BaseController {
 
     @Autowired
+    private AuthService authService;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
+    private SessionManager sessionManager;
 
     /**
      * 跳转到主页
@@ -59,20 +65,22 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
 
-        //获取当前用户角色列表
-        ShiroUser user = ShiroKit.getUserNotNull();
-        List<Long> roleList = user.getRoleList();
+        //判断用户是否登录
+        if (LoginContextHolder.getContext().hasLogin()) {
+            Map<String, Object> userIndexInfo = userService.getUserIndexInfo();
 
-        if (roleList == null || roleList.size() == 0) {
-            ShiroKit.getSubject().logout();
-            model.addAttribute("tips", "该用户没有角色，无法登陆");
+            //用户信息为空，提示账号没分配角色登录不进去
+            if (userIndexInfo == null) {
+                model.addAttribute("tips", "该用户没有角色，无法登陆");
+                return "/login.html";
+            } else {
+                model.addAllAttributes(userIndexInfo);
+                return "/index.html";
+            }
+
+        } else {
             return "/login.html";
         }
-
-        List<Map<String, Object>> menus = userService.getUserMenuNodes(roleList);
-        model.addAttribute("menus", menus);
-
-        return "/index.html";
     }
 
     /**
@@ -83,7 +91,7 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
-        if (ShiroKit.isAuthenticated() || ShiroKit.getUser() != null) {
+        if (LoginContextHolder.getContext().hasLogin()) {
             return REDIRECT + "/";
         } else {
             return "/login.html";
@@ -97,14 +105,18 @@ public class LoginController extends BaseController {
      * @Date 2018/12/23 5:42 PM
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginVali() {
+    @ResponseBody
+    public ResponseData loginVali(HttpServletRequest request, HttpServletResponse response) {
 
-        String username = super.getPara("username").trim();
-        String password = super.getPara("password").trim();
-        String remember = super.getPara("remember");
+        String username = super.getPara("username");
+        String password = super.getPara("password");
+
+        if (ToolUtil.isOneEmpty(username, password)) {
+            throw new RequestEmptyException("账号或密码为空！");
+        }
 
         //验证验证码是否正确
-        if (KaptchaUtil.getKaptchaOnOff()) {
+        if (ConstantsContext.getKaptchaOpen()) {
             String kaptcha = super.getPara("kaptcha").trim();
             String code = (String) super.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
             if (ToolUtil.isEmpty(kaptcha) || !kaptcha.equalsIgnoreCase(code)) {
@@ -112,26 +124,10 @@ public class LoginController extends BaseController {
             }
         }
 
-        Subject currentUser = ShiroKit.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password.toCharArray());
+        //登录并创建token
+        String token = authService.login(username, password);
 
-        //如果开启了记住我功能
-        if ("on".equals(remember)) {
-            token.setRememberMe(true);
-        } else {
-            token.setRememberMe(false);
-        }
-
-        //执行shiro登录操作
-        currentUser.login(token);
-
-        //登录成功，记录登录日志
-        ShiroUser shiroUser = ShiroKit.getUserNotNull();
-        LogManager.me().executeLog(LogTaskFactory.loginLog(shiroUser.getId(), getIp()));
-
-        ShiroKit.getSession().setAttribute("sessionFlag", true);
-
-        return REDIRECT + "/";
+        return new SuccessResponseData(token);
     }
 
     /**
@@ -140,11 +136,11 @@ public class LoginController extends BaseController {
      * @author fengshuonan
      * @Date 2018/12/23 5:42 PM
      */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logOut() {
-        LogManager.me().executeLog(LogTaskFactory.exitLog(ShiroKit.getUserNotNull().getId(), getIp()));
-        ShiroKit.getSubject().logout();
-        deleteAllCookie();
-        return REDIRECT + "/login";
+    @RequestMapping(value = "/logout")
+    @ResponseBody
+    public ResponseData logOut() {
+        authService.logout();
+        return new SuccessResponseData();
     }
+
 }

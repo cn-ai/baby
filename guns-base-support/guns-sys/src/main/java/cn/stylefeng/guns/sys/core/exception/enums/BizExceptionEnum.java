@@ -91,7 +91,26 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
     /**
      * 其他
      */
-    AUTH_REQUEST_ERROR(400, "账号密码错误");
+    AUTH_REQUEST_ERROR(400, "账号密码错误"),
+
+    /**
+     * ueditor相关异常
+     */
+    UE_CONFIG_ERROR(800, "读取ueditor配置失败"),
+    UE_FILE_NULL_ERROR(801, "上传文件为空"),
+    UE_FILE_READ_ERROR(803, "读取文件错误"),
+    UE_FILE_SAVE_ERROR(802, "保存ue的上传文件出错"),
+
+    /**
+     * 工作流相关
+     */
+    ACT_NO_FLOW(900, "无可用流程，请先导入或新建流程"),
+    ACT_ADD_ERROR(901, "新建流程错误"),
+
+    /**
+     * 租户相关的异常
+     */
+    NO_TENANT_ERROR(1901, "没有相关租户");
 
     BizExceptionEnum(int code, String message) {
         this.code = code;

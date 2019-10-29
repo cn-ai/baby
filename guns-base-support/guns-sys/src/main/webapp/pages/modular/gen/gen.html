@@ -9,7 +9,7 @@
         <div class="layui-col-lg12">
             <div class="layui-card">
                 <div class="layui-card-body">
-                    <div class="layui-form">
+                    <div class="layui-form" lay-filter="genForm">
                         <div class="layui-form-item">
                             <label class="layui-form-label">作者</label>
                             <div class="layui-input-block">
@@ -43,6 +43,30 @@
                                     <option value="${item.dbId}">${item.dbName}</option>
                                     @}
                                 </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">版本选择 <i class="layui-icon layui-icon-tips" lay-tips="微服务版本可用于生成单独的controller,entity,mapper,service"></i></label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="version" value="single" title="Guns单体版本" lay-filter="versionChecked" checked>
+                                <input type="radio" name="version" value="micro" title="Guns-Cloud微服务版本" lay-filter="versionChecked">
+                            </div>
+                        </div>
+                        <!-- microDiv 选择微服务才出现-->
+                        <div id="microDiv">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">swaager <i class="layui-icon layui-icon-tips" lay-tips="开启则在controller和model实体上生成swagger用的注解"></i></label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="swagger" value="Y" title="开启">
+                                    <input type="radio" name="swagger" value="N" title="关闭" checked>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">远程接口 <i class="layui-icon layui-icon-tips" lay-tips="开启则生成feign远程接口的api和provider的生成"></i></label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="remote" value="Y" title="开启" checked>
+                                    <input type="radio" name="remote" value="N" title="关闭">
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">

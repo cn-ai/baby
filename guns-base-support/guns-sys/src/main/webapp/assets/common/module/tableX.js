@@ -97,6 +97,7 @@ layui.define(['layer', 'table', 'laytpl', 'form', 'util', 'contextMenu'], functi
             var fileName = param.fileName;  // 文件名
             var fileType = param.expType;  // 类型，xls、csv
             var option = param.option;  // url方式加载的配置
+            option || (option = {});
 
             if (device.ie) return layer.msg('不支持ie导出');
 
@@ -109,6 +110,7 @@ layui.define(['layer', 'table', 'laytpl', 'form', 'util', 'contextMenu'], functi
                     param.data = res;
                     tableX.exportData(param);
                 });
+                return;
             }
             // 列参数补全
             for (var i = 0; i < cols.length; i++) {
@@ -164,6 +166,37 @@ layui.define(['layer', 'table', 'laytpl', 'form', 'util', 'contextMenu'], functi
             document.body.appendChild(alink);
             alink.click();
             document.body.removeChild(alink);
+        },
+        // 后端导出数据拼接参数
+        exportDataBack: function (url, where, method) {
+            where || (where = {});
+            if (!method || method.toString().toLowerCase() == 'get') {
+                var param = '';
+                for (var f in where) {
+                    if (!param) {
+                        param = '?' + f + '=' + where[f];
+                    } else {
+                        param += ('&' + f + '=' + where[f]);
+                    }
+                }
+                window.open(url + param);
+            } else {
+                var htmlStr = '<html><body style="display: none;"><form id="eFrom" action="' + url + '" method="' + method + '">';
+                for (var f in where) {
+                    htmlStr += ('<textarea name="' + f + '">' + where[f] + '</textarea>');
+                }
+                htmlStr += '</form></body></html>';
+                $('#exportFrame').remove();
+                $('body').append('<iframe id="exportFrame" style="display: none;"></iframe>');
+                var eFrame = document.getElementById('exportFrame');
+                var eWindow = eFrame.contentWindow;
+                var eDocument = eWindow.document;
+                eWindow.focus();
+                eDocument.open();
+                eDocument.write(htmlStr);
+                eDocument.close();
+                eDocument.getElementById("eFrom").submit();
+            }
         },
         // 渲染表格，后端排序
         render: function (param) {
@@ -325,26 +358,26 @@ layui.define(['layer', 'table', 'laytpl', 'form', 'util', 'contextMenu'], functi
         // 行绑定鼠标右键
         bindCtxMenu: function (tableId, items) {
             var dataList = table.cache[tableId];
+            var tempItems = [];
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                tempItems.push({
+                    icon: item.icon,
+                    name: item.name,
+                    click: function (e, event) {
+                        var layId = $(e.currentTarget).attr('lay-id');
+                        var $tr = $(event.currentTarget);
+                        var trIndex = $tr.attr('data-index');
+                        items[parseInt(layId.substring(8))].click(dataList[trIndex]);
+                        $tr.removeClass('layui-table-click');
+                    }
+                });
+            }
             var elem = '#' + tableId + '+.layui-table-view .layui-table-body tr';
             $(elem).bind('contextmenu', function (e) {
-                var $tr = $(this);
-                var trIndex = $(this).attr('data-index');
-                var tempItems = [];
-                for (var i = 0; i < items.length; i++) {
-                    var item = items[i];
-                    tempItems.push({
-                        icon: item.icon,
-                        name: item.name,
-                        click: function () {
-                            var layId = $(this).attr('lay-id');
-                            items[parseInt(layId.substring(8))].click(dataList[trIndex]);
-                            $tr.removeClass('layui-table-click');
-                        }
-                    });
-                }
                 $(elem).removeClass('layui-table-click');
-                $tr.addClass('layui-table-click');
-                contextMenu.show(tempItems, e.clientX, e.clientY);
+                $(this).addClass('layui-table-click');
+                contextMenu.show(tempItems, e.clientX, e.clientY, e);
                 return false;
             });
         },

@@ -2,14 +2,14 @@ package ${controllerPackage};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-import share.core.page.PageResult;
-import share.model.request.RequestData;
-import share.model.response.ResultData;
+import cn.stylefeng.roses.kernel.model.page.PageResult;
+import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import ${package.EntitySpecParams}.${entity}Param;
 import ${package.EntitySpecResult}.${entity}Result;
 import ${package.Service}.${table.serviceName};
-import share.scanner.modular.annotation.PostResource;
-import share.scanner.modular.stereotype.ApiResource;
+import cn.stylefeng.roses.kernel.scanner.modular.annotation.PostResource;
+import cn.stylefeng.roses.kernel.scanner.modular.stereotype.ApiResource;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -36,10 +36,9 @@ public class ${entity}Controller {
      * @Date ${date}
      */
     @PostResource(name = "添加", path = "/add")
-    public ResultData add(RequestData requestData) {
-        ${entity}Param param = requestData.parse(${entity}Param.class);
+    public ResponseData add(@RequestBody ${entity}Param param) {
         ${lowerEntityService}.add(param);
-        return ResultData.success();
+        return ResponseData.success();
     }
 
     /**
@@ -48,11 +47,10 @@ public class ${entity}Controller {
      * @author ${author}
      * @Date ${date}
      */
-    @PostResource(name = "修改", path = "/delete")
-    public ResultData update(RequestData requestData) {
-        ${entity}Param param = requestData.parse(${entity}Param.class);
+    @PostResource(name = "修改", path = "/update")
+    public ResponseData update(@RequestBody ${entity}Param param) {
         ${lowerEntityService}.update(param);
-        return ResultData.success();
+        return ResponseData.success();
     }
 
     /**
@@ -62,10 +60,9 @@ public class ${entity}Controller {
      * @Date ${date}
      */
     @PostResource(name = "删除", path = "/delete")
-    public ResultData delete(RequestData requestData) {
-        ${entity}Param param = requestData.parse(${entity}Param.class);
+    public ResponseData delete(@RequestBody ${entity}Param param) {
         ${lowerEntityService}.delete(param);
-        return ResultData.success();
+        return ResponseData.success();
     }
 
     /**
@@ -75,10 +72,9 @@ public class ${entity}Controller {
      * @Date ${date}
      */
     @PostResource(name = "查询详情", path = "/queryDetail")
-    public ResultData queryDetail(RequestData requestData) {
-        ${entity}Param param = requestData.parse(${entity}Param.class);
+    public ResponseData queryDetail(@RequestBody ${entity}Param param) {
         ${entity}Result result = ${lowerEntityService}.findBySpec(param);
-        return ResultData.success(result);
+        return ResponseData.success(result);
     }
 
     /**
@@ -88,10 +84,9 @@ public class ${entity}Controller {
      * @Date ${date}
      */
     @PostResource(name = "查询列表", path = "/queryList")
-    public ResultData queryList(RequestData requestData) {
-        ${entity}Param param = requestData.parse(${entity}Param.class);
+    public ResponseData queryList(@RequestBody ${entity}Param param) {
         List<${entity}Result> listBySpec = ${lowerEntityService}.findListBySpec(param);
-        return ResultData.success(listBySpec);
+        return ResponseData.success(listBySpec);
     }
 
     /**
@@ -101,10 +96,9 @@ public class ${entity}Controller {
      * @Date ${date}
      */
     @PostResource(name = "分页查询列表", path = "/queryListPage")
-    public ResultData queryListPage(RequestData requestData) {
-        ${entity}Param param = requestData.parse(${entity}Param.class);
+    public ResponseData queryListPage(@RequestBody ${entity}Param param) {
         PageResult<${entity}Result> pageBySpec = ${lowerEntityService}.findPageBySpec(param);
-        return ResultData.success(pageBySpec);
+        return ResponseData.success(pageBySpec);
     }
 
 }

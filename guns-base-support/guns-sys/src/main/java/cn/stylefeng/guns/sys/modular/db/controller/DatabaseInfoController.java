@@ -1,9 +1,9 @@
 package cn.stylefeng.guns.sys.modular.db.controller;
 
+import cn.stylefeng.guns.base.db.entity.DatabaseInfo;
+import cn.stylefeng.guns.base.db.util.DbUtil;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
-import cn.stylefeng.guns.base.db.util.DbUtil;
-import cn.stylefeng.guns.base.db.entity.DatabaseInfo;
 import cn.stylefeng.guns.sys.modular.db.model.params.DatabaseInfoParam;
 import cn.stylefeng.guns.sys.modular.db.service.DatabaseInfoService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -65,17 +65,6 @@ public class DatabaseInfoController extends BaseController {
     }
 
     /**
-     * 编辑页面
-     *
-     * @author stylefeng
-     * @Date 2019-06-15
-     */
-    @RequestMapping("/edit")
-    public String edit() {
-        return PREFIX + "/databaseInfo_edit.html";
-    }
-
-    /**
      * 新增接口
      *
      * @author stylefeng
@@ -115,19 +104,6 @@ public class DatabaseInfoController extends BaseController {
     }
 
     /**
-     * 查看详情接口
-     *
-     * @author stylefeng
-     * @Date 2019-06-15
-     */
-    @RequestMapping("/detail")
-    @ResponseBody
-    public ResponseData detail(DatabaseInfoParam databaseInfoParam) {
-        DatabaseInfo detail = this.databaseInfoService.getById(databaseInfoParam.getDbId());
-        return ResponseData.success(detail);
-    }
-
-    /**
      * 查询列表
      *
      * @author stylefeng
@@ -135,7 +111,7 @@ public class DatabaseInfoController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(@RequestParam(value = "condition",required = false) String condition) {
+    public LayuiPageInfo list(@RequestParam(value = "condition", required = false) String condition) {
         DatabaseInfoParam databaseInfoParam = new DatabaseInfoParam();
         databaseInfoParam.setDbName(condition);
         return this.databaseInfoService.findPageBySpec(databaseInfoParam);

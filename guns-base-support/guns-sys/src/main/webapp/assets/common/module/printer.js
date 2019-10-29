@@ -26,6 +26,12 @@ layui.define(["jquery"], function (exports) {
             if (blank == undefined && window != top && iePreview && printer.isIE()) {
                 blank = true;
             }
+            if (close == undefined) {
+                close = true;
+                if (iePreview && blank && printer.isIE()) {
+                    close = false;
+                }
+            }
             // 打印方向控制
             $('#page-print-set').remove();
             var htmlStr = '<div id="page-print-set">';
@@ -61,12 +67,19 @@ layui.define(["jquery"], function (exports) {
                 pDocument.open();
                 pDocument.write(htmlOld);
                 pDocument.close();
+                pWindow.onload = function () {
+                    (iePreview && printer.isIE()) || pWindow.print();
+                    if (blank && close && (!(iePreview && printer.isIE()))) {
+                        pWindow.close();
+                    }
+                    printer.showElem(hide);
+                };
             } else {
                 pWindow = window;
                 $('body').append(htmlStr);
+                (iePreview && printer.isIE()) || pWindow.print();
+                printer.showElem(hide);
             }
-            (iePreview && printer.isIE()) || pWindow.print();
-            printer.showElem(hide);
         },
         // 打印html字符串
         printHtml: function (param) {
@@ -138,10 +151,12 @@ layui.define(["jquery"], function (exports) {
             }
             // 打印
             if (print) {
-                (iePreview && printer.isIE()) || pWindow.print();
-                if (blank && close && (!(iePreview && printer.isIE()))) {
-                    pWindow.close();
-                }
+                pWindow.onload = function () {
+                    (iePreview && printer.isIE()) || pWindow.print();
+                    if (blank && close && (!(iePreview && printer.isIE()))) {
+                        pWindow.close();
+                    }
+                };
             }
             return pWindow;
         },
@@ -295,10 +310,12 @@ layui.define(["jquery"], function (exports) {
             pDocument.close();
             // 打印
             if (print) {
-                (iePreview && printer.isIE()) || pWindow.print();
-                if (blank && close && (!(iePreview && printer.isIE()))) {
-                    pWindow.close();
-                }
+                pWindow.onload = function () {
+                    (iePreview && printer.isIE()) || pWindow.print();
+                    if (blank && close && (!(iePreview && printer.isIE()))) {
+                        pWindow.close();
+                    }
+                };
             }
             return pWindow;
         },

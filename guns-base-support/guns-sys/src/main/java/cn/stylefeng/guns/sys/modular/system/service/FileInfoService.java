@@ -2,14 +2,15 @@ package cn.stylefeng.guns.sys.modular.system.service;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.io.IoUtil;
-import cn.stylefeng.guns.base.shiro.ShiroUser;
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
+import cn.stylefeng.guns.base.consts.ConstantsContext;
 import cn.stylefeng.guns.sys.core.constant.DefaultAvatar;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
-import cn.stylefeng.guns.sys.core.properties.GunsProperties;
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
 import cn.stylefeng.guns.sys.modular.system.entity.FileInfo;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.mapper.FileInfoMapper;
+import cn.stylefeng.guns.sys.modular.system.model.UploadResult;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import cn.stylefeng.roses.kernel.model.exception.enums.CoreExceptionEnum;
@@ -42,9 +43,6 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private GunsProperties gunsProperties;
-
     /**
      * 更新头像
      *
@@ -53,7 +51,7 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
      */
     @Transactional(rollbackFor = Exception.class)
     public void updateAvatar(String fileId) {
-        ShiroUser currentUser = ShiroKit.getUser();
+        LoginUser currentUser = LoginContextHolder.getContext().getUser();
         if (currentUser == null) {
             throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
         }
@@ -73,7 +71,7 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
      */
     public byte[] previewAvatar() {
 
-        ShiroUser currentUser = ShiroKit.getUser();
+        LoginUser currentUser = LoginContextHolder.getContext().getUser();
         if (currentUser == null) {
             throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
         }
@@ -105,28 +103,45 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
     }
 
     /**
-     * 上传文件
+     * 上传文件（默认上传路径）
      *
      * @author fengshuonan
      * @Date 2019-05-04 17:18
      */
-    public String uploadFile(MultipartFile file) {
+    public UploadResult uploadFile(MultipartFile file) {
+        String fileSavePath = ConstantsContext.getFileUploadPath();
+        return this.uploadFile(file, fileSavePath);
+    }
+
+    /**
+     * 上传文件（指定上传路径）
+     *
+     * @author fengshuonan
+     * @Date 2019-05-04 17:18
+     */
+    public UploadResult uploadFile(MultipartFile file, String fileSavePath) {
+
+        UploadResult uploadResult = new UploadResult();
 
         //生成文件的唯一id
         String fileId = IdWorker.getIdStr();
+        uploadResult.setFileId(fileId);
 
         //获取文件后缀
         String fileSuffix = ToolUtil.getFileSuffix(file.getOriginalFilename());
+        uploadResult.setFileSuffix(fileSuffix);
 
         //获取文件原始名称
         String originalFilename = file.getOriginalFilename();
+        uploadResult.setOriginalFilename(originalFilename);
 
         //生成文件的最终名称
         String finalName = fileId + "." + ToolUtil.getFileSuffix(originalFilename);
+        uploadResult.setFinalName(finalName);
+        uploadResult.setFileSavePath(fileSavePath + finalName);
 
         try {
             //保存文件到指定目录
-            String fileSavePath = gunsProperties.getFileUploadPath();
             File newFile = new File(fileSavePath + finalName);
             file.transferTo(newFile);
 
@@ -149,7 +164,7 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
             throw new ServiceException(BizExceptionEnum.UPLOAD_ERROR);
         }
 
-        return fileId;
+        return uploadResult;
 
     }
 }

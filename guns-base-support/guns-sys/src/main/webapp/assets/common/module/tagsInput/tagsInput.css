@@ -3,6 +3,14 @@
  * date:2019-07-12   License By http://easyweb.vip
  */
 
+/** 隐藏原始elem */
+.ew-tagsinput-hide {
+    display: block !important;
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
 /** 标签输入框样式 */
 div.tagsinput {
     border: 1px solid #e6e6e6;
@@ -83,6 +91,7 @@ div.tagsinput > div {
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     color: #666;
+    line-height: 24px;
 }
 
 .tagsinput.tagsinput-default span.tag a {
@@ -111,6 +120,7 @@ div.tagsinput > div {
     border: 1px solid #d2d2d2;
     min-width: 100px;
     width: max-content;
+    z-index: 999;
 }
 
 .tagsinput-tip-list li {

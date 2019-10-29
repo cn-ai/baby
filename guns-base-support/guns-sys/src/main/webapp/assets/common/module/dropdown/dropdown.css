@@ -8,7 +8,7 @@
 }
 
 .dropdown-fixParent {
-    z-index: auto;
+    z-index: auto !important;
 }
 
 /** 遮罩层 */

@@ -27,6 +27,11 @@ public class DataSourceContext {
     private static Map<String, DataSource> DATA_SOURCES = new ConcurrentHashMap<>();
 
     /**
+     * 数据源的配置容器
+     */
+    private static Map<String, DruidProperties> DATA_SOURCES_CONF = new ConcurrentHashMap<>();
+
+    /**
      * 初始化所有dataSource
      *
      * @author fengshuonan
@@ -43,6 +48,9 @@ public class DataSourceContext {
         //从数据库中获取所有的数据源信息
         DataBaseInfoDao dataBaseInfoDao = new DataBaseInfoDao(masterDataSourceProperties);
         Map<String, DruidProperties> allDataBaseInfo = dataBaseInfoDao.getAllDataBaseInfo();
+
+        //赋给全局变量
+        DATA_SOURCES_CONF = allDataBaseInfo;
 
         //根据数据源信息初始化所有的DataSource
         for (Map.Entry<String, DruidProperties> entry : allDataBaseInfo.entrySet()) {
@@ -77,9 +85,23 @@ public class DataSourceContext {
     }
 
     /**
+     * 获取数据源的配置
+     *
+     * @author fengshuonan
+     * @Date 2019-06-18 19:26
+     */
+    public static Map<String, DruidProperties> getDataSourcesConfs() {
+        return DATA_SOURCES_CONF;
+    }
+
+    /**
      * 数据源创建模板
      */
     public static DataSource createDataSource(String dataSourceName, DruidProperties druidProperties) {
+
+        //添加到全局配置里
+        DATA_SOURCES_CONF.put(dataSourceName, druidProperties);
+
         AtomikosDataSourceBean atomikosDataSourceBean = new AtomikosDataSourceBean();
         atomikosDataSourceBean.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
         atomikosDataSourceBean.setUniqueResourceName(dataSourceName);

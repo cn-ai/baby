@@ -16,9 +16,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        db_id AS "dbId", db_name AS "dbName", jdbc_driver AS "jdbcDriver", user_name AS "userName", password AS "password", jdbc_url AS "jdbcUrl", remarks AS "remarks", create_time AS "createTime"
+        db_id AS "dbId", db_name AS "dbName", jdbc_driver AS "jdbcDriver", user_name AS "userName", '***' AS "password", jdbc_url AS "jdbcUrl", remarks AS "remarks", create_time AS "createTime"
     </sql>
-
 
     <select id="customList" resultType="cn.stylefeng.guns.sys.modular.db.model.result.DatabaseInfoResult" parameterType="cn.stylefeng.guns.sys.modular.db.model.params.DatabaseInfoParam">
         select

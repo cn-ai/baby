@@ -145,7 +145,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="set-item-label">导航小三角：</label>
+            <label class="set-item-label">导航箭头：</label>
             <div class="set-item-ctrl">
                 <input lay-filter="navArrow" type="radio" value="" title="默认" name="navArrow">
                 <input lay-filter="navArrow" type="radio" value="arrow2" title="箭头" name="navArrow">
@@ -240,6 +240,10 @@
 
         // 导航小三角
         var navArrow = layui.data(admin.tableName).navArrow;
+        if (navArrow == undefined) {
+            var $sideNav = top.layui.jquery('.layui-side .layui-nav-tree');
+            navArrow = $sideNav.hasClass('arrow2') ? 'arrow2' : $sideNav.hasClass('arrow3') ? 'arrow3' : '';
+        }
         $('[name="navArrow"][value="' + (navArrow ? navArrow : '') + '"]').prop('checked', 'true');
         form.on('radio(navArrow)', function (data) {
             layui.data(admin.tableName, {key: 'navArrow', value: data.value});

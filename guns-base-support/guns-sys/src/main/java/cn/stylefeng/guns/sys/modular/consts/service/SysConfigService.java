@@ -64,6 +64,6 @@ public interface SysConfigService extends IService<SysConfig> {
      * @author stylefeng
      * @Date 2019-06-20
      */
-     LayuiPageInfo findPageBySpec(SysConfigParam param);
+    LayuiPageInfo findPageBySpec(SysConfigParam param);
 
 }

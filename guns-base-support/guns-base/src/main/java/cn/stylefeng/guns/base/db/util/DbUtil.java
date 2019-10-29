@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.base.db.util;
 
 import cn.stylefeng.guns.base.db.entity.DatabaseInfo;
+import cn.stylefeng.roses.core.config.properties.DruidProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -33,11 +34,11 @@ public class DbUtil {
             Class.forName(dbInfo.getJdbcDriver());
             Connection conn = DriverManager.getConnection(dbInfo.getJdbcUrl(), dbInfo.getUserName(), dbInfo.getPassword());
 
-            String jdbcUrl = dbInfo.getJdbcUrl();
-            int first = jdbcUrl.lastIndexOf("/") + 1;
-            int last = jdbcUrl.indexOf("?");
-            String dbName = jdbcUrl.substring(first, last);
-            PreparedStatement preparedStatement = conn.prepareStatement("select TABLE_NAME as tableName,TABLE_COMMENT as tableComment from information_schema.`TABLES` where TABLE_SCHEMA = '" + dbName + "'");
+            //获取数据库名称
+            String dbName = getDbName(dbInfo);
+
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    "select TABLE_NAME as tableName,TABLE_COMMENT as tableComment from information_schema.`TABLES` where TABLE_SCHEMA = '" + dbName + "'");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 HashMap<String, Object> map = new HashMap<>();
@@ -66,10 +67,9 @@ public class DbUtil {
             Class.forName(dbInfo.getJdbcDriver());
             Connection conn = DriverManager.getConnection(dbInfo.getJdbcUrl(), dbInfo.getUserName(), dbInfo.getPassword());
 
-            String jdbcUrl = dbInfo.getJdbcUrl();
-            int first = jdbcUrl.lastIndexOf("/") + 1;
-            int last = jdbcUrl.indexOf("?");
-            String dbName = jdbcUrl.substring(first, last);
+            //获取数据库名称
+            String dbName = getDbName(dbInfo);
+
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "select COLUMN_NAME as columnName,COLUMN_COMMENT as columnComment from information_schema.COLUMNS where table_name = '" + tableName + "' and table_schema = '" + dbName + "'");
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -88,4 +88,39 @@ public class DbUtil {
         }
     }
 
+    /**
+     * 创建数据库
+     *
+     * @author fengshuonan
+     * @Date 2019-06-18 15:29
+     */
+    public static void createDatabase(DruidProperties druidProperties, String databaseName) {
+        try {
+            Class.forName(druidProperties.getDriverClassName());
+            Connection conn = DriverManager.getConnection(druidProperties.getUrl(), druidProperties.getUsername(), druidProperties.getPassword());
+
+            //创建sql
+            String sql = "CREATE DATABASE IF NOT EXISTS " + databaseName + " DEFAULT CHARSET utf8 COLLATE utf8_general_ci;";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            int i = preparedStatement.executeUpdate();
+            log.info("创建数据库！数量：" + i);
+
+        } catch (Exception ex) {
+            log.error("执行sql出现问题！", ex);
+        }
+    }
+
+    /**
+     * 获取数据库名称
+     *
+     * @author fengshuonan
+     * @Date 2019-06-18 15:25
+     */
+    private static String getDbName(DatabaseInfo dbInfo) {
+        String jdbcUrl = dbInfo.getJdbcUrl();
+        int first = jdbcUrl.lastIndexOf("/") + 1;
+        int last = jdbcUrl.indexOf("?");
+        return jdbcUrl.substring(first, last);
+    }
 }

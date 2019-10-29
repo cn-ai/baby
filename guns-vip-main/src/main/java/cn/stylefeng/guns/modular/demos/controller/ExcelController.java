@@ -7,10 +7,10 @@ import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
 import cn.afterturn.easypoi.excel.entity.params.ExcelExportEntity;
 import cn.afterturn.easypoi.view.PoiBaseView;
+import cn.stylefeng.guns.base.consts.ConstantsContext;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.demos.entity.ExcelItem;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
-import cn.stylefeng.guns.sys.core.properties.GunsProperties;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
@@ -44,9 +44,6 @@ public class ExcelController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private GunsProperties gunsProperties;
-
     /**
      * excel导入页面
      *
@@ -66,7 +63,7 @@ public class ExcelController {
     public ResponseData uploadExcel(@RequestPart("file") MultipartFile file, HttpServletRequest request) {
         String name = file.getOriginalFilename();
         request.getSession().setAttribute("upFile", name);
-        String fileSavePath = gunsProperties.getFileUploadPath();
+        String fileSavePath = ConstantsContext.getFileUploadPath();
         try {
             file.transferTo(new File(fileSavePath + name));
         } catch (Exception e) {
@@ -85,7 +82,7 @@ public class ExcelController {
     @ResponseBody
     public Object getUploadData(HttpServletRequest request) {
         String name = (String) request.getSession().getAttribute("upFile");
-        String fileSavePath = gunsProperties.getFileUploadPath();
+        String fileSavePath = ConstantsContext.getFileUploadPath();
         if (name != null) {
             File file = new File(fileSavePath + name);
             try {

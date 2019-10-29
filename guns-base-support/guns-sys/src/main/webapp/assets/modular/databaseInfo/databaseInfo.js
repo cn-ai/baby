@@ -60,15 +60,6 @@ layui.use(['table', 'admin', 'ax'], function () {
     };
 
     /**
-     * 点击编辑
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    DatabaseInfo.openEditDlg = function (data) {
-        window.location.href = Feng.ctxPath + '/databaseInfo/edit?dbId=' + data.dbId;
-    };
-
-    /**
      * 点击删除
      *
      * @param data 点击按钮时候的行数据

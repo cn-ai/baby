@@ -269,6 +269,22 @@ public class ConstantFactory implements IConstantFactory {
     }
 
     @Override
+    public String getDictNameByCode(String dictCode) {
+        if (ToolUtil.isEmpty(dictCode)) {
+            return "";
+        } else {
+            QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<>();
+            dictQueryWrapper.eq("code", dictCode);
+            Dict dict = dictMapper.selectOne(dictQueryWrapper);
+            if (dict == null) {
+                return "";
+            } else {
+                return dict.getName();
+            }
+        }
+    }
+
+    @Override
     public String getSexName(String sexCode) {
         return getDictsByName("性别", sexCode);
     }
@@ -353,5 +369,22 @@ public class ConstantFactory implements IConstantFactory {
 
     }
 
+    @Override
+    public String getPositionIds(Long userId) {
+        StringBuilder positionIds = new StringBuilder();
+
+        List<UserPos> userPosList = this.userPosService.list(
+                new QueryWrapper<UserPos>().eq("user_id", userId));
+        if (userPosList != null && userPosList.size() > 0) {
+            for (UserPos userPos : userPosList) {
+                Position position = positionService.getById(userPos.getPosId());
+                if (position != null) {
+                    positionIds.append(",").append(position.getPositionId());
+                }
+            }
+        }
+
+        return StrUtil.removePrefix(positionIds.toString(), ",");
+    }
 
 }

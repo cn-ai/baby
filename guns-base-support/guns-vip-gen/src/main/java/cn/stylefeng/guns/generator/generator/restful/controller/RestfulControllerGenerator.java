@@ -25,7 +25,11 @@ public class RestfulControllerGenerator extends AbstractCustomGenerator {
 
     @Override
     public String getTemplateResourcePath() {
-        return "/feignTemplates/RestfulController.btl";
+        if (contextParam.getSwagger()) {
+            return "/feignTemplates/RestfulControllerSwagger.btl";
+        } else {
+            return "/feignTemplates/RestfulController.btl";
+        }
     }
 
     @Override

@@ -35,6 +35,11 @@ public class MenuNode implements Comparable, Serializable {
     private Long id;
 
     /**
+     * 菜单编码
+     */
+    private String code;
+
+    /**
      * 父节点
      */
     private Long parentId;

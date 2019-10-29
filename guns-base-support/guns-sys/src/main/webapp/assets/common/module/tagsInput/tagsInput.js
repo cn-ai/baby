@@ -229,6 +229,7 @@
 
             if (settings.hide) {
                 $(this).hide();
+                $(this).addClass('ew-tagsinput-hide');
             }
             var id = $(this).attr('id');
             if (!id || delimiter[$(this).attr('id')]) {

@@ -1,4 +1,4 @@
-/** EasyWeb iframe v3.1.3 date:2019-07-12 License By http://easyweb.vip */
+﻿/** EasyWeb iframe v3.1.5 date:2019-10-05 License By http://easyweb.vip */
 
 // 用common.js必须加上Feng.addCtx("${ctxPath}");
 Feng.info = function (info) {
@@ -116,13 +116,18 @@ layui.config({
     introJs: 'introJs/introJs',
     fileChoose: 'fileChoose/fileChoose',
     tagsInput: 'tagsInput/tagsInput',
+    Drag: 'Drag/Drag',
+    CKEDITOR: 'ckeditor/ckeditor',
+    Split: 'Split/Split',
+    cascader: 'cascader/cascader',
     selectPlus: '../../expand/module/selectPlus/selectPlus',
     ax: '../../expand/module/ax/ax',
     ztree: '../../expand/module/ztree/ztree-object',
     iconPicker: '../../expand/module/iconPicker/iconPicker',
     func: '../../expand/module/func/func'
-}).use(['admin'], function () {
+}).use(['layer', 'admin'], function () {
     var $ = layui.jquery;
+    var layer = layui.layer;
     var admin = layui.admin;
 
     // 移除loading动画
@@ -135,13 +140,11 @@ layui.config({
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         complete: function (XMLHttpRequest, textStatus) {
 
-            //通过XMLHttpRequest取得响应头，sessionstatus，
-            var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
-            if (sessionstatus === "timeout") {
-
-                //如果超时就处理 ，指定要跳转的页面
+            //如果超时就处理 ，指定要跳转的页面
+            if (XMLHttpRequest.responseJSON.code === 1500) {
                 window.location = Feng.ctxPath + "/global/sessionError";
             }
+
         }
     });
 

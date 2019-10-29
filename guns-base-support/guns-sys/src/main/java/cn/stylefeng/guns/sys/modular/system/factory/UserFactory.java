@@ -17,8 +17,12 @@ package cn.stylefeng.guns.sys.modular.system.factory;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
-import cn.stylefeng.guns.sys.modular.system.entity.User;
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
+import cn.stylefeng.guns.base.consts.ConstantsContext;
+import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.sys.core.constant.state.ManagerStatus;
+import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.model.UserDto;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import org.springframework.beans.BeanUtils;
@@ -96,6 +100,40 @@ public class UserFactory {
             map.remove("salt");
             map.put("birthday", DateUtil.formatDate(user.getBirthday()));
             return map;
+        }
+    }
+
+    /**
+     * 通过用户表的信息创建一个登录用户
+     */
+    public static LoginUser createLoginUser(User user) {
+        LoginUser loginUser = new LoginUser();
+
+        if (user == null) {
+            return loginUser;
+        }
+
+        loginUser.setId(user.getUserId());
+        loginUser.setAccount(user.getAccount());
+        loginUser.setDeptId(user.getDeptId());
+        loginUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptId()));
+        loginUser.setName(user.getName());
+        loginUser.setEmail(user.getEmail());
+
+        loginUser.setAvatar("/api/system/preview/" + user.getAvatar());
+
+        return loginUser;
+    }
+
+    /**
+     * 判断用户是否是从oauth2登录过来的
+     */
+    public static boolean oauth2Flag() {
+        String account = LoginContextHolder.getContext().getUser().getAccount();
+        if (account.startsWith(ConstantsContext.getOAuth2UserPrefix())) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

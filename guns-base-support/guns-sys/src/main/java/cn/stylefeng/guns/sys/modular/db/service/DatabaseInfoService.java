@@ -64,6 +64,6 @@ public interface DatabaseInfoService extends IService<DatabaseInfo> {
      * @author stylefeng
      * @Date 2019-06-15
      */
-     LayuiPageInfo findPageBySpec(DatabaseInfoParam param);
+    LayuiPageInfo findPageBySpec(DatabaseInfoParam param);
 
 }

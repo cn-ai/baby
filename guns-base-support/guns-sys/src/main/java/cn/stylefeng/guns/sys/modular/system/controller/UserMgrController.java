@@ -15,17 +15,18 @@
  */
 package cn.stylefeng.guns.sys.modular.system.controller;
 
+import cn.stylefeng.guns.base.auth.annotion.Permission;
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
 import cn.stylefeng.guns.base.consts.ConstantsContext;
 import cn.stylefeng.guns.base.log.BussinessLog;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
-import cn.stylefeng.guns.base.shiro.annotion.Permission;
+import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.core.constant.dictmap.UserDict;
 import cn.stylefeng.guns.sys.core.constant.state.ManagerStatus;
 import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
-import cn.stylefeng.guns.sys.core.properties.GunsProperties;
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
+import cn.stylefeng.guns.sys.core.util.SaltUtil;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.system.model.UserDto;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
@@ -37,15 +38,14 @@ import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.File;
 import java.util.Map;
 import java.util.UUID;
@@ -61,9 +61,6 @@ import java.util.UUID;
 public class UserMgrController extends BaseController {
 
     private static String PREFIX = "/modular/system/user/";
-
-    @Autowired
-    private GunsProperties gunsProperties;
 
     @Autowired
     private UserService userService;
@@ -180,12 +177,12 @@ public class UserMgrController extends BaseController {
             endTime = split[1];
         }
 
-        if (ShiroKit.isAdmin()) {
+        if (LoginContextHolder.getContext().isAdmin()) {
             Page<Map<String, Object>> users = userService.selectUsers(null, name, beginTime, endTime, deptId);
             Page wrapped = new UserWrapper(users).wrap();
             return LayuiPageFactory.createPageInfo(wrapped);
         } else {
-            DataScope dataScope = new DataScope(ShiroKit.getDeptDataScope());
+            DataScope dataScope = new DataScope(LoginContextHolder.getContext().getDeptDataScope());
             Page<Map<String, Object>> users = userService.selectUsers(dataScope, name, beginTime, endTime, deptId);
             Page wrapped = new UserWrapper(users).wrap();
             return LayuiPageFactory.createPageInfo(wrapped);
@@ -202,10 +199,7 @@ public class UserMgrController extends BaseController {
     @BussinessLog(value = "添加管理员", key = "account", dict = UserDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public ResponseData add(@Valid UserDto user, BindingResult result) {
-        if (result.hasErrors()) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
-        }
+    public ResponseData add(UserDto user) {
         this.userService.addUser(user);
         return SUCCESS_TIP;
     }
@@ -219,10 +213,7 @@ public class UserMgrController extends BaseController {
     @RequestMapping("/edit")
     @BussinessLog(value = "修改管理员", key = "account", dict = UserDict.class)
     @ResponseBody
-    public ResponseData edit(@Valid UserDto user, BindingResult result) {
-        if (result.hasErrors()) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
-        }
+    public ResponseData edit(UserDto user) {
         this.userService.editUser(user);
         return SUCCESS_TIP;
     }
@@ -277,8 +268,8 @@ public class UserMgrController extends BaseController {
         }
         this.userService.assertAuth(userId);
         User user = this.userService.getById(userId);
-        user.setSalt(ShiroKit.getRandomSalt(5));
-        user.setPassword(ShiroKit.md5(ConstantsContext.getDefaultPassword(), user.getSalt()));
+        user.setSalt(SaltUtil.getRandomSalt());
+        user.setPassword(SaltUtil.md5Encrypt(ConstantsContext.getDefaultPassword(), user.getSalt()));
         this.userService.updateById(user);
         return SUCCESS_TIP;
     }
@@ -360,11 +351,25 @@ public class UserMgrController extends BaseController {
 
         String pictureName = UUID.randomUUID().toString() + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
         try {
-            String fileSavePath = gunsProperties.getFileUploadPath();
+            String fileSavePath = ConstantsContext.getFileUploadPath();
             picture.transferTo(new File(fileSavePath + pictureName));
         } catch (Exception e) {
             throw new ServiceException(BizExceptionEnum.UPLOAD_ERROR);
         }
         return pictureName;
+    }
+
+    /**
+     * 选择办理人
+     *
+     * @author fengshuonan
+     * @Date 2019-8-22 15:48
+     */
+    @RequestMapping("/listUserAndRoleExpectAdmin")
+    @ResponseBody
+    public LayuiPageInfo listUserAndRoleExpectAdmin() {
+        Page pageContext = LayuiPageFactory.defaultPage();
+        IPage page = userService.listUserAndRoleExpectAdmin(pageContext);
+        return LayuiPageFactory.createPageInfo(page);
     }
 }

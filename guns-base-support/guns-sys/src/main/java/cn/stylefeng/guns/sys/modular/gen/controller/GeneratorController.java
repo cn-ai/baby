@@ -6,6 +6,7 @@ import cn.stylefeng.guns.base.db.entity.DatabaseInfo;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.generator.generator.base.model.ContextParam;
 import cn.stylefeng.guns.generator.generator.guns.GunsExecutor;
+import cn.stylefeng.guns.generator.generator.restful.RestfulApiExecutor;
 import cn.stylefeng.guns.generator.generator.restful.mybatisplus.param.MpParam;
 import cn.stylefeng.guns.generator.util.ConcatUtil;
 import cn.stylefeng.guns.generator.util.MapperConditionMapHolder;
@@ -152,7 +153,8 @@ public class GeneratorController {
     @RequestMapping(value = "/execute")
     @ResponseBody
     public ResponseEntity<InputStreamResource> execute(String author, String proPackage, String removePrefix,
-                                                       Long dataSourceId, String tables, String modularName) {
+                                                       Long dataSourceId, String tables, String modularName,
+                                                       String version, String swagger, String remote) {
         //获取字符串拼接数组
         String[] tableArray = ConcatUtil.getArray(tables);
 
@@ -166,6 +168,16 @@ public class GeneratorController {
         contextParam.setJdbcUserName(databaseInfo.getUserName());
         contextParam.setJdbcPassword(databaseInfo.getPassword());
         contextParam.setJdbcUrl(databaseInfo.getJdbcUrl());
+        if ("Y".equalsIgnoreCase(swagger)) {
+            contextParam.setSwagger(true);
+        } else {
+            contextParam.setSwagger(false);
+        }
+        if ("Y".equalsIgnoreCase(remote)) {
+            contextParam.setRemote(true);
+        } else {
+            contextParam.setRemote(false);
+        }
 
         //处理modularName，如果modularName传值不为空，则待上左斜杠路径
         if (ToolUtil.isNotEmpty(modularName)) {
@@ -190,9 +202,18 @@ public class GeneratorController {
         Map<String, String[]> attribute = (Map<String, String[]>) HttpContext.getRequest().getSession().getAttribute(CONDITION_FIELDS);
         MapperConditionMapHolder.put(attribute);
 
+
         try {
-            //代码生成contextParam
-            GunsExecutor.executor(contextParam, mpContextParam);
+
+            //如果是Guns单体版本生成
+            if (version.equalsIgnoreCase("single")) {
+                GunsExecutor.executor(contextParam, mpContextParam);
+            } else {
+
+                //如果是微服务版本代码生成
+                RestfulApiExecutor.executor(contextParam, mpContextParam);
+            }
+
         } finally {
             MapperConditionMapHolder.remove();
         }

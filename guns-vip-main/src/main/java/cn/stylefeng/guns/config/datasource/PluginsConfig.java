@@ -1,6 +1,6 @@
 package cn.stylefeng.guns.config.datasource;
 
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
 import cn.stylefeng.roses.core.metadata.CustomMetaObjectHandler;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +32,7 @@ public class PluginsConfig {
             @Override
             protected Long getUserUniqueId() {
                 try {
-                    return ShiroKit.getUserNotNull().getId();
+                    return LoginContextHolder.getContext().getUser().getId();
                 } catch (Exception e) {
 
                     //如果获取不到当前用户就存空id

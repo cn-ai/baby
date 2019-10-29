@@ -1,10 +1,11 @@
-layui.use(['table', 'admin', 'ax', 'ztree', 'func'], function () {
+layui.use(['table', 'admin', 'ax', 'ztree', 'func', 'tree'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
     var $ZTree = layui.ztree;
     var func = layui.func;
+    var tree = layui.tree;
 
     /**
      * 系统管理--部门管理
@@ -46,8 +47,8 @@ layui.use(['table', 'admin', 'ax', 'ztree', 'func'], function () {
     /**
      * 选择部门时
      */
-    Dept.onClickDept = function (e, treeId, treeNode) {
-        Dept.condition.deptId = treeNode.id;
+    Dept.onClickDept = function (obj) {
+        Dept.condition.deptId = obj.data.id;
         Dept.search();
     };
 
@@ -119,9 +120,16 @@ layui.use(['table', 'admin', 'ax', 'ztree', 'func'], function () {
     });
 
     //初始化左侧部门树
-    var ztree = new $ZTree("deptTree", "/dept/tree");
-    ztree.bindOnClick(Dept.onClickDept);
-    ztree.init();
+    var ajax = new $ax(Feng.ctxPath + "/dept/layuiTree", function (data) {
+        tree.render({
+            elem: '#deptTree',
+            data: data,
+            click: Dept.onClickDept,
+            onlyIconControl: true
+        });
+    }, function (data) {
+    });
+    ajax.start();
 
     // 搜索按钮点击事件
     $('#btnSearch').click(function () {
@@ -149,4 +157,12 @@ layui.use(['table', 'admin', 'ax', 'ztree', 'func'], function () {
             Dept.onDeleteDept(data);
         }
     });
+});
+
+$(function () {
+    var panehHidden = false;
+    if ($(this).width() < 769) {
+        panehHidden = true;
+    }
+    $('#myContiner').layout({initClosed: panehHidden, west__size: 260});
 });

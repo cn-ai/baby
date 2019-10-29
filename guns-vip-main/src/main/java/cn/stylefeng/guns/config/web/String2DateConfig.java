@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.config.web;
 
 import cn.hutool.core.date.DateUtil;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -35,10 +36,20 @@ public class String2DateConfig {
         }
     }
 
-    public class StringToDateConverter implements Converter<String, Date> {
+    /**
+     * 时间字符串转date的格式
+     *
+     * @author fengshuonan
+     * @Date 2019/10/22 13:42
+     */
+    public static class StringToDateConverter implements Converter<String, Date> {
         @Override
         public Date convert(String dateString) {
-            return DateUtil.parse(dateString);
+            if (ToolUtil.isEmpty(dateString)) {
+                return null;
+            } else {
+                return DateUtil.parse(dateString);
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package cn.stylefeng.guns.sys.modular.system.mapper;
 import cn.stylefeng.guns.base.pojo.node.ZTreeNode;
 import cn.stylefeng.guns.sys.modular.system.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
@@ -52,4 +53,11 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     List<ZTreeNode> roleTreeListByRoleId(Long[] roleId);
 
+    /**
+     * 角色列表
+     *
+     * @return
+     * @date 2019/8/28 10:32:04
+     */
+    IPage<Map<String, Object>> listRole(Page pageContext, @Param("name") String name);
 }

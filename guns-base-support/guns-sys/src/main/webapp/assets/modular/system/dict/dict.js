@@ -53,7 +53,10 @@ layui.use(['table', 'ax', 'treetable', 'func'], function () {
             height: 650,
             title: '添加字典',
             content: Feng.ctxPath + '/dict/add?dictTypeId=' + $("#dictTypeId").val(),
-            tableId: Dict.tableId
+            tableId: Dict.tableId,
+            endCallback: function () {
+                Dict.initTable(Dict.tableId);
+            }
         });
     };
 
@@ -67,7 +70,10 @@ layui.use(['table', 'ax', 'treetable', 'func'], function () {
             height: 650,
             title: '修改字典',
             content: Feng.ctxPath + '/dict/edit?dictId=' + data.dictId,
-            tableId: Dict.tableId
+            tableId: Dict.tableId,
+            endCallback: function () {
+                Dict.initTable(Dict.tableId);
+            }
         });
     };
 

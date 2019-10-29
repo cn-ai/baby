@@ -37,4 +37,5 @@ public class GunsApplication {
         SpringApplication.run(GunsApplication.class, args);
         logger.info(GunsApplication.class.getSimpleName() + " is success!");
     }
+
 }

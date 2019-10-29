@@ -2,7 +2,7 @@ package cn.stylefeng.guns.sys.modular.third.factory;
 
 import cn.stylefeng.guns.base.consts.ConstantsContext;
 import cn.stylefeng.guns.sys.core.constant.state.ManagerStatus;
-import cn.stylefeng.guns.sys.core.shiro.ShiroKit;
+import cn.stylefeng.guns.sys.core.util.SaltUtil;
 import cn.stylefeng.guns.sys.modular.system.entity.User;
 import cn.stylefeng.guns.sys.modular.third.entity.OauthUserInfo;
 import cn.stylefeng.roses.core.util.ToolUtil;
@@ -51,8 +51,8 @@ public class OAuthUserInfoFactory {
         User systemUser = new User();
 
         //设置密码，利用token
-        String salt = ShiroKit.getRandomSalt(5);
-        String password = ShiroKit.md5(String.valueOf(authUser.getToken()), salt);
+        String salt = SaltUtil.getRandomSalt();
+        String password = SaltUtil.md5Encrypt(String.valueOf(authUser.getToken()), salt);
         systemUser.setPassword(password);
         systemUser.setSalt(salt);
 

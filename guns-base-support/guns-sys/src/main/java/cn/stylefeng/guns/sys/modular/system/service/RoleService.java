@@ -2,14 +2,12 @@ package cn.stylefeng.guns.sys.modular.system.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
-import cn.stylefeng.guns.sys.core.constant.Const;
-import cn.stylefeng.guns.sys.core.constant.cache.Cache;
-import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
-import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.base.pojo.node.ZTreeNode;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
+import cn.stylefeng.guns.sys.core.constant.Const;
+import cn.stylefeng.guns.sys.core.constant.factory.ConstantFactory;
+import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
-import cn.stylefeng.guns.sys.core.util.CacheUtil;
 import cn.stylefeng.guns.sys.modular.system.entity.Relation;
 import cn.stylefeng.guns.sys.modular.system.entity.Role;
 import cn.stylefeng.guns.sys.modular.system.mapper.RelationMapper;
@@ -18,6 +16,7 @@ import cn.stylefeng.guns.sys.modular.system.model.RoleDto;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -82,8 +81,6 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
         BeanUtil.copyProperties(roleDto, old);
         this.updateById(old);
 
-        //删除缓存
-        CacheUtil.removeAll(Cache.CONSTANT);
     }
 
     /**
@@ -138,8 +135,6 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
         //删除该角色所有的权限
         this.roleMapper.deleteRolesById(roleId);
 
-        //删除缓存
-        CacheUtil.removeAll(Cache.CONSTANT);
     }
 
     /**
@@ -184,4 +179,14 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
         return this.baseMapper.roleTreeListByRoleId(roleId);
     }
 
+    /**
+     * 获取角色列表
+     *
+     * @author fengshuonan
+     * @Date 2019-08-30 15:35
+     */
+    public IPage listRole(String name) {
+        Page pageContext = LayuiPageFactory.defaultPage();
+        return baseMapper.listRole(pageContext, name);
+    }
 }

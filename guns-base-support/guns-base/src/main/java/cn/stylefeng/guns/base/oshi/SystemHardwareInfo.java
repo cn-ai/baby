@@ -145,7 +145,13 @@ public class SystemHardwareInfo {
             sysFile.setTotal(convertFileSize(total));
             sysFile.setFree(convertFileSize(free));
             sysFile.setUsed(convertFileSize(used));
-            sysFile.setUsage(NumberUtil.mul(NumberUtil.div(used, total, 4), 100));
+
+            if (total == 0) {
+                sysFile.setUsage(0);
+            } else {
+                sysFile.setUsage(NumberUtil.mul(NumberUtil.div(used, total, 4), 100));
+            }
+
             sysFiles.add(sysFile);
         }
     }

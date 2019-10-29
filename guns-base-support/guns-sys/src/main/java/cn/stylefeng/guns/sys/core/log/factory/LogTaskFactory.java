@@ -15,11 +15,11 @@
  */
 package cn.stylefeng.guns.sys.core.log.factory;
 
+import cn.stylefeng.guns.sys.core.constant.state.LogSucceed;
+import cn.stylefeng.guns.sys.core.constant.state.LogType;
 import cn.stylefeng.guns.sys.core.log.LogManager;
 import cn.stylefeng.guns.sys.modular.system.entity.LoginLog;
 import cn.stylefeng.guns.sys.modular.system.entity.OperationLog;
-import cn.stylefeng.guns.sys.core.constant.state.LogSucceed;
-import cn.stylefeng.guns.sys.core.constant.state.LogType;
 import cn.stylefeng.guns.sys.modular.system.mapper.LoginLogMapper;
 import cn.stylefeng.guns.sys.modular.system.mapper.OperationLogMapper;
 import cn.stylefeng.roses.core.util.SpringContextHolder;
