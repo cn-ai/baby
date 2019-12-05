@@ -1,4 +1,4 @@
-#Oracle配置
+ #Oracle配置
 #spring:
 #  datasource:
 #    driverClassName: oracle.jdbc.OracleDriver
